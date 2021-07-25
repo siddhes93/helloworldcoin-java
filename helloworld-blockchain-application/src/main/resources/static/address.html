@@ -27,7 +27,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -48,14 +48,15 @@
         <script>
             $(async function(){
                 let urlParameters = parseUrlParameters(location)
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionOutputByAddress",
                     data: `{
                         "address":"${urlParameters.get("address")}"
                     }`
                 });
-                console.log(data);
-                var transactionOutputDetail = data.result.transactionOutputDetail;
+                console.log(response);
+                var transactionOutputDetail = response.data.transactionOutputDetail;
+
                 $('.panel-heading').text(`地址${urlParameters.get("address")}`);
 
                 $('#summary').html(`

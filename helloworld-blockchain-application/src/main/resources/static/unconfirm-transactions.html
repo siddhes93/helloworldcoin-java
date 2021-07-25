@@ -28,7 +28,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -43,11 +43,11 @@
             var request = `{"pageCondition":{"from":1,"size":10}}`
             load();
             async function load(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactions",
                     data: request
                 });
-                let {transactions} = data.result;
+                let {transactions} = response.data;
                 if(transactions == null || transactions.length == 0){
                     $("#page button").html("未确认交易数据加载完毕。");
                 }
@@ -55,9 +55,9 @@
                     $('#container').append(unconfirmTransactionHtml(item))
                 })
 
-                const requestJsonObject = JSON.parse(request);
-                requestJsonObject.pageCondition.from += requestJsonObject.pageCondition.size;
-                request = JSON.stringify(requestJsonObject);
+                const jsonObjectRequest = JSON.parse(request);
+                jsonObjectRequest.pageCondition.from += jsonObjectRequest.pageCondition.size;
+                request = JSON.stringify(jsonObjectRequest);
             }
             function unconfirmTransactionHtml(item){
                 let left = '';

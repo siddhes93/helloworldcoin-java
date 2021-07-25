@@ -1,6 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 
+import com.xingkaichun.helloworldblockchain.core.model.script.InputScript;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionInput;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;

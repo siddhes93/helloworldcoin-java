@@ -66,13 +66,17 @@ public class Model2DtoTool {
 
     public static InputScriptDto inputScript2InputScriptDto(InputScript inputScript) {
         InputScriptDto inputScriptDto = new InputScriptDto();
-        inputScriptDto.addAll(inputScript);
+        if(inputScript != null){
+            inputScriptDto.addAll(inputScript);
+        }
         return inputScriptDto;
     }
 
     public static OutputScriptDto outputScript2OutputScriptDto(OutputScript outputScript) {
         OutputScriptDto outputScriptDto = new OutputScriptDto();
-        outputScriptDto.addAll(outputScript);
+        if(outputScript != null){
+            outputScriptDto.addAll(outputScript);
+        }
         return outputScriptDto;
     }
 

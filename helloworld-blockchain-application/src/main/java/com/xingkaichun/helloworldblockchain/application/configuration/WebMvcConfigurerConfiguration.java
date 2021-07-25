@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.application.configuration;
 
 import com.xingkaichun.helloworldblockchain.application.interceptor.IpInterceptor;
-import com.xingkaichun.helloworldblockchain.application.vo.framwork.ServiceResult;
+import com.xingkaichun.helloworldblockchain.application.vo.framwork.Response;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class WebMvcConfigurerConfiguration implements WebMvcConfigurer {
 				httpServletResponse.setHeader("Content-type", "application/json;");
 				httpServletResponse.setStatus(500);
 				httpServletResponse.setCharacterEncoding("UTF-8");
-				ServiceResult serviceResult = ServiceResult.createFailServiceResult(exception.getMessage());
-				String jsonServiceResult = JsonUtil.toString(serviceResult);
-				httpServletResponse.getWriter().write(jsonServiceResult);
+				Response response = Response.createFailResponse(exception.getMessage());
+				String jsonStringResponse = JsonUtil.toString(response);
+				httpServletResponse.getWriter().write(jsonStringResponse);
 			} catch (Exception e) {
 				LogUtil.error("将统一异常写入到HttpServletResponse出现错误。",e);
 			}

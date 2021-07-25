@@ -3,7 +3,6 @@ package com.xingkaichun.helloworldblockchain.crypto;
 import com.xingkaichun.helloworldblockchain.crypto.model.Account;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
-import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.ECKey;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Integer;
@@ -93,6 +92,14 @@ public class AccountUtil {
             LogUtil.error("从私钥恢复账户失败。",e);
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 私钥生成地址
+     */
+    public static String addressFromPrivateKey(String privateKey) {
+        Account account = accountFromPrivateKey(privateKey);
+        return addressFromPublicKey(account.getPublicKey());
     }
 
     /**

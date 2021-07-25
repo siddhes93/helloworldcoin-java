@@ -12,16 +12,15 @@
     </head>
     <body>
         <script>
-            let urlParameters = parseUrlParameters(location)
-            var request = `{ "blockHeight": ${urlParameters.get("height")}}`;
-
             $(async function(){
-                const data = await $ajax({
+                let urlParameters = parseUrlParameters(location)
+                var request = `{"blockHeight": ${urlParameters.get("height")}}`;
+                const response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight",
                     data: request
                 });
-                if(data.result != null){
-                    let {block} = data.result;
+                if(response.data != null){
+                    let {block} = response.data;
                     var redirectUrl = `./block.html${location.search}&hash=${block.hash}`;
                     console.log(redirectUrl);
                     window.location.href = redirectUrl;

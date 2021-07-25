@@ -28,7 +28,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,13 +46,13 @@
             async function load(){
                 //交易哈希
                 request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
-                var data = await $ajax({
+                var response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: request
                 });
-                if(data.result != null){
+                if(response.data != null){
                     //alert("识别为交易哈希，点击确认按钮，跳转到交易详情页。");
-                    let {blockDto} = data.result;
+                    let {blockDto} = response.data;
                     var redirectUrl = `./transaction.html?transactionHash=${urlParameters.get("transactionHash")}`;
                     console.log(redirectUrl);
                     window.location.href = redirectUrl;
@@ -60,12 +60,12 @@
                 }
 
                 //未确认交易哈希
-                data = await $ajax({
+                response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactionByTransactionHash",
                     data: request
                 });
-                if(data.result != null){
-                    let {transaction} = data.result;
+                if(response.data != null){
+                    let {transaction} = response.data;
                     $('#container').html(unconfirmTransactionHtml(transaction))
                     return;
                 }

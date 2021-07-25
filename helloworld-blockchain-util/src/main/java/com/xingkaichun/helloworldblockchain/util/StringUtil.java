@@ -2,8 +2,6 @@ package com.xingkaichun.helloworldblockchain.util;
 
 import com.google.common.base.Strings;
 
-import java.util.Collections;
-
 /**
  * String工具类
  *

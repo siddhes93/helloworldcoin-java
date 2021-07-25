@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core;
 
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionRequest;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionResponse;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionRequest;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionResponse;
 import com.xingkaichun.helloworldblockchain.crypto.model.Account;
 
 import java.util.List;
@@ -35,5 +35,5 @@ public abstract class Wallet {
     /**
      * 构建交易。
      */
-    public abstract BuildTransactionResponse buildTransaction(BuildTransactionRequest request) ;
+    public abstract AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) ;
 }

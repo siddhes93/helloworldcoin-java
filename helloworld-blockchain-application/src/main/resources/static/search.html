@@ -29,7 +29,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -52,18 +52,18 @@
                 }
 
                 var request = "" ;
-                var data = "" ;
+                var response = "" ;
 
                 if(!isNaN(searchValue)){
                     //区块高度
                     request = `{ "blockHeight": ${searchValue}}`;
-                    data = await $ajax({
+                    response = await $ajax({
                         url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight",
                         data: request
                     });
-                    if(data.result != null){
+                    if(response.data != null){
                         alert("识别为区块高度，点击确认按钮，跳转到区块详情页。");
-                        let {block} = data.result;
+                        let {block} = response.data;
                         var redirectUrl = `./block.html?hash=${block.hash}`;
                         console.log(redirectUrl);
                         window.location.href = redirectUrl;
@@ -73,11 +73,11 @@
 
                 //区块哈希
                 request = `{ "blockHash": "${searchValue}"}`;
-                data = await $ajax({
+                response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash",
                     data: request
                 });
-                if(data.result != null){
+                if(response.data != null){
                     alert("识别为区块哈希，点击确认按钮，跳转到区块详情页。");
                     var redirectUrl = `./block.html?hash=${searchValue}`;
                     console.log(redirectUrl);
@@ -87,11 +87,11 @@
 
                 //交易哈希
                 request = `{"transactionHash":"${searchValue}"}`
-                data = await $ajax({
+                response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: request
                 });
-                if(data.result != null){
+                if(response.data != null){
                     alert("识别为交易哈希，点击确认按钮，跳转到交易详情页。");
                     var redirectUrl = `./transaction.html?transactionHash=${searchValue}`;
                     console.log(redirectUrl);
@@ -101,11 +101,11 @@
 
                 //地址
                 request = `{"address":"${searchValue}"}`
-                data = await $ajax({
+                response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionOutputByAddress",
                     data: request
                 });
-                if(data.result != null && data.result.transactionOutputDetail != null){
+                if(response.data != null && response.data.transactionOutputDetail != null){
                     alert("识别为地址，点击确认按钮，跳转到地址详情页。");
                     var redirectUrl = `./address.html?address=${searchValue}`;
                     console.log(redirectUrl);
@@ -115,11 +115,11 @@
 
                 //未确认交易
                 request = `{"transactionHash":"${searchValue}"}`
-                data = await $ajax({
+                response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactionByTransactionHash",
                     data: request
                 });
-                if(data.result != null && data.result.transaction != null){
+                if(response.data != null && response.data.transaction != null){
                     alert("识别为未确认的交易，点击确认按钮，跳转到未确认的交易详情页。");
                     var redirectUrl = `./unconfirm-transaction.html?transactionHash=${searchValue}`;
                     console.log(redirectUrl);

@@ -1,11 +1,11 @@
 package com.xingkaichun.helloworldblockchain.core.model.wallet;
 
 /**
- * 付款接收方
+ * 收款方
  *
  * @author 邢开春 409060350@qq.com
  */
-public class Recipient {
+public class Payee {
 
     //交易输出的地址
     private String address;

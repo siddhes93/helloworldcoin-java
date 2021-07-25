@@ -1,6 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
+import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.InputScriptDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.OutputScriptDto;
@@ -139,5 +140,37 @@ public class ScriptDtoTool {
      */
     public static String getPublicKeyHashFromPayToPublicKeyHashOutputScript(OutputScriptDto outputScript) {
         return outputScript.get(3);
+    }
+    /**
+     * 从交易输出脚本中获取地址
+     */
+    public static String addressFromPayToPublicKeyHashOutputScript(OutputScriptDto outputScript) {
+        return AccountUtil.addressFromPublicKeyHash(getPublicKeyHashFromPayToPublicKeyHashOutputScript(outputScript));
+    }
+
+    /**
+     * 创建P2PKH输出脚本
+     */
+    public static OutputScriptDto createPayToPublicKeyHashOutputScript(String address) {
+        OutputScriptDto script = new OutputScriptDto();
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_DUP.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_HASH160.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        String publicKeyHash = AccountUtil.publicKeyHashFromAddress(address);
+        script.add(publicKeyHash);
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_CHECKSIG.getCode()));
+        return script;
+    }
+    /**
+     * 创建P2PKH输入脚本
+     */
+    public static InputScriptDto createPayToPublicKeyHashInputScript(String sign, String publicKey) {
+        InputScriptDto script = new InputScriptDto();
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        script.add(sign);
+        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        script.add(publicKey);
+        return script;
     }
 }

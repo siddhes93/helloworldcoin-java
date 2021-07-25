@@ -64,21 +64,20 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         TransactionVo outputTransactionVo;
         if(transactionOutputTemp == null){
             Transaction destinationTransaction = blockchainCore.getBlockchainDatabase().queryDestinationTransactionByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
-            outputTransactionVo = queryTransactionByTransactionHash(destinationTransaction.getTransactionHash());
-
-            Transaction outputTransaction = blockchainCore.getBlockchainDatabase().queryTransactionByTransactionHash(destinationTransaction.getTransactionHash());
-            List<TransactionInput> inputs = outputTransaction.getInputs();
+            List<TransactionInput> inputs = destinationTransaction.getInputs();
             if(inputs != null){
-                for(TransactionInput transactionInput : inputs){
+                for(int inputIndex=0; inputIndex<inputs.size(); inputIndex++){
+                    TransactionInput transactionInput = inputs.get(inputIndex);
                     TransactionOutput unspentTransactionOutput = transactionInput.getUnspentTransactionOutput();
                     if(StringUtil.isEquals(transactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionHash()) &&
                             transactionOutput.getTransactionOutputIndex()==unspentTransactionOutput.getTransactionOutputIndex()){
-                        transactionOutputDetailVo.setToTransactionInputIndex(outputTransactionVo.getTransactionInputCount());
+                        transactionOutputDetailVo.setToTransactionInputIndex(inputIndex+1);
                         transactionOutputDetailVo.setToInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
                         break;
                     }
                 }
             }
+            outputTransactionVo = queryTransactionByTransactionHash(destinationTransaction.getTransactionHash());
             transactionOutputDetailVo.setToBlockHeight(outputTransactionVo.getBlockHeight());
             transactionOutputDetailVo.setToBlockHash(outputTransactionVo.getBlockHash());
             transactionOutputDetailVo.setToTransactionHash(outputTransactionVo.getTransactionHash());

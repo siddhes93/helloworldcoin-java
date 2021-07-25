@@ -3,8 +3,8 @@ package com.xingkaichun.helloworldblockchain.core;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionRequest;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionResponse;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionRequest;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 
@@ -127,7 +127,7 @@ public abstract class BlockchainCore {
     /**
      * 构建交易。
      */
-    public abstract BuildTransactionResponse buildTransaction(BuildTransactionRequest request) ;
+    public abstract AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) ;
     /**
      * 提交交易到区块链
      */

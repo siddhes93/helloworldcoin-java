@@ -31,7 +31,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li class="active"><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,10 +58,10 @@
 
         <script type="text/javascript">
             $(async function(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/QueryAllNodes"
                 });
-                const { nodes } = data.result
+                const { nodes } = response.data
                 let $list = $('#table-node-list');
                 $(nodes).each((index, item) => {
                     $list.append(`
@@ -105,12 +105,12 @@
             });
 
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/AddNode",
                     data: `{"node":{"ip": "${$('#table-add-node-text-ip').val()}"}}`
                 });
-                alert(data.message);
-                if(data.serviceCode == "SUCCESS"){
+                alert(response.message);
+                if(response.status == 'success'){
                     location.reload();
                 }
             })
@@ -152,21 +152,21 @@
             });
 
             $('body').delegate('#table-update-node-button-add', 'click', async function(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/UpdateNode",
                     data: `{"node":{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": "${$('#table-update-node-text-blockchainHeight').val()}"}}`
                 });
-                alert(data.message);
+                alert(response.message);
                 location.reload();
             })
 
             $('body').delegate('.delete-node', 'click', async function(){
                 let ip = $(this).parent().parent().children(":first").text();
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteNode",
                     data: `{"node":{"ip": "${ip}"}}`
                 });
-                alert(data.message);
+                alert(response.message);
                 location.reload();
             })
         </script>

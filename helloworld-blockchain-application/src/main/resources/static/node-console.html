@@ -28,7 +28,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li class="active"><a href="./more-management.html">节点控制台</a></li>
+                        <li class="active"><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -66,42 +66,39 @@
         <script>
             let minerInActiveState,autoSearchBlock,autoSearchNode;
             $(async function(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockchainHeight"
                 });
-                $('#blockHeight').text(data.result.blockchainHeight);
+                $('#blockHeight').text(response.data.blockchainHeight);
             }());
             $(async function(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive"
                 });
-                minerInActiveState = data.result.minerInActiveState;
-                $('#minerStatus').text(data.result.minerInActiveState ? '挖矿中' : '休息中');
-                $('#minerSwitch').text(data.result.minerInActiveState ? '停止挖矿' : '开启挖矿');
+                minerInActiveState = response.data.minerInActiveState;
+                $('#minerStatus').text(response.data.minerInActiveState ? '挖矿中' : '休息中');
+                $('#minerSwitch').text(response.data.minerInActiveState ? '停止挖矿' : '开启挖矿');
             }());
             $(async function(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock"
                 });
-                autoSearchBlock = data.result.autoSearchBlock;
+                autoSearchBlock = response.data.autoSearchBlock;
                 $('#autoSearchBlock').text(autoSearchBlock ? '自动搜索新区块' : '已暂停搜索新区块')
                 $('#autoSearchBlockSwitch').text(autoSearchBlock ? '停止搜索新区块' : '自动搜索新区块')
             }());
             $(async function(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode"
                 });
-                autoSearchNode = data.result.autoSearchNode;
+                autoSearchNode = response.data.autoSearchNode;
                 $('#autoSearchNode').text(autoSearchNode ? '自动搜索新节点' : '已暂停搜索新节点');
                 $('#autoSearchNodeSwitch').text(autoSearchNode ? '停止搜索新节点' : '自动搜索新节点');
             }());
 
             $('#deleteBlocks').click(async function(){
                 let res = prompt('删除区块，请输入要删除区块的高度。');
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
                     data: `{
                         "blockHeight":"${res}"
@@ -112,13 +109,11 @@
             $('#minerSwitch').click(async function(){
                 if(minerInActiveState){
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveMiner",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveMiner"
                     });
                 }else{
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveMiner",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveMiner"
                     });
                 }
                 location.reload();
@@ -126,13 +121,11 @@
             $('#autoSearchBlockSwitch').click(async function(){
                 if(autoSearchBlock){
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveAutoSearchBlock",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveAutoSearchBlock"
                     });
                 }else{
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplicationle/ActiveAutoSearchBlock",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplicationle/ActiveAutoSearchBlock"
                     });
                 }
                 location.reload();
@@ -140,13 +133,11 @@
             $('#autoSearchNodeSwitch').click(async function(){
                 if(autoSearchNode){
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveAutoSearchNode",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveAutoSearchNode"
                     });
                 }else{
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveAutoSearchNode",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveAutoSearchNode"
                     });
                 }
                 location.reload();

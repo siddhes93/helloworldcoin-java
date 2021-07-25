@@ -29,7 +29,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -39,20 +39,19 @@
         </div>
 
         <div align="center">
-            <button id="button-load" class="btn btn-primary" onclick="load()">加载更多交易数据</button>
+            <button id="button-load" class="btn btn-primary" onclick="loadTransactions()">加载更多交易数据</button>
         </div>
 
         <script>
             let urlParameters = parseUrlParameters(location)
-            var request = `{ "blockHash": "${urlParameters.get("hash")}", "pageCondition": { "from": 1, "size": 10 } }`;
-            var request2 = `{ "blockHash": "${urlParameters.get("hash")}"}`;
 
+            var request1 = `{ "blockHash": "${urlParameters.get("hash")}"}`;
             $(async function(){
-                const data = await $ajax({
+                const response1 = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash",
-                    data: request2
+                    data: request1
                 });
-                let {block} = data.result;
+                let {block} = response1.data;
                 $('#box').append(`
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
@@ -103,28 +102,29 @@
                 </div>`)
             }())
 
-            async function load(){
-                const data = await $ajax({
+            var request2 = `{ "blockHash": "${urlParameters.get("hash")}", "pageCondition": { "from": 1, "size": 10 } }`;
+            async function loadTransactions(){
+                const response2 = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionsByBlockHashTransactionHeight",
-                    data: request
+                    data: request2
                 });
-                console.log(data);
-                if(data.serviceCode = 'SUCCESS' && (data.result == null || data.result.transactions == null || data.result.transactions.length==0)){
+                console.log(response2);
+                if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
                     $("#button-load").html("交易数据加载完毕。");
                     return;
                 }
-                let transactions = data.result.transactions;
+                let transactions = response2.data.transactions;
                 $(transactions).each((index, item) => {
                     console.log(item);
                     $('#box').append(transactionHtml(item))
                 })
 
-                const requestJsonObject = JSON.parse(request);
-                requestJsonObject.pageCondition.from += requestJsonObject.pageCondition.size;
-                request = JSON.stringify(requestJsonObject);
+                const jsonObjectRequest2 = JSON.parse(request2);
+                jsonObjectRequest2.pageCondition.from += jsonObjectRequest2.pageCondition.size;
+                request2 = JSON.stringify(jsonObjectRequest2);
             }
 
-            $(load())
+            $(loadTransactions())
         </script>
     </body>
 </html>

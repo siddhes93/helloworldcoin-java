@@ -29,7 +29,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -92,11 +92,11 @@
         <script>
             $(async function(){
                 let urlParameters = parseUrlParameters(location)
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 });
-                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, confirmCount, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = data.result.transaction;
+                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, confirmCount, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
                 $('.panel-heading').text("交易哈希 " + transactionHash);
                 $('.blockHeight').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHeight}</a>`);
                 $('.blockHash').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHash}</a>`);
@@ -109,7 +109,7 @@
                 $('.transactionOutputValues').text(transactionOutputValues);
                 $('.transactionOutputCount').text(transactionOutputCount);
 
-                let item = data.result.transaction;
+                let item = response.data.transaction;
                 $('#transaction-list-container').append(transactionHtml(item))
 
                 inputScripts.forEach(item => {

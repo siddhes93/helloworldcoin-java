@@ -4,8 +4,8 @@ import com.xingkaichun.helloworldblockchain.core.*;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionRequest;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionResponse;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionRequest;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionResponse;
 import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
@@ -108,8 +108,8 @@ public class BlockchainCoreImpl extends BlockchainCore {
 
 
     @Override
-    public BuildTransactionResponse buildTransaction(BuildTransactionRequest request) {
-        return wallet.buildTransaction(request);
+    public AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) {
+        return wallet.autoBuildTransaction(request);
     }
 
     @Override

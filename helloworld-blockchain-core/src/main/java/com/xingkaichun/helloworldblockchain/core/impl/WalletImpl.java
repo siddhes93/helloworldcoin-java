@@ -3,29 +3,24 @@ package com.xingkaichun.helloworldblockchain.core.impl;
 import com.xingkaichun.helloworldblockchain.core.BlockchainDatabase;
 import com.xingkaichun.helloworldblockchain.core.CoreConfiguration;
 import com.xingkaichun.helloworldblockchain.core.Wallet;
-import com.xingkaichun.helloworldblockchain.core.model.script.InputScript;
-import com.xingkaichun.helloworldblockchain.core.model.script.OutputScript;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionRequest;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.BuildTransactionResponse;
-import com.xingkaichun.helloworldblockchain.core.model.wallet.Recipient;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionRequest;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionResponse;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.Payee;
+import com.xingkaichun.helloworldblockchain.core.model.wallet.Payer;
 import com.xingkaichun.helloworldblockchain.core.tools.EncodeDecodeTool;
-import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
-import com.xingkaichun.helloworldblockchain.core.tools.ScriptTool;
+import com.xingkaichun.helloworldblockchain.core.tools.ScriptDtoTool;
 import com.xingkaichun.helloworldblockchain.core.tools.TransactionDtoTool;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.crypto.model.Account;
-import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
-import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionInputDto;
-import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionOutputDto;
+import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
+import com.xingkaichun.helloworldblockchain.util.StringUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 默认实现
@@ -41,7 +36,6 @@ public class WalletImpl extends Wallet {
         this.coreConfiguration = coreConfiguration;
         this.blockchainDatabase = blockchainDatabase;
     }
-
 
     @Override
     public List<Account> getAllAccounts() {
@@ -89,31 +83,81 @@ public class WalletImpl extends Wallet {
     }
 
     @Override
-    public BuildTransactionResponse buildTransaction(BuildTransactionRequest request) {
-        List<Account> allAccountList = getAllAccounts();
-        if(allAccountList == null || allAccountList.isEmpty()){
-            BuildTransactionResponse response = new BuildTransactionResponse();
+    public AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) {
+        //校验收款方
+        List<Payee> payees = request.getPayees();
+        if(payees == null || payees.isEmpty()){
+            AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
             response.setBuildTransactionSuccess(false);
-            response.setMessage("钱包中的余额不足支付。");
+            response.setMessage("收款方不能为空。");
             return response;
         }
-
-        BuildTransactionResponse response = new BuildTransactionResponse();
-        response.setMessage("请输入足够的金额");
-        response.setBuildTransactionSuccess(false);
-
-        //创建一个地址用于存放找零
-        Account payerChangeAccount = createAccount();
-        saveAccount(payerChangeAccount);
-
-        List<String> privateKeyList = new ArrayList<>();
-        for(Account account:allAccountList){
-            privateKeyList.add(account.getPrivateKey());
-            response = buildTransactionDto(blockchainDatabase,privateKeyList,request.getRecipientList(),payerChangeAccount.getAddress(),request.getFee());
-            if(response.isBuildTransactionSuccess()){
+        for(Payee payee : payees){
+            if(StringUtil.isNullOrEmpty(payee.getAddress())){
+                AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
+                response.setBuildTransactionSuccess(false);
+                response.setMessage("收款方的地址不能为空。");
+                return response;
+            }
+            if(payee.getValue() <= 0){
+                AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
+                response.setBuildTransactionSuccess(false);
+                response.setMessage("收款方收款金额不能小于0。");
                 return response;
             }
         }
+
+        //创建付款方
+        List<Payer> payers = new ArrayList<>();
+        //遍历钱包里的账户,用钱包里的账户付款
+        List<Account> allAccounts = getAllAccounts();
+        if(allAccounts != null){
+            for(Account account:allAccounts){
+                TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(account.getAddress());
+                //过滤无余额的账户
+                if(utxo == null || utxo.getValue() <= 0){
+                    continue;
+                }
+                //构建一个新的付款方
+                Payer payer = new Payer();
+                payer.setPrivateKey(account.getPrivateKey());
+                payer.setAddress(AccountUtil.addressFromPrivateKey(payer.getPrivateKey()));
+                payer.setTransactionHash(utxo.getTransactionHash());
+                payer.setTransactionOutputIndex(utxo.getTransactionOutputIndex());
+                payer.setValue(utxo.getValue());
+                payers.add(payer);
+                //设置默认手续费
+                long fee = 0L;
+                boolean haveEnoughMoneyToPay = haveEnoughMoneyToPay(payers,payees,fee);
+                if(haveEnoughMoneyToPay){
+                    //创建一个找零账户
+                    Account changeAccount = createAndSaveAccount();
+                    //创建一个找零收款方
+                    Payee changePayee = createChangePayee(payers,payees,changeAccount.getAddress(),fee);
+                    //创建收款方(包含找零收款方)
+                    List<Payee> allPayees = new ArrayList<>();
+                    allPayees.addAll(payees);
+                    if(changePayee != null){
+                        allPayees.add(changePayee);
+                    }
+                    //构造交易
+                    TransactionDto transactionDto = buildTransaction(payers,allPayees);
+                    AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
+                    response.setBuildTransactionSuccess(true);
+                    response.setMessage("构建交易成功");
+                    response.setTransaction(transactionDto);
+                    response.setTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
+                    response.setFee(fee);
+                    response.setPayers(payers);
+                    response.setExclusionChangePayees(payees);
+                    response.setChangePayee(changePayee);
+                    return response;
+                }
+            }
+        }
+        AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
+        response.setMessage("没有足够的金额去支付！");
+        response.setBuildTransactionSuccess(false);
         return response;
     }
 
@@ -130,148 +174,79 @@ public class WalletImpl extends Wallet {
         return getKeyByAddress(account.getAddress());
     }
 
-
-    private BuildTransactionResponse buildTransactionDto(BlockchainDatabase blockchainDatabase, List<String> payerPrivateKeyList, List<Recipient> recipientList, String payerChangeAddress, long fee) {
-        Map<String, TransactionOutput> privateKeyUtxoMap = new HashMap<>();
-        BuildTransactionResponse response = new BuildTransactionResponse();
-        response.setMessage("请输入足够的金额");
-        response.setBuildTransactionSuccess(false);
-
-        for(String privateKey : payerPrivateKeyList){
-            String address = AccountUtil.accountFromPrivateKey(privateKey).getAddress();
-            TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(address);
-            if(utxo == null || utxo.getValue() <= 0){
-                continue;
-            }
-            privateKeyUtxoMap.put(privateKey,utxo);
-            response = buildTransactionDto(privateKeyUtxoMap,recipientList,payerChangeAddress,fee);
-            if(response.isBuildTransactionSuccess()){
-                break;
-            }
-        }
-        return response;
-    }
-
-    private static BuildTransactionResponse buildTransactionDto(Map<String,TransactionOutput> privateKeyUtxoMap, List<Recipient> recipientList, String payerChangeAddress, long fee) {
-        //最少付款总金额
-        long minInputValues = 0;
-        if(recipientList != null){
-            //支付钱款
-            for(Recipient recipient : recipientList){
-                minInputValues += recipient.getValue();
-            }
-        }
-        //交易手续费
-        minInputValues += fee;
-
-        //创建交易输出
-        List<TransactionOutputDto> transactionOutputDtoList = new ArrayList<>();
-        List<TransactionOutput> innerTransactionOutputList = new ArrayList<>();
-
-        if(recipientList != null){
-            for(Recipient recipient : recipientList){
-                TransactionOutputDto transactionOutputDto = new TransactionOutputDto();
-                transactionOutputDto.setValue(recipient.getValue());
-                OutputScript outputScript = ScriptTool.createPayToPublicKeyHashOutputScript(recipient.getAddress());
-                transactionOutputDto.setOutputScript(Model2DtoTool.outputScript2OutputScriptDto(outputScript));
-                transactionOutputDtoList.add(transactionOutputDto);
-
-                TransactionOutput innerTransactionOutput = new TransactionOutput();
-                innerTransactionOutput.setAddress(recipient.getAddress());
-                innerTransactionOutput.setValue(recipient.getValue());
-                innerTransactionOutput.setOutputScript(outputScript);
-                innerTransactionOutputList.add(innerTransactionOutput);
-            }
-        }
-
-        //获取足够的金额
-        //交易输入列表
-        List<TransactionOutput> inputs = new ArrayList<>();
-        List<String> inputPrivateKeyList = new ArrayList<>();
+    private boolean haveEnoughMoneyToPay(List<Payer> payers, List<Payee> payees, long fee) {
         //交易输入总金额
-        long inputValues = 0;
-        boolean haveEnoughMoneyToPay = false;
-        for(Map.Entry<String,TransactionOutput> entry: privateKeyUtxoMap.entrySet()){
-            String privateKey = entry.getKey();
-            TransactionOutput utxo = entry.getValue();
-            if(utxo == null){
-                break;
-            }
-            inputValues += utxo.getValue();
-            //交易输入
-            inputs.add(utxo);
-            inputPrivateKeyList.add(privateKey);
-            if(inputValues >= minInputValues){
-                haveEnoughMoneyToPay = true;
-                break;
+        long transactionInputValues = 0;
+        for(Payer payer: payers){
+            transactionInputValues += payer.getValue();
+        }
+        //收款方收款总金额
+        long payeeValues = 0;
+        if(payees != null){
+            for(Payee payee : payees){
+                payeeValues += payee.getValue();
             }
         }
-
-        if(!haveEnoughMoneyToPay){
-            BuildTransactionResponse buildTransactionResponse = new BuildTransactionResponse();
-            buildTransactionResponse.setBuildTransactionSuccess(false);
-            buildTransactionResponse.setMessage("账户没有足够的金额去支付");
-            return buildTransactionResponse;
+        //计算付款方最少需要支付的金额，该金额由二部分构成，一是收款方金额 ，二是交易手续费
+        long minimumTransactionInputValues = payeeValues + fee;
+        //判断是否有足够的金额去支付
+        boolean haveEnoughMoneyToPay = transactionInputValues >= minimumTransactionInputValues;
+        return haveEnoughMoneyToPay;
+    }
+    private Payee createChangePayee(List<Payer> payers, List<Payee> payees, String changeAddress, long fee) {
+        //交易输入总金额
+        long transactionInputValues = 0;
+        for(Payer payer: payers){
+            transactionInputValues += payer.getValue();
         }
-
+        //收款方收款总金额
+        long payeeValues = 0;
+        if(payees != null){
+            for(Payee payee : payees){
+                payeeValues += payee.getValue();
+            }
+        }
+        //计算找零金额，找零金额=交易输入金额-收款方交易输出金额-交易手续费
+        long change = transactionInputValues -  payeeValues - fee;
+        //构造找零收款方
+        Payee changePayee = new Payee();
+        changePayee.setAddress(changeAddress);
+        changePayee.setValue(change);
+        return changePayee;
+    }
+    private TransactionDto buildTransaction(List<Payer> payers, List<Payee> payees) {
         //构建交易输入
-        List<TransactionInputDto> transactionInputDtoList = new ArrayList<>();
-        for(TransactionOutput input:inputs){
-            TransactionInputDto transactionInputDto = new TransactionInputDto();
-            transactionInputDto.setTransactionHash(input.getTransactionHash());
-            transactionInputDto.setTransactionOutputIndex(input.getTransactionOutputIndex());
-            transactionInputDtoList.add(transactionInputDto);
+        List<TransactionInputDto> transactionInputs = new ArrayList<>();
+        for(Payer payer: payers){
+            TransactionInputDto transactionInput = new TransactionInputDto();
+            transactionInput.setTransactionHash(payer.getTransactionHash());
+            transactionInput.setTransactionOutputIndex(payer.getTransactionOutputIndex());
+            transactionInputs.add(transactionInput);
         }
-
-        //构建交易
-        TransactionDto transactionDto = new TransactionDto();
-        transactionDto.setInputs(transactionInputDtoList);
-        transactionDto.setOutputs(transactionOutputDtoList);
-
-        //总收款金额
-        long outputValues = 0;
-        if(recipientList != null){
-            for(Recipient recipient : recipientList){
-                outputValues += recipient.getValue();
+        //构建交易输出
+        List<TransactionOutputDto> transactionOutputs = new ArrayList<>();
+        //构造收款方交易输出
+        if(payees != null){
+            for(Payee payee : payees){
+                TransactionOutputDto transactionOutput = new TransactionOutputDto();
+                OutputScriptDto outputScript = ScriptDtoTool.createPayToPublicKeyHashOutputScript(payee.getAddress());
+                transactionOutput.setValue(payee.getValue());
+                transactionOutput.setOutputScript(outputScript);
+                transactionOutputs.add(transactionOutput);
             }
         }
-
-        //找零
-        long change = inputValues - outputValues - fee;
-        TransactionOutput payerChangeTransactionOutput = null;
-        if(change > 0){
-            TransactionOutputDto transactionOutputDto = new TransactionOutputDto();
-            transactionOutputDto.setValue(change);
-            OutputScript outputScript = ScriptTool.createPayToPublicKeyHashOutputScript(payerChangeAddress);
-            transactionOutputDto.setOutputScript(Model2DtoTool.outputScript2OutputScriptDto(outputScript));
-            transactionOutputDtoList.add(transactionOutputDto);
-
-            payerChangeTransactionOutput = new TransactionOutput();
-            payerChangeTransactionOutput.setAddress(payerChangeAddress);
-            payerChangeTransactionOutput.setValue(change);
-            payerChangeTransactionOutput.setOutputScript(outputScript);
-        }
-
+        //构造交易
+        TransactionDto transaction = new TransactionDto();
+        transaction.setInputs(transactionInputs);
+        transaction.setOutputs(transactionOutputs);
         //签名
-        for(int i=0;i<transactionInputDtoList.size();i++){
-            String privateKey = inputPrivateKeyList.get(i);
-            String publicKey = AccountUtil.accountFromPrivateKey(privateKey).getPublicKey();
-            TransactionInputDto transactionInputDto = transactionInputDtoList.get(i);
-            String signature = TransactionDtoTool.signature(privateKey,transactionDto);
-            InputScript inputScript = ScriptTool.createPayToPublicKeyHashInputScript(signature, publicKey);
-            transactionInputDto.setInputScript(Model2DtoTool.inputScript2InputScriptDto(inputScript));
+        for(int i=0; i<transactionInputs.size(); i++){
+            Account account = AccountUtil.accountFromPrivateKey(payers.get(i).getPrivateKey());
+            TransactionInputDto transactionInput = transactionInputs.get(i);
+            String signature = TransactionDtoTool.signature(account.getPrivateKey(),transaction);
+            InputScriptDto inputScript = ScriptDtoTool.createPayToPublicKeyHashInputScript(signature, account.getPublicKey());
+            transactionInput.setInputScript(inputScript);
         }
-
-
-        BuildTransactionResponse buildTransactionResponse = new BuildTransactionResponse();
-        buildTransactionResponse.setBuildTransactionSuccess(true);
-        buildTransactionResponse.setMessage("构建交易成功");
-        buildTransactionResponse.setTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
-        buildTransactionResponse.setFee(fee);
-        buildTransactionResponse.setPayerChangeTransactionOutput(payerChangeTransactionOutput);
-        buildTransactionResponse.setTransactionInputs(inputs);
-        buildTransactionResponse.setTransactionOutputs(innerTransactionOutputList);
-        buildTransactionResponse.setTransaction(transactionDto);
-        return buildTransactionResponse;
+        return transaction;
     }
 }

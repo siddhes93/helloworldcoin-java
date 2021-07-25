@@ -28,7 +28,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,25 +44,22 @@
             let minerState1 = "我是一名矿工，我正在挖矿中...";
             let minerState2 = "我是一名矿工，我正在休息中...";
             $(async function(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive"
                 });
-                minerInActiveState = data.result.minerInActiveState;
-                $('#minerStatus').text(data.result.minerInActiveState ? minerState1 : minerState2);
-                $('#minerSwitch').text(data.result.minerInActiveState ? '停止挖矿' : '开启挖矿');
+                minerInActiveState = response.data.minerInActiveState;
+                $('#minerStatus').text(response.data.minerInActiveState ? minerState1 : minerState2);
+                $('#minerSwitch').text(response.data.minerInActiveState ? '停止挖矿' : '开启挖矿');
             }());
 
             $('#minerSwitch').click(async function(){
                 if(minerInActiveState){
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveMiner",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/DeactiveMiner"
                     });
                 }else{
                     await $ajax({
-                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveMiner",
-                        data: `{}`
+                        url : baseUrl() + "/Api/NodeConsoleApplication/ActiveMiner"
                     });
                 }
                 location.reload();

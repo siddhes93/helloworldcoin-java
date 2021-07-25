@@ -31,7 +31,7 @@
                         <li><a href="./pay.html">支付</a></li>
                         <li class="active"><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./more-management.html">节点控制台</a></li>
+                        <li><a href="./node-console.html">节点控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -56,11 +56,11 @@
         <script>
             const obj = {}
             $(async function(){
-                const data = await $ajax({
+                const response = await $ajax({
                     url : baseUrl() + "/Api/WalletApplication/QueryAllAccounts"
                 })
-                $("#balance").text("总余额 "+data.result.balance);
-                let accounts = data.result.accounts
+                $("#balance").text("总余额 "+response.data.balance);
+                let accounts = response.data.accounts
                 $(accounts).each((index, item) => {
                     $('tbody').append(`
                         <tr>
@@ -86,7 +86,7 @@
                          data: `{"address":"${privateKey}"}`,
                          dataType: "json",
                          contentType: "application/json",
-                         success(data){
+                         success(response){
                             location.reload();
                          }
                      });
@@ -102,9 +102,9 @@
                          data: `{"privateKey":"${pass}"}`,
                          dataType: "json",
                          contentType: "application/json",
-                         success(data){
-                            layer.msg(data.message);
-                            if(data.serviceCode == 'SUCCESS'){
+                         success(response){
+                            layer.msg(response.message);
+                            if(response.status == 'success'){
                                 layer.close(index);
                                 location.reload();
                             }
@@ -114,11 +114,10 @@
             }
 
             async function create(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/WalletApplication/CreateAccount",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/WalletApplication/CreateAccount"
                 })
-                var account = data.result.account;
+                var account = response.data.account;
                 var content = '<h2 class="red">提示: 请在您信任的站点生成账户！</h2>' +
                                  '<div><span>账号(区块链领域学名:地址)</span>&nbsp;&nbsp;'+account.address+'</div>' +
                                  '<div><span>密码(区块链领域学名:私钥)</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
@@ -126,11 +125,10 @@
             }
 
             async function createAndSave(){
-                const data = await $ajax({
-                    url : baseUrl() + "/Api/WalletApplication/CreateAndSaveAccount",
-                    data: `{}`
+                const response = await $ajax({
+                    url : baseUrl() + "/Api/WalletApplication/CreateAndSaveAccount"
                 })
-                var account = data.result.account;
+                var account = response.data.account;
                 var content = '<h2 class="red">提示: 请在您信任的站点生成账户！你创建的数字货币账号与密码已经保存本网站了！</h2>' +
                                  '<div><span>账号(区块链领域学名:地址)</span>&nbsp;&nbsp;'+account.address+'</div>' +
                                  '<div><span>密码(区块链领域学名:私钥)</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
