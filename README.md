@@ -24,6 +24,9 @@ http://119.3.57.171/
 
 
 
+## 必看
+[必看：项目安装、使用](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
+
 ## 数字货币体验
 #### 数字货币初体验
 初体验：无需下载、无需安装软件，直接在演示网站操作，体验创建数字货币账户，交易，挖矿等区块链功能。  
@@ -32,14 +35,6 @@ http://119.3.57.171/
 [3.有了账户，怎么获取数字货币？](https://zhuanlan.zhihu.com/p/352458209)  
 [4.有了账户，账户上也有钱了，怎么进行交易？](https://zhuanlan.zhihu.com/p/352458209)  
 [5.怎么挖矿赚数字货币？](https://zhuanlan.zhihu.com/p/352458209)
-#### 数字货币中体验
-中体验：下载安装包，在自己机器上操作，体验单机版区块链功能。  
-[单机版玩法](https://blog.csdn.net/xingkaichun/article/details/116377603)
-#### 数字货币高体验
-高体验：下载安装包，在自己机器上操作，加入Helloworld网络，体验网络版区块链功能，与大家一起玩。  
-[网络版玩法](https://blog.csdn.net/xingkaichun/article/details/116377734)
-#### 数字货币大体验
-如果真的想要学习区块链，怎么能不下载源码玩耍呢？下载源码，导入集成开发工具，我的地盘我做主。在进一步，在github上提交issue、pull request，与社区区块链爱好者一起学习交流区块链技术。
 
 
 
@@ -116,8 +111,3 @@ cd C:\Users\xingkaichun\IdeaProjects\HelloworldBlockchain\helloworld-blockchain-
 运行启动命令  
 java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar  
 ```
-
-
-
-## 关注者
-[![Stargazers over time](https://starchart.cc/xingkaichun/HelloworldBlockchain.svg)](https://starchart.cc/xingkaichun/HelloworldBlockchain)

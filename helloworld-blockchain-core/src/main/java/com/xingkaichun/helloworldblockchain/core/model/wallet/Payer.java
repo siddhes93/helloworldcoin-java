@@ -17,7 +17,7 @@ public class Payer {
      */
     private String transactionHash;
     /**
-     * 付款来源的交易输出在[此笔交易所有的交易输出]中的序列号，序列号从1开始。
+     * 付款来源的交易输出序列号。
      */
     private long transactionOutputIndex;
     /**

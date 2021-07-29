@@ -38,16 +38,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">支付</div>
             </div>
-            <div id="payees">
+            <div id="nonChangePayees">
             </div>
             <div style="text-align: center;">
                 <button type="button" class="btn btn-primary" onclick="confirmPayment()">确认支付</button>
             </div>
         </div>
         <script>
-            function addPayee(){
-                $('#payees').append(`
-                    <div class="panel panel-default" name="payee">
+            function addNonChangePayee(){
+                $('#nonChangePayees').append(`
+                    <div class="panel panel-default" name="nonChangePayee">
                         <!-- Default panel contents -->
                         <div class="panel-heading">收款方</div>
                         <!-- List group -->
@@ -74,23 +74,23 @@
             }
 
             $('body').delegate('.add', 'click', function(){
-                addPayee();
+                addNonChangePayee();
             });
 
             async function confirmPayment(){
-                let payees = [];
-                Array.from($('[name="payee"]')).forEach(item => {
-                    payees.push({address:$(item).find('[name="address"]:first').val().trim(),value:$(item).find('[name="money"]:first').val()})
+                let nonChangePayees = [];
+                Array.from($('[name="nonChangePayee"]')).forEach(item => {
+                    nonChangePayees.push({address:$(item).find('[name="address"]:first').val().trim(),value:$(item).find('[name="money"]:first').val()})
                 });
-                var request1 = JSON.stringify({payees})
-                const response = await $ajax({
+                let request1 = JSON.stringify({nonChangePayees})
+                let response = await $ajax({
                     url : baseUrl() + "/Api/WalletApplication/AutoBuildTransaction",
                     data: request1
                 })
                 if(response.status == 'success'){
-                    const request2 = {}
+                    let request2 = {}
                     request2.transaction = response.data.transaction;
-                    const response2 = await $ajax({
+                    let response2 = await $ajax({
                         url : baseUrl() + "/Api/WalletApplication/SubmitTransactionToBlockchainNetwork",
                         data: JSON.stringify(request2),
                     });
@@ -106,9 +106,9 @@
                         `
                     }).join('');
 
-                    let exclusionChangePayeesHtml = response.data.exclusionChangePayees.map((item,index) => {
+                    let nonChangePayeesHtml = response.data.nonChangePayees.map((item,index) => {
                         return `
-                          <div class="panel-heading">交易收款方${index+1}</div>
+                          <div class="panel-heading">非找零收款方${index+1}</div>
                           <ul class="list-group">
                             <li class="list-group-item">收款地址 : <a title="地址，点击查看地址详情。" target="_blank" href="./address.html?address=${item.address}">${item.address}</a></li>
                             <li class="list-group-item">收款金额 : ${item.value}</li>
@@ -121,7 +121,7 @@
                         changePayeeHtml = `
                             <div class="panel panel-default">
                               <!-- Default panel contents -->
-                              <div class="panel-heading">找零</div>
+                              <div class="panel-heading">找零收款方</div>
                               <!-- List group -->
                               <ul class="list-group">
                                 <li class="list-group-item">找零地址 : <a title="地址，点击查看地址详情。" target="_blank" href="./address.html?address=${response.data.changePayee.address}">${response.data.changePayee.address}</a></li>
@@ -131,7 +131,7 @@
                         `;
                     }
 
-                    const str = `<div>
+                    let payDetailHtml = `<div>
                         <div class="page-header" style="margin-top:0;">
                           <h1>支付详情</h1>
                         </div>
@@ -139,9 +139,9 @@
                         <div class="panel panel-default">
                         ${payersHtml}
                         </div>
-                        <!-- 收款方(不包含找零收款方)-->
+                        <!-- 非找零收款方-->
                         <div class="panel panel-default">
-                        ${exclusionChangePayeesHtml}
+                        ${nonChangePayeesHtml}
                         </div>
                         <!-- 找零收款方 -->
                         ${changePayeeHtml}
@@ -176,14 +176,14 @@
                       area: ['100%', '100%'],
                       closeBtn: 0,
                       shadeClose: true,
-                      content: str
+                      content: payDetailHtml
                     });
                 }else {
                     alert(response.message);
                 }
             }
 
-            addPayee();
+            addNonChangePayee();
         </script>
     </body>
 </html>

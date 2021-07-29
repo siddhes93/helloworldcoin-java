@@ -21,10 +21,12 @@ public class AutoBuildTransactionResponse {
     private long fee;
     //付款方
     private List<Payer> payers;
-    //排除找零的收款方
-    private List<Payee> exclusionChangePayees;
-    //找零收款方
+    //[非找零]收款方
+    private List<Payee> nonChangePayees;
+    //[找零]收款方
     private Payee changePayee;
+    //收款方=[非找零]收款方+[找零]收款方
+    private List<Payee> payees;
     //构建的完整交易
     private TransactionDto transaction;
 
@@ -69,12 +71,12 @@ public class AutoBuildTransactionResponse {
         this.transaction = transaction;
     }
 
-    public List<Payee> getExclusionChangePayees() {
-        return exclusionChangePayees;
+    public List<Payee> getNonChangePayees() {
+        return nonChangePayees;
     }
 
-    public void setExclusionChangePayees(List<Payee> exclusionChangePayees) {
-        this.exclusionChangePayees = exclusionChangePayees;
+    public void setNonChangePayees(List<Payee> nonChangePayees) {
+        this.nonChangePayees = nonChangePayees;
     }
 
     public Payee getChangePayee() {
@@ -91,5 +93,13 @@ public class AutoBuildTransactionResponse {
 
     public void setPayers(List<Payer> payers) {
         this.payers = payers;
+    }
+
+    public List<Payee> getPayees() {
+        return payees;
+    }
+
+    public void setPayees(List<Payee> payees) {
+        this.payees = payees;
     }
 }

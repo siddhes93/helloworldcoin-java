@@ -41,11 +41,28 @@ public class WalletImpl extends Wallet {
     public List<Account> getAllAccounts() {
         List<Account> accountList = new ArrayList<>();
         //获取所有
-        List<byte[]> bytesAccountList = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
-        if(bytesAccountList != null){
-            for(byte[] bytesAccount:bytesAccountList){
+        List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
+        if(bytesAccounts != null){
+            for(byte[] bytesAccount:bytesAccounts){
                 Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
                 accountList.add(account);
+            }
+        }
+        return accountList;
+    }
+
+    @Override
+    public List<Account> getNonZeroBalanceAccounts() {
+        List<Account> accountList = new ArrayList<>();
+        //获取所有
+        List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
+        if(bytesAccounts != null){
+            for(byte[] bytesAccount:bytesAccounts){
+                Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
+                TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(account.getAddress());
+                if(utxo != null && utxo.getValue() > 0){
+                    accountList.add(account);
+                }
             }
         }
         return accountList;
@@ -84,15 +101,15 @@ public class WalletImpl extends Wallet {
 
     @Override
     public AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) {
-        //校验收款方
-        List<Payee> payees = request.getPayees();
-        if(payees == null || payees.isEmpty()){
+        //校验[非找零]收款方
+        List<Payee> nonChangePayees = request.getNonChangePayees();
+        if(nonChangePayees == null || nonChangePayees.isEmpty()){
             AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
             response.setBuildTransactionSuccess(false);
             response.setMessage("收款方不能为空。");
             return response;
         }
-        for(Payee payee : payees){
+        for(Payee payee : nonChangePayees){
             if(StringUtil.isNullOrEmpty(payee.getAddress())){
                 AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                 response.setBuildTransactionSuccess(false);
@@ -110,38 +127,34 @@ public class WalletImpl extends Wallet {
         //创建付款方
         List<Payer> payers = new ArrayList<>();
         //遍历钱包里的账户,用钱包里的账户付款
-        List<Account> allAccounts = getAllAccounts();
+        List<Account> allAccounts = getNonZeroBalanceAccounts();
         if(allAccounts != null){
             for(Account account:allAccounts){
                 TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(account.getAddress());
-                //过滤无余额的账户
-                if(utxo == null || utxo.getValue() <= 0){
-                    continue;
-                }
                 //构建一个新的付款方
                 Payer payer = new Payer();
                 payer.setPrivateKey(account.getPrivateKey());
-                payer.setAddress(AccountUtil.addressFromPrivateKey(payer.getPrivateKey()));
+                payer.setAddress(account.getAddress());
                 payer.setTransactionHash(utxo.getTransactionHash());
                 payer.setTransactionOutputIndex(utxo.getTransactionOutputIndex());
                 payer.setValue(utxo.getValue());
                 payers.add(payer);
                 //设置默认手续费
                 long fee = 0L;
-                boolean haveEnoughMoneyToPay = haveEnoughMoneyToPay(payers,payees,fee);
+                boolean haveEnoughMoneyToPay = haveEnoughMoneyToPay(payers,nonChangePayees,fee);
                 if(haveEnoughMoneyToPay){
-                    //创建一个找零账户
+                    //创建一个找零账户，并将找零账户保存在钱包里。
                     Account changeAccount = createAndSaveAccount();
                     //创建一个找零收款方
-                    Payee changePayee = createChangePayee(payers,payees,changeAccount.getAddress(),fee);
-                    //创建收款方(包含找零收款方)
-                    List<Payee> allPayees = new ArrayList<>();
-                    allPayees.addAll(payees);
+                    Payee changePayee = createChangePayee(payers,nonChangePayees,changeAccount.getAddress(),fee);
+                    //创建收款方(收款方=[非找零]收款方+[找零]收款方)
+                    List<Payee> payees = new ArrayList<>();
+                    payees.addAll(nonChangePayees);
                     if(changePayee != null){
-                        allPayees.add(changePayee);
+                        payees.add(changePayee);
                     }
                     //构造交易
-                    TransactionDto transactionDto = buildTransaction(payers,allPayees);
+                    TransactionDto transactionDto = buildTransaction(payers,payees);
                     AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                     response.setBuildTransactionSuccess(true);
                     response.setMessage("构建交易成功");
@@ -149,8 +162,9 @@ public class WalletImpl extends Wallet {
                     response.setTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
                     response.setFee(fee);
                     response.setPayers(payers);
-                    response.setExclusionChangePayees(payees);
+                    response.setNonChangePayees(nonChangePayees);
                     response.setChangePayee(changePayee);
+                    response.setPayees(payees);
                     return response;
                 }
             }
@@ -174,26 +188,27 @@ public class WalletImpl extends Wallet {
         return getKeyByAddress(account.getAddress());
     }
 
+
     private boolean haveEnoughMoneyToPay(List<Payer> payers, List<Payee> payees, long fee) {
-        //交易输入总金额
-        long transactionInputValues = 0;
-        for(Payer payer: payers){
-            transactionInputValues += payer.getValue();
-        }
-        //收款方收款总金额
-        long payeeValues = 0;
-        if(payees != null){
-            for(Payee payee : payees){
-                payeeValues += payee.getValue();
-            }
-        }
-        //计算付款方最少需要支付的金额，该金额由二部分构成，一是收款方金额 ，二是交易手续费
-        long minimumTransactionInputValues = payeeValues + fee;
+        //计算找零金额
+        long changeValue = changeValue(payers,payees,fee);
         //判断是否有足够的金额去支付
-        boolean haveEnoughMoneyToPay = transactionInputValues >= minimumTransactionInputValues;
+        boolean haveEnoughMoneyToPay = changeValue>=0;
         return haveEnoughMoneyToPay;
     }
     private Payee createChangePayee(List<Payer> payers, List<Payee> payees, String changeAddress, long fee) {
+        //计算找零金额
+        long changeValue = changeValue(payers,payees,fee);
+        if(changeValue >0){
+            //构造找零收款方
+            Payee changePayee = new Payee();
+            changePayee.setAddress(changeAddress);
+            changePayee.setValue(changeValue);
+            return changePayee;
+        }
+        return null;
+    }
+    private long changeValue(List<Payer> payers, List<Payee> payees, long fee) {
         //交易输入总金额
         long transactionInputValues = 0;
         for(Payer payer: payers){
@@ -207,12 +222,8 @@ public class WalletImpl extends Wallet {
             }
         }
         //计算找零金额，找零金额=交易输入金额-收款方交易输出金额-交易手续费
-        long change = transactionInputValues -  payeeValues - fee;
-        //构造找零收款方
-        Payee changePayee = new Payee();
-        changePayee.setAddress(changeAddress);
-        changePayee.setValue(change);
-        return changePayee;
+        long changeValue = transactionInputValues -  payeeValues - fee;
+        return changeValue;
     }
     private TransactionDto buildTransaction(List<Payer> payers, List<Payee> payees) {
         //构建交易输入
@@ -241,8 +252,8 @@ public class WalletImpl extends Wallet {
         transaction.setOutputs(transactionOutputs);
         //签名
         for(int i=0; i<transactionInputs.size(); i++){
-            Account account = AccountUtil.accountFromPrivateKey(payers.get(i).getPrivateKey());
             TransactionInputDto transactionInput = transactionInputs.get(i);
+            Account account = AccountUtil.accountFromPrivateKey(payers.get(i).getPrivateKey());
             String signature = TransactionDtoTool.signature(account.getPrivateKey(),transaction);
             InputScriptDto inputScript = ScriptDtoTool.createPayToPublicKeyHashInputScript(signature, account.getPublicKey());
             transactionInput.setInputScript(inputScript);

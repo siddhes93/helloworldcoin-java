@@ -14,15 +14,14 @@
         <script>
             $(async function(){
                 let urlParameters = parseUrlParameters(location)
-                var request = `{"blockHeight": ${urlParameters.get("height")}}`;
-                const response = await $ajax({
+                let request = `{"blockHeight": ${urlParameters.get("height")}}`;
+                let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight",
                     data: request
                 });
                 if(response.data != null){
                     let {block} = response.data;
-                    var redirectUrl = `./block.html${location.search}&hash=${block.hash}`;
-                    console.log(redirectUrl);
+                    let redirectUrl = `./block.html${location.search}&hash=${block.hash}`;
                     window.location.href = redirectUrl;
                 }else {
                     alert("请检查区块高度！点击返回首页。");

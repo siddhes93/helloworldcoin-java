@@ -144,15 +144,14 @@ public class BlockTool {
      * 注意：这里没有严格校验,例如没有校验区块中的交易是否完全一样
      * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
      */
-    public static boolean simpleCheckBlockEquals(Block block1, Block block2) {
+    public static boolean isBlockEquals(Block block1, Block block2) {
+        //如果任一区块为为空，则认为两个区块不相等
         if(block1 == null || block2 == null){
             return false;
         }
-        return (block1.getTimestamp() == block2.getTimestamp()) &&
-                StringUtil.isEquals(block1.getHash(), block2.getHash()) &&
-                StringUtil.isEquals(block1.getPreviousHash(), block2.getPreviousHash()) &&
-                StringUtil.isEquals(block1.getMerkleTreeRoot(), block2.getMerkleTreeRoot()) &&
-                StringUtil.isEquals(block1.getNonce(), block2.getNonce());
+        BlockDto blockDto1 = Model2DtoTool.block2BlockDto(block1);
+        BlockDto blockDto2 = Model2DtoTool.block2BlockDto(block2);
+        return BlockDtoTool.isBlockEquals(blockDto1,blockDto2);
     }
 
     /**

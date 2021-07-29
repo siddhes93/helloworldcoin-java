@@ -19,19 +19,19 @@ import java.util.List;
 public class Model2DtoTool {
 
     public static BlockDto block2BlockDto(Block block) {
-        List<TransactionDto> transactionDtoList = new ArrayList<>();
+        List<TransactionDto> transactionDtos = new ArrayList<>();
         List<Transaction> transactionList = block.getTransactions();
         if(transactionList != null){
             for(Transaction transaction:transactionList){
                 TransactionDto transactionDto = transaction2TransactionDto(transaction);
-                transactionDtoList.add(transactionDto);
+                transactionDtos.add(transactionDto);
             }
         }
 
         BlockDto blockDto = new BlockDto();
         blockDto.setTimestamp(block.getTimestamp());
         blockDto.setPreviousHash(block.getPreviousHash());
-        blockDto.setTransactions(transactionDtoList);
+        blockDto.setTransactions(transactionDtos);
         blockDto.setNonce(block.getNonce());
         return blockDto;
     }

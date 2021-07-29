@@ -5,8 +5,7 @@ import com.xingkaichun.helloworldblockchain.core.BlockchainCoreFactory;
 import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.dao.impl.NodeDaoImpl;
-import com.xingkaichun.helloworldblockchain.netcore.server.BlockchainNodeHttpServer;
-import com.xingkaichun.helloworldblockchain.netcore.server.HttpServerHandlerResolver;
+import com.xingkaichun.helloworldblockchain.netcore.server.NodeServer;
 import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfigurationImpl;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
@@ -43,29 +42,29 @@ public class BlockchainNetCoreFactory {
 
         NodeDao nodeDao = new NodeDaoImpl(netCoreConfiguration);
         NodeService nodeService = new NodeServiceImpl(nodeDao);
-
-        HttpServerHandlerResolver httpServerHandlerResolver = new HttpServerHandlerResolver(blockchainCore,nodeService,netCoreConfiguration);
-        BlockchainNodeHttpServer blockchainNodeHttpServer = new BlockchainNodeHttpServer(httpServerHandlerResolver);
+        NodeServer nodeServer = new NodeServer(netCoreConfiguration,blockchainCore,nodeService);
 
         SeedNodeInitializer seedNodeInitializer = new SeedNodeInitializer(netCoreConfiguration,nodeService);
         NodeSearcher nodeSearcher = new NodeSearcher(netCoreConfiguration,nodeService);
         NodeBroadcaster nodeBroadcaster = new NodeBroadcaster(netCoreConfiguration,nodeService);
+        NodeCleaner nodeCleaner = new NodeCleaner(netCoreConfiguration,nodeService);
 
         BlockchainHeightSearcher blockchainHeightSearcher = new BlockchainHeightSearcher(netCoreConfiguration,nodeService);
-        BlockchainHeightBroadcaster blockchainHeightBroadcaster = new BlockchainHeightBroadcaster(netCoreConfiguration,nodeService,blockchainCore);
+        BlockchainHeightBroadcaster blockchainHeightBroadcaster = new BlockchainHeightBroadcaster(netCoreConfiguration,blockchainCore,nodeService);
 
-        BlockSearcher blockSearcher = new BlockSearcher(netCoreConfiguration,nodeService,blockchainCore, slaveBlockchainCore);
+        BlockSearcher blockSearcher = new BlockSearcher(netCoreConfiguration,blockchainCore,slaveBlockchainCore,nodeService);
         BlockBroadcaster blockBroadcaster = new BlockBroadcaster(netCoreConfiguration,blockchainCore,nodeService);
 
-        UnconfirmedTransactionsSearcher unconfirmedTransactionsSearcher = new UnconfirmedTransactionsSearcher(netCoreConfiguration,nodeService,blockchainCore);
+        UnconfirmedTransactionsSearcher unconfirmedTransactionsSearcher = new UnconfirmedTransactionsSearcher(netCoreConfiguration,blockchainCore,nodeService);
 
         BlockchainNetCore blockchainNetCore
-                = new BlockchainNetCore(netCoreConfiguration, blockchainCore, blockchainNodeHttpServer, nodeService
-                , seedNodeInitializer, nodeSearcher, nodeBroadcaster
+                = new BlockchainNetCore(netCoreConfiguration, blockchainCore, nodeServer, nodeService
+                , seedNodeInitializer, nodeSearcher, nodeBroadcaster, nodeCleaner
                 , blockchainHeightSearcher, blockchainHeightBroadcaster
                 , blockSearcher, blockBroadcaster
                 , unconfirmedTransactionsSearcher
         );
         return blockchainNetCore;
     }
+
 }

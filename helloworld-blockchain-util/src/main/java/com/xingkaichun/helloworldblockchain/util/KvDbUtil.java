@@ -52,7 +52,7 @@ public class KvDbUtil {
     }
     public static List<byte[]> gets(String dbPath, long from, long size) {
         synchronized (KvDbUtil.class){
-            List<byte[]> valueList = new ArrayList<>();
+            List<byte[]> values = new ArrayList<>();
             int cunrrentFrom = 0;
             int cunrrentSize = 0;
             DB db = getDb(dbPath);
@@ -64,14 +64,14 @@ public class KvDbUtil {
                 }
                 cunrrentFrom++;
                 if(cunrrentFrom>=from && cunrrentSize<size){
-                    valueList.add(byteValue);
+                    values.add(byteValue);
                     cunrrentSize++;
                 }
                 if(cunrrentSize>=size){
                     break;
                 }
             }
-            return valueList;
+            return values;
         }
     }
     public static void write(String dbPath, KvWriteBatch kvWriteBatch) {

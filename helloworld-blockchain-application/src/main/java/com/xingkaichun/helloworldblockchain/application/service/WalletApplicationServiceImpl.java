@@ -4,7 +4,7 @@ import com.xingkaichun.helloworldblockchain.application.vo.transaction.SubmitTra
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.SubmitTransactionToBlockchainNetworkResponse;
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCore;
-import com.xingkaichun.helloworldblockchain.netcore.client.BlockchainNodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionResponse;
@@ -43,7 +43,7 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
             for(Node node:nodes){
                 PostTransactionRequest postTransactionRequest = new PostTransactionRequest();
                 postTransactionRequest.setTransaction(transactionDto);
-                PostTransactionResponse postTransactionResponse = new BlockchainNodeClientImpl(node.getIp()).postTransaction(postTransactionRequest);
+                PostTransactionResponse postTransactionResponse = new NodeClientImpl(node.getIp()).postTransaction(postTransactionRequest);
                 if(postTransactionResponse != null){
                     successSubmitNode.add(new SubmitTransactionToBlockchainNetworkResponse.Node(node.getIp()));
                 } else {

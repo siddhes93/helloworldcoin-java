@@ -27,7 +27,6 @@ public class SeedNodeInitializer {
     private NodeService nodeService;
 
     public SeedNodeInitializer(NetCoreConfiguration netCoreConfiguration, NodeService nodeService) {
-
         this.netCoreConfiguration = netCoreConfiguration;
         this.nodeService = nodeService;
     }
@@ -38,34 +37,30 @@ public class SeedNodeInitializer {
          * 因为有的种子节点可能会发生故障，然后本地节点链接不上种子节点，就将种子节点丢弃。
          * 能作为种子节点的服务器，肯定会很快被修复正常的。所以定时循环的将种子节点加入区块链，保证与种子节点连接是通畅的。
          */
-        new Thread(()->{
-            while (true){
-                try {
-                    if(netCoreConfiguration.isAutoSearchNode()){
-                        addSeedNode();
-                    }
-                    ThreadUtil.millisecondSleep(netCoreConfiguration.getAddSeedNodeTimeInterval());
-                } catch (Exception e) {
-                    SystemUtil.errorExit("定时将种子节点加入区块链网络出现异常",e);
-                }
+        try {
+            while(true){
+                addSeedNodes();
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getAddSeedNodeTimeInterval());
             }
-        }).start();
+        } catch (Exception e) {
+            SystemUtil.errorExit("定时将种子节点加入区块链网络出现异常",e);
+        }
     }
 
     /**
      * 添加种子节点
      */
-    private void addSeedNode() {
-        for(String nodeIp: NetworkSetting.SEED_NODES){
-            Node node = nodeService.queryNode(nodeIp);
-            if(node == null){
-                if(netCoreConfiguration.isAutoSearchNode()){
-                    node = new Node();
-                    node.setIp(nodeIp);
-                    nodeService.addNode(node);
-                    LogUtil.debug("种子节点["+node.getIp()+"]加入了区块链网络。");
-                }
-            }
+    private void addSeedNodes() {
+        if(!netCoreConfiguration.isAutoSearchNode()){
+            return;
+        }
+
+        for(String seedNode: NetworkSetting.SEED_NODES){
+            Node node = new Node();
+            node.setIp(seedNode);
+            nodeService.addNode(node);
+            LogUtil.debug("种子节点初始化器提示您:种子节点["+node.getIp()+"]加入了区块链网络。");
         }
     }
+
 }

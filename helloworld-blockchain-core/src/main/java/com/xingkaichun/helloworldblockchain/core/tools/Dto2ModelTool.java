@@ -57,10 +57,10 @@ public class Dto2ModelTool {
         return block;
     }
 
-    private static List<Transaction> transactionDtos2Transactions(BlockchainDatabase blockchainDatabase, List<TransactionDto> transactionDtoList) {
+    private static List<Transaction> transactionDtos2Transactions(BlockchainDatabase blockchainDatabase, List<TransactionDto> transactionDtos) {
         List<Transaction> transactions = new ArrayList<>();
-        if(transactionDtoList != null){
-            for(TransactionDto transactionDto:transactionDtoList){
+        if(transactionDtos != null){
+            for(TransactionDto transactionDto:transactionDtos){
                 Transaction transaction = transactionDto2Transaction(blockchainDatabase,transactionDto);
                 transactions.add(transaction);
             }

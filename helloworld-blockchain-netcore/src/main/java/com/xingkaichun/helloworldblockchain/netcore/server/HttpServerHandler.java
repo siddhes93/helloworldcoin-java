@@ -79,7 +79,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 			GetBlockchainHeightResponse response = httpServerHandlerResolver.getBlockchainHeight(request);
 			responseMessage = JsonUtil.toString(response);
 		}else {
-			responseMessage = "404 NOT FOUND";
+			responseMessage = "404 page not found";
 		}
 		writeResponse(channelHandlerContext, responseMessage);
 	}

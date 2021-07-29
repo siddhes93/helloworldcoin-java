@@ -5,6 +5,7 @@ import com.xingkaichun.helloworldblockchain.crypto.MerkleTreeUtil;
 import com.xingkaichun.helloworldblockchain.crypto.Sha256Util;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
+import com.xingkaichun.helloworldblockchain.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +45,20 @@ public class BlockDtoTool {
             }
         }
         return ByteUtil.bytesToHexString(MerkleTreeUtil.calculateMerkleTreeRoot(bytesTransactionHashs));
+    }
+
+    /**
+     * 简单的校验两个区块是否相等
+     * 注意：这里没有严格校验,例如没有校验区块中的交易是否完全一样
+     * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
+     */
+    public static boolean isBlockEquals(BlockDto block1, BlockDto block2) {
+        //如果任一区块为为空，则认为两个区块不相等
+        if(block1 == null || block2 == null){
+            return false;
+        }
+        String block1Hash = calculateBlockHash(block1);
+        String block2Hash = calculateBlockHash(block2);
+        return StringUtil.isEquals(block1Hash, block2Hash);
     }
 }

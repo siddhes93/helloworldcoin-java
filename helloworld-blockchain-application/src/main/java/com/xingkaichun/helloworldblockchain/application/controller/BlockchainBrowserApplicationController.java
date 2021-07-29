@@ -167,20 +167,20 @@ public class BlockchainBrowserApplicationController {
     public Response<QueryUnconfirmedTransactionsResponse> queryUnconfirmedTransactions(@RequestBody QueryUnconfirmedTransactionsRequest request){
         try {
             PageCondition pageCondition = request.getPageCondition();
-            List<TransactionDto> transactionDtoList = blockchainCore.queryUnconfirmedTransactions(pageCondition.getFrom(),pageCondition.getSize());
-            if(transactionDtoList == null){
+            List<TransactionDto> transactionDtos = blockchainCore.queryUnconfirmedTransactions(pageCondition.getFrom(),pageCondition.getSize());
+            if(transactionDtos == null){
                 return Response.createSuccessResponse("未查询到未确认的交易");
             }
 
-            List<UnconfirmedTransactionVo> transactionDtoListResp = new ArrayList<>();
-            for(TransactionDto transactionDto : transactionDtoList){
+            List<UnconfirmedTransactionVo> transactionDtosResp = new ArrayList<>();
+            for(TransactionDto transactionDto : transactionDtos){
                 UnconfirmedTransactionVo unconfirmedTransactionVo = blockchainBrowserApplicationService.queryUnconfirmedTransactionByTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
                 if(unconfirmedTransactionVo != null){
-                    transactionDtoListResp.add(unconfirmedTransactionVo);
+                    transactionDtosResp.add(unconfirmedTransactionVo);
                 }
             }
             QueryUnconfirmedTransactionsResponse response = new QueryUnconfirmedTransactionsResponse();
-            response.setTransactions(transactionDtoListResp);
+            response.setTransactions(transactionDtosResp);
             return Response.createSuccessResponse("查询未确认交易成功",response);
         } catch (Exception e){
             String message = "查询未确认交易失败";
@@ -236,22 +236,22 @@ public class BlockchainBrowserApplicationController {
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TOP10_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTop10BlocksResponse> queryTop10Blocks(@RequestBody QueryTop10BlocksRequest request){
         try {
-            List<Block> blockList = new ArrayList<>();
+            List<Block> blocks = new ArrayList<>();
             long blockHeight = blockchainCore.queryBlockchainHeight();
             while (true){
                 if(blockHeight <= GenesisBlockSetting.HEIGHT){
                     break;
                 }
                 Block block = blockchainCore.queryBlockByBlockHeight(blockHeight);
-                blockList.add(block);
-                if(blockList.size() >= 10){
+                blocks.add(block);
+                if(blocks.size() >= 10){
                     break;
                 }
                 blockHeight--;
             }
 
             List<QueryTop10BlocksResponse.BlockVo> BlockVos = new ArrayList<>();
-            for(Block block : blockList){
+            for(Block block : blocks){
                 QueryTop10BlocksResponse.BlockVo blockVo = new QueryTop10BlocksResponse.BlockVo();
                 blockVo.setHeight(block.getHeight());
                 blockVo.setBlockSize(SizeTool.calculateBlockSize(block)+"字符");

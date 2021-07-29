@@ -1,7 +1,8 @@
 package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
-import com.xingkaichun.helloworldblockchain.netcore.client.BlockchainNodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactionsRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactionsResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
@@ -28,24 +29,21 @@ public class UnconfirmedTransactionsSearcher {
     private BlockchainCore blockchainCore;
 
 
-    public UnconfirmedTransactionsSearcher(NetCoreConfiguration netCoreConfiguration, NodeService nodeService
-            , BlockchainCore blockchainCore) {
+    public UnconfirmedTransactionsSearcher(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, NodeService nodeService) {
         this.netCoreConfiguration = netCoreConfiguration;
         this.nodeService = nodeService;
         this.blockchainCore = blockchainCore;
     }
 
     public void start() {
-        new Thread(()->{
-            while (true){
-                try {
-                    searchUnconfirmedTransactions();
-                    ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsInterval());
-                } catch (Exception e) {
-                    SystemUtil.errorExit("在区块链网络中搜寻未确认交易出现异常",e);
-                }
+        try {
+            while(true){
+                searchUnconfirmedTransactions();
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsInterval());
             }
-        }).start();
+        } catch (Exception e) {
+            SystemUtil.errorExit("在区块链网络中搜寻未确认交易出现异常",e);
+        }
     }
 
     private void searchUnconfirmedTransactions() {
@@ -55,23 +53,22 @@ public class UnconfirmedTransactionsSearcher {
         }
 
         for(Node node:nodes){
-            try {
-                GetUnconfirmedTransactionsRequest request = new GetUnconfirmedTransactionsRequest();
-                GetUnconfirmedTransactionsResponse response = new BlockchainNodeClientImpl(node.getIp()).getUnconfirmedTransactions(request);
-                if(response != null){
-                    List<TransactionDto> transactions = response.getTransactions();
-                    if(transactions != null){
-                        for(TransactionDto transactionDto:transactions){
-                            try {
-                                blockchainCore.getUnconfirmedTransactionDatabase().insertTransaction(transactionDto);
-                            }catch (Exception e){
-                                LogUtil.error("交易["+JsonUtil.toString(transactionDto)+"]放入交易池异常。",e);
-                            }
-                        }
-                    }
+            NodeClient nodeClient = new NodeClientImpl(node.getIp());
+            GetUnconfirmedTransactionsRequest getUnconfirmedTransactionsRequest = new GetUnconfirmedTransactionsRequest();
+            GetUnconfirmedTransactionsResponse getUnconfirmedTransactionsResponse = nodeClient.getUnconfirmedTransactions(getUnconfirmedTransactionsRequest);
+            if(getUnconfirmedTransactionsResponse == null){
+                continue;
+            }
+            List<TransactionDto> transactions = getUnconfirmedTransactionsResponse.getTransactions();
+            if(transactions == null){
+                continue;
+            }
+            for(TransactionDto transaction:transactions){
+                try {
+                    blockchainCore.getUnconfirmedTransactionDatabase().insertTransaction(transaction);
+                }catch (Exception e){
+                    LogUtil.error("交易["+JsonUtil.toString(transaction)+"]放入交易池异常。",e);
                 }
-            }catch (Exception e){
-                LogUtil.error("搜寻节点["+node.getIp()+"]的未确认交易出现异常。",e);
             }
         }
     }

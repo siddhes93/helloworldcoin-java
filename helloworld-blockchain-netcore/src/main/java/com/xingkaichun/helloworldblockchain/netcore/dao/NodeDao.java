@@ -19,7 +19,7 @@ public interface NodeDao {
     /**
      * 查询所有节点
      */
-    List<NodePo> queryAllNodeList();
+    List<NodePo> queryAllNodes();
     /**
      * 添加节点
      */

@@ -10,11 +10,11 @@ import com.xingkaichun.helloworldblockchain.util.NetUtil;
  *
  * @author 邢开春 409060350@qq.com
  */
-public class BlockchainNodeClientImpl implements BlockchainNodeClient {
+public class NodeClientImpl implements NodeClient {
 
     private String ip;
 
-    public BlockchainNodeClientImpl(String ip) {
+    public NodeClientImpl(String ip) {
         this.ip = ip;
     }
 

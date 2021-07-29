@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * @author xingkaichun@ceair.com
+ * @author 邢开春 409060350@qq.com
  */
 public class UnconfirmedTransactionVo {
 

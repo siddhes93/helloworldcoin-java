@@ -28,8 +28,10 @@ public class FileUtil {
         File file = new File(path);
         if(file.isDirectory()){
             File[] childrenFiles = file.listFiles();
-            for (File childFile:childrenFiles){
-                deleteDirectory(childFile.getAbsolutePath());
+            if(childrenFiles != null){
+                for (File childFile:childrenFiles){
+                    deleteDirectory(childFile.getAbsolutePath());
+                }
             }
         }
         boolean isDeleteDirectorySuccess = file.delete();

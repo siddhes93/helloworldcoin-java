@@ -25,7 +25,7 @@ public class HttpServerHandlerResolver {
     private NodeService nodeService;
     private NetCoreConfiguration netCoreConfiguration;
 
-    public HttpServerHandlerResolver(BlockchainCore blockchainCore, NodeService nodeService, NetCoreConfiguration netCoreConfiguration) {
+    public HttpServerHandlerResolver(NetCoreConfiguration netCoreConfiguration,BlockchainCore blockchainCore, NodeService nodeService) {
         this.blockchainCore = blockchainCore;
         this.nodeService = nodeService;
         this.netCoreConfiguration = netCoreConfiguration;
@@ -86,8 +86,7 @@ public class HttpServerHandlerResolver {
 
     public PostBlockResponse postBlock(PostBlockRequest request) {
         try {
-            BlockDto block = request.getBlock();
-            blockchainCore.addBlockDto(block);
+            blockchainCore.addBlockDto(request.getBlock());
             PostBlockResponse response = new PostBlockResponse();
             return response;
         } catch (Exception e){
@@ -99,14 +98,14 @@ public class HttpServerHandlerResolver {
 
     public GetNodesResponse getNodes(GetNodesRequest request) {
         try {
-            List<Node> nodeList = nodeService.queryAllNodes();
-            if(nodeList == null){
-                nodeList = new ArrayList<>();
-            }
-            String[] nodes = new String[nodeList.size()];
-            for (int i=0;i<nodeList.size();i++){
-                Node nodeEntity = nodeList.get(i);
-                nodes[i] = nodeEntity.getIp();
+            List<Node> allNodes = nodeService.queryAllNodes();
+            List<NodeDto> nodes = new ArrayList<>();
+            if(allNodes != null){
+                for (Node node:allNodes) {
+                    NodeDto n = new NodeDto();
+                    n.setIp(node.getIp());
+                    nodes.add(n);
+                }
             }
             GetNodesResponse response = new GetNodesResponse();
             response.setNodes(nodes);
@@ -124,7 +123,6 @@ public class HttpServerHandlerResolver {
             node.setIp(requestIp);
             node.setBlockchainHeight(request.getBlockchainHeight());
             nodeService.updateNode(node);
-
             PostBlockchainHeightResponse response = new PostBlockchainHeightResponse();
             return response;
         } catch (Exception e){

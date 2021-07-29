@@ -48,7 +48,7 @@
         <script>
             $(async function(){
                 let urlParameters = parseUrlParameters(location)
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionOutputByTransactionOutputId",
                     data: `{
                         "transactionHash":"${urlParameters.get("transactionHash")}",
@@ -56,7 +56,7 @@
                     }`
                 });
                 console.log(response);
-                var transactionOutputDetail = response.data.transactionOutputDetail;
+                let transactionOutputDetail = response.data.transactionOutputDetail;
                 $('.panel-heading').text(`交易输出[交易哈希${urlParameters.get("transactionHash")}    交易输出索引${urlParameters.get("transactionOutputIndex")}]`);
 
                 $('#summary').html(`

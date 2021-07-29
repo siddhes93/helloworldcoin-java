@@ -37,9 +37,12 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     private static final long ADD_SEED_NODE_TIME_INTERVAL = 1000 * 60 * 2;
     //广播自己节点的时间间隔。
     private static final long NODE_BROADCAST_TIME_INTERVAL = 1000 * 60 * 2;
+    //清理死亡节点的时间间隔。
+    private static final long NODE_CLEAN_TIME_INTERVAL = 1000 * 60 * 10;
 
-    //两个区块链有分叉时，区块差异数量大于这个值，则真的分叉了。
-    public static final long FORK_BLOCK_COUNT = 100;
+
+    //两个区块链有分叉时，区块差异数量大于这个值，则硬分叉了。
+    public static final long HARD_FORK_BLOCK_COUNT = 100000000;
 
     //在区块链网络中搜寻未确认交易的间隔时间。
     public static final long SEARCH_UNCONFIRMED_TRANSACTIONS_INTERVAL = 1000 * 60 * 2;
@@ -129,13 +132,18 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     @Override
-    public long getForkBlockCount() {
-        return FORK_BLOCK_COUNT;
+    public long getHardForkBlockCount() {
+        return HARD_FORK_BLOCK_COUNT;
     }
 
     @Override
     public long getSearchUnconfirmedTransactionsInterval() {
         return SEARCH_UNCONFIRMED_TRANSACTIONS_INTERVAL;
+    }
+
+    @Override
+    public long getNodeCleanTimeInterval() {
+        return NODE_CLEAN_TIME_INTERVAL;
     }
 
 

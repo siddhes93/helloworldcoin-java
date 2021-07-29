@@ -1,12 +1,12 @@
 package com.xingkaichun.helloworldblockchain.netcore;
 
-import com.xingkaichun.helloworldblockchain.netcore.client.BlockchainNodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockchainHeightRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockchainHeightResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
-import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
@@ -28,37 +28,36 @@ public class BlockchainHeightSearcher {
     private NodeService nodeService;
 
     public BlockchainHeightSearcher(NetCoreConfiguration netCoreConfiguration, NodeService nodeService) {
-
         this.netCoreConfiguration = netCoreConfiguration;
         this.nodeService = nodeService;
     }
 
     public void start() {
-        new Thread(()->{
+        try {
             while (true){
-                try {
-                    searchBlockchainHeight();
-                    ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchBlockchainHeightTimeInterval());
-                } catch (Exception e) {
-                    SystemUtil.errorExit("在区块链网络中搜索节点的高度异常",e);
-                }
+                searchBlockchainHeight();
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchBlockchainHeightTimeInterval());
             }
-        }).start();
+        } catch (Exception e) {
+            SystemUtil.errorExit("在区块链网络中搜索节点的高度异常",e);
+        }
     }
 
     private void searchBlockchainHeight() {
         List<Node> nodes = nodeService.queryAllNodes();
+        if(nodes == null || nodes.size()==0){
+            return;
+        }
+
         for(Node node:nodes){
-            try {
-                GetBlockchainHeightRequest getBlockchainHeightRequest = new GetBlockchainHeightRequest();
-                GetBlockchainHeightResponse getBlockchainHeightResponse = new BlockchainNodeClientImpl(node.getIp()).getBlockchainHeight(getBlockchainHeightRequest);
-                if(getBlockchainHeightResponse != null){
-                    node.setBlockchainHeight(getBlockchainHeightResponse.getBlockchainHeight());
-                    nodeService.updateNode(node);
-                }
-            }catch (Exception e){
-                LogUtil.error("搜索节点["+node.getIp()+"]的高度异常。",e);
+            NodeClient nodeClient = new NodeClientImpl(node.getIp());
+            GetBlockchainHeightRequest getBlockchainHeightRequest = new GetBlockchainHeightRequest();
+            GetBlockchainHeightResponse getBlockchainHeightResponse = nodeClient.getBlockchainHeight(getBlockchainHeightRequest);
+            if(getBlockchainHeightResponse != null){
+                node.setBlockchainHeight(getBlockchainHeightResponse.getBlockchainHeight());
+                nodeService.updateNode(node);
             }
         }
     }
+
 }

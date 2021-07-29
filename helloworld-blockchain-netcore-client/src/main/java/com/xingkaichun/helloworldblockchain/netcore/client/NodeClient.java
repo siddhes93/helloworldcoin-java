@@ -8,7 +8,7 @@ import com.xingkaichun.helloworldblockchain.netcore.dto.*;
  *
  * @author 邢开春 409060350@qq.com
  */
-public interface BlockchainNodeClient {
+public interface NodeClient {
 
     /**
      * 提交交易至节点

@@ -48,14 +48,14 @@
         <script>
             $(async function(){
                 let urlParameters = parseUrlParameters(location)
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionOutputByAddress",
                     data: `{
                         "address":"${urlParameters.get("address")}"
                     }`
                 });
                 console.log(response);
-                var transactionOutputDetail = response.data.transactionOutputDetail;
+                let transactionOutputDetail = response.data.transactionOutputDetail;
 
                 $('.panel-heading').text(`地址${urlParameters.get("address")}`);
 

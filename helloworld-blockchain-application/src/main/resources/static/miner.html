@@ -44,7 +44,7 @@
             let minerState1 = "我是一名矿工，我正在挖矿中...";
             let minerState2 = "我是一名矿工，我正在休息中...";
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive"
                 });
                 minerInActiveState = response.data.minerInActiveState;
@@ -67,12 +67,12 @@
 
             function showMessage(){
                 if(minerInActiveState){
-                    var message = ["矿工很累，但他还在坚持挖矿中","矿工举起了镐子，一稿子下去，挖出了一块金子"
+                    let message = ["矿工很累，但他还在坚持挖矿中","矿工举起了镐子，一稿子下去，挖出了一块金子"
                                 ,"矿工挖了连续工作四十八小时了，还没有任何收获","矿工为了诗与远方在挖矿中","矿工跌了一跤，他忍住疼痛，站起来继续挖矿"
                                 ,"矿工挖到了一颗螺丝钉","矿工挖到了一颗草莓","矿工挖到了一个苹果","矿工挖到了一条锦鲤"];
                     $('#action').text(message[Math.floor(Math.random()*(message.length))]);
                 }else{
-                    var message = ["矿工在嗑瓜子","矿工吃草莓","矿工在喝牛奶","矿工在看杂志","矿工在看小说","矿工在听音乐","矿工在做数学题","矿工在写作文"
+                    let message = ["矿工在嗑瓜子","矿工吃草莓","矿工在喝牛奶","矿工在看杂志","矿工在看小说","矿工在听音乐","矿工在做数学题","矿工在写作文"
                                 ,"矿工睡着了","矿工正在睡觉","矿工在做美梦","矿工有一个理想，他想当最牛的矿工，可是他在偷懒中"];
                     $('#action').text(message[Math.floor(Math.random()*(message.length))]);
                 }

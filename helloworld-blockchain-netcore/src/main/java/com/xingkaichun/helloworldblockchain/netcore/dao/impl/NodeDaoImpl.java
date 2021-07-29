@@ -27,11 +27,11 @@ public class NodeDaoImpl implements NodeDao {
 
     @Override
     public NodePo queryNode(String ip){
-        List<NodePo> nodePoList = queryAllNodeList();
-        if(nodePoList != null){
-            for(NodePo n: nodePoList){
-                if(StringUtil.isEquals(ip,n.getIp())){
-                    return n;
+        List<NodePo> nodePos = queryAllNodes();
+        if(nodePos != null){
+            for(NodePo nodePo: nodePos){
+                if(StringUtil.isEquals(ip,nodePo.getIp())){
+                    return nodePo;
                 }
             }
         }
@@ -54,17 +54,17 @@ public class NodeDaoImpl implements NodeDao {
     }
 
     @Override
-    public List<NodePo> queryAllNodeList(){
-        List<NodePo> list = new ArrayList<>();
+    public List<NodePo> queryAllNodes(){
+        List<NodePo> nodePos = new ArrayList<>();
         //获取所有
-        List<byte[]> bytesNodePoList = KvDbUtil.gets(getNodeDatabasePath(),1,100000000);
-        if(bytesNodePoList != null){
-            for(byte[] bytesNodePo:bytesNodePoList){
+        List<byte[]> bytesNodePos = KvDbUtil.gets(getNodeDatabasePath(),1,100000000);
+        if(bytesNodePos != null){
+            for(byte[] bytesNodePo:bytesNodePos){
                 NodePo nodePo = decodeToNodePo(bytesNodePo);
-                list.add(nodePo);
+                nodePos.add(nodePo);
             }
         }
-        return list;
+        return nodePos;
     }
     private String getNodeDatabasePath(){
         return FileUtil.newPath(netCoreConfiguration.getNetCorePath(), NODE_DATABASE_NAME);

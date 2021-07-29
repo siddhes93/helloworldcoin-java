@@ -34,9 +34,9 @@ public class DtoSizeTool {
         }
 
         //校验每一笔交易大小
-        List<TransactionDto> transactionDtoList = blockDto.getTransactions();
-        if(transactionDtoList != null){
-            for(TransactionDto transactionDto:transactionDtoList){
+        List<TransactionDto> transactionDtos = blockDto.getTransactions();
+        if(transactionDtos != null){
+            for(TransactionDto transactionDto:transactionDtos){
                 if(!checkTransactionSize(transactionDto)){
                     LogUtil.debug("交易数据异常，交易大小非法。");
                     return false;
@@ -146,8 +146,8 @@ public class DtoSizeTool {
 
         String nonce = blockDto.getNonce();
         size += sizeOfString(nonce);
-        List<TransactionDto> transactionDtoList = blockDto.getTransactions();
-        for(TransactionDto transactionDto:transactionDtoList){
+        List<TransactionDto> transactionDtos = blockDto.getTransactions();
+        for(TransactionDto transactionDto:transactionDtos){
             size += calculateTransactionSize(transactionDto);
         }
         return size;

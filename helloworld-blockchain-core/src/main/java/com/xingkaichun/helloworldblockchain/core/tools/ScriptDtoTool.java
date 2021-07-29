@@ -141,12 +141,6 @@ public class ScriptDtoTool {
     public static String getPublicKeyHashFromPayToPublicKeyHashOutputScript(OutputScriptDto outputScript) {
         return outputScript.get(3);
     }
-    /**
-     * 从交易输出脚本中获取地址
-     */
-    public static String addressFromPayToPublicKeyHashOutputScript(OutputScriptDto outputScript) {
-        return AccountUtil.addressFromPublicKeyHash(getPublicKeyHashFromPayToPublicKeyHashOutputScript(outputScript));
-    }
 
     /**
      * 创建P2PKH输出脚本

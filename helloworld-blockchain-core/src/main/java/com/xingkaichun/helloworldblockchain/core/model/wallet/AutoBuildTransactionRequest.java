@@ -9,16 +9,16 @@ import java.util.List;
  */
 public class AutoBuildTransactionRequest {
 
-    //收款方
-    private List<Payee> payees;
+    //[非找零]收款方
+    private List<Payee> nonChangePayees;
 
 
     //region get set
-    public List<Payee> getPayees() {
-        return payees;
+    public List<Payee> getNonChangePayees() {
+        return nonChangePayees;
     }
-    public void setPayees(List<Payee> payees) {
-        this.payees = payees;
+    public void setNonChangePayees(List<Payee> nonChangePayees) {
+        this.nonChangePayees = nonChangePayees;
     }
     //endregion
 }

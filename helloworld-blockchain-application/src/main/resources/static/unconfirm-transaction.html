@@ -41,20 +41,17 @@
         <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="load()">刷新</button></div>
         <script>
             let urlParameters = parseUrlParameters(location)
-            var request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
             load();
             async function load(){
                 //交易哈希
-                request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
-                var response = await $ajax({
+                let request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
+                let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: request
                 });
                 if(response.data != null){
-                    //alert("识别为交易哈希，点击确认按钮，跳转到交易详情页。");
                     let {blockDto} = response.data;
-                    var redirectUrl = `./transaction.html?transactionHash=${urlParameters.get("transactionHash")}`;
-                    console.log(redirectUrl);
+                    let redirectUrl = `./transaction.html?transactionHash=${urlParameters.get("transactionHash")}`;
                     window.location.href = redirectUrl;
                     return;
                 }

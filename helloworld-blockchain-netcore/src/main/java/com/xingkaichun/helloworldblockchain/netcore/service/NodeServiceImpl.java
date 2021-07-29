@@ -27,18 +27,18 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public List<Node> queryAllNodes(){
-        List<NodePo> nodePoList = nodeDao.queryAllNodeList();
-        return nodeEntityConvertNode(nodePoList);
+        List<NodePo> nodePos = nodeDao.queryAllNodes();
+        return nodePosToNodes(nodePos);
     }
 
     @Override
     public void addNode(Node node){
-        if(queryNode(node.getIp()) != null){
+        if(nodeDao.queryNode(node.getIp()) != null){
             return;
         }
         NodePo nodePo = new NodePo();
         nodePo.setIp(node.getIp());
-        long blockchainHeight = node.getBlockchainHeight()!=null?node.getBlockchainHeight(): GenesisBlockSetting.HEIGHT;
+        long blockchainHeight = node.getBlockchainHeight()!=null?node.getBlockchainHeight():GenesisBlockSetting.HEIGHT;
         nodePo.setBlockchainHeight(blockchainHeight);
         nodeDao.addNode(nodePo);
     }
@@ -58,21 +58,21 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node queryNode(String ip){
         NodePo nodePo = nodeDao.queryNode(ip);
-        return nodeEntityConvertNode(nodePo);
+        return nodePoToNode(nodePo);
     }
 
-    private List<Node> nodeEntityConvertNode(List<NodePo> nodePoList){
+    private List<Node> nodePosToNodes(List<NodePo> nodePos){
         List<Node> nodeList = new ArrayList<>();
-        if(nodePoList != null){
-            for(NodePo nodePo : nodePoList){
-                Node node = nodeEntityConvertNode(nodePo);
+        if(nodePos != null){
+            for(NodePo nodePo : nodePos){
+                Node node = nodePoToNode(nodePo);
                 nodeList.add(node);
             }
         }
         return nodeList;
     }
 
-    private Node nodeEntityConvertNode(NodePo nodePo){
+    private Node nodePoToNode(NodePo nodePo){
         if(nodePo == null){
             return null;
         }

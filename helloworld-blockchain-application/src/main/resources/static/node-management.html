@@ -58,10 +58,10 @@
 
         <script type="text/javascript">
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/QueryAllNodes"
                 });
-                const { nodes } = response.data
+                let { nodes } = response.data
                 let $list = $('#table-node-list');
                 $(nodes).each((index, item) => {
                     $list.append(`
@@ -78,7 +78,7 @@
             }());
 
             $('#show-add-page').click(async function(){
-                const str = `
+                let str = `
                 <table class="table" id="table-add-node">
                     <tbody>
                         <tr>
@@ -105,7 +105,7 @@
             });
 
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/AddNode",
                     data: `{"node":{"ip": "${$('#table-add-node-text-ip').val()}"}}`
                 });
@@ -116,7 +116,7 @@
             })
 
             $('body').delegate('.update-node', 'click', async function(){
-                const str = `
+                let str = `
                 <table class="table" id="table-add-node">
                     <tbody>
                         <tr>
@@ -152,7 +152,7 @@
             });
 
             $('body').delegate('#table-update-node-button-add', 'click', async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/UpdateNode",
                     data: `{"node":{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": "${$('#table-update-node-text-blockchainHeight').val()}"}}`
                 });
@@ -162,7 +162,7 @@
 
             $('body').delegate('.delete-node', 'click', async function(){
                 let ip = $(this).parent().parent().children(":first").text();
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteNode",
                     data: `{"node":{"ip": "${ip}"}}`
                 });

@@ -66,13 +66,13 @@
         <script>
             let minerInActiveState,autoSearchBlock,autoSearchNode;
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockchainHeight"
                 });
                 $('#blockHeight').text(response.data.blockchainHeight);
             }());
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsMinerActive"
                 });
                 minerInActiveState = response.data.minerInActiveState;
@@ -80,7 +80,7 @@
                 $('#minerSwitch').text(response.data.minerInActiveState ? '停止挖矿' : '开启挖矿');
             }());
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock"
                 });
                 autoSearchBlock = response.data.autoSearchBlock;
@@ -88,7 +88,7 @@
                 $('#autoSearchBlockSwitch').text(autoSearchBlock ? '停止搜索新区块' : '自动搜索新区块')
             }());
             $(async function(){
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode"
                 });
                 autoSearchNode = response.data.autoSearchNode;
@@ -98,7 +98,7 @@
 
             $('#deleteBlocks').click(async function(){
                 let res = prompt('删除区块，请输入要删除区块的高度。');
-                const response = await $ajax({
+                let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
                     data: `{
                         "blockHeight":"${res}"

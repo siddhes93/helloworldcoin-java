@@ -16,11 +16,11 @@ public class ResourcePathTool {
     public static String getDataRootPath() {
         String dataRootPath;
         if(OperateSystemUtil.isWindowsOperateSystem()){
-            dataRootPath = "C:\\HelloworldBlockchainDataJava\\";
+            dataRootPath = "C:\\helloworld-blockchain-java\\";
         }else if(OperateSystemUtil.isMacOperateSystem()){
-            dataRootPath = "/tmp/HelloworldBlockchainDataJava/";
+            dataRootPath = "/tmp/helloworld-blockchain-java/";
         }else{
-            dataRootPath = "/opt/HelloworldBlockchainDataJava/";
+            dataRootPath = "/tmp/helloworld-blockchain-java/";
         }
         FileUtil.makeDirectory(dataRootPath);
         return dataRootPath;

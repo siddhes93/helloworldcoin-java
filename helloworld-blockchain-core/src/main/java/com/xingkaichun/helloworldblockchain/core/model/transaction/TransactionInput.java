@@ -1,7 +1,6 @@
 package com.xingkaichun.helloworldblockchain.core.model.transaction;
 
 import com.xingkaichun.helloworldblockchain.core.model.script.InputScript;
-import com.xingkaichun.helloworldblockchain.crypto.model.Account;
 
 import java.io.Serializable;
 
@@ -35,16 +34,7 @@ public class TransactionInput implements Serializable {
      */
     private InputScript inputScript;
 
-    /**
-     * [账户]
-     * 账户可以用于生成[输入脚本]
-     * 冗余
-     */
-    private Account account;
-
     //region get set
-
-
     public TransactionOutput getUnspentTransactionOutput() {
         return unspentTransactionOutput;
     }
@@ -60,13 +50,5 @@ public class TransactionInput implements Serializable {
     public void setInputScript(InputScript inputScript) {
         this.inputScript = inputScript;
     }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-//endregion
+    //endregion
 }

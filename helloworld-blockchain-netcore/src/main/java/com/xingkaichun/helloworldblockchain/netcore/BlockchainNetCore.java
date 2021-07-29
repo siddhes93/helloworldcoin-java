@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
-import com.xingkaichun.helloworldblockchain.netcore.server.BlockchainNodeHttpServer;
+import com.xingkaichun.helloworldblockchain.netcore.server.NodeServer;
 import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 
@@ -43,14 +43,16 @@ import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
  */
 public class BlockchainNetCore {
 
-    private BlockchainCore blockchainCore;
-    private BlockchainNodeHttpServer blockchainNodeHttpServer;
     private NetCoreConfiguration netCoreConfiguration;
     private NodeService nodeService;
+
+    private BlockchainCore blockchainCore;
+    private NodeServer nodeServer;
 
     private SeedNodeInitializer seedNodeInitializer;
     private NodeSearcher nodeSearcher;
     private NodeBroadcaster nodeBroadcaster;
+    private NodeCleaner nodeCleaner;
 
     private BlockchainHeightSearcher blockchainHeightSearcher;
     private BlockchainHeightBroadcaster blockchainHeightBroadcaster;
@@ -61,9 +63,9 @@ public class BlockchainNetCore {
     private UnconfirmedTransactionsSearcher unconfirmedTransactionsSearcher;
 
 
-    public BlockchainNetCore(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, BlockchainNodeHttpServer blockchainNodeHttpServer
+    public BlockchainNetCore(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, NodeServer nodeServer
             , NodeService nodeService
-            , SeedNodeInitializer seedNodeInitializer, NodeSearcher nodeSearcher, NodeBroadcaster nodeBroadcaster
+            , SeedNodeInitializer seedNodeInitializer, NodeSearcher nodeSearcher, NodeBroadcaster nodeBroadcaster, NodeCleaner nodeCleaner
             , BlockchainHeightSearcher blockchainHeightSearcher, BlockchainHeightBroadcaster blockchainHeightBroadcaster
             , BlockSearcher blockSearcher, BlockBroadcaster blockBroadcaster
             , UnconfirmedTransactionsSearcher unconfirmedTransactionsSearcher
@@ -71,8 +73,9 @@ public class BlockchainNetCore {
         this.netCoreConfiguration = netCoreConfiguration;
 
         this.blockchainCore = blockchainCore;
-        this.blockchainNodeHttpServer = blockchainNodeHttpServer;
+        this.nodeServer = nodeServer;
         this.nodeService = nodeService;
+        this.nodeCleaner = nodeCleaner;
 
         this.seedNodeInitializer = seedNodeInitializer;
         this.nodeBroadcaster = nodeBroadcaster;
@@ -89,74 +92,72 @@ public class BlockchainNetCore {
 
     public void start() {
         //启动本地的单机区块链
-        blockchainCore.start();
+        new Thread(()->blockchainCore.start()).start();
         //启动区块链节点服务器
-        blockchainNodeHttpServer.start();
+        new Thread(()->nodeServer.start()).start();
 
         //种子节点初始化器
-        seedNodeInitializer.start();
+        new Thread(()->seedNodeInitializer.start()).start();
         //启动节点广播器
-        nodeBroadcaster.start();
+        new Thread(()->nodeBroadcaster.start()).start();
         //启动节点搜寻器
-        nodeSearcher.start();
+        new Thread(()->nodeSearcher.start()).start();
+        //启动节点清理器
+        new Thread(()->nodeCleaner.start()).start();
 
-        //启动区块高度广播器
-        blockchainHeightBroadcaster.start();
+        //启动区块链高度广播器
+        new Thread(()->blockchainHeightBroadcaster.start()).start();
         //启动区块链高度搜索器
-        blockchainHeightSearcher.start();
+        new Thread(()->blockchainHeightSearcher.start()).start();
 
         //启动区块广播器
-        blockBroadcaster.start();
+        new Thread(()->blockBroadcaster.start()).start();
         //启动区块搜寻器
-        blockSearcher.start();
+        new Thread(()->blockSearcher.start()).start();
 
         //未确认交易搜索器
-        unconfirmedTransactionsSearcher.start();
+        new Thread(()->unconfirmedTransactionsSearcher.start()).start();
     }
 
     //region get set
-    public BlockchainCore getBlockchainCore() {
-        return blockchainCore;
-    }
-
-    public BlockchainNodeHttpServer getBlockchainNodeHttpServer() {
-        return blockchainNodeHttpServer;
-    }
-
-    public NodeSearcher getNodeSearcher() {
-        return nodeSearcher;
-    }
-
-    public BlockSearcher getBlockSearcher() {
-        return blockSearcher;
-    }
-
-    public BlockBroadcaster getBlockBroadcaster() {
-        return blockBroadcaster;
-    }
-
     public NetCoreConfiguration getNetCoreConfiguration() {
         return netCoreConfiguration;
     }
-
-    public NodeBroadcaster getNodeBroadcaster() {
-        return nodeBroadcaster;
+    public BlockchainCore getBlockchainCore() {
+        return blockchainCore;
     }
-
+    public NodeServer getNodeServer() {
+        return nodeServer;
+    }
     public NodeService getNodeService() {
         return nodeService;
     }
-
     public SeedNodeInitializer getSeedNodeInitializer() {
         return seedNodeInitializer;
     }
-
+    public NodeSearcher getNodeSearcher() {
+        return nodeSearcher;
+    }
+    public NodeBroadcaster getNodeBroadcaster() {
+        return nodeBroadcaster;
+    }
+    public NodeCleaner getNodeCleaner() {
+        return nodeCleaner;
+    }
+    public BlockchainHeightSearcher getBlockchainHeightSearcher() {
+        return blockchainHeightSearcher;
+    }
     public BlockchainHeightBroadcaster getBlockchainHeightBroadcaster() {
         return blockchainHeightBroadcaster;
     }
-
-    public BlockchainHeightSearcher getBlockchainHeightSearcher() {
-        return blockchainHeightSearcher;
+    public BlockSearcher getBlockSearcher() {
+        return blockSearcher;
+    }
+    public BlockBroadcaster getBlockBroadcaster() {
+        return blockBroadcaster;
+    }
+    public UnconfirmedTransactionsSearcher getUnconfirmedTransactionsSearcher() {
+        return unconfirmedTransactionsSearcher;
     }
     //end
 }
