@@ -10,7 +10,7 @@ import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
  */
 public class NetCoreConfigurationImpl implements NetCoreConfiguration {
 
-    private String netcorePath;
+    private String netCorePath;
     private static final String NETCORE_CONFIGURATION_DATABASE_NAME = "NetCoreConfigurationDatabase";
 
     //节点搜索器"是否是自动搜索新区块"状态存入到数据库时的主键
@@ -47,15 +47,15 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     //在区块链网络中搜寻未确认交易的间隔时间。
     public static final long SEARCH_UNCONFIRMED_TRANSACTIONS_INTERVAL = 1000 * 60 * 2;
 
-    public NetCoreConfigurationImpl(String netcorePath) {
-        FileUtil.makeDirectory(netcorePath);
-        this.netcorePath = netcorePath;
+    public NetCoreConfigurationImpl(String netCorePath) {
+        FileUtil.makeDirectory(netCorePath);
+        this.netCorePath = netCorePath;
     }
 
 
     @Override
     public String getNetCorePath() {
-        return netcorePath;
+        return netCorePath;
     }
 
     @Override
@@ -157,6 +157,6 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     private String getNetCoreConfigurationDatabasePath(){
-        return FileUtil.newPath(netcorePath, NETCORE_CONFIGURATION_DATABASE_NAME);
+        return FileUtil.newPath(netCorePath, NETCORE_CONFIGURATION_DATABASE_NAME);
     }
 }

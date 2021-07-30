@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * 节点清理器：清除死亡节点。
+ * 所谓死亡节点就是无法联系的节点。
  *
  * @author 邢开春 409060350@qq.com
  */
@@ -52,7 +53,7 @@ public class NodeCleaner {
             PingResponse pingResponse = nodeClient.pingNode(pingRequest);
             if(pingResponse == null){
                 nodeService.deleteNode(node.getIp());
-                LogUtil.debug("节点清理器发现死亡节点["+node+"]，节点已从节点数据库删除。");
+                LogUtil.debug("节点清理器发现死亡节点["+node+"]，已在节点数据库中将该节点删除了。");
             }
         }
     }

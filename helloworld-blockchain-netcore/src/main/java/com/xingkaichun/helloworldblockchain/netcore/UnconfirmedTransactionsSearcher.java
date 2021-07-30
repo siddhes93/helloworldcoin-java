@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * 未确认交易搜索器
- * 搜索区块链网络中的未确认交易，放入未确认交易池。
+ * 搜索区块链网络中的未确认交易，放入未确认交易池，等待矿工用于挖矿。
  *
  * @author 邢开春 409060350@qq.com
  */
@@ -37,7 +37,7 @@ public class UnconfirmedTransactionsSearcher {
 
     public void start() {
         try {
-            while(true){
+            while (true){
                 searchUnconfirmedTransactions();
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsInterval());
             }

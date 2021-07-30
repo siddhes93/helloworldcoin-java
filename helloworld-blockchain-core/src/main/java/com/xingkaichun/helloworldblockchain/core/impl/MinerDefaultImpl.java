@@ -38,7 +38,7 @@ public class MinerDefaultImpl extends Miner {
 
     @Override
     public void start() {
-        while(true){
+        while (true){
             ThreadUtil.millisecondSleep(10);
             if(!isActive()){
                 continue;
@@ -47,7 +47,7 @@ public class MinerDefaultImpl extends Miner {
             Account minerAccount = wallet.createAccount();
             Block block = buildMiningBlock(blockchainDatabase,unconfirmedTransactionDatabase,minerAccount);
             long startTimestamp = TimeUtil.millisecondTimestamp();
-            while(true){
+            while (true){
                 if(!isActive()){
                     break;
                 }

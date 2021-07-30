@@ -30,7 +30,7 @@ public class NodeSearcher {
 
     public void start() {
         try {
-            while(true){
+            while (true){
                 searchNodes();
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchNodeTimeInterval());
             }
@@ -39,9 +39,6 @@ public class NodeSearcher {
         }
     }
 
-    /**
-     * 在区块链网络中搜寻新的节点
-     */
     private void searchNodes() {
         if(!netCoreConfiguration.isAutoSearchNode()){
             return;
@@ -58,16 +55,16 @@ public class NodeSearcher {
             NodeClient nodeClient = new NodeClientImpl(node.getIp());
             GetNodesRequest getNodesRequest = new GetNodesRequest();
             GetNodesResponse getNodesResponse = nodeClient.getNodes(getNodesRequest);
-            resolveGetNodesResponse(getNodesResponse);
+            handleGetNodesResponse(getNodesResponse);
         }
     }
 
-    private void resolveGetNodesResponse(GetNodesResponse getNodesResponse) {
+    private void handleGetNodesResponse(GetNodesResponse getNodesResponse) {
         if(getNodesResponse == null){
             return;
         }
         List<NodeDto> nodes = getNodesResponse.getNodes();
-        if(nodes == null){
+        if(nodes == null || nodes.size()==0){
             return;
         }
 
@@ -82,7 +79,7 @@ public class NodeSearcher {
                 Node n = new Node();
                 n.setIp(node.getIp());
                 nodeService.addNode(n);
-                LogUtil.debug("自动机制发现节点["+node+"]，节点已加入节点数据库。");
+                LogUtil.debug("自动机制发现节点["+node+"]，已在节点数据库中添加了该节点。");
             }
         }
     }

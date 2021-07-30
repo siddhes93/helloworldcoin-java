@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * 区块搜索器
- * 如果发现区块链网络中有可以进行同步的区块，则尝试同步区块到本地区块链。
+ * 尝试发现区块链网络中是否有区块链高度比自身区块链高度高的节点，若发现，则尝试同步区块到本地区块链。
  *
  * @author 邢开春 409060350@qq.com
  */
@@ -71,24 +71,20 @@ public class BlockSearcher {
             long blockchainHeight = blockchainCore.queryBlockchainHeight();
             //本地区块链高度小于远程节点区块链高度，此时需要将远程节点的区块同步到本地区块链。
             if(blockchainHeight < node.getBlockchainHeight()){
-                //复制主区块链核心的区块至从区块链核心
-                duplicateBlockchainCore(blockchainCore, slaveBlockchainCore);
                 //同步远程节点的区块到本地，未分叉同步至主链，分叉同步至从区块链核心
                 synchronizeRemoteNodeBlock(blockchainCore,slaveBlockchainCore,nodeService,node);
-                //同步从区块链核心的区块至主区块链核心
-                promoteMasterBlockchainCore(blockchainCore, slaveBlockchainCore);
             }
         }
     }
 
     /**
-     * 复制区块链核心的区块，操作完成后，'复制来源区块链核心'区块数据不发生变化，'复制去向区块链核心'的区块数据与主区块链核心的区块数据保持一致。
-     * @param fromBlockchainCore 复制来源区块链核心
-     * @param toBlockchainCore 复制去向区块链核心
+     * 复制区块链核心的区块，操作完成后，'来源区块链核心'区块数据不发生变化，'去向区块链核心'的区块数据与'来源区块链核心'的区块数据保持一致。
+     * @param fromBlockchainCore 来源区块链核心
+     * @param toBlockchainCore 去向区块链核心
      */
     private void duplicateBlockchainCore(BlockchainCore fromBlockchainCore,BlockchainCore toBlockchainCore) {
-        //删除'复制去向区块链核心'区块
-        while(true){
+        //删除'去向区块链核心'区块
+        while (true){
             Block toBlockchainTailBlock = toBlockchainCore.queryTailBlock() ;
             if(toBlockchainTailBlock == null){
                 break;
@@ -99,8 +95,8 @@ public class BlockSearcher {
             }
             toBlockchainCore.deleteTailBlock();
         }
-        //增加'复制去向区块链核心'区块
-        while(true){
+        //增加'去向区块链核心'区块
+        while (true){
             long toBlockchainHeight = toBlockchainCore.queryBlockchainHeight();
             Block nextBlock = fromBlockchainCore.queryBlockByBlockHeight(toBlockchainHeight+1) ;
             if(nextBlock == null){
@@ -112,21 +108,21 @@ public class BlockSearcher {
 
 
     /**
-     * 增加主区块链的区块，操作完成后，从区块链核心区块数据不发生变化，主区块链核心高度不变或者增长。
-     * @param masterBlockchainCore 主区块链核心
-     * @param slaveBlockchainCore 从区块链核心
+     * 增加"去向区块链核心"的区块，操作完成后，"来源区块链核心"的区块不发生变化，"去向区块链核心"的高度不变或者增长。
+     * @param fromBlockchainCore "来源区块链核心"
+     * @param toBlockchainCore "去向区块链核心"
      */
-    private void promoteMasterBlockchainCore(BlockchainCore masterBlockchainCore, BlockchainCore slaveBlockchainCore) {
-        //此时，从区块链核心高度低于主区块链核心高度，主区块链核心高度不能增加，结束逻辑。
-        if(masterBlockchainCore.queryBlockchainHeight() >= slaveBlockchainCore.queryBlockchainHeight()){
+    private void promoteBlockchainCore(BlockchainCore fromBlockchainCore, BlockchainCore toBlockchainCore) {
+        //此时，"去向区块链核心高度"大于"来源区块链核心高度"，"去向区块链核心高度"不能增加，结束逻辑。
+        if(toBlockchainCore.queryBlockchainHeight() >= fromBlockchainCore.queryBlockchainHeight()){
             return;
         }
         //硬分叉
-        if(isHardFork(masterBlockchainCore,slaveBlockchainCore)){
+        if(isHardFork(toBlockchainCore,fromBlockchainCore)){
             return;
         }
-        //此时，从区块链核心高度高于主区块链核心高度，且未硬分叉，可以增加主区块链核心的高度。
-        duplicateBlockchainCore(slaveBlockchainCore,masterBlockchainCore);
+        //此时，"去向区块链核心高度"小于"来源区块链核心高度"，且未硬分叉，可以增加"去向区块链核心高度"
+        duplicateBlockchainCore(fromBlockchainCore,toBlockchainCore);
     }
 
 
@@ -136,15 +132,15 @@ public class BlockSearcher {
     public void synchronizeRemoteNodeBlock(BlockchainCore masterBlockchainCore, BlockchainCore slaveBlockchainCore, NodeService nodeService, Node node) {
 
         Block masterBlockchainTailBlock = masterBlockchainCore.queryTailBlock();
-        long masterBlockchainTailBlockHeight = masterBlockchainCore.queryBlockchainHeight();
+        long masterBlockchainHeight = masterBlockchainCore.queryBlockchainHeight();
 
         //本地区块链与node区块链是否分叉？
         boolean fork = false;
-        if(masterBlockchainTailBlockHeight == GenesisBlockSetting.HEIGHT){
+        if(masterBlockchainHeight == GenesisBlockSetting.HEIGHT){
             fork = false;
         } else {
             GetBlockRequest getBlockRequest = new GetBlockRequest();
-            getBlockRequest.setBlockHeight(masterBlockchainTailBlockHeight);
+            getBlockRequest.setBlockHeight(masterBlockchainHeight);
             GetBlockResponse getBlockResponse = new NodeClientImpl(node.getIp()).getBlock(getBlockRequest);
             if(getBlockResponse == null){
                 return;
@@ -160,8 +156,10 @@ public class BlockSearcher {
 
         if(fork){
             //分叉
+            //复制主区块链核心的区块至从区块链核心
+            duplicateBlockchainCore(masterBlockchainCore, slaveBlockchainCore);
             //求分叉区块的高度，此时已知分叉了，从当前高度依次递减1，判断高度相同的区块的是否相等，若相等，(高度+1)即开始分叉高度。
-            long forkBlockHeight = masterBlockchainTailBlockHeight;
+            long forkBlockHeight = masterBlockchainHeight;
             while (true) {
                 if (forkBlockHeight <= GenesisBlockSetting.HEIGHT) {
                     break;
@@ -174,14 +172,14 @@ public class BlockSearcher {
                 }
                 BlockDto remoteBlock = getBlockResponse.getBlock();
                 if(remoteBlock == null){
-                    return;
+                    break;
                 }
                 Block localBlock = slaveBlockchainCore.queryBlockByBlockHeight(forkBlockHeight);
                 if(BlockDtoTool.isBlockEquals(Model2DtoTool.block2BlockDto(localBlock),remoteBlock)){
                     break;
                 }
                 //分叉长度过大，不可同步。这里，已经形成了硬分叉(两条完全不同的区块链)。
-                if (masterBlockchainTailBlockHeight-forkBlockHeight+1 >= netCoreConfiguration.getHardForkBlockCount()) {
+                if (masterBlockchainHeight-forkBlockHeight+1 >= netCoreConfiguration.getHardForkBlockCount()) {
                     return;
                 }
                 forkBlockHeight--;
@@ -198,7 +196,7 @@ public class BlockSearcher {
                 }
                 BlockDto remoteBlock = getBlockResponse.getBlock();
                 if(remoteBlock == null){
-                    return;
+                    break;
                 }
                 boolean isAddBlockSuccess = slaveBlockchainCore.addBlockDto(remoteBlock);
                 if(!isAddBlockSuccess){
@@ -206,6 +204,8 @@ public class BlockSearcher {
                 }
                 forkBlockHeight++;
             }
+            //同步从区块链核心的区块至主区块链核心
+            promoteBlockchainCore(slaveBlockchainCore, masterBlockchainCore);
         } else {
             //未分叉
             while (true){
@@ -230,10 +230,18 @@ public class BlockSearcher {
 
     /**
      * 是否硬分叉
-     * @param longer 两个形参中区块链高度较长的区块链核心
-     * @param shorter 两个形参中区块链高度较长的区块链核心
      */
-    private boolean isHardFork(BlockchainCore longer, BlockchainCore shorter) {
+    private boolean isHardFork(BlockchainCore blockchainCore1, BlockchainCore blockchainCore2) {
+        BlockchainCore longer;
+        BlockchainCore shorter;
+        if(blockchainCore1.queryBlockchainHeight()>=blockchainCore2.queryBlockchainHeight()){
+            longer = blockchainCore1;
+            shorter = blockchainCore2;
+        }else {
+            longer = blockchainCore2;
+            shorter = blockchainCore1;
+        }
+
         long shorterBlockchainHeight = shorter.queryBlockchainHeight();
         if(shorterBlockchainHeight < netCoreConfiguration.getHardForkBlockCount()){
             return false;

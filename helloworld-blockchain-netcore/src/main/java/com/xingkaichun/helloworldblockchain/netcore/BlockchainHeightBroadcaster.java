@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class BlockchainHeightBroadcaster {
 
-    NetCoreConfiguration netCoreConfiguration;
+    private NetCoreConfiguration netCoreConfiguration;
     private NodeService nodeService;
     private BlockchainCore blockchainCore;
 
@@ -42,7 +42,7 @@ public class BlockchainHeightBroadcaster {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getBlockchainHeightBroadcastTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("在区块链网络中广播区块高度异常",e);
+            SystemUtil.errorExit("在区块链网络中广播自身区块链高度异常",e);
         }
     }
 

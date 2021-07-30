@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * 区块链高度搜索器
  * 为什么要搜索节点的高度？
- * 在我的设计之中，本节点已知的所有节点的信息(ip、高度等)都持久化在本地，区块链高度搜索器定时的更新已知节点的高度。
- * 区块搜寻器BlockSearcher定时的用本地区块链高度与已知节点高度(存储在本地的高度)作比较
+ * 在我的设计之中，本节点已知的所有节点的信息(ip、区块链高度等)都持久化在本地，区块链高度搜索器定时的更新已知节点的高度。
+ * 区块搜寻器BlockSearcher定时的用本地区块链高度与已知节点的区块链高度(存储在本地的高度)作比较
  * ，若本地区块链高度较小，本地区块链则去同步远程节点的区块。
  *
  * @author 邢开春 409060350@qq.com
@@ -32,7 +32,8 @@ public class BlockchainHeightSearcher {
         this.nodeService = nodeService;
     }
 
-    public void start() {
+    public void
+    start() {
         try {
             while (true){
                 searchBlockchainHeight();
