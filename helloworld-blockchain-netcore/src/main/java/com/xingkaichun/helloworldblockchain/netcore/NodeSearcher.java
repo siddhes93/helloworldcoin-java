@@ -79,7 +79,7 @@ public class NodeSearcher {
                 Node n = new Node();
                 n.setIp(node.getIp());
                 nodeService.addNode(n);
-                LogUtil.debug("自动机制发现节点["+node+"]，已在节点数据库中添加了该节点。");
+                LogUtil.debug("自动机制发现节点["+node.getIp()+"]，已在节点数据库中添加了该节点。");
             }
         }
     }

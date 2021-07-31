@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class NetUtil {
 
-    public static String get(String requestUrl, String requestBody) throws IOException {
+    public static String get(String requestUrl, String requestBody) {
         OutputStreamWriter out = null;
         BufferedReader br = null;
         try {
@@ -47,6 +47,9 @@ public class NetUtil {
                 data.append(line);
             }
             return data.toString();
+        } catch (Exception e){
+            //发现异常，返回null
+            return null;
         } finally {
             try {
                 if(out != null){

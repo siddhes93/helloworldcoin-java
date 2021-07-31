@@ -1,8 +1,8 @@
-## 欢迎来到HelloworldBlockchain
-HelloworldBlockchain项目架构清晰，文档齐全，中文注释，可读性高，精简易学，为初学者学习研究区块链技术而生。  
-HelloworldBlockchain是一个Helloworld级别的区块链公链系统。  
-HelloworldBlockchain是一个Helloworld级别的数字货币项目。  
-HelloworldBlockchain开发调试简单，下载源码，导入idea(eclipse)，无需任何配置，找到启动类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+## helloworld-blockchain
+helloworld-blockchain项目架构清晰，文档齐全，中文注释，可读性高，精简易学，为初学者学习研究区块链技术而生。  
+helloworld-blockchain是一个Helloworld级别的区块链公链系统。  
+helloworld-blockchain是一个Helloworld级别的数字货币项目。  
+helloworld-blockchain开发调试简单，下载源码，导入idea(eclipse)，无需任何配置，找到启动类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 
 
 
@@ -24,56 +24,39 @@ http://119.3.57.171/
 
 
 
-## 必看
-[必看：项目安装、使用](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
-
-## 数字货币体验
-#### 数字货币初体验
-初体验：无需下载、无需安装软件，直接在演示网站操作，体验创建数字货币账户，交易，挖矿等区块链功能。  
-[1.如何拥有一个数字货币账户？](https://zhuanlan.zhihu.com/p/352458209)  
-[2.有了账户，如何查看该账户的余额？](https://zhuanlan.zhihu.com/p/352458209)  
-[3.有了账户，怎么获取数字货币？](https://zhuanlan.zhihu.com/p/352458209)  
-[4.有了账户，账户上也有钱了，怎么进行交易？](https://zhuanlan.zhihu.com/p/352458209)  
-[5.怎么挖矿赚数字货币？](https://zhuanlan.zhihu.com/p/352458209)
-
-
-
-## 技术文档
-[必读--白皮书](https://www.zhihu.com/question/51047975/answer/1778438713)  
-[必读--数据结构](https://zhuanlan.zhihu.com/p/332265582)  
-[钱包:公钥、私钥、地址](https://zhuanlan.zhihu.com/p/38196092)  
-[哈希运算](https://zhuanlan.zhihu.com/p/354442546)  
-[双哈希运算](https://zhuanlan.zhihu.com/p/353575311)  
-[区块哈希](https://zhuanlan.zhihu.com/p/353570191)  
-[交易哈希](https://zhuanlan.zhihu.com/p/353574892)  
-[默克尔树](https://zhuanlan.zhihu.com/p/40142647)  
-[区块大小、交易大小](https://zhuanlan.zhihu.com/p/336827577)  
-[脚本](https://zhuanlan.zhihu.com/p/353582574)  
-[UTXO未花费交易输出](https://www.zhihu.com/question/59913301/answer/1779203932)  
-[杂谈--双花攻击与51%攻击](https://zhuanlan.zhihu.com/p/258952892)
-
-
-
-## 代码规范
-[代码规范](https://github.com/xingkaichun/HelloworldBlockchain/blob/master/code-specification.md)
-
-
-
-## 产品设计
-[产品设计](https://github.com/xingkaichun/HelloworldBlockchain/blob/master/helloworldcoin-design.md)
+## 数字货币
+helloworld-blockchain本身是一个数字货币公链，用户可以体验数字货币的完整功能，例如，如何拥有一个数字货币账户？
+如何查看该账户的余额？怎么获取数字货币？怎么使用数字货币进行交易？怎么挖矿？等等。[点击链接查看详细说明](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
 
 
 
 ## 集成开发环境搭建
 #### eclipse
-HelloworldBlockchain项目没有任何复杂依赖，将项目导入eclipse，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+helloworld-blockchain项目没有任何复杂依赖，将项目导入eclipse，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 #### intellij idea
-HelloworldBlockchain项目没有任何复杂依赖，将项目导入idea，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+helloworld-blockchain项目没有任何复杂依赖，将项目导入idea，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+
+
+
+## 打包与发布
+#### 项目打包
+```  
+进入项目目录(请根据本地的实际项目目录运行命令)  
+cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain   
+运行项目打包命令   
+mvn -DskipTests=true clean package
+```
+#### 发布项目
+```  
+进入打包结果目录(请根据本地的实际项目目录运行命令)  
+cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain\helloworld-blockchain-application\target  
+运行启动命令  
+java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar  
+```
 
 
 
 ## 模块架构
-![架构图](https://z3.ax1x.com/2021/05/23/gXOKWd.jpg)
 #### helloworld-blockchain-application
 启动后，在浏览器输入地址 http://localhost/ 进入区块链系统的前台。他对外提供钱包应用、区块链浏览器应用、节点控制台应用三种应用的功能。
 * 区块链浏览器应用：对外提供了查询交易、查询区块、查询地址、查询区块链网络节点等功能。
@@ -96,18 +79,26 @@ HelloworldBlockchain项目没有任何复杂依赖，将项目导入idea，找�
 
 
 
-## 打包与发布
-#### 项目打包
-```  
-进入项目目录(请根据本地的实际项目目录运行命令)  
-cd C:\Users\xingkaichun\IdeaProjects\HelloworldBlockchain   
-运行项目打包命令   
-mvn -DskipTests=true clean package
-```
-#### 发布项目
-```  
-进入打包结果目录(请根据本地的实际项目目录运行命令)  
-cd C:\Users\xingkaichun\IdeaProjects\HelloworldBlockchain\helloworld-blockchain-application\target  
-运行启动命令  
-java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar  
-```
+## 代码规范
+[代码规范](https://github.com/xingkaichun/helloworld-blockchain/blob/master/code-specification.md)
+
+
+
+## 产品设计
+[产品设计](https://github.com/xingkaichun/helloworld-blockchain/blob/master/helloworldcoin-design.md)
+
+
+
+## 技术文档
+[必读--白皮书](https://www.zhihu.com/question/51047975/answer/1778438713)  
+[必读--数据结构](https://zhuanlan.zhihu.com/p/332265582)  
+[钱包:公钥、私钥、地址](https://zhuanlan.zhihu.com/p/38196092)  
+[哈希运算](https://zhuanlan.zhihu.com/p/354442546)  
+[双哈希运算](https://zhuanlan.zhihu.com/p/353575311)  
+[区块哈希](https://zhuanlan.zhihu.com/p/353570191)  
+[交易哈希](https://zhuanlan.zhihu.com/p/353574892)  
+[默克尔树](https://zhuanlan.zhihu.com/p/40142647)  
+[区块大小、交易大小](https://zhuanlan.zhihu.com/p/336827577)  
+[脚本](https://zhuanlan.zhihu.com/p/353582574)  
+[UTXO未花费交易输出](https://www.zhihu.com/question/59913301/answer/1779203932)  
+[杂谈--双花攻击与51%攻击](https://zhuanlan.zhihu.com/p/258952892)
