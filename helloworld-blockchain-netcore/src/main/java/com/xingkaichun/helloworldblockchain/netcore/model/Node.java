@@ -6,27 +6,21 @@ package com.xingkaichun.helloworldblockchain.netcore.model;
  */
 public class Node {
     private String ip;
-    private Long blockchainHeight;
-
-
+    private long blockchainHeight;
 
 
     //region get set
     public String getIp() {
         return ip;
     }
-
     public void setIp(String ip) {
         this.ip = ip;
     }
-
-    public Long getBlockchainHeight() {
+    public long getBlockchainHeight() {
         return blockchainHeight;
     }
-
-    public void setBlockchainHeight(Long blockchainHeight) {
+    public void setBlockchainHeight(long blockchainHeight) {
         this.blockchainHeight = blockchainHeight;
     }
-
     //endregion
 }

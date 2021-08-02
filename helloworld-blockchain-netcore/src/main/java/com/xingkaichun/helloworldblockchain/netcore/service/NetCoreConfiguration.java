@@ -56,7 +56,7 @@ public interface NetCoreConfiguration {
      */
     long getHardForkBlockCount();
 
-    long getSearchUnconfirmedTransactionsInterval();
+    long getSearchUnconfirmedTransactionsTimeInterval();
 
     long getNodeCleanTimeInterval();
 }

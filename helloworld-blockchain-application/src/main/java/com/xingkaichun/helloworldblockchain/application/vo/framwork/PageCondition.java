@@ -6,9 +6,9 @@ package com.xingkaichun.helloworldblockchain.application.vo.framwork;
  */
 public class PageCondition {
 
-    private Long from;
+    private long from;
 
-    private Long size;
+    private long size;
 
     public PageCondition() {
     }
@@ -17,19 +17,19 @@ public class PageCondition {
 
     //region get set
 
-    public Long getFrom() {
+    public long getFrom() {
         return from;
     }
 
-    public void setFrom(Long from) {
+    public void setFrom(long from) {
         this.from = from;
     }
 
-    public Long getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(long size) {
         this.size = size;
     }
     //endregion

@@ -1,9 +1,9 @@
 package com.xingkaichun.helloworldblockchain.application.service;
 
 import com.xingkaichun.helloworldblockchain.application.vo.block.BlockVo;
-import com.xingkaichun.helloworldblockchain.application.vo.transaction.UnconfirmedTransactionVo;
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.TransactionOutputDetailVo;
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.TransactionVo;
+import com.xingkaichun.helloworldblockchain.application.vo.transaction.UnconfirmedTransactionVo;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface BlockchainBrowserApplicationService {
      /**
      * 根据区块哈希查找区块
      */
-    BlockVo queryBlockViewByBlockHeight(Long blockHeight);
+    BlockVo queryBlockViewByBlockHeight(long blockHeight);
 
     /**
      * 根据交易哈希查找未确认的交易

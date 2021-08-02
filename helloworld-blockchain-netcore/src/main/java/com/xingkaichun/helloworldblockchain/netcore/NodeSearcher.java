@@ -78,6 +78,7 @@ public class NodeSearcher {
             if(pingResponse != null){
                 Node n = new Node();
                 n.setIp(node.getIp());
+                n.setBlockchainHeight(0);
                 nodeService.addNode(n);
                 LogUtil.debug("自动机制发现节点["+node.getIp()+"]，已在节点数据库中添加了该节点。");
             }

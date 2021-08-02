@@ -145,13 +145,16 @@ public class NodeConsoleApplicationController {
     @RequestMapping(value = NodeConsoleApplicationApi.ADD_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<AddNodeResponse> addNode(@RequestBody AddNodeRequest request){
         try {
-            Node node = request.getNode();
-            if(StringUtil.isNullOrEmpty(node.getIp())){
+            String ip = request.getIp();
+            if(StringUtil.isNullOrEmpty(ip)){
                 return Response.createFailResponse("节点IP不能为空");
             }
-            if(blockchainNetCore.getNodeService().queryNode(node.getIp()) != null){
+            if(blockchainNetCore.getNodeService().queryNode(ip) != null){
                 return Response.createFailResponse("节点已经存在，不需要重复添加");
             }
+            Node node = new Node();
+            node.setIp(ip);
+            node.setBlockchainHeight(0);
             blockchainNetCore.getNodeService().addNode(node);
             AddNodeResponse response = new AddNodeResponse();
             response.setAddNodeSuccess(true);
@@ -168,10 +171,14 @@ public class NodeConsoleApplicationController {
     @RequestMapping(value = NodeConsoleApplicationApi.UPDATE_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<UpdateNodeResponse> updateNode(@RequestBody UpdateNodeRequest request){
         try {
-            if(request.getNode() == null){
-                return Response.createFailResponse("请填写节点信息");
+            String ip = request.getIp();
+            if(StringUtil.isNullOrEmpty(ip)){
+                return Response.createFailResponse("节点IP不能为空");
             }
-            blockchainNetCore.getNodeService().updateNode(request.getNode());
+            Node node = new Node();
+            node.setIp(ip);
+            node.setBlockchainHeight(request.getBlockchainHeight());
+            blockchainNetCore.getNodeService().updateNode(node);
             UpdateNodeResponse response = new UpdateNodeResponse();
             return Response.createSuccessResponse("更新节点信息成功",response);
         } catch (Exception e){
@@ -186,7 +193,7 @@ public class NodeConsoleApplicationController {
     @RequestMapping(value = NodeConsoleApplicationApi.DELETE_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeleteNodeResponse> deleteNode(@RequestBody DeleteNodeRequest request){
         try {
-            blockchainNetCore.getNodeService().deleteNode(request.getNode().getIp());
+            blockchainNetCore.getNodeService().deleteNode(request.getIp());
             DeleteNodeResponse response = new DeleteNodeResponse();
             return Response.createSuccessResponse("删除节点成功",response);
         } catch (Exception e){
@@ -269,9 +276,6 @@ public class NodeConsoleApplicationController {
     @RequestMapping(value = NodeConsoleApplicationApi.DELETE_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeleteBlocksResponse> deleteBlocks(@RequestBody DeleteBlocksRequest request){
         try {
-            if(request.getBlockHeight() == null){
-                return Response.createFailResponse("删除区块失败，区块高度不能空。");
-            }
             blockchainCore.deleteBlocks(request.getBlockHeight());
             DeleteBlocksResponse response = new DeleteBlocksResponse();
             return Response.createSuccessResponse("删除区块成功",response);

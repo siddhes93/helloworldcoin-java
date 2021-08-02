@@ -1,5 +1,6 @@
 package com.xingkaichun.helloworldblockchain.application.interceptor;
 
+import com.xingkaichun.helloworldblockchain.util.StringUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -47,7 +48,7 @@ public class IpInterceptor implements HandlerInterceptor {
 	//获取允许的ip列表
 	private List<String> getAllowIps(){
 		String allowIps = System.getProperty(ALLOW_IPS_KEY);
-		if(allowIps != null && !allowIps.isEmpty()){
+		if(!StringUtil.isNullOrEmpty(allowIps)){
 			List<String> allowIpList = Arrays.asList(allowIps.split(ALLOW_IPS_VALUE_SEPARATOR));
 			return allowIpList;
 		}

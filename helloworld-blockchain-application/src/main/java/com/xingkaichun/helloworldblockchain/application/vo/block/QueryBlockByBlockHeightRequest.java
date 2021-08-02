@@ -6,18 +6,18 @@ package com.xingkaichun.helloworldblockchain.application.vo.block;
  */
 public class QueryBlockByBlockHeightRequest {
 
-    private Long blockHeight;
+    private long blockHeight;
 
 
 
 
     //region get set
 
-    public Long getBlockHeight() {
+    public long getBlockHeight() {
         return blockHeight;
     }
 
-    public void setBlockHeight(Long blockHeight) {
+    public void setBlockHeight(long blockHeight) {
         this.blockHeight = blockHeight;
     }
 

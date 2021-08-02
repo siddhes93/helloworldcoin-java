@@ -3,7 +3,6 @@ package com.xingkaichun.helloworldblockchain.netcore.service;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.po.NodePo;
-import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public List<Node> queryAllNodes(){
         List<NodePo> nodePos = nodeDao.queryAllNodes();
-        return nodePosToNodes(nodePos);
+        return nodePo2Nodes(nodePos);
     }
 
     @Override
@@ -36,10 +35,7 @@ public class NodeServiceImpl implements NodeService {
         if(nodeDao.queryNode(node.getIp()) != null){
             return;
         }
-        NodePo nodePo = new NodePo();
-        nodePo.setIp(node.getIp());
-        long blockchainHeight = node.getBlockchainHeight()!=null?node.getBlockchainHeight():GenesisBlockSetting.HEIGHT;
-        nodePo.setBlockchainHeight(blockchainHeight);
+        NodePo nodePo = node2NodePo(node);
         nodeDao.addNode(nodePo);
     }
 
@@ -49,36 +45,37 @@ public class NodeServiceImpl implements NodeService {
         if(nodePo == null){
             return;
         }
-        if(node.getBlockchainHeight() != null){
-            nodePo.setBlockchainHeight(node.getBlockchainHeight());
-        }
+        nodePo = node2NodePo(node);
         nodeDao.updateNode(nodePo);
     }
 
     @Override
     public Node queryNode(String ip){
         NodePo nodePo = nodeDao.queryNode(ip);
-        return nodePoToNode(nodePo);
+        return nodePo2Node(nodePo);
     }
 
-    private List<Node> nodePosToNodes(List<NodePo> nodePos){
+    private List<Node> nodePo2Nodes(List<NodePo> nodePos){
         List<Node> nodeList = new ArrayList<>();
         if(nodePos != null){
             for(NodePo nodePo : nodePos){
-                Node node = nodePoToNode(nodePo);
+                Node node = nodePo2Node(nodePo);
                 nodeList.add(node);
             }
         }
         return nodeList;
     }
-
-    private Node nodePoToNode(NodePo nodePo){
-        if(nodePo == null){
-            return null;
-        }
+    private Node nodePo2Node(NodePo nodePo){
         Node node = new Node();
         node.setIp(nodePo.getIp());
         node.setBlockchainHeight(nodePo.getBlockchainHeight());
         return node;
     }
+    private NodePo node2NodePo(Node node){
+        NodePo nodePo = new NodePo();
+        nodePo.setIp(node.getIp());
+        nodePo.setBlockchainHeight(node.getBlockchainHeight());
+        return nodePo;
+    }
+
 }

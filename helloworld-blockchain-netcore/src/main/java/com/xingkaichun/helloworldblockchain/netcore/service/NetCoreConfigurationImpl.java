@@ -45,7 +45,7 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     public static final long HARD_FORK_BLOCK_COUNT = 100000000;
 
     //在区块链网络中搜寻未确认交易的间隔时间。
-    public static final long SEARCH_UNCONFIRMED_TRANSACTIONS_INTERVAL = 1000 * 60 * 2;
+    public static final long SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL = 1000 * 60 * 2;
 
     public NetCoreConfigurationImpl(String netCorePath) {
         FileUtil.makeDirectory(netCorePath);
@@ -137,8 +137,8 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     @Override
-    public long getSearchUnconfirmedTransactionsInterval() {
-        return SEARCH_UNCONFIRMED_TRANSACTIONS_INTERVAL;
+    public long getSearchUnconfirmedTransactionsTimeInterval() {
+        return SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL;
     }
 
     @Override

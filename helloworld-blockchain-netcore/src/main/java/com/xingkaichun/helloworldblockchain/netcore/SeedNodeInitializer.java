@@ -55,6 +55,7 @@ public class SeedNodeInitializer {
         for(String seedNode: NetworkSetting.SEED_NODES){
             Node node = new Node();
             node.setIp(seedNode);
+            node.setBlockchainHeight(0);
             nodeService.addNode(node);
             LogUtil.debug("种子节点初始化器提示您:种子节点["+node.getIp()+"]加入了区块链网络。");
         }

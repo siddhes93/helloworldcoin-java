@@ -1,25 +1,20 @@
 package com.xingkaichun.helloworldblockchain.application.vo.node;
 
-import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-
 /**
  *
  * @author 邢开春 409060350@qq.com
  */
 public class AddNodeRequest {
 
-    private Node node;
-
-
+    private String ip;
 
 
     //region get set
-    public Node getNode() {
-        return node;
+    public String getIp() {
+        return ip;
     }
-
-    public void setNode(Node node) {
-        this.node = node;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
     //endregion
 }

@@ -1,13 +1,13 @@
 ## helloworld-blockchain
-helloworld-blockchain项目架构清晰，文档齐全，中文注释，可读性高，精简易学，为初学者学习研究区块链技术而生。  
-helloworld-blockchain是一个Helloworld级别的区块链公链系统。  
 helloworld-blockchain是一个Helloworld级别的数字货币项目。  
-helloworld-blockchain开发调试简单，下载源码，导入idea(eclipse)，无需任何配置，找到启动类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+helloworld-blockchain是一个Helloworld级别的区块链公链系统。  
+helloworld-blockchain项目架构清晰，文档齐全，可读性高，精简易学，为初学者学习研究区块链技术而生。通过这个项目，你将深入理解区块链，从技术细节到系统架构都将带给你超乎想象的收益。假设你将helloworld-blockchian-java不到万行的代码看完，你将会学会如下知识：UTXO是什么?默克尔树是什么?哈希是什么?挖矿是什么?区块链是如何动态调整难度?数字货币的匿名性是如何实现的?数字货币的不可篡改是如何实现的?如何自己发行一种数字货币?智能合约是怎么回事?等等所有区块链领域的根基知识在你面前都将再无任何秘密而言。    
+helloworld-blockchain开发调试简单，下载源码，导入idea，无需任何配置，找到启动类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 
 
 
-## 关于我
-我是邢开春 ，微信号xing_kai_chun，建了一个区块链聊天群，想加入的可以加我，拉你入群。
+## 区块链学习交流群
+helloworld-blockchian有一个数百人的区块链聊天群，想加入的伙伴，可以先在github上给项目点star，然后加微信xing_kai_chun。
 
 
 
@@ -24,15 +24,13 @@ http://119.3.57.171/
 
 
 
-## 数字货币
-helloworld-blockchain本身是一个数字货币公链，用户可以体验数字货币的完整功能，例如，如何拥有一个数字货币账户？
-如何查看该账户的余额？怎么获取数字货币？怎么使用数字货币进行交易？怎么挖矿？等等。[点击链接查看详细说明](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
+## 初识helloworld-blockchain
+[部分朋友对区块链一窍不懂，拿到项目无从下手，怎么办](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
+[项目部署与简单使用](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
 
 
 
 ## 集成开发环境搭建
-#### eclipse
-helloworld-blockchain项目没有任何复杂依赖，将项目导入eclipse，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 #### intellij idea
 helloworld-blockchain项目没有任何复杂依赖，将项目导入idea，找到类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 
@@ -42,14 +40,14 @@ helloworld-blockchain项目没有任何复杂依赖，将项目导入idea，找�
 #### 项目打包
 ```  
 进入项目目录(请根据本地的实际项目目录运行命令)  
-cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain   
+cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain-java   
 运行项目打包命令   
 mvn -DskipTests=true clean package
 ```
 #### 发布项目
 ```  
 进入打包结果目录(请根据本地的实际项目目录运行命令)  
-cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain\helloworld-blockchain-application\target  
+cd C:\Users\xingkaichun\IdeaProjects\helloworld-blockchain-java\helloworld-blockchain-application\target  
 运行启动命令  
 java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar  
 ```
@@ -73,7 +71,7 @@ java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar
 #### helloworld-blockchain-setting
 该模块存放全局配置
 #### helloworld-blockchain-crypto
-该模块封装了加密相关的工具。1.数字货币账户工具：①账户(私钥、公钥、公钥哈希、地址)生成工具。②私钥、公钥、公钥哈希、地址的相互转换工具。2.数字签名与签名验证。3.消息摘要：SHA-256、RipeMD160。4.字节编码方案：base58、hex。5.数据结构：默克尔树工具等。
+该模块封装了加密相关的工具。1.数字货币账户工具：①账户(私钥、公钥、公钥哈希、地址)生成工具。②私钥、公钥、公钥哈希、地址的相互转换工具。2.数字签名与签名验证工具。3.消息摘要工具：SHA-256、RipeMD160。4.字节编码工具：base58、hex。5.数据结构工具：默克尔树等。
 #### helloworld-blockchain-util
 该模块存放封装的开发工具类
 

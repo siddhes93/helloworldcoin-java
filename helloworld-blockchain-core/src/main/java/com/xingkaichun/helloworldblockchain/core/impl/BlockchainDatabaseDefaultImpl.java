@@ -11,7 +11,6 @@ import com.xingkaichun.helloworldblockchain.core.tools.*;
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
-import com.xingkaichun.helloworldblockchain.setting.SystemVersionSettingTool;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
@@ -108,11 +107,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     //region 校验区块、交易
     @Override
     public boolean checkBlock(Block block) {
-        //校验系统版本是否支持
-        if(!SystemVersionSettingTool.checkSystemVersion(block.getHeight())){
-            LogUtil.debug("系统版本过低，不支持校验区块，请尽快升级系统。");
-            return false;
-        }
 
         //校验区块的结构
         if(!StructureTool.checkBlockStructure(block)){

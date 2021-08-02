@@ -6,18 +6,18 @@ package com.xingkaichun.helloworldblockchain.application.vo.node;
  */
 public class QueryBlockchainHeightResponse {
 
-    private Long blockchainHeight ;
+    private long blockchainHeight ;
 
 
 
 
     //region get set
 
-    public Long getBlockchainHeight() {
+    public long getBlockchainHeight() {
         return blockchainHeight;
     }
 
-    public void setBlockchainHeight(Long blockchainHeight) {
+    public void setBlockchainHeight(long blockchainHeight) {
         this.blockchainHeight = blockchainHeight;
     }
 

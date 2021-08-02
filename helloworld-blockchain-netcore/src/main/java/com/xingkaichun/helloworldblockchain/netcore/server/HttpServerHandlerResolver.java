@@ -40,6 +40,7 @@ public class HttpServerHandlerResolver {
             if(netCoreConfiguration.isAutoSearchNode()){
                 Node node = new Node();
                 node.setIp(requestIp);
+                node.setBlockchainHeight(0);
                 nodeService.addNode(node);
                 LogUtil.debug("发现节点["+requestIp+"]在Ping本地节点，已将发现的节点放入了节点数据库。");
             }

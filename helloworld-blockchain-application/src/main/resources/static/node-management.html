@@ -107,7 +107,7 @@
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/AddNode",
-                    data: `{"node":{"ip": "${$('#table-add-node-text-ip').val()}"}}`
+                    data: `{"ip": "${$('#table-add-node-text-ip').val()}"}`
                 });
                 alert(response.message);
                 if(response.status == 'success'){
@@ -154,7 +154,7 @@
             $('body').delegate('#table-update-node-button-add', 'click', async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/UpdateNode",
-                    data: `{"node":{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": "${$('#table-update-node-text-blockchainHeight').val()}"}}`
+                    data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": "${$('#table-update-node-text-blockchainHeight').val()}"}`
                 });
                 alert(response.message);
                 location.reload();
@@ -164,7 +164,7 @@
                 let ip = $(this).parent().parent().children(":first").text();
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteNode",
-                    data: `{"node":{"ip": "${ip}"}}`
+                    data: `{"ip": "${ip}"}`
                 });
                 alert(response.message);
                 location.reload();

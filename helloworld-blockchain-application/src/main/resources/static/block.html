@@ -102,7 +102,7 @@
                 </div>`)
             }())
 
-            let request2 = `{ "blockHash": "${urlParameters.get("hash")}", "pageCondition": { "from": 1, "size": 10 } }`;
+            let request2 = `{"blockHash":"${urlParameters.get("hash")}","pageCondition":{"from":1,"size":10}}`;
             async function loadTransactions(){
                 let response2 = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionsByBlockHashTransactionHeight",

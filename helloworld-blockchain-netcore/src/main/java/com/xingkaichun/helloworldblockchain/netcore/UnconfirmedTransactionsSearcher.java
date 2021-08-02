@@ -39,7 +39,7 @@ public class UnconfirmedTransactionsSearcher {
         try {
             while (true){
                 searchUnconfirmedTransactions();
-                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsInterval());
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsTimeInterval());
             }
         } catch (Exception e) {
             SystemUtil.errorExit("在区块链网络中搜寻未确认交易出现异常",e);

@@ -7,7 +7,7 @@ package com.xingkaichun.helloworldblockchain.setting;
  */
 public class BlockSetting {
 
-    //区块最多含有的交易数量(TPS为1)
+    //区块最多含有的交易数量
     public static final long BLOCK_MAX_TRANSACTION_COUNT = 600;
     //区块的最大字符数量：用于限制区块的大小
     public static final long BLOCK_MAX_CHARACTER_COUNT = 1024 * 1024;

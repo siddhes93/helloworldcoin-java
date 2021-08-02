@@ -97,11 +97,11 @@
             }());
 
             $('#deleteBlocks').click(async function(){
-                let res = prompt('删除区块，请输入要删除区块的高度。');
+                let height = prompt('删除区块，请输入要删除区块的高度。');
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
                     data: `{
-                        "blockHeight":"${res}"
+                        "blockHeight":"${height}"
                     }`
                 });
                 location.reload();
