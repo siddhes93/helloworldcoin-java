@@ -33,12 +33,12 @@ public class IpInterceptor implements HandlerInterceptor {
 		if(DEFAULT_ALLOW_IPS.contains(remoteHost)){
 			return true;
 		}
-		List<String> allowIPs = getAllowIps();
-		if(allowIPs != null && !allowIPs.isEmpty()){
-			if(allowIPs.contains(ALL_IP)){
+		List<String> allowIps = getAllowIps();
+		if(allowIps != null && !allowIps.isEmpty()){
+			if(allowIps.contains(ALL_IP)){
 				return true;
 			}
-			if(allowIPs.contains(remoteHost)){
+			if(allowIps.contains(remoteHost)){
 				return true;
 			}
 		}
