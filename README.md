@@ -1,7 +1,10 @@
 ## helloworld-blockchain
-helloworld-blockchain是一个Helloworld级别的数字货币项目。  
-helloworld-blockchain是一个Helloworld级别的区块链公链系统。  
-helloworld-blockchain项目架构清晰，文档齐全，可读性高，精简易学，为初学者学习研究区块链技术而生。通过这个项目，你将深入理解区块链，从技术细节到系统架构都将带给你超乎想象的收益。假设你将helloworld-blockchian-java不到万行的代码看完，你将会学会如下知识：UTXO是什么?默克尔树是什么?哈希是什么?挖矿是什么?区块链是如何动态调整难度?数字货币的匿名性是如何实现的?数字货币的不可篡改是如何实现的?如何自己发行一种数字货币?智能合约是怎么回事?等等所有区块链领域的根基知识在你面前都将再无任何秘密而言。    
+helloworld-blockchain是一个helloworld级别的数字货币系统。  
+helloworld-blockchain是一个helloworld级别的区块链公链系统。  
+helloworld-blockchain麻雀虽小五脏俱全，她小在代码精炼，小在不保留非必要区块链功能，小在零依赖、零配置的部署，她的全，在于区块链技术的宽度与深度的实践，在于丰富的文档。  
+helloworld-blockchain架构清晰，文档丰富，精简易学，代码可读性高，代码注释清晰，为初学者学习研究实践区块链技术而生。
+通过这个项目，学习者将深入理解区块链，从技术细节到系统架构都将带给学习者超乎想象的收益。
+假设学习者将helloworld-blockchian不到万行的代码看完，学习者将会学会如下知识：哈希是什么?UTXO是什么?默克尔树是什么?挖矿是什么?钱包是什么?区块链是如何实现动态调整挖矿难度?区块链的不可篡改是如何实现的?数字货币的匿名性是如何实现的?如何自己发行一种数字货币?智能合约是怎么回事?等等所有区块链领域的根基知识在学习者的面前都将再无任何秘密而言。    
 helloworld-blockchain开发调试简单，下载源码，导入idea，无需任何配置，找到启动类文件com.xingkaichun.helloworldblockchain.application.HelloWorldBlockchainApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
 
 
@@ -25,7 +28,7 @@ http://119.3.57.171/
 
 
 ## 初识helloworld-blockchain
-[部分朋友对区块链一窍不懂，拿到项目无从下手，怎么办](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
+[部分学习者对区块链一窍不懂，拿到项目无从下手，怎么办](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/30)  
 [项目部署与简单使用](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
 
 
