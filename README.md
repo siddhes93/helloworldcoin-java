@@ -57,7 +57,7 @@ java -jar helloworld-blockchain-application-1.0-SNAPSHOT.jar
 
 
 
-## helloworld-blockchain架构图
+## 架构图
 ![helloworld-blockchain-java架构图](https://user-images.githubusercontent.com/49269996/131206309-bf32c2de-efd3-4c0e-b075-e465fc53ffeb.png)
 
 

@@ -25,4 +25,20 @@ public class ResourcePathTool {
         FileUtil.makeDirectory(dataRootPath);
         return dataRootPath;
     }
+
+    /**
+     * 获取测试区块链数据存放目录
+     */
+    public static String getTestDataRootPath() {
+        String dataRootPath;
+        if(OperateSystemUtil.isWindowsOperateSystem()){
+            dataRootPath = "C:\\helloworld-blockchain-java-test\\";
+        }else if(OperateSystemUtil.isMacOperateSystem()){
+            dataRootPath = "/tmp/helloworld-blockchain-java-test/";
+        }else{
+            dataRootPath = "/tmp/helloworld-blockchain-java-test/";
+        }
+        FileUtil.makeDirectory(dataRootPath);
+        return dataRootPath;
+    }
 }

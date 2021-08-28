@@ -52,6 +52,9 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node queryNode(String ip){
         NodePo nodePo = nodeDao.queryNode(ip);
+        if(nodePo == null){
+            return null;
+        }
         return nodePo2Node(nodePo);
     }
 

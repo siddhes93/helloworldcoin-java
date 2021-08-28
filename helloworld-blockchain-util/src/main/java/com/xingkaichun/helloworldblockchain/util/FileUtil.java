@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.util;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * File工具类
@@ -37,6 +37,24 @@ public class FileUtil {
         boolean isDeleteDirectorySuccess = file.delete();
         if(!isDeleteDirectorySuccess){
             throw new RuntimeException("delete directory failed.");
+        }
+    }
+
+    public static String read(String path) {
+        File file = new File(path);
+        FileInputStream fileStream = null;
+        try {
+            fileStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileStream, "UTF-8");
+            BufferedReader br = new BufferedReader(inputStreamReader);
+            String text = "";
+            String line;
+            while((line = br.readLine()) != null){
+                text += line;
+            }
+            return text;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
