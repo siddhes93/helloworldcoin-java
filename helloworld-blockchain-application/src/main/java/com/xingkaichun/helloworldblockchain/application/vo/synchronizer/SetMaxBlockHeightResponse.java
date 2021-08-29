@@ -5,6 +5,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.synchronizer;
  * @author sevenshi seven_shi@qq.com
  */
 public class SetMaxBlockHeightResponse {
+
     private long maxBlockHeight;
 
 

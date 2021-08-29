@@ -1,7 +1,5 @@
 package com.xingkaichun.helloworldblockchain.application.vo.node;
 
-import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-
 import java.util.List;
 
 /**
@@ -10,17 +8,17 @@ import java.util.List;
  */
 public class QueryAllNodesResponse {
 
-    private List<Node> nodes;
+    private List<NodeVo> nodes;
 
 
 
 
     //region get set
-    public List<Node> getNodes() {
+    public List<NodeVo> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(List<NodeVo> nodes) {
         this.nodes = nodes;
     }
     //endregion

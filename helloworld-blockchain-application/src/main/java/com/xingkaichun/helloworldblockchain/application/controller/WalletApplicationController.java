@@ -51,8 +51,9 @@ public class WalletApplicationController {
     public Response<CreateAccountResponse> createAccount(@RequestBody CreateAccountRequest request){
         try {
             Account account = AccountUtil.randomAccount();
+            AccountVo accountVo = new AccountVo(account.getPrivateKey(),account.getPublicKey(),account.getPublicKeyHash(),account.getAddress());
             CreateAccountResponse response = new CreateAccountResponse();
-            response.setAccount(account);
+            response.setAccount(accountVo);
             return Response.createSuccessResponse("生成账户成功",response);
         } catch (Exception e){
             String message = "生成账户失败";
@@ -68,8 +69,9 @@ public class WalletApplicationController {
     public Response<CreateAndSaveAccountResponse> createAndSaveAccount(@RequestBody CreateAndSaveAccountRequest request){
         try {
             Account account = blockchainCore.getWallet().createAndSaveAccount();
+            AccountVo accountVo = new AccountVo(account.getPrivateKey(),account.getPublicKey(),account.getPublicKeyHash(),account.getAddress());
             CreateAndSaveAccountResponse response = new CreateAndSaveAccountResponse();
-            response.setAccount(account);
+            response.setAccount(accountVo);
             return Response.createSuccessResponse("[生成账户并保存]成功",response);
         } catch (Exception e){
             String message = "[生成账户并保存]失败";
@@ -130,10 +132,10 @@ public class WalletApplicationController {
             Wallet wallet = blockchainCore.getWallet();
             List<Account> allAccounts = wallet.getAllAccounts();
 
-            List<QueryAllAccountsResponse.AccountVo> accountVoList = new ArrayList<>();
+            List<AccountVo2> accountVoList = new ArrayList<>();
             if(allAccounts != null){
                 for(Account account:allAccounts){
-                    QueryAllAccountsResponse.AccountVo accountVo = new QueryAllAccountsResponse.AccountVo();
+                    AccountVo2 accountVo = new AccountVo2();
                     accountVo.setAddress(account.getAddress());
                     accountVo.setPrivateKey(account.getPrivateKey());
                     accountVo.setValue(wallet.getBalanceByAddress(account.getAddress()));
@@ -141,7 +143,7 @@ public class WalletApplicationController {
                 }
             }
             long balance = 0;
-            for(QueryAllAccountsResponse.AccountVo accountVo : accountVoList){
+            for(AccountVo2 accountVo : accountVoList){
                 balance += accountVo.getValue();
             }
             QueryAllAccountsResponse response = new QueryAllAccountsResponse();

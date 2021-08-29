@@ -5,10 +5,10 @@ import com.xingkaichun.helloworldblockchain.application.vo.transaction.SubmitTra
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCore;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
-import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
+import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,25 +37,25 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
         blockchainCore.postTransaction(transactionDto);
         //提交交易到网络
         List<Node> nodes = blockchainNetCore.getNodeService().queryAllNodes();
-        List<SubmitTransactionToBlockchainNetworkResponse.Node> successSubmitNode = new ArrayList<>();
-        List<SubmitTransactionToBlockchainNetworkResponse.Node> failSubmitNode = new ArrayList<>();
+        List<String> successSubmitNodes = new ArrayList<>();
+        List<String> failedSubmitNodes = new ArrayList<>();
         if(nodes != null){
             for(Node node:nodes){
                 PostTransactionRequest postTransactionRequest = new PostTransactionRequest();
                 postTransactionRequest.setTransaction(transactionDto);
                 PostTransactionResponse postTransactionResponse = new NodeClientImpl(node.getIp()).postTransaction(postTransactionRequest);
                 if(postTransactionResponse != null){
-                    successSubmitNode.add(new SubmitTransactionToBlockchainNetworkResponse.Node(node.getIp()));
+                    successSubmitNodes.add(node.getIp());
                 } else {
-                    failSubmitNode.add(new SubmitTransactionToBlockchainNetworkResponse.Node(node.getIp()));
+                    failedSubmitNodes.add(node.getIp());
                 }
             }
         }
 
         SubmitTransactionToBlockchainNetworkResponse response = new SubmitTransactionToBlockchainNetworkResponse();
         response.setTransaction(transactionDto);
-        response.setSuccessSubmitNode(successSubmitNode);
-        response.setFailSubmitNode(failSubmitNode);
+        response.setSuccessSubmitNodes(successSubmitNodes);
+        response.setFailedSubmitNodes(failedSubmitNodes);
         return response;
     }
 }

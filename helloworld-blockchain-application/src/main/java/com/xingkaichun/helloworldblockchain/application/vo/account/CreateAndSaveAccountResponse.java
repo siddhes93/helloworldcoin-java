@@ -1,29 +1,24 @@
 package com.xingkaichun.helloworldblockchain.application.vo.account;
 
 
-import com.xingkaichun.helloworldblockchain.crypto.model.Account;
-
 /**
  *
  * @author 邢开春 409060350@qq.com
  */
 public class CreateAndSaveAccountResponse {
 
-    private Account account;
+    private AccountVo account;
 
 
 
 
     //region get set
-
-    public Account getAccount() {
+    public AccountVo getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(AccountVo account) {
         this.account = account;
     }
-
-
     //endregion
 }

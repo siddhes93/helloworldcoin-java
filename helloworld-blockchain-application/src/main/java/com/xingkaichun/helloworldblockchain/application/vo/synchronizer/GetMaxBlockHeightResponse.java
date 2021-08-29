@@ -5,6 +5,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.synchronizer;
  * @author sevenshi seven_shi@qq.com
  */
 public class GetMaxBlockHeightResponse {
+
     private long maxBlockHeight;
 
 
@@ -16,6 +17,5 @@ public class GetMaxBlockHeightResponse {
     public void setMaxBlockHeight(long maxBlockHeight) {
         this.maxBlockHeight = maxBlockHeight;
     }
-
     //endregion
 }

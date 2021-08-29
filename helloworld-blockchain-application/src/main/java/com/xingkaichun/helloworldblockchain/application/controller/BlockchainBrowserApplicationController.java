@@ -250,9 +250,9 @@ public class BlockchainBrowserApplicationController {
                 blockHeight--;
             }
 
-            List<QueryTop10BlocksResponse.BlockVo> BlockVos = new ArrayList<>();
+            List<BlockVo2> BlockVos = new ArrayList<>();
             for(Block block : blocks){
-                QueryTop10BlocksResponse.BlockVo blockVo = new QueryTop10BlocksResponse.BlockVo();
+                BlockVo2 blockVo = new BlockVo2();
                 blockVo.setHeight(block.getHeight());
                 blockVo.setBlockSize(SizeTool.calculateBlockSize(block)+"字符");
                 blockVo.setTransactionCount(BlockTool.getTransactionCount(block));

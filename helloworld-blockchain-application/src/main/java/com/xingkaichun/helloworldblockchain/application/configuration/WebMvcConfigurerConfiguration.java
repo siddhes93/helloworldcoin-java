@@ -34,7 +34,7 @@ public class WebMvcConfigurerConfiguration implements WebMvcConfigurer {
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> handlerExceptionResolvers) {
 		handlerExceptionResolvers.add((httpServletRequest, httpServletResponse, handler, exception) -> {
-			LogUtil.error("统一异常拦截。",exception);
+			LogUtil.error("全局异常拦截。",exception);
 			try {
 				httpServletResponse.setHeader("Content-type", "application/json;");
 				httpServletResponse.setStatus(500);
@@ -43,7 +43,7 @@ public class WebMvcConfigurerConfiguration implements WebMvcConfigurer {
 				String jsonStringResponse = JsonUtil.toString(response);
 				httpServletResponse.getWriter().write(jsonStringResponse);
 			} catch (Exception e) {
-				LogUtil.error("将统一异常写入到HttpServletResponse出现错误。",e);
+				LogUtil.error("将拦截到的全局异常写入到HttpServletResponse出现错误。",e);
 			}
 			return new ModelAndView();
 		});

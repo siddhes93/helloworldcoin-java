@@ -12,41 +12,15 @@ public class SubmitTransactionToBlockchainNetworkResponse {
 
     //交易
     private TransactionDto transaction;
-
     //交易成功提交的节点
-    private List<Node> successSubmitNode;
-
+    private List<String> successSubmitNodes;
     //交易提交失败的节点
-    private List<Node> failSubmitNode;
-
-    public static class Node{
-        private String ip;
-
-        public Node() {
-        }
-
-        public Node(String ip) {
-            this.ip = ip;
-        }
-
-        //region get set
-
-        public String getIp() {
-            return ip;
-        }
-
-        public void setIp(String ip) {
-            this.ip = ip;
-        }
-
-        //endregion
-    }
+    private List<String> failedSubmitNodes;
 
 
 
 
     //region get set
-
     public TransactionDto getTransaction() {
         return transaction;
     }
@@ -55,21 +29,20 @@ public class SubmitTransactionToBlockchainNetworkResponse {
         this.transaction = transaction;
     }
 
-    public List<Node> getSuccessSubmitNode() {
-        return successSubmitNode;
+    public List<String> getSuccessSubmitNodes() {
+        return successSubmitNodes;
     }
 
-    public void setSuccessSubmitNode(List<Node> successSubmitNode) {
-        this.successSubmitNode = successSubmitNode;
+    public void setSuccessSubmitNodes(List<String> successSubmitNodes) {
+        this.successSubmitNodes = successSubmitNodes;
     }
 
-    public List<Node> getFailSubmitNode() {
-        return failSubmitNode;
+    public List<String> getFailedSubmitNodes() {
+        return failedSubmitNodes;
     }
 
-    public void setFailSubmitNode(List<Node> failSubmitNode) {
-        this.failSubmitNode = failSubmitNode;
+    public void setFailedSubmitNodes(List<String> failedSubmitNodes) {
+        this.failedSubmitNodes = failedSubmitNodes;
     }
-
     //endregion
 }

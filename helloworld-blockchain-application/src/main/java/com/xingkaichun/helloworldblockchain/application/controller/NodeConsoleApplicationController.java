@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -209,8 +210,19 @@ public class NodeConsoleApplicationController {
     public Response<QueryAllNodesResponse> queryAllNodes(@RequestBody QueryAllNodesRequest request){
         try {
             List<Node> nodes = blockchainNetCore.getNodeService().queryAllNodes();
+
+            List<NodeVo> nodeVos = new ArrayList<>();
+            if(nodes != null){
+                for (Node node:nodes) {
+                    NodeVo nodeVo = new NodeVo();
+                    nodeVo.setIp(node.getIp());
+                    nodeVo.setBlockchainHeight(node.getBlockchainHeight());
+                    nodeVos.add(nodeVo);
+                }
+            }
+
             QueryAllNodesResponse response = new QueryAllNodesResponse();
-            response.setNodes(nodes);
+            response.setNodes(nodeVos);
             return Response.createSuccessResponse("查询节点成功",response);
         } catch (Exception e){
             String message = "查询节点失败";
@@ -287,17 +299,17 @@ public class NodeConsoleApplicationController {
     }
 
     /**
-     * 设置最大挖矿高度
+     * 获取最大挖矿高度
      */
     @RequestMapping(value = NodeConsoleApplicationApi.GET_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<GetMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMaxBlockHeightResponse request){
+    public Response<GetMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMaxBlockHeightRequest request){
         try {
             long  maxBlockHeight = blockchainCore.getMiner().getMaxBlockHeight();
             GetMaxBlockHeightResponse response = new GetMaxBlockHeightResponse();
             response.setMaxBlockHeight(maxBlockHeight);
-            return Response.createSuccessResponse("设置[最大挖矿高度]成功",response);
+            return Response.createSuccessResponse("获取[最大挖矿高度]成功",response);
         } catch (Exception e){
-            String message = "设置[最大挖矿高度]失败";
+            String message = "获取[最大挖矿高度]失败";
             LogUtil.error(message,e);
             return Response.createFailResponse(message);
         }
