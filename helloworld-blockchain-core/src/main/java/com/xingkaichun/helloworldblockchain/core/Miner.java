@@ -47,7 +47,18 @@ public abstract class Miner {
      * 停用矿工：设置矿工为非活动状态。
      */
     public abstract void deactive() ;
+
+    /**
+     * 设置矿工可挖掘的最高区块高度
+     */
+    public abstract void setMaxBlockHeight(Long maxHeight) ;
+    /**
+     * 获取矿工可挖掘的最高区块高度
+     */
+    public abstract long getMaxBlockHeight( ) ;
+
     //endregion
+
 
 
     //region get set

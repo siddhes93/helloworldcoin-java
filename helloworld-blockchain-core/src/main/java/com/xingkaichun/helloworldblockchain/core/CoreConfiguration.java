@@ -1,5 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core;
 
+import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+
 /**
  * Core配置: BlockchainCore的配置。
  * 该类对BlockchainCore模块的配置进行统一管理。
@@ -26,6 +28,16 @@ public abstract class CoreConfiguration {
      * 停用矿工
      */
     public abstract void deactiveMiner() ;
+    /**
+     * 设置矿工能挖掘的最高区块高度
+     */
+    public abstract void setMaxBlockHeight(Long maxHeight) ;
+
+    /**
+     * 获取矿工能挖掘的最高区块高度
+     */
+    public abstract long getMaxBlockHeight() ;
+
     /**
      * 矿工挖矿时间周期
      * 矿工在组装好矿之后，系统会分配矿工一个确定的时间(这个时间就叫矿工挖矿时间周期)来让矿工进行挖矿，
