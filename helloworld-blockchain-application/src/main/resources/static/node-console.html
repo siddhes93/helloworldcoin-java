@@ -59,12 +59,19 @@
                         <td id="autoSearchNode"></td>
                         <td ><button class="btn btn-primary" type="submit" id="autoSearchNodeSwitch">占位符</button></td>
                     </tr>
+                    <tr>
+                        <td>最大挖矿高度</td>
+                        <td>
+                            <input   type="text" id="maxBlockHeight">
+                        </td>
+                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">设置最大挖矿高度</button></td>
+                    </tr>
                 </thead>
             </table>
         </div>
 
         <script>
-            let minerInActiveState,autoSearchBlock,autoSearchNode;
+            let minerInActiveState,autoSearchBlock,autoSearchNode,maxBlockHeight;
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockchainHeight"
@@ -94,6 +101,13 @@
                 autoSearchNode = response.data.autoSearchNode;
                 $('#autoSearchNode').text(autoSearchNode ? '自动搜索新节点' : '已暂停搜索新节点');
                 $('#autoSearchNodeSwitch').text(autoSearchNode ? '停止搜索新节点' : '自动搜索新节点');
+            }());
+            $(async function(){
+                let response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/GetMaxBlockHeight"
+                });
+                maxBlockHeight = response.data.maxBlockHeight;
+                $('#maxBlockHeight').val(maxBlockHeight );
             }());
 
             $('#deleteBlocks').click(async function(){
@@ -140,6 +154,16 @@
                         url : baseUrl() + "/Api/NodeConsoleApplication/ActiveAutoSearchNode"
                     });
                 }
+                location.reload();
+            })
+            $('#setMaxBlockHeight').click(async function(){
+                maxBlockHeight = $('#maxBlockHeight').val();
+                let response = await $ajax({
+                    url : baseUrl() + "/Api/NodeConsoleApplication/SetMaxBlockHeight",
+                    data: `{
+                        "maxBlockHeight":"${maxBlockHeight}"
+                    }`
+                });
                 location.reload();
             })
         </script>

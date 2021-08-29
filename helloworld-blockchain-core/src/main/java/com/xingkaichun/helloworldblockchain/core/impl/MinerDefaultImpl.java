@@ -43,6 +43,13 @@ public class MinerDefaultImpl extends Miner {
             if(!isActive()){
                 continue;
             }
+
+            long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
+            long maxBlockHeight = getMaxBlockHeight();
+            if( maxBlockHeight != 0 && blockChainHeight >= maxBlockHeight ){
+                continue;
+            }
+
             //创建一个账户用于存放挖矿成功后发放的激励金额
             Account minerAccount = wallet.createAccount();
             Block block = buildMiningBlock(blockchainDatabase,unconfirmedTransactionDatabase,minerAccount);
@@ -93,7 +100,15 @@ public class MinerDefaultImpl extends Miner {
     }
 
 
+    @Override
+    public void setMaxBlockHeight(Long maxHeight) {
+         coreConfiguration.setMaxBlockHeight(maxHeight);
+    }
 
+    @Override
+    public long getMaxBlockHeight( ) {
+        return coreConfiguration.getMaxBlockHeight();
+    }
 
     /**
      * 构建挖矿区块

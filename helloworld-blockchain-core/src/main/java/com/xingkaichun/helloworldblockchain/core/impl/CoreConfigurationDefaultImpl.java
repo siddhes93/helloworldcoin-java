@@ -19,6 +19,12 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
 
     //'矿工是否是激活状态'存入到数据库时的主键
     private static final String MINE_OPTION_KEY = "IS_MINER_ACTIVE";
+
+    //'矿工可挖的最高区块高度'存入到数据库时的主键
+    private static final String MINE_MAX_BLOCK_HEIGHT_KEY = "MAX_BLOCK_HEIGHT";
+
+
+
     //'矿工是否是激活状态'的默认值
     private static final boolean MINE_OPTION_DEFAULT_VALUE = false;
 
@@ -54,6 +60,20 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
     @Override
     public void deactiveMiner() {
         addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.FALSE)));
+    }
+
+    @Override
+    public void setMaxBlockHeight(Long maxHeight) {
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(maxHeight)));
+    }
+
+    @Override
+    public long getMaxBlockHeight() {
+        byte[] mineOption = getConfigurationValue(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY));
+        if(mineOption == null){
+            return 0;
+        }
+        return Long.parseLong(ByteUtil.utf8BytesToString(mineOption));
     }
 
     @Override

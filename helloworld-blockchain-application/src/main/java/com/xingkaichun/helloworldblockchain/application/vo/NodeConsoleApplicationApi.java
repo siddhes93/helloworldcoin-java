@@ -32,7 +32,10 @@ public class NodeConsoleApplicationApi {
     //关闭"自动搜索节点"选项
     public static final String DEACTIVE_AUTO_SEARCH_NODE = "/Api/NodeConsoleApplication/DeactiveAutoSearchNode";
 
-
+    //设置最大挖矿高度
+    public static final String SET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/SetMaxBlockHeight";
+    //获取最大挖矿高度
+    public static final String GET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/GetMaxBlockHeight";
 
     //新增节点
     public static final String ADD_NODE = "/Api/NodeConsoleApplication/AddNode";
@@ -47,5 +50,6 @@ public class NodeConsoleApplicationApi {
 
     //删除区块
     public static final String DELETE_BLOCKS = "/Api/NodeConsoleApplication/DeleteBlocks";
+
 
 }

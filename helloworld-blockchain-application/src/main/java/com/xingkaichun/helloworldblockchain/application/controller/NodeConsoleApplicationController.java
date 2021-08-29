@@ -285,4 +285,39 @@ public class NodeConsoleApplicationController {
             return Response.createFailResponse(message);
         }
     }
+
+    /**
+     * 设置最大挖矿高度
+     */
+    @RequestMapping(value = NodeConsoleApplicationApi.GET_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
+    public Response<GetMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMaxBlockHeightResponse request){
+        try {
+            long  maxBlockHeight = blockchainCore.getMiner().getMaxBlockHeight();
+            GetMaxBlockHeightResponse response = new GetMaxBlockHeightResponse();
+            response.setMaxBlockHeight(maxBlockHeight);
+            return Response.createSuccessResponse("设置[最大挖矿高度]成功",response);
+        } catch (Exception e){
+            String message = "设置[最大挖矿高度]失败";
+            LogUtil.error(message,e);
+            return Response.createFailResponse(message);
+        }
+    }
+
+    /**
+     * 设置最大挖矿高度
+     */
+    @RequestMapping(value = NodeConsoleApplicationApi.SET_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
+    public Response<SetMaxBlockHeightResponse> setMaxBlockHeight(@RequestBody SetMaxBlockHeightRequest request){
+        try {
+            long height = request.getMaxBlockHeight();
+            blockchainCore.getMiner().setMaxBlockHeight(height);
+            SetMaxBlockHeightResponse response = new SetMaxBlockHeightResponse();
+            response.setMaxBlockHeight(height);
+            return Response.createSuccessResponse("设置[最大挖矿高度]成功",response);
+        } catch (Exception e){
+            String message = "设置[最大挖矿高度]失败";
+            LogUtil.error(message,e);
+            return Response.createFailResponse(message);
+        }
+    }
 }
