@@ -40,10 +40,4 @@ public class BlockchainCoreTest {
         //校验区块哈希
         Assert.assertEquals(block3Hash,tailBlock.getHash());
     }
-
-    @Test
-    public void doubleSpendTest()
-    {
-        //TODO
-    }
 }

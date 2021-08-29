@@ -1,7 +1,5 @@
 package com.xingkaichun.helloworldblockchain.core;
 
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
-
 /**
  * Core配置: BlockchainCore的配置。
  * 该类对BlockchainCore模块的配置进行统一管理。
@@ -31,7 +29,7 @@ public abstract class CoreConfiguration {
     /**
      * 设置矿工能挖掘的最高区块高度
      */
-    public abstract void setMaxBlockHeight(Long maxHeight) ;
+    public abstract void setMaxBlockHeight(long maxHeight) ;
 
     /**
      * 获取矿工能挖掘的最高区块高度

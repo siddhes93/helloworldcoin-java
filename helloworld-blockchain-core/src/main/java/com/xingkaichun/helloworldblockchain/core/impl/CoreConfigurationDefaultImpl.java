@@ -63,7 +63,7 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
     }
 
     @Override
-    public void setMaxBlockHeight(Long maxHeight) {
+    public void setMaxBlockHeight(long maxHeight) {
         addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(maxHeight)));
     }
 
@@ -71,7 +71,8 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
     public long getMaxBlockHeight() {
         byte[] mineOption = getConfigurationValue(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY));
         if(mineOption == null){
-            return 0;
+            //设置默认值，这是一个十分巨大的数字，矿工永远挖不到的高度
+            return Long.MAX_VALUE;
         }
         return Long.parseLong(ByteUtil.utf8BytesToString(mineOption));
     }

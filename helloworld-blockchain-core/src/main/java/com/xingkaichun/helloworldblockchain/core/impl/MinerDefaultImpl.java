@@ -39,14 +39,15 @@ public class MinerDefaultImpl extends Miner {
     @Override
     public void start() {
         while (true){
+            //防止空跑，浪费CPU
             ThreadUtil.millisecondSleep(10);
             if(!isActive()){
                 continue;
             }
 
             long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
-            long maxBlockHeight = getMaxBlockHeight();
-            if( maxBlockHeight != 0 && blockChainHeight >= maxBlockHeight ){
+            //'当前区块链的高度'是否大于'矿工最大被允许的挖矿高度'
+            if(blockChainHeight >= coreConfiguration.getMaxBlockHeight()){
                 continue;
             }
 
