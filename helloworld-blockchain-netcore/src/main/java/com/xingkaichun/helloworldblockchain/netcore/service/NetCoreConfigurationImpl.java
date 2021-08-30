@@ -42,10 +42,10 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
 
 
     //两个区块链有分叉时，区块差异数量大于这个值，则硬分叉了。
-    public static final long HARD_FORK_BLOCK_COUNT = 100000000;
+    private static final long HARD_FORK_BLOCK_COUNT = 100000000;
 
     //在区块链网络中搜寻未确认交易的间隔时间。
-    public static final long SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL = 1000 * 60 * 2;
+    private static final long SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL = 1000 * 60 * 2;
 
     public NetCoreConfigurationImpl(String netCorePath) {
         FileUtil.makeDirectory(netCorePath);

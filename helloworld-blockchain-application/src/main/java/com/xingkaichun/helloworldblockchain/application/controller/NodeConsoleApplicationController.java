@@ -298,6 +298,8 @@ public class NodeConsoleApplicationController {
         }
     }
 
+
+
     /**
      * 获取最大挖矿高度
      */
@@ -314,7 +316,6 @@ public class NodeConsoleApplicationController {
             return Response.createFailResponse(message);
         }
     }
-
     /**
      * 设置最大挖矿高度
      */

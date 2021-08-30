@@ -49,8 +49,7 @@ public class IpInterceptor implements HandlerInterceptor {
 	private List<String> getAllowIps(){
 		String allowIps = System.getProperty(ALLOW_IPS_KEY);
 		if(!StringUtil.isNullOrEmpty(allowIps)){
-			List<String> allowIpList = Arrays.asList(allowIps.split(ALLOW_IPS_VALUE_SEPARATOR));
-			return allowIpList;
+			return Arrays.asList(allowIps.split(ALLOW_IPS_VALUE_SEPARATOR));
 		}
 		return null;
 	}

@@ -33,8 +33,8 @@ public class Dto2ModelTool {
         long blockHeight = BlockTool.getNextBlockHeight(previousBlock);
         block.setHeight(blockHeight);
 
-        List<Transaction> transactionList = transactionDtos2Transactions(blockchainDatabase,blockDto.getTransactions());
-        block.setTransactions(transactionList);
+        List<Transaction> transactions = transactionDtos2Transactions(blockchainDatabase,blockDto.getTransactions());
+        block.setTransactions(transactions);
 
         String merkleTreeRoot = BlockTool.calculateBlockMerkleTreeRoot(block);
         block.setMerkleTreeRoot(merkleTreeRoot);

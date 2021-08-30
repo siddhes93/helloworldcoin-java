@@ -172,15 +172,15 @@ public class BlockchainBrowserApplicationController {
                 return Response.createSuccessResponse("未查询到未确认的交易");
             }
 
-            List<UnconfirmedTransactionVo> transactionDtosResp = new ArrayList<>();
+            List<UnconfirmedTransactionVo> unconfirmedTransactionVos = new ArrayList<>();
             for(TransactionDto transactionDto : transactionDtos){
                 UnconfirmedTransactionVo unconfirmedTransactionVo = blockchainBrowserApplicationService.queryUnconfirmedTransactionByTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
                 if(unconfirmedTransactionVo != null){
-                    transactionDtosResp.add(unconfirmedTransactionVo);
+                    unconfirmedTransactionVos.add(unconfirmedTransactionVo);
                 }
             }
             QueryUnconfirmedTransactionsResponse response = new QueryUnconfirmedTransactionsResponse();
-            response.setTransactions(transactionDtosResp);
+            response.setUnconfirmedTransactions(unconfirmedTransactionVos);
             return Response.createSuccessResponse("查询未确认交易成功",response);
         } catch (Exception e){
             String message = "查询未确认交易失败";

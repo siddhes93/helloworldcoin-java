@@ -59,9 +59,9 @@ public class DtoSizeTool {
      */
     public static boolean checkTransactionSize(TransactionDto transactionDto) {
         //校验交易输入
-        List<TransactionInputDto> transactionInputDtoList = transactionDto.getInputs();
-        if(transactionInputDtoList != null){
-            for(TransactionInputDto transactionInputDto:transactionInputDtoList){
+        List<TransactionInputDto> transactionInputDtos = transactionDto.getInputs();
+        if(transactionInputDtos != null){
+            for(TransactionInputDto transactionInputDto:transactionInputDtos){
                 //交易的未花费输出大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
 
                 //校验脚本大小
@@ -74,9 +74,9 @@ public class DtoSizeTool {
         }
 
         //校验交易输出
-        List<TransactionOutputDto> transactionOutputDtoList = transactionDto.getOutputs();
-        if(transactionOutputDtoList != null){
-            for(TransactionOutputDto transactionOutputDto:transactionOutputDtoList){
+        List<TransactionOutputDto> transactionOutputDtos = transactionDto.getOutputs();
+        if(transactionOutputDtos != null){
+            for(TransactionOutputDto transactionOutputDto:transactionOutputDtos){
                 //交易输出金额大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
 
                 //校验脚本大小
@@ -154,10 +154,10 @@ public class DtoSizeTool {
     }
     public static long calculateTransactionSize(TransactionDto transactionDto) {
         long size = 0;
-        List<TransactionInputDto> transactionInputDtoList = transactionDto.getInputs();
-        size += calculateTransactionInputsSize(transactionInputDtoList);
-        List<TransactionOutputDto> transactionOutputDtoList = transactionDto.getOutputs();
-        size += calculateTransactionsOutputSize(transactionOutputDtoList);
+        List<TransactionInputDto> transactionInputDtos = transactionDto.getInputs();
+        size += calculateTransactionInputsSize(transactionInputDtos);
+        List<TransactionOutputDto> transactionOutputDtos = transactionDto.getOutputs();
+        size += calculateTransactionsOutputSize(transactionOutputDtos);
         return size;
     }
     private static long calculateTransactionsOutputSize(List<TransactionOutputDto> transactionOutputDtos) {

@@ -5,7 +5,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.transaction;
  * @author 邢开春 409060350@qq.com
  */
 public class QueryTransactionOutputByTransactionOutputIdResponse {
-
+    //TODO name
     private TransactionOutputDetailVo transactionOutputDetail;
 
 

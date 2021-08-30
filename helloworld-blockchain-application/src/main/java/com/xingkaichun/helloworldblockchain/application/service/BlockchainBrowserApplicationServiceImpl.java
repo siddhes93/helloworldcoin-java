@@ -62,7 +62,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
         //去向
         TransactionVo outputTransactionVo;
-        if(transactionOutputTemp == null){
+        if(transactionOutputTemp==null){
             Transaction destinationTransaction = blockchainCore.getBlockchainDatabase().queryDestinationTransactionByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
             List<TransactionInput> inputs = destinationTransaction.getInputs();
             if(inputs != null){
@@ -100,7 +100,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
     public List<TransactionVo> queryTransactionListByBlockHashTransactionHeight(String blockHash, long from, long size) {
         Block block = blockchainCore.queryBlockByBlockHash(blockHash);
         List<TransactionVo> transactionVos = new ArrayList<>();
-        for(long i=from;i<from+size;i++){
+        for(long i=from; i<from+size; i++){
             if(from < 0){
                 break;
             }
@@ -141,15 +141,14 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
     @Override
     public UnconfirmedTransactionVo queryUnconfirmedTransactionByTransactionHash(String transactionHash) {
-
         try {
             TransactionDto transactionDto = blockchainCore.queryUnconfirmedTransactionByTransactionHash(transactionHash);
             if(transactionDto == null){
                 return null;
             }
             Transaction transaction = Dto2ModelTool.transactionDto2Transaction(blockchainCore.getBlockchainDatabase(),transactionDto);
-            UnconfirmedTransactionVo transactionDtoResp = new UnconfirmedTransactionVo();
-            transactionDtoResp.setTransactionHash(transaction.getTransactionHash());
+            UnconfirmedTransactionVo transactionDtoVo = new UnconfirmedTransactionVo();
+            transactionDtoVo.setTransactionHash(transaction.getTransactionHash());
 
             List<UnconfirmedTransactionVo.TransactionInputVo> inputDtos = new ArrayList<>();
             List<TransactionInput> inputs = transaction.getInputs();
@@ -163,7 +162,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                     inputDtos.add(transactionInputVo);
                 }
             }
-            transactionDtoResp.setInputs(inputDtos);
+            transactionDtoVo.setInputs(inputDtos);
 
             List<UnconfirmedTransactionVo.TransactionOutputVo> outputDtos = new ArrayList<>();
             List<TransactionOutput> outputs = transaction.getOutputs();
@@ -175,8 +174,9 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                     outputDtos.add(transactionOutputVo);
                 }
             }
-            transactionDtoResp.setOutputs(outputDtos);
-            return transactionDtoResp;
+            transactionDtoVo.setOutputs(outputDtos);
+
+            return transactionDtoVo;
         }catch (Exception e){
             LogUtil.error("根据交易哈希查询未确认交易异常",e);
             return null;
@@ -249,6 +249,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
             outputScripts.add(transactionOutputVo.getOutputScript());
         }
         transactionVo.setOutputScripts(outputScripts);
+
         return transactionVo;
     }
 }

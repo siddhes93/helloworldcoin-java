@@ -20,9 +20,9 @@ public class Model2DtoTool {
 
     public static BlockDto block2BlockDto(Block block) {
         List<TransactionDto> transactionDtos = new ArrayList<>();
-        List<Transaction> transactionList = block.getTransactions();
-        if(transactionList != null){
-            for(Transaction transaction:transactionList){
+        List<Transaction> transactions = block.getTransactions();
+        if(transactions != null){
+            for(Transaction transaction:transactions){
                 TransactionDto transactionDto = transaction2TransactionDto(transaction);
                 transactionDtos.add(transactionDto);
             }
@@ -38,9 +38,9 @@ public class Model2DtoTool {
 
     public static TransactionDto transaction2TransactionDto(Transaction transaction) {
         List<TransactionInputDto> inputs = new ArrayList<>();
-        List<TransactionInput> transactionInputList = transaction.getInputs();
-        if(transactionInputList!=null){
-            for (TransactionInput transactionInput:transactionInputList){
+        List<TransactionInput> transactionInputs = transaction.getInputs();
+        if(transactionInputs!=null){
+            for (TransactionInput transactionInput:transactionInputs){
                 TransactionInputDto transactionInputDto = new TransactionInputDto();
                 transactionInputDto.setTransactionHash(transactionInput.getUnspentTransactionOutput().getTransactionHash());
                 transactionInputDto.setTransactionOutputIndex(transactionInput.getUnspentTransactionOutput().getTransactionOutputIndex());
@@ -50,9 +50,9 @@ public class Model2DtoTool {
         }
 
         List<TransactionOutputDto> outputs = new ArrayList<>();
-        List<TransactionOutput> transactionOutputList = transaction.getOutputs();
-        if(transactionOutputList!=null){
-            for(TransactionOutput transactionOutput:transactionOutputList){
+        List<TransactionOutput> transactionOutputs = transaction.getOutputs();
+        if(transactionOutputs!=null){
+            for(TransactionOutput transactionOutput:transactionOutputs){
                 TransactionOutputDto transactionOutputDto = transactionOutput2TransactionOutputDto(transactionOutput);
                 outputs.add(transactionOutputDto);
             }

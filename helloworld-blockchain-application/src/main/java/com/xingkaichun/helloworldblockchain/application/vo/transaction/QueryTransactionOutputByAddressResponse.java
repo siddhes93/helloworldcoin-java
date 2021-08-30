@@ -6,6 +6,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.transaction;
  */
 public class QueryTransactionOutputByAddressResponse {
 
+    //TODO name
     private TransactionOutputDetailVo transactionOutputDetail;
 
     public TransactionOutputDetailVo getTransactionOutputDetail() {

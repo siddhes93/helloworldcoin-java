@@ -8,15 +8,15 @@ import java.util.List;
  */
 public class QueryUnconfirmedTransactionsResponse {
 
-    private List<UnconfirmedTransactionVo> transactions;
+    private List<UnconfirmedTransactionVo> unconfirmedTransactions;
 
 
     //region get set
-    public List<UnconfirmedTransactionVo> getTransactions() {
-        return transactions;
+    public List<UnconfirmedTransactionVo> getUnconfirmedTransactions() {
+        return unconfirmedTransactions;
     }
-    public void setTransactions(List<UnconfirmedTransactionVo> transactions) {
-        this.transactions = transactions;
+    public void setUnconfirmedTransactions(List<UnconfirmedTransactionVo> unconfirmedTransactions) {
+        this.unconfirmedTransactions = unconfirmedTransactions;
     }
     //endregion
 }

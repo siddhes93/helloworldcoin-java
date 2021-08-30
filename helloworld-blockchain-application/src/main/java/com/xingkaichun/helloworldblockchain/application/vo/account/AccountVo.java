@@ -1,13 +1,11 @@
 package com.xingkaichun.helloworldblockchain.application.vo.account;
 
 
-import java.io.Serializable;
-
 /**
  *
  * @author 邢开春 409060350@qq.com
  */
-public class AccountVo implements Serializable {
+public class AccountVo {
 
     //私钥
     private String privateKey;

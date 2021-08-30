@@ -17,8 +17,8 @@ public class MerkleTreeUtil {
      *
      * @author 邢开春 409060350@qq.com
      */
-    public static byte[] calculateMerkleTreeRoot(List<byte[]> dataList) {
-        List<byte[]> tree = new ArrayList<>(dataList);
+    public static byte[] calculateMerkleTreeRoot(List<byte[]> datas) {
+        List<byte[]> tree = new ArrayList<>(datas);
         int size = tree.size();
         int levelOffset = 0;
         for (int levelSize = size; levelSize > 1; levelSize = (levelSize + 1) / 2) {

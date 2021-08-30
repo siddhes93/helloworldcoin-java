@@ -132,22 +132,24 @@ public class WalletApplicationController {
             Wallet wallet = blockchainCore.getWallet();
             List<Account> allAccounts = wallet.getAllAccounts();
 
-            List<AccountVo2> accountVoList = new ArrayList<>();
+            List<AccountVo2> accountVos = new ArrayList<>();
             if(allAccounts != null){
                 for(Account account:allAccounts){
                     AccountVo2 accountVo = new AccountVo2();
                     accountVo.setAddress(account.getAddress());
                     accountVo.setPrivateKey(account.getPrivateKey());
                     accountVo.setValue(wallet.getBalanceByAddress(account.getAddress()));
-                    accountVoList.add(accountVo);
+                    accountVos.add(accountVo);
                 }
             }
+
             long balance = 0;
-            for(AccountVo2 accountVo : accountVoList){
+            for(AccountVo2 accountVo : accountVos){
                 balance += accountVo.getValue();
             }
+
             QueryAllAccountsResponse response = new QueryAllAccountsResponse();
-            response.setAccounts(accountVoList);
+            response.setAccounts(accountVos);
             response.setBalance(balance);
             return Response.createSuccessResponse("[查询所有账户]成功",response);
         } catch (Exception e){

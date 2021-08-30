@@ -6,7 +6,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.account;
  */
 public class DeleteAccountResponse {
 
-
+    //TODO too long？
     private boolean deleteAccountSuccess ;
 
     public boolean isDeleteAccountSuccess() {

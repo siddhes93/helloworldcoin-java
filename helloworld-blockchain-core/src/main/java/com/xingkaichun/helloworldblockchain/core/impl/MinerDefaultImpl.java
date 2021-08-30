@@ -102,7 +102,7 @@ public class MinerDefaultImpl extends Miner {
 
 
     @Override
-    public void setMaxBlockHeight(Long maxHeight) {
+    public void setMaxBlockHeight(long maxHeight) {
          coreConfiguration.setMaxBlockHeight(maxHeight);
     }
 

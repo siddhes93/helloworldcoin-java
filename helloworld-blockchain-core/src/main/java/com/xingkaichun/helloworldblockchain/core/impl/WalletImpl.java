@@ -39,21 +39,21 @@ public class WalletImpl extends Wallet {
 
     @Override
     public List<Account> getAllAccounts() {
-        List<Account> accountList = new ArrayList<>();
+        List<Account> accounts = new ArrayList<>();
         //获取所有
         List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
         if(bytesAccounts != null){
             for(byte[] bytesAccount:bytesAccounts){
                 Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
-                accountList.add(account);
+                accounts.add(account);
             }
         }
-        return accountList;
+        return accounts;
     }
 
     @Override
     public List<Account> getNonZeroBalanceAccounts() {
-        List<Account> accountList = new ArrayList<>();
+        List<Account> accounts = new ArrayList<>();
         //获取所有
         List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
         if(bytesAccounts != null){
@@ -61,11 +61,11 @@ public class WalletImpl extends Wallet {
                 Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
                 TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(account.getAddress());
                 if(utxo != null && utxo.getValue() > 0){
-                    accountList.add(account);
+                    accounts.add(account);
                 }
             }
         }
-        return accountList;
+        return accounts;
     }
 
     @Override

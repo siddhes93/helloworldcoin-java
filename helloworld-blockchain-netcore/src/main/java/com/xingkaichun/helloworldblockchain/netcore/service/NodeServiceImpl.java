@@ -59,14 +59,14 @@ public class NodeServiceImpl implements NodeService {
     }
 
     private List<Node> nodePo2Nodes(List<NodePo> nodePos){
-        List<Node> nodeList = new ArrayList<>();
+        List<Node> nodes = new ArrayList<>();
         if(nodePos != null){
             for(NodePo nodePo : nodePos){
                 Node node = nodePo2Node(nodePo);
-                nodeList.add(node);
+                nodes.add(node);
             }
         }
-        return nodeList;
+        return nodes;
     }
     private Node nodePo2Node(NodePo nodePo){
         Node node = new Node();
