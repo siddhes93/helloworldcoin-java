@@ -14,6 +14,7 @@ import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
+import com.xingkaichun.helloworldblockchain.util.StringUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,15 +86,15 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
     }
 
     private String payAlert2PayAlertVo(String message) {
-        if(PayAlertVo.BUILD_TRANSACTION_SUCCESS.equals(message)){
+        if(StringUtil.isEquals(PayAlertVo.BUILD_TRANSACTION_SUCCESS,message)){
             return PayAlertVo.BUILD_TRANSACTION_SUCCESS;
-        }else if(PayAlertVo.PAYEE_CAN_NOT_EMPTY.equals(message)){
+        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_CAN_NOT_EMPTY;
-        }else if(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO.equals(message)){
+        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO,message)){
             return PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO;
-        }else if(PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY.equals(message)){
+        }else if(StringUtil.isEquals(PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY,message)){
             return PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY;
-        }else if(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY.equals(message)){
+        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY;
         }
         //exit when can not convert
