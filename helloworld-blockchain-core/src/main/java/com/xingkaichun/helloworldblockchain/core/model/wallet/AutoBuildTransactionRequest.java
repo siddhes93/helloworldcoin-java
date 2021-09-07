@@ -7,6 +7,7 @@ import java.util.List;
  *
  * @author 邢开春 409060350@qq.com
  */
+//TODO 重命名
 public class AutoBuildTransactionRequest {
 
     //[非找零]收款方

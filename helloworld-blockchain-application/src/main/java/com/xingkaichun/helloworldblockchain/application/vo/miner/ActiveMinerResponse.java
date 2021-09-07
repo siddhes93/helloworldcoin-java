@@ -6,21 +6,4 @@ package com.xingkaichun.helloworldblockchain.application.vo.miner;
  */
 public class ActiveMinerResponse {
 
-    private boolean activeMinerSuccess;
-
-
-
-
-    //region get set
-
-    public boolean isActiveMinerSuccess() {
-        return activeMinerSuccess;
-    }
-
-    public void setActiveMinerSuccess(boolean activeMinerSuccess) {
-        this.activeMinerSuccess = activeMinerSuccess;
-    }
-
-
-    //endregion
 }

@@ -4,6 +4,7 @@ import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
+import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 
 
 /**
@@ -152,9 +153,19 @@ public abstract class BlockchainDatabase {
     /**
      * 根据 地址 查询 已花费交易输出
      */
-    public abstract TransactionOutput querySpentTransactionOutputByAddress(String address);
+    public abstract TransactionOutput querySpentTransactionOutputByAddress(String address) ;
     //endregion
 
+    //region
+    /**
+     * block dto to block model
+     */
+    public abstract Block blockDto2Block(BlockDto blockDto) ;
+    /**
+     * transaction dto to transaction model
+     */
+    public abstract Transaction transactionDto2Transaction(TransactionDto transactionDto) ;
+    //endregion
 
 
     //region get set

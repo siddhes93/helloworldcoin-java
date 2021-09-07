@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.application.vo.synchronizer;
+package com.xingkaichun.helloworldblockchain.application.vo.miner;
 
 /**
  *

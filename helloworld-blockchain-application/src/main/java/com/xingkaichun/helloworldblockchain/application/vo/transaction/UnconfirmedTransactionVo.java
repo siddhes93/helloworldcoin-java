@@ -9,8 +9,8 @@ import java.util.List;
 public class UnconfirmedTransactionVo {
 
     private String transactionHash;
-    private List<TransactionInputVo> inputs;
-    private List<TransactionOutputVo> outputs;
+    private List<TransactionInputVo2> transactionInputs;
+    private List<TransactionOutputVo2> transactionOutputs;
 
     public String getTransactionHash() {
         return transactionHash;
@@ -20,79 +20,19 @@ public class UnconfirmedTransactionVo {
         this.transactionHash = transactionHash;
     }
 
-    public List<TransactionInputVo> getInputs() {
-        return inputs;
+    public List<TransactionInputVo2> getTransactionInputs() {
+        return transactionInputs;
     }
 
-    public void setInputs(List<TransactionInputVo> inputs) {
-        this.inputs = inputs;
+    public void setTransactionInputs(List<TransactionInputVo2> transactionInputs) {
+        this.transactionInputs = transactionInputs;
     }
 
-    public List<TransactionOutputVo> getOutputs() {
-        return outputs;
+    public List<TransactionOutputVo2> getTransactionOutputs() {
+        return transactionOutputs;
     }
 
-    public void setOutputs(List<TransactionOutputVo> outputs) {
-        this.outputs = outputs;
-    }
-
-    public static class TransactionInputVo {
-        private long value;
-        private String address;
-        private String transactionHash;
-        private long transactionOutputIndex;
-
-        public long getValue() {
-            return value;
-        }
-
-        public void setValue(long value) {
-            this.value = value;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getTransactionHash() {
-            return transactionHash;
-        }
-
-        public void setTransactionHash(String transactionHash) {
-            this.transactionHash = transactionHash;
-        }
-
-        public long getTransactionOutputIndex() {
-            return transactionOutputIndex;
-        }
-
-        public void setTransactionOutputIndex(long transactionOutputIndex) {
-            this.transactionOutputIndex = transactionOutputIndex;
-        }
-    }
-
-    public static class TransactionOutputVo {
-        private long value;
-        private String address;
-
-        public long getValue() {
-            return value;
-        }
-
-        public void setValue(long value) {
-            this.value = value;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
+    public void setTransactionOutputs(List<TransactionOutputVo2> transactionOutputs) {
+        this.transactionOutputs = transactionOutputs;
     }
 }

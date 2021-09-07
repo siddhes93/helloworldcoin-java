@@ -1,10 +1,6 @@
 package com.xingkaichun.helloworldblockchain.application.vo.transaction;
 
-/**
- *
- * @author 邢开春 409060350@qq.com
- */
-public class TransactionOutputDetailVo {
+public class TransactionOutputVo3 {
 
     private long value;
     private boolean spent;

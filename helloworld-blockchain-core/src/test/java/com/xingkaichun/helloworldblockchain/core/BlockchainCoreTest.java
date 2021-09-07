@@ -5,6 +5,7 @@ import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
+import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,11 +22,11 @@ public class BlockchainCoreTest {
     {
         FileUtil.deleteDirectory(ResourcePathTool.getTestDataRootPath());
 
-        String stringBlock1 = FileUtil.read("src/test/resources/blocks/block1.json");
+        String stringBlock1 = FileUtil.read(SystemUtil.systemRootDirectory()+"\\helloworld-blockchain-core"+"\\src\\test\\resources\\blocks\\block1.json");
         BlockDto block1 = JsonUtil.toObject(stringBlock1, BlockDto.class);
-        String stringBlock2 = FileUtil.read("src/test/resources/blocks/block2.json");
+        String stringBlock2 = FileUtil.read(SystemUtil.systemRootDirectory()+"\\helloworld-blockchain-core"+"\\src\\test\\resources\\blocks\\block2.json");
         BlockDto block2 = JsonUtil.toObject(stringBlock2, BlockDto.class);
-        String stringBlock3 = FileUtil.read("src/test/resources/blocks/block3.json");
+        String stringBlock3 = FileUtil.read(SystemUtil.systemRootDirectory()+"\\helloworld-blockchain-core"+"\\src\\test\\resources\\blocks\\block3.json");
         BlockDto block3 = JsonUtil.toObject(stringBlock3, BlockDto.class);
         String block3Hash = "739f3554dae0a4d2b73142ae8be398fccc8971c9fac52baea1741f4205dc0315";
 

@@ -68,6 +68,21 @@ public class ByteUtil {
 
 
     /**
+     * 布尔转换为UTF8字节数组
+     */
+    public static byte[] booleanToUtf8Bytes(boolean booleanValue) {
+        return String.valueOf(booleanValue).getBytes(StandardCharsets.UTF_8);
+    }
+    /**
+     * UTF8字节数组转换为布尔
+     */
+    public static boolean utf8BytesToBoolean(byte[] bytesValue) {
+        return Boolean.valueOf(new String(bytesValue,StandardCharsets.UTF_8));
+    }
+
+
+
+    /**
      * 拼接数组(数组数量为2个)。
      */
     public static byte[] concatenate(byte[] bytes1,byte[] bytes2) {

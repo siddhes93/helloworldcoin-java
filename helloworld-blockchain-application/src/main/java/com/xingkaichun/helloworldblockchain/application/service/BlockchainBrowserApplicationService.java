@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.application.service;
 
 import com.xingkaichun.helloworldblockchain.application.vo.block.BlockVo;
-import com.xingkaichun.helloworldblockchain.application.vo.transaction.TransactionOutputDetailVo;
+import com.xingkaichun.helloworldblockchain.application.vo.transaction.TransactionOutputVo3;
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.TransactionVo;
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.UnconfirmedTransactionVo;
 
@@ -17,11 +17,11 @@ public interface BlockchainBrowserApplicationService {
     /**
      * 根据交易输出ID获取交易输出
      */
-    TransactionOutputDetailVo queryTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex);
+    TransactionOutputVo3 queryTransactionOutputByTransactionOutputId(String transactionHash, long transactionOutputIndex);
     /**
      * 根据地址获取交易输出
      */
-    TransactionOutputDetailVo queryTransactionOutputByAddress(String address);
+    TransactionOutputVo3 queryTransactionOutputByAddress(String address);
 
     /**
      * 根据交易哈希查询交易

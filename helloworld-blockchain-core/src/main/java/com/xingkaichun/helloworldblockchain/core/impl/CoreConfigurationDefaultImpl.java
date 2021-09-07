@@ -49,17 +49,17 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
         if(mineOption == null){
             return MINE_OPTION_DEFAULT_VALUE;
         }
-        return Boolean.parseBoolean(ByteUtil.utf8BytesToString(mineOption));
+        return ByteUtil.utf8BytesToBoolean(mineOption);
     }
 
     @Override
     public void activeMiner() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.TRUE)));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(true));
     }
 
     @Override
     public void deactiveMiner() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.FALSE)));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(false));
     }
 
     @Override

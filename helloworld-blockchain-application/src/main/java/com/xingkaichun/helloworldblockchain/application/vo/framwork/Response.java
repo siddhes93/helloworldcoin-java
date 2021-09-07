@@ -6,27 +6,29 @@ package com.xingkaichun.helloworldblockchain.application.vo.framwork;
  */
 public class Response<T> {
 
+    //only two status : success or fail
     private String status;
     private String message;
     private T data;
 
-    public Response(String status, String message, T data) {
+    private Response(String status, String message, T data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-
-    public static<T> Response<T> createSuccessResponse(String message){
-        return createSuccessResponse(message,null);
+    public static<T> Response<T> success(T data){
+        return new Response("success",null,data);
     }
-    public static<T> Response<T> createSuccessResponse(String message, T data){
-        return new Response("success",message,data);
+    public static<T> Response fail(String message){
+        return new Response("fail",message,null);
     }
-    public static<T> Response createFailResponse(String message){
-        return new Response("failed",message,null);
+    public static<T> Response requestParamIllegal(){
+        return fail(ResponseMessage.REQUEST_PARAM_ILLEGAL);
     }
-
+    public static<T> Response serviceUnavailable(){
+        return fail(ResponseMessage.SERVICE_UNAVAILABLE);
+    }
 
 
     //region get set

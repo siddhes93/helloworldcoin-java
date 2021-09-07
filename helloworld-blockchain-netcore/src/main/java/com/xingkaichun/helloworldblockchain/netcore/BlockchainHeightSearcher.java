@@ -5,7 +5,7 @@ import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockchainHeightRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockchainHeightResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
@@ -32,8 +32,7 @@ public class BlockchainHeightSearcher {
         this.nodeService = nodeService;
     }
 
-    public void
-    start() {
+    public void start() {
         try {
             while (true){
                 searchBlockchainHeight();

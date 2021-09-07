@@ -39,7 +39,7 @@ public class WebMvcConfigurerConfiguration implements WebMvcConfigurer {
 				httpServletResponse.setHeader("Content-type", "application/json;");
 				httpServletResponse.setStatus(500);
 				httpServletResponse.setCharacterEncoding("UTF-8");
-				Response response = Response.createFailResponse(exception.getMessage());
+				Response response = Response.serviceUnavailable();
 				String jsonStringResponse = JsonUtil.toString(response);
 				httpServletResponse.getWriter().write(jsonStringResponse);
 			} catch (Exception e) {

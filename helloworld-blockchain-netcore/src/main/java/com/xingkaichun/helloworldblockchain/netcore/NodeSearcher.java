@@ -4,7 +4,7 @@ import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;

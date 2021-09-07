@@ -2,7 +2,7 @@ package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.netcore.server.NodeServer;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 
 /**

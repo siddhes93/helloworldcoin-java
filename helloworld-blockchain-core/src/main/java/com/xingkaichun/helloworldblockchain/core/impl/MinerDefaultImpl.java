@@ -178,7 +178,7 @@ public class MinerDefaultImpl extends Miner {
         if(forMineBlockTransactionDtos != null){
             for(TransactionDto transactionDto:forMineBlockTransactionDtos){
                 try {
-                    Transaction transaction = Dto2ModelTool.transactionDto2Transaction(blockchainDatabase,transactionDto);
+                    Transaction transaction = blockchainDatabase.transactionDto2Transaction(transactionDto);
                     transactions.add(transaction);
                 } catch (Exception e) {
                     String transactionHash = TransactionDtoTool.calculateTransactionHash(transactionDto);

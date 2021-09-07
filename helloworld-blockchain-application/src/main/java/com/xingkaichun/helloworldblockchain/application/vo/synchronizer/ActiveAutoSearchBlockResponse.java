@@ -6,17 +6,4 @@ package com.xingkaichun.helloworldblockchain.application.vo.synchronizer;
  */
 public class ActiveAutoSearchBlockResponse {
 
-    private boolean activeAutoSearchBlockSuccess;
-
-
-
-    //region get set
-    public boolean isActiveAutoSearchBlockSuccess() {
-        return activeAutoSearchBlockSuccess;
-    }
-
-    public void setActiveAutoSearchBlockSuccess(boolean activeAutoSearchBlockSuccess) {
-        this.activeAutoSearchBlockSuccess = activeAutoSearchBlockSuccess;
-    }
-    //endregion
 }

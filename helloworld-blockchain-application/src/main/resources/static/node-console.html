@@ -24,7 +24,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="./search.html">搜索</a></li>
                         <li><a href="./miner.html">挖矿</a></li>
-                        <li><a href="./unconfirm-transactions.html">未确认交易池</a></li>
+                        <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
@@ -115,7 +115,7 @@
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
                     data: `{
-                        "blockHeight":"${height}"
+                        "blockHeight":${height}
                     }`
                 });
                 location.reload();
@@ -161,7 +161,7 @@
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/SetMaxBlockHeight",
                     data: `{
-                        "maxBlockHeight":"${maxBlockHeight}"
+                        "maxBlockHeight":${maxBlockHeight}
                     }`
                 });
                 location.reload();

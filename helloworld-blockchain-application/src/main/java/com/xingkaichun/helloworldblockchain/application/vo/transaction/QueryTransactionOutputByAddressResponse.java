@@ -6,14 +6,13 @@ package com.xingkaichun.helloworldblockchain.application.vo.transaction;
  */
 public class QueryTransactionOutputByAddressResponse {
 
-    //TODO name
-    private TransactionOutputDetailVo transactionOutputDetail;
+    private TransactionOutputVo3 transactionOutput;
 
-    public TransactionOutputDetailVo getTransactionOutputDetail() {
-        return transactionOutputDetail;
+    public TransactionOutputVo3 getTransactionOutput() {
+        return transactionOutput;
     }
 
-    public void setTransactionOutputDetail(TransactionOutputDetailVo transactionOutputDetail) {
-        this.transactionOutputDetail = transactionOutputDetail;
+    public void setTransactionOutput(TransactionOutputVo3 transactionOutput) {
+        this.transactionOutput = transactionOutput;
     }
 }

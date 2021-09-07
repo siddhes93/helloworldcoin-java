@@ -6,13 +6,4 @@ package com.xingkaichun.helloworldblockchain.application.vo.account;
  */
 public class SaveAccountResponse {
 
-    private boolean addAccountSuccess ;
-
-    public boolean isAddAccountSuccess() {
-        return addAccountSuccess;
-    }
-
-    public void setAddAccountSuccess(boolean addAccountSuccess) {
-        this.addAccountSuccess = addAccountSuccess;
-    }
 }

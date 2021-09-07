@@ -16,7 +16,7 @@ public abstract class UnconfirmedTransactionDatabase {
     /**
      * 新增交易
      */
-    public abstract void insertTransaction(TransactionDto transactionDto) ;
+    public abstract boolean insertTransaction(TransactionDto transaction) ;
 
     /**
      * 批量提取交易

@@ -3,7 +3,7 @@ package com.xingkaichun.helloworldblockchain.netcore.dao.impl;
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.po.NodePo;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import com.xingkaichun.helloworldblockchain.util.KvDbUtil;

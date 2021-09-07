@@ -126,4 +126,19 @@ public class BlockchainCoreImpl extends BlockchainCore {
     public TransactionDto queryUnconfirmedTransactionByTransactionHash(String transactionHash) {
         return unconfirmedTransactionDatabase.selectTransactionByTransactionHash(transactionHash);
     }
+
+    //region
+    /**
+     * block dto to block model
+     */
+    public Block blockDto2Block(BlockDto blockDto) {
+        return blockchainDatabase.blockDto2Block(blockDto);
+    }
+    /**
+     * transaction dto to transaction model
+     */
+    public Transaction transactionDto2Transaction(TransactionDto transactionDto) {
+        return blockchainDatabase.transactionDto2Transaction(transactionDto);
+    }
+    //endregion
 }

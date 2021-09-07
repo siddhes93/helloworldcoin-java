@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="./search.html">搜索</a></li>
                         <li><a href="./miner.html">挖矿</a></li>
-                        <li><a href="./unconfirm-transactions.html">未确认交易池</a></li>
+                        <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
                         <li><a href="./node-management.html">节点管理</a></li>
@@ -96,6 +96,10 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 });
+                if(response.data == null){
+                    return;
+                }
+
                 let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, confirmCount, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
                 $('.panel-heading').text("交易哈希 " + transactionHash);
                 $('.blockHeight').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHeight}</a>`);
@@ -112,20 +116,25 @@
                 let item = response.data.transaction;
                 $('#transaction-list-container').append(transactionHtml(item))
 
-                inputScripts.forEach(item => {
-                    $('.table1 tbody').append(`
-                        <tr class="info">
-                            <td>${item}</td>
-                        </tr>
-                    `);
-                })
-                outputScripts.forEach(item => {
-                    $('.table2 tbody').append(`
-                        <tr class="warning">
-                            <td>${item}</td>
-                        </tr>
-                    `)
-                })
+                if(!isNullOrUndefined(inputScripts)){
+                    inputScripts.forEach(item => {
+                        $('.table1 tbody').append(`
+                            <tr class="info">
+                                <td>${item}</td>
+                            </tr>
+                        `);
+                    })
+                }
+
+                if(!isNullOrUndefined(outputScripts)){
+                    outputScripts.forEach(item => {
+                        $('.table2 tbody').append(`
+                            <tr class="warning">
+                                <td>${item}</td>
+                            </tr>
+                        `)
+                    })
+                }
             }())
         </script>
     </body>

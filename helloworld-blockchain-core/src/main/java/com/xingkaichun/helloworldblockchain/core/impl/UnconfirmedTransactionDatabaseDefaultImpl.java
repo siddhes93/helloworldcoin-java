@@ -7,7 +7,9 @@ import com.xingkaichun.helloworldblockchain.core.tools.TransactionDtoTool;
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
+import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
+import com.xingkaichun.helloworldblockchain.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,15 @@ public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransa
     }
 
     @Override
-    public void insertTransaction(TransactionDto transactionDto) {
-        String transactionHash = TransactionDtoTool.calculateTransactionHash(transactionDto);
-        KvDbUtil.put(getUnconfirmedTransactionDatabasePath(), getKey(transactionHash), EncodeDecodeTool.encodeTransactionDto(transactionDto));
+    public boolean insertTransaction(TransactionDto transaction) {
+        try {
+            String transactionHash = TransactionDtoTool.calculateTransactionHash(transaction);
+            KvDbUtil.put(getUnconfirmedTransactionDatabasePath(), getKey(transactionHash), EncodeDecodeTool.encodeTransactionDto(transaction));
+            return true;
+        }catch (Exception e){
+            LogUtil.error("交易["+ JsonUtil.toString(transaction)+"]放入交易池异常。",e);
+            return false;
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.netcore.service;
+package com.xingkaichun.helloworldblockchain.netcore.configuration;
 
 
 /**

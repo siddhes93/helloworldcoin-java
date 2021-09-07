@@ -5,12 +5,13 @@ import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.tools.BlockDtoTool;
 import com.xingkaichun.helloworldblockchain.core.tools.BlockTool;
 import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
+import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
@@ -158,7 +159,8 @@ public class BlockSearcher {
             }
             GetBlockRequest getBlockRequest = new GetBlockRequest();
             getBlockRequest.setBlockHeight(forkBlockHeight);
-            GetBlockResponse getBlockResponse = new NodeClientImpl(node.getIp()).getBlock(getBlockRequest);
+            NodeClient nodeClient = new NodeClientImpl(node.getIp());
+            GetBlockResponse getBlockResponse = nodeClient.getBlock(getBlockRequest);
             if(getBlockResponse == null){
                 break;
             }
@@ -180,7 +182,8 @@ public class BlockSearcher {
         while (true){
             GetBlockRequest getBlockRequest = new GetBlockRequest();
             getBlockRequest.setBlockHeight(startBlockHeight);
-            GetBlockResponse getBlockResponse = new NodeClientImpl(node.getIp()).getBlock(getBlockRequest);
+            NodeClient nodeClient = new NodeClientImpl(node.getIp());
+            GetBlockResponse getBlockResponse = nodeClient.getBlock(getBlockRequest);
             if(getBlockResponse == null){
                 break;
             }
@@ -203,7 +206,8 @@ public class BlockSearcher {
         }
         GetBlockRequest getBlockRequest = new GetBlockRequest();
         getBlockRequest.setBlockHeight(block.getHeight());
-        GetBlockResponse getBlockResponse = new NodeClientImpl(node.getIp()).getBlock(getBlockRequest);
+        NodeClient nodeClient = new NodeClientImpl(node.getIp());
+        GetBlockResponse getBlockResponse = nodeClient.getBlock(getBlockRequest);
         //没有查询到区块，这里则认为远程节点没有该高度的区块存在，远程节点的高度没有本地区块链高度高，所以不分叉。
         if(getBlockResponse == null){
             return false;
@@ -249,7 +253,8 @@ public class BlockSearcher {
         }
         GetBlockRequest getBlockRequest = new GetBlockRequest();
         getBlockRequest.setBlockHeight(criticalPointBlocHeight);
-        GetBlockResponse getBlockResponse = new NodeClientImpl(node.getIp()).getBlock(getBlockRequest);
+        NodeClient nodeClient = new NodeClientImpl(node.getIp());
+        GetBlockResponse getBlockResponse = nodeClient.getBlock(getBlockRequest);
         if(getBlockResponse == null){
             return false;
         }

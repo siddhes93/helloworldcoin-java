@@ -143,6 +143,17 @@ public abstract class BlockchainCore {
 
 
 
+    //region
+    /**
+     * block dto to block model
+     */
+    public abstract Block blockDto2Block(BlockDto blockDto) ;
+    /**
+     * transaction dto to transaction model
+     */
+    public abstract Transaction transactionDto2Transaction(TransactionDto transactionDto) ;
+    //endregion
+
 
     //region get set
     public BlockchainDatabase getBlockchainDatabase() {

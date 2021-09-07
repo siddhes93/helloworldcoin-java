@@ -2,7 +2,6 @@ package com.xingkaichun.helloworldblockchain.application.service;
 
 import com.xingkaichun.helloworldblockchain.application.vo.block.BlockVo;
 import com.xingkaichun.helloworldblockchain.application.vo.transaction.*;
-import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionInput;
@@ -29,41 +28,38 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
     @Autowired
     private BlockchainNetCore blockchainNetCore;
 
-    @Autowired
-    private BlockchainCore blockchainCore;
-
 
 
     @Override
-    public TransactionOutputDetailVo queryTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) {
+    public TransactionOutputVo3 queryTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) {
         //查询交易输出
-        TransactionOutput transactionOutput = blockchainCore.getBlockchainDatabase().queryTransactionOutputByTransactionOutputId(transactionHash,transactionOutputIndex);
+        TransactionOutput transactionOutput = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryTransactionOutputByTransactionOutputId(transactionHash,transactionOutputIndex);
         if(transactionOutput == null){
             return null;
         }
 
-        TransactionOutputDetailVo transactionOutputDetailVo = new TransactionOutputDetailVo();
-        transactionOutputDetailVo.setFromBlockHeight(transactionOutput.getBlockHeight());
-        transactionOutputDetailVo.setFromBlockHash(transactionOutput.getBlockHash());
-        transactionOutputDetailVo.setFromTransactionHash(transactionOutput.getTransactionHash());
-        transactionOutputDetailVo.setValue(transactionOutput.getValue());
-        transactionOutputDetailVo.setFromOutputScript(ScriptTool.stringOutputScript(transactionOutput.getOutputScript()));
-        transactionOutputDetailVo.setFromTransactionOutputIndex(transactionOutput.getTransactionOutputIndex());
+        TransactionOutputVo3 transactionOutputVo3 = new TransactionOutputVo3();
+        transactionOutputVo3.setFromBlockHeight(transactionOutput.getBlockHeight());
+        transactionOutputVo3.setFromBlockHash(transactionOutput.getBlockHash());
+        transactionOutputVo3.setFromTransactionHash(transactionOutput.getTransactionHash());
+        transactionOutputVo3.setValue(transactionOutput.getValue());
+        transactionOutputVo3.setFromOutputScript(ScriptTool.stringOutputScript(transactionOutput.getOutputScript()));
+        transactionOutputVo3.setFromTransactionOutputIndex(transactionOutput.getTransactionOutputIndex());
 
         //是否是未花费输出
-        TransactionOutput transactionOutputTemp = blockchainCore.getBlockchainDatabase().queryUnspentTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
-        transactionOutputDetailVo.setSpent(transactionOutputTemp==null);
+        TransactionOutput transactionOutputTemp = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryUnspentTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
+        transactionOutputVo3.setSpent(transactionOutputTemp==null);
 
         //来源
         TransactionVo inputTransactionVo = queryTransactionByTransactionHash(transactionOutput.getTransactionHash());
-        transactionOutputDetailVo.setInputTransaction(inputTransactionVo);
-        transactionOutputDetailVo.setTransactionType(inputTransactionVo.getTransactionType());
+        transactionOutputVo3.setInputTransaction(inputTransactionVo);
+        transactionOutputVo3.setTransactionType(inputTransactionVo.getTransactionType());
 
 
         //去向
         TransactionVo outputTransactionVo;
         if(transactionOutputTemp==null){
-            Transaction destinationTransaction = blockchainCore.getBlockchainDatabase().queryDestinationTransactionByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
+            Transaction destinationTransaction = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryDestinationTransactionByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
             List<TransactionInput> inputs = destinationTransaction.getInputs();
             if(inputs != null){
                 for(int inputIndex=0; inputIndex<inputs.size(); inputIndex++){
@@ -71,34 +67,34 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                     TransactionOutput unspentTransactionOutput = transactionInput.getUnspentTransactionOutput();
                     if(StringUtil.isEquals(transactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionHash()) &&
                             transactionOutput.getTransactionOutputIndex()==unspentTransactionOutput.getTransactionOutputIndex()){
-                        transactionOutputDetailVo.setToTransactionInputIndex(inputIndex+1);
-                        transactionOutputDetailVo.setToInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
+                        transactionOutputVo3.setToTransactionInputIndex(inputIndex+1);
+                        transactionOutputVo3.setToInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
                         break;
                     }
                 }
             }
             outputTransactionVo = queryTransactionByTransactionHash(destinationTransaction.getTransactionHash());
-            transactionOutputDetailVo.setToBlockHeight(outputTransactionVo.getBlockHeight());
-            transactionOutputDetailVo.setToBlockHash(outputTransactionVo.getBlockHash());
-            transactionOutputDetailVo.setToTransactionHash(outputTransactionVo.getTransactionHash());
-            transactionOutputDetailVo.setOutputTransaction(outputTransactionVo);
+            transactionOutputVo3.setToBlockHeight(outputTransactionVo.getBlockHeight());
+            transactionOutputVo3.setToBlockHash(outputTransactionVo.getBlockHash());
+            transactionOutputVo3.setToTransactionHash(outputTransactionVo.getTransactionHash());
+            transactionOutputVo3.setOutputTransaction(outputTransactionVo);
         }
-        return transactionOutputDetailVo;
+        return transactionOutputVo3;
     }
 
     @Override
-    public TransactionOutputDetailVo queryTransactionOutputByAddress(String address) {
-        TransactionOutput transactionOutput = blockchainCore.queryTransactionOutputByAddress(address);
+    public TransactionOutputVo3 queryTransactionOutputByAddress(String address) {
+        TransactionOutput transactionOutput = blockchainNetCore.getBlockchainCore().queryTransactionOutputByAddress(address);
         if(transactionOutput == null){
             return null;
         }
-        TransactionOutputDetailVo transactionOutputDetailVo = queryTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
-        return transactionOutputDetailVo;
+        TransactionOutputVo3 transactionOutputVo3 = queryTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
+        return transactionOutputVo3;
     }
 
     @Override
     public List<TransactionVo> queryTransactionListByBlockHashTransactionHeight(String blockHash, long from, long size) {
-        Block block = blockchainCore.queryBlockByBlockHash(blockHash);
+        Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHash(blockHash);
         List<TransactionVo> transactionVos = new ArrayList<>();
         for(long i=from; i<from+size; i++){
             if(from < 0){
@@ -108,7 +104,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                 break;
             }
             long transactionHeight = block.getPreviousTransactionHeight() + i;
-            Transaction transaction = blockchainCore.queryTransactionByTransactionHeight(transactionHeight);
+            Transaction transaction = blockchainNetCore.getBlockchainCore().queryTransactionByTransactionHeight(transactionHeight);
             TransactionVo transactionVo = queryTransactionByTransactionHash(transaction.getTransactionHash());
             transactionVos.add(transactionVo);
         }
@@ -117,11 +113,11 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
     @Override
     public BlockVo queryBlockViewByBlockHeight(long blockHeight) {
-        Block block = blockchainCore.queryBlockByBlockHeight(blockHeight);
+        Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHeight(blockHeight);
         if(block == null){
             return null;
         }
-        Block nextBlock = blockchainCore.queryBlockByBlockHeight(block.getHeight()+1);
+        Block nextBlock = blockchainNetCore.getBlockchainCore().queryBlockByBlockHeight(block.getHeight()+1);
 
         BlockVo blockVo = new BlockVo();
         blockVo.setHeight(block.getHeight());
@@ -142,19 +138,19 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
     @Override
     public UnconfirmedTransactionVo queryUnconfirmedTransactionByTransactionHash(String transactionHash) {
         try {
-            TransactionDto transactionDto = blockchainCore.queryUnconfirmedTransactionByTransactionHash(transactionHash);
+            TransactionDto transactionDto = blockchainNetCore.getBlockchainCore().queryUnconfirmedTransactionByTransactionHash(transactionHash);
             if(transactionDto == null){
                 return null;
             }
-            Transaction transaction = Dto2ModelTool.transactionDto2Transaction(blockchainCore.getBlockchainDatabase(),transactionDto);
+            Transaction transaction = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().transactionDto2Transaction(transactionDto);
             UnconfirmedTransactionVo transactionDtoVo = new UnconfirmedTransactionVo();
             transactionDtoVo.setTransactionHash(transaction.getTransactionHash());
 
-            List<UnconfirmedTransactionVo.TransactionInputVo> inputDtos = new ArrayList<>();
+            List<TransactionInputVo2> inputDtos = new ArrayList<>();
             List<TransactionInput> inputs = transaction.getInputs();
             if(inputs != null){
                 for(TransactionInput input:inputs){
-                    UnconfirmedTransactionVo.TransactionInputVo transactionInputVo = new UnconfirmedTransactionVo.TransactionInputVo();
+                    TransactionInputVo2 transactionInputVo = new TransactionInputVo2();
                     transactionInputVo.setAddress(input.getUnspentTransactionOutput().getAddress());
                     transactionInputVo.setTransactionHash(input.getUnspentTransactionOutput().getTransactionHash());
                     transactionInputVo.setTransactionOutputIndex(input.getUnspentTransactionOutput().getTransactionOutputIndex());
@@ -162,19 +158,19 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                     inputDtos.add(transactionInputVo);
                 }
             }
-            transactionDtoVo.setInputs(inputDtos);
+            transactionDtoVo.setTransactionInputs(inputDtos);
 
-            List<UnconfirmedTransactionVo.TransactionOutputVo> outputDtos = new ArrayList<>();
+            List<TransactionOutputVo2> outputDtos = new ArrayList<>();
             List<TransactionOutput> outputs = transaction.getOutputs();
             if(outputs != null){
                 for(TransactionOutput output:outputs){
-                    UnconfirmedTransactionVo.TransactionOutputVo transactionOutputVo = new UnconfirmedTransactionVo.TransactionOutputVo();
+                    TransactionOutputVo2 transactionOutputVo = new TransactionOutputVo2();
                     transactionOutputVo.setAddress(output.getAddress());
                     transactionOutputVo.setValue(output.getValue());
                     outputDtos.add(transactionOutputVo);
                 }
             }
-            transactionDtoVo.setOutputs(outputDtos);
+            transactionDtoVo.setTransactionOutputs(outputDtos);
 
             return transactionDtoVo;
         }catch (Exception e){
@@ -186,7 +182,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
     @Override
     public TransactionVo queryTransactionByTransactionHash(String transactionHash) {
-        Transaction transaction = blockchainCore.queryTransactionByTransactionHash(transactionHash);
+        Transaction transaction = blockchainNetCore.getBlockchainCore().queryTransactionByTransactionHash(transactionHash);
         if(transaction == null){
             return null;
         }
@@ -202,8 +198,8 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         transactionVo.setTransactionInputValues(TransactionTool.getInputValue(transaction));
         transactionVo.setTransactionOutputValues(TransactionTool.getOutputValue(transaction));
 
-        long blockchainHeight = blockchainCore.queryBlockchainHeight();
-        Block block = blockchainCore.queryBlockByBlockHeight(transaction.getBlockHeight());
+        long blockchainHeight = blockchainNetCore.getBlockchainCore().queryBlockchainHeight();
+        Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHeight(transaction.getBlockHeight());
         transactionVo.setConfirmCount(blockchainHeight-block.getHeight()+1);
         transactionVo.setBlockTime(TimeUtil.formatMillisecondTimestamp(block.getTimestamp()));
         transactionVo.setBlockHash(block.getHash());

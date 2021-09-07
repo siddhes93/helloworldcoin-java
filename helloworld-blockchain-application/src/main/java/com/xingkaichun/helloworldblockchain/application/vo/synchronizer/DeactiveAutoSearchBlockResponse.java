@@ -6,19 +6,4 @@ package com.xingkaichun.helloworldblockchain.application.vo.synchronizer;
  */
 public class DeactiveAutoSearchBlockResponse {
 
-    private boolean deactiveAutoSearchBlockSuccess;
-
-
-
-
-    //region get set
-
-    public boolean isDeactiveAutoSearchBlockSuccess() {
-        return deactiveAutoSearchBlockSuccess;
-    }
-
-    public void setDeactiveAutoSearchBlockSuccess(boolean deactiveAutoSearchBlockSuccess) {
-        this.deactiveAutoSearchBlockSuccess = deactiveAutoSearchBlockSuccess;
-    }
-    //endregion
 }

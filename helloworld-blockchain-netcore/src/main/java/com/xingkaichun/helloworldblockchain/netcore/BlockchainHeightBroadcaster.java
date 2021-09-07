@@ -5,7 +5,7 @@ import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PostBlockchainHeightRequest;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
@@ -26,13 +26,13 @@ import java.util.List;
 public class BlockchainHeightBroadcaster {
 
     private NetCoreConfiguration netCoreConfiguration;
-    private NodeService nodeService;
     private BlockchainCore blockchainCore;
+    private NodeService nodeService;
 
     public BlockchainHeightBroadcaster(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, NodeService nodeService) {
         this.netCoreConfiguration = netCoreConfiguration;
-        this.nodeService = nodeService;
         this.blockchainCore = blockchainCore;
+        this.nodeService = nodeService;
     }
 
     public void start() {

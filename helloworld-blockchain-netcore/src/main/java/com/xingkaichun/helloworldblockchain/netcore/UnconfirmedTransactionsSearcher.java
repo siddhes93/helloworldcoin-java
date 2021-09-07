@@ -7,7 +7,7 @@ import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactio
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactionsResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
@@ -64,11 +64,7 @@ public class UnconfirmedTransactionsSearcher {
                 continue;
             }
             for(TransactionDto transaction:transactions){
-                try {
-                    blockchainCore.getUnconfirmedTransactionDatabase().insertTransaction(transaction);
-                }catch (Exception e){
-                    LogUtil.error("交易["+JsonUtil.toString(transaction)+"]放入交易池异常。",e);
-                }
+                blockchainCore.getUnconfirmedTransactionDatabase().insertTransaction(transaction);
             }
         }
     }

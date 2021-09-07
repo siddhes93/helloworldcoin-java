@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.netcore.server;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.setting.NetworkSetting;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;

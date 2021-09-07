@@ -1,6 +1,5 @@
 package com.xingkaichun.helloworldblockchain.application.configuration;
 
-import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCore;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCoreFactory;
@@ -21,9 +20,4 @@ public class Configurations {
 		blockchainNetCore.start();
 		return blockchainNetCore;
 	}
-
-    @Bean
-    public BlockchainCore blockchainCore(BlockchainNetCore blockchainNetCore) {
-        return blockchainNetCore.getBlockchainCore();
-    }
 }

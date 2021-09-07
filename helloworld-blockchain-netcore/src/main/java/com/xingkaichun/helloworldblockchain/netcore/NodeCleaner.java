@@ -5,7 +5,7 @@ import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PingRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PingResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.service.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
@@ -37,7 +37,7 @@ public class NodeCleaner {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getNodeCleanTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("在区块链网络中广播自己出现异常",e);
+            SystemUtil.errorExit("清理死亡节点出现异常",e);
         }
     }
 
@@ -53,7 +53,7 @@ public class NodeCleaner {
             PingResponse pingResponse = nodeClient.pingNode(pingRequest);
             if(pingResponse == null){
                 nodeService.deleteNode(node.getIp());
-                LogUtil.debug("节点清理器发现死亡节点["+node+"]，已在节点数据库中将该节点删除了。");
+                LogUtil.debug("节点清理器发现死亡节点["+node.getIp()+"]，已在节点数据库中将该节点删除了。");
             }
         }
     }

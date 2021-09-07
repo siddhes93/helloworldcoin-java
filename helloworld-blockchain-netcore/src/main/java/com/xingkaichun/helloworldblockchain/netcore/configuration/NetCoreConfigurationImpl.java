@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.netcore.service;
+package com.xingkaichun.helloworldblockchain.netcore.configuration;
 
 import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
@@ -64,17 +64,17 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
         if(bytesConfigurationValue == null){
             return AUTO_SEARCH_BLOCK_OPTION_DEFAULT_VALUE;
         }
-        return Boolean.valueOf(ByteUtil.utf8BytesToString(bytesConfigurationValue));
+        return ByteUtil.utf8BytesToBoolean(bytesConfigurationValue);
     }
 
     @Override
     public void activeAutoSearchBlock() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_BLOCK_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.TRUE)));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_BLOCK_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(true));
     }
 
     @Override
     public void deactiveAutoSearchBlock() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_BLOCK_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.FALSE)));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_BLOCK_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(false));
     }
 
     @Override
@@ -83,17 +83,17 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
         if(bytesConfigurationValue == null){
             return AUTO_SEARCH_NODE_OPTION_DEFAULT_VALUE;
         }
-        return Boolean.valueOf(ByteUtil.utf8BytesToString(bytesConfigurationValue));
+        return ByteUtil.utf8BytesToBoolean(bytesConfigurationValue);
     }
 
     @Override
     public void activeAutoSearchNode() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_NODE_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.valueOf(true))));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_NODE_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(true));
     }
 
     @Override
     public void deactiveAutoSearchNode() {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_NODE_OPTION_KEY),ByteUtil.stringToUtf8Bytes(String.valueOf(Boolean.valueOf(false))));
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(AUTO_SEARCH_NODE_OPTION_KEY),ByteUtil.booleanToUtf8Bytes(false));
     }
 
     @Override
