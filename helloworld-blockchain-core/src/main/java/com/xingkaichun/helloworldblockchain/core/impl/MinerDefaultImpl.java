@@ -191,7 +191,6 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-
         for(Transaction transaction : backupTransactions){
             boolean checkTransaction = blockchainDatabase.checkTransaction(transaction);
             if(checkTransaction){
@@ -206,8 +205,6 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-
-
         //防止双花
         Set<String> transactionOutputIdSet = new HashSet<>();
         for(Transaction transaction : backupTransactions){
@@ -219,9 +216,6 @@ public class MinerDefaultImpl extends Miner {
                     String transactionOutputId = TransactionTool.getTransactionOutputId(unspentTransactionOutput);
                     if(transactionOutputIdSet.contains(transactionOutputId)){
                         canAdd = false;
-                        String transactionHash = TransactionTool.calculateTransactionHash(transaction);
-                        LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
-                        unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                         break;
                     }else {
                         transactionOutputIdSet.add(transactionOutputId);
@@ -229,6 +223,10 @@ public class MinerDefaultImpl extends Miner {
                 }
                 if(canAdd){
                     transactions.add(transaction);
+                }else {
+                    String transactionHash = TransactionTool.calculateTransactionHash(transaction);
+                    LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
+                    unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                 }
             }
         }
@@ -238,8 +236,6 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-
-
         //防止一个地址被用多次
         Set<String> addressSet = new HashSet<>();
         for(Transaction transaction : backupTransactions){
@@ -250,9 +246,6 @@ public class MinerDefaultImpl extends Miner {
                     String address = output.getAddress();
                     if(addressSet.contains(address)){
                         canAdd = false;
-                        String transactionHash = TransactionTool.calculateTransactionHash(transaction);
-                        LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
-                        unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                         break;
                     }else {
                         addressSet.add(address);
@@ -260,6 +253,10 @@ public class MinerDefaultImpl extends Miner {
                 }
                 if(canAdd){
                     transactions.add(transaction);
+                }else {
+                    String transactionHash = TransactionTool.calculateTransactionHash(transaction);
+                    LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
+                    unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                 }
             }
         }
@@ -272,7 +269,6 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-
         //到此时，剩余交易都是经过验证的了，且按照交易费率从大到小排列了。
         //尽可能多的获取交易
         long size = 0;

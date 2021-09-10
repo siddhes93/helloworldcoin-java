@@ -145,7 +145,7 @@ public class BlockchainBrowserApplicationController {
         try {
             UnconfirmedTransactionVo unconfirmedTransactionVo = blockchainBrowserApplicationService.queryUnconfirmedTransactionByTransactionHash(request.getTransactionHash());
             if(unconfirmedTransactionVo == null){
-                return Response.fail(ResponseMessage.NOT_FOUNT_UNCONFIRMED_TRANSACTIONS);
+                return Response.fail(ResponseMessage.NOT_FOUND_UNCONFIRMED_TRANSACTIONS);
             }
             QueryUnconfirmedTransactionByTransactionHashResponse response = new QueryUnconfirmedTransactionByTransactionHashResponse();
             response.setTransaction(unconfirmedTransactionVo);
@@ -166,7 +166,7 @@ public class BlockchainBrowserApplicationController {
             PageCondition pageCondition = request.getPageCondition();
             List<TransactionDto> transactionDtos = blockchainNetCore.getBlockchainCore().queryUnconfirmedTransactions(pageCondition.getFrom(),pageCondition.getSize());
             if(transactionDtos == null){
-                return Response.fail(ResponseMessage.NOT_FOUNT_UNCONFIRMED_TRANSACTIONS);
+                return Response.fail(ResponseMessage.NOT_FOUND_UNCONFIRMED_TRANSACTIONS);
             }
 
             List<UnconfirmedTransactionVo> unconfirmedTransactionVos = new ArrayList<>();
@@ -194,7 +194,7 @@ public class BlockchainBrowserApplicationController {
         try {
             BlockVo blockVo = blockchainBrowserApplicationService.queryBlockViewByBlockHeight(request.getBlockHeight());
             if(blockVo == null){
-                return Response.fail(ResponseMessage.NOT_FOUNT_BLOCK);
+                return Response.fail(ResponseMessage.NOT_FOUND_BLOCK);
             }
             QueryBlockByBlockHeightResponse response = new QueryBlockByBlockHeightResponse();
             response.setBlock(blockVo);
@@ -214,7 +214,7 @@ public class BlockchainBrowserApplicationController {
         try {
             Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHash(request.getBlockHash());
             if(block == null){
-                return Response.fail(ResponseMessage.NOT_FOUNT_BLOCK);
+                return Response.fail(ResponseMessage.NOT_FOUND_BLOCK);
             }
             BlockVo blockVo = blockchainBrowserApplicationService.queryBlockViewByBlockHeight(block.getHeight());
             QueryBlockByBlockHashResponse response = new QueryBlockByBlockHashResponse();

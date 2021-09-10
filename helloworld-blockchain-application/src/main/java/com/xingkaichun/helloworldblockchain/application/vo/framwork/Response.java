@@ -29,7 +29,9 @@ public class Response<T> {
     public static<T> Response serviceUnavailable(){
         return fail(ResponseMessage.SERVICE_UNAVAILABLE);
     }
-
+    public static<T> Response serviceUnauthorized(){
+        return fail(ResponseMessage.SERVICE_UNAUTHORIZED);
+    }
 
     //region get set
     public String getStatus() {

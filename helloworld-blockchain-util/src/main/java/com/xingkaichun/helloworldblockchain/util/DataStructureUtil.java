@@ -1,8 +1,6 @@
 package com.xingkaichun.helloworldblockchain.util;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -15,4 +13,20 @@ public class DataStructureUtil {
         return list.size() != set.size();
     }
 
+    public static boolean contains(List<String> values, String value) {
+        if(values == null){
+            return false;
+        }
+        if(value == null){
+            return false;
+        }
+        return values.contains(value);
+    }
+
+    public static List<String> split(String values, String valueSeparator) {
+        if(StringUtil.isNullOrEmpty(values)){
+            return new ArrayList<>();
+        }
+        return Arrays.asList(values.split(valueSeparator));
+    }
 }

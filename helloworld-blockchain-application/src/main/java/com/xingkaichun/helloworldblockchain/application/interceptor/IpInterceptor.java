@@ -1,11 +1,14 @@
 package com.xingkaichun.helloworldblockchain.application.interceptor;
 
-import com.xingkaichun.helloworldblockchain.util.StringUtil;
+import com.xingkaichun.helloworldblockchain.application.vo.framwork.Response;
+import com.xingkaichun.helloworldblockchain.util.DataStructureUtil;
+import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,29 +31,38 @@ public class IpInterceptor implements HandlerInterceptor {
 	private static final String ALLOW_IPS_VALUE_SEPARATOR = ",";
 
 	@Override
-	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object){
+	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws IOException {
 		String remoteHost = httpServletRequest.getRemoteHost();
-		if(DEFAULT_ALLOW_IPS.contains(remoteHost)){
+		if(isIpAllow(remoteHost)){
+			return true;
+		}else {
+			httpServletResponse.setHeader("Content-type", "application/json;");
+			httpServletResponse.setStatus(500);
+			httpServletResponse.setCharacterEncoding("UTF-8");
+			Response response = Response.serviceUnauthorized();
+			String jsonStringResponse = JsonUtil.toString(response);
+			httpServletResponse.getWriter().write(jsonStringResponse);
+			return false;
+		}
+	}
+
+	private boolean isIpAllow(String ip){
+        if(DataStructureUtil.contains(DEFAULT_ALLOW_IPS,ip)){
+            return true;
+        }
+		List<String> allowIps = getAllowIps();
+		if(DataStructureUtil.contains(allowIps,ALL_IP)){
 			return true;
 		}
-		List<String> allowIps = getAllowIps();
-		if(allowIps != null && !allowIps.isEmpty()){
-			if(allowIps.contains(ALL_IP)){
-				return true;
-			}
-			if(allowIps.contains(remoteHost)){
-				return true;
-			}
+		if(DataStructureUtil.contains(allowIps,ip)){
+			return true;
 		}
-		throw new RuntimeException("该IP无访问权限!");
+		return false;
 	}
 
 	//获取允许的ip列表
 	private List<String> getAllowIps(){
 		String allowIps = System.getProperty(ALLOW_IPS_KEY);
-		if(!StringUtil.isNullOrEmpty(allowIps)){
-			return Arrays.asList(allowIps.split(ALLOW_IPS_VALUE_SEPARATOR));
-		}
-		return null;
+		return DataStructureUtil.split(allowIps,ALLOW_IPS_VALUE_SEPARATOR);
 	}
 }
