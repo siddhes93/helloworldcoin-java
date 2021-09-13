@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.application.interceptor;
 
 import com.xingkaichun.helloworldblockchain.application.vo.framwork.Response;
-import com.xingkaichun.helloworldblockchain.util.DataStructureUtil;
+import com.xingkaichun.helloworldblockchain.util.StringsUtil;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -47,14 +47,14 @@ public class IpInterceptor implements HandlerInterceptor {
 	}
 
 	private boolean isIpAllow(String ip){
-        if(DataStructureUtil.contains(DEFAULT_ALLOW_IPS,ip)){
+        if(StringsUtil.contains(DEFAULT_ALLOW_IPS,ip)){
             return true;
         }
 		List<String> allowIps = getAllowIps();
-		if(DataStructureUtil.contains(allowIps,ALL_IP)){
+		if(StringsUtil.contains(allowIps,ALL_IP)){
 			return true;
 		}
-		if(DataStructureUtil.contains(allowIps,ip)){
+		if(StringsUtil.contains(allowIps,ip)){
 			return true;
 		}
 		return false;
@@ -63,6 +63,6 @@ public class IpInterceptor implements HandlerInterceptor {
 	//获取允许的ip列表
 	private List<String> getAllowIps(){
 		String allowIps = System.getProperty(ALLOW_IPS_KEY);
-		return DataStructureUtil.split(allowIps,ALLOW_IPS_VALUE_SEPARATOR);
+		return StringsUtil.split(allowIps,ALLOW_IPS_VALUE_SEPARATOR);
 	}
 }

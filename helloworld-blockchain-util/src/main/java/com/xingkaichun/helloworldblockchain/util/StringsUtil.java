@@ -6,9 +6,9 @@ import java.util.*;
  *
  * @author 邢开春 409060350@qq.com
  */
-public class DataStructureUtil {
+public class StringsUtil {
 
-    public static boolean isExistDuplicateElement(List<String> list) {
+    public static boolean hasDuplicateElement(List<String> list) {
         Set<String> set = new HashSet<>(list);
         return list.size() != set.size();
     }

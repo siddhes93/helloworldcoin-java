@@ -7,7 +7,7 @@ import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOu
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionType;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
-import com.xingkaichun.helloworldblockchain.util.DataStructureUtil;
+import com.xingkaichun.helloworldblockchain.util.StringsUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
 import com.xingkaichun.helloworldblockchain.util.TimeUtil;
 
@@ -51,7 +51,7 @@ public class BlockTool {
                 newHashs.add(transactionHash);
             }
         }
-        return DataStructureUtil.isExistDuplicateElement(newHashs);
+        return StringsUtil.hasDuplicateElement(newHashs);
     }
     /**
      * 区块新产生的地址是否存在重复
@@ -70,7 +70,7 @@ public class BlockTool {
                 }
             }
         }
-        return DataStructureUtil.isExistDuplicateElement(newAddresss);
+        return StringsUtil.hasDuplicateElement(newAddresss);
     }
     /**
      * 区块中是否存在重复的[未花费交易输出]
@@ -90,7 +90,7 @@ public class BlockTool {
                 }
             }
         }
-        return DataStructureUtil.isExistDuplicateElement(utxoIds);
+        return StringsUtil.hasDuplicateElement(utxoIds);
     }
 
     /**

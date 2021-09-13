@@ -8,7 +8,7 @@ import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionTy
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.setting.TransactionSettingTool;
-import com.xingkaichun.helloworldblockchain.util.DataStructureUtil;
+import com.xingkaichun.helloworldblockchain.util.StringsUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 
 import java.util.ArrayList;
@@ -178,7 +178,7 @@ public class TransactionTool {
                 utxoIds.add(utxoId);
             }
         }
-        return DataStructureUtil.isExistDuplicateElement(utxoIds);
+        return StringsUtil.hasDuplicateElement(utxoIds);
     }
     /**
      * 区块新产生的地址是否存在重复
@@ -192,7 +192,7 @@ public class TransactionTool {
                 newAddresss.add(address);
             }
         }
-        return DataStructureUtil.isExistDuplicateElement(newAddresss);
+        return StringsUtil.hasDuplicateElement(newAddresss);
     }
 
     public static long getTransactionInputCount(Transaction transaction) {

@@ -43,12 +43,13 @@ public class NetUtil {
             StringBuilder data = new StringBuilder();
             br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String line;
-            while ( (line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 data.append(line);
             }
             return data.toString();
         } catch (Exception e){
-            //发现异常，返回null
+            LogUtil.error("io error.",e);
+            //default return value null
             return null;
         } finally {
             try {
