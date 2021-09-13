@@ -95,6 +95,34 @@ public class AccountUtil {
     }
 
     /**
+     * 公钥生成公钥哈希
+     */
+    public static String publicKeyHashFromPublicKey(String publicKey) {
+        try {
+            byte[] bytesPublicKey = decodePublicKey0(publicKey);
+            byte[] bytesPublicKeyHash = publicKeyHashFromPublicKey0(bytesPublicKey);
+            return ByteUtil.bytesToHexString(bytesPublicKeyHash);
+        } catch (Exception e) {
+            LogUtil.error("公钥生成公钥哈希失败。",e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 地址生成公钥哈希
+     */
+    public static String publicKeyHashFromAddress(String address) {
+        try {
+            byte[] bytesAddress = Base58Util.decode(address);
+            byte[] bytesPublicKeyHash = ByteUtil.copy(bytesAddress, 1, 20);
+            return ByteUtil.bytesToHexString(bytesPublicKeyHash);
+        } catch (Exception e) {
+            LogUtil.error("地址生成公钥哈希失败。",e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * 私钥生成地址
      */
     public static String addressFromPrivateKey(String privateKey) {
@@ -124,34 +152,6 @@ public class AccountUtil {
             return base58AddressFromPublicKeyHash0(bytesPublicKeyHash);
         } catch (Exception e) {
             LogUtil.error("公钥哈希生成地址失败。",e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 公钥生成公钥哈希
-     */
-    public static String publicKeyHashFromPublicKey(String publicKey) {
-        try {
-            byte[] bytesPublicKey = decodePublicKey0(publicKey);
-            byte[] bytesPublicKeyHash = publicKeyHashFromPublicKey0(bytesPublicKey);
-            return ByteUtil.bytesToHexString(bytesPublicKeyHash);
-        } catch (Exception e) {
-            LogUtil.error("公钥生成公钥哈希失败。",e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 地址生成公钥哈希
-     */
-    public static String publicKeyHashFromAddress(String address) {
-        try {
-            byte[] bytesAddress = Base58Util.decode(address);
-            byte[] bytesPublicKeyHash = ByteUtil.copy(bytesAddress, 1, 20);
-            return ByteUtil.bytesToHexString(bytesPublicKeyHash);
-        } catch (Exception e) {
-            LogUtil.error("地址生成公钥哈希失败。",e);
             throw new RuntimeException(e);
         }
     }
