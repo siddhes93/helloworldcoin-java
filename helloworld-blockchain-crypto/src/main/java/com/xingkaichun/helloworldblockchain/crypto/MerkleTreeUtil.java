@@ -1,5 +1,7 @@
 package com.xingkaichun.helloworldblockchain.crypto;
 
+import com.xingkaichun.helloworldblockchain.util.MathUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class MerkleTreeUtil {
         int levelOffset = 0;
         for (int levelSize = size; levelSize > 1; levelSize = (levelSize + 1) / 2) {
             for (int left = 0; left < levelSize; left += 2) {
-                int right = Math.min(left + 1, levelSize - 1);
+                int right = MathUtil.min(left + 1, levelSize - 1);
                 byte[] leftBytes = tree.get(levelOffset + left);
                 byte[] rightBytes = tree.get(levelOffset + right);
                 tree.add(Sha256Util.doubleDigest(ByteUtil.concatenate(leftBytes, rightBytes)));
