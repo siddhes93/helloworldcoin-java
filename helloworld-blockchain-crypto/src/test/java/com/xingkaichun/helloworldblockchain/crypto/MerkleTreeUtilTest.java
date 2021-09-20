@@ -1,5 +1,6 @@
 package com.xingkaichun.helloworldblockchain.crypto;
 
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import org.bitcoinj.core.Utils;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.Test;

@@ -10,12 +10,9 @@ import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOu
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionType;
 import com.xingkaichun.helloworldblockchain.core.tools.*;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
-import com.xingkaichun.helloworldblockchain.util.FileUtil;
-import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
-import com.xingkaichun.helloworldblockchain.util.LogUtil;
+import com.xingkaichun.helloworldblockchain.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -277,7 +274,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         if(bytesBlock==null){
             return null;
         }
-        return EncodeDecodeTool.decodeToBlock(bytesBlock);
+        return EncodeDecodeTool.decode(bytesBlock,Block.class);
     }
     @Override
     public Block queryBlockByBlockHash(String blockHash) {
@@ -325,7 +322,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         if(bytesTransactionOutput == null){
             return null;
         }
-        return EncodeDecodeTool.decodeToTransactionOutput(bytesTransactionOutput);
+        return EncodeDecodeTool.decode(bytesTransactionOutput,TransactionOutput.class);
     }
 
     @Override
@@ -334,7 +331,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         if(byteTransaction == null){
             return null;
         }
-        return EncodeDecodeTool.decodeToTransaction(byteTransaction);
+        return EncodeDecodeTool.decode(byteTransaction,Transaction.class);
     }
     //endregion
 
@@ -509,7 +506,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
                     for(TransactionOutput output:outputs){
                         byte[] transactionOutputHeightToTransactionOutputKey = BlockchainDatabaseKeyTool.buildTransactionOutputHeightToTransactionOutputKey(output.getTransactionOutputHeight());
                         if(BlockchainActionEnum.ADD_BLOCK == blockchainActionEnum){
-                            kvWriteBatch.put(transactionOutputHeightToTransactionOutputKey, EncodeDecodeTool.encodeTransactionOutput(output));
+                            kvWriteBatch.put(transactionOutputHeightToTransactionOutputKey, EncodeDecodeTool.encode(output));
                         } else {
                             kvWriteBatch.delete(transactionOutputHeightToTransactionOutputKey);
                         }
@@ -594,7 +591,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
                 //更新区块链中的交易序列号数据
                 byte[] transactionHeightToTransactionKey = BlockchainDatabaseKeyTool.buildTransactionHeightToTransactionKey(transaction.getTransactionHeight());
                 if(BlockchainActionEnum.ADD_BLOCK == blockchainActionEnum){
-                    kvWriteBatch.put(transactionHeightToTransactionKey, EncodeDecodeTool.encodeTransaction(transaction));
+                    kvWriteBatch.put(transactionHeightToTransactionKey, EncodeDecodeTool.encode(transaction));
                 } else {
                     kvWriteBatch.delete(transactionHeightToTransactionKey);
                 }
@@ -669,7 +666,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     private void storeBlockHeightToBlock(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainActionEnum blockchainActionEnum) {
         byte[] blockHeightKey = BlockchainDatabaseKeyTool.buildBlockHeightToBlockKey(block.getHeight());
         if(BlockchainActionEnum.ADD_BLOCK == blockchainActionEnum){
-            kvWriteBatch.put(blockHeightKey, EncodeDecodeTool.encodeBlock(block));
+            kvWriteBatch.put(blockHeightKey, EncodeDecodeTool.encode(block));
         }else{
             kvWriteBatch.delete(blockHeightKey);
         }

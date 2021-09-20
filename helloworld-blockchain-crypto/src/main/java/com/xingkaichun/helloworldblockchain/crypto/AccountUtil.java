@@ -1,6 +1,7 @@
 package com.xingkaichun.helloworldblockchain.crypto;
 
 import com.xingkaichun.helloworldblockchain.crypto.model.Account;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
 import org.bitcoinj.core.ECKey;

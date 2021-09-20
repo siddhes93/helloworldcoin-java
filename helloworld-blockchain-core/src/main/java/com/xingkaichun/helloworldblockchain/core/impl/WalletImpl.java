@@ -5,16 +5,12 @@ import com.xingkaichun.helloworldblockchain.core.CoreConfiguration;
 import com.xingkaichun.helloworldblockchain.core.Wallet;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOutput;
 import com.xingkaichun.helloworldblockchain.core.model.wallet.*;
-import com.xingkaichun.helloworldblockchain.core.tools.EncodeDecodeTool;
 import com.xingkaichun.helloworldblockchain.core.tools.ScriptDtoTool;
 import com.xingkaichun.helloworldblockchain.core.tools.TransactionDtoTool;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
 import com.xingkaichun.helloworldblockchain.crypto.model.Account;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
-import com.xingkaichun.helloworldblockchain.util.FileUtil;
-import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
-import com.xingkaichun.helloworldblockchain.util.StringUtil;
+import com.xingkaichun.helloworldblockchain.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +37,7 @@ public class WalletImpl extends Wallet {
         List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
         if(bytesAccounts != null){
             for(byte[] bytesAccount:bytesAccounts){
-                Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
+                Account account = EncodeDecodeTool.decode(bytesAccount,Account.class);
                 accounts.add(account);
             }
         }
@@ -55,7 +51,7 @@ public class WalletImpl extends Wallet {
         List<byte[]> bytesAccounts = KvDbUtil.gets(getWalletDatabasePath(),1,100000000);
         if(bytesAccounts != null){
             for(byte[] bytesAccount:bytesAccounts){
-                Account account = EncodeDecodeTool.decodeToAccount(bytesAccount);
+                Account account = EncodeDecodeTool.decode(bytesAccount,Account.class);
                 TransactionOutput utxo = blockchainDatabase.queryUnspentTransactionOutputByAddress(account.getAddress());
                 if(utxo != null && utxo.getValue() > 0){
                     accounts.add(account);
@@ -79,7 +75,7 @@ public class WalletImpl extends Wallet {
 
     @Override
     public void saveAccount(Account account) {
-        KvDbUtil.put(getWalletDatabasePath(),getKeyByAccount(account), EncodeDecodeTool.encodeAccount(account));
+        KvDbUtil.put(getWalletDatabasePath(),getKeyByAccount(account), EncodeDecodeTool.encode(account));
     }
 
     @Override

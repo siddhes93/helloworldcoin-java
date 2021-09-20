@@ -5,7 +5,7 @@ import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
 import com.xingkaichun.helloworldblockchain.core.model.script.OutputScript;
 import com.xingkaichun.helloworldblockchain.core.model.script.Script;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.InputScriptDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.OutputScriptDto;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;

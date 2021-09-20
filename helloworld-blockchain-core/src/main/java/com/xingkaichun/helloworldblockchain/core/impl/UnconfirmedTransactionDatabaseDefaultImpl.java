@@ -2,14 +2,9 @@ package com.xingkaichun.helloworldblockchain.core.impl;
 
 import com.xingkaichun.helloworldblockchain.core.CoreConfiguration;
 import com.xingkaichun.helloworldblockchain.core.UnconfirmedTransactionDatabase;
-import com.xingkaichun.helloworldblockchain.core.tools.EncodeDecodeTool;
 import com.xingkaichun.helloworldblockchain.core.tools.TransactionDtoTool;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.*;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
-import com.xingkaichun.helloworldblockchain.util.FileUtil;
-import com.xingkaichun.helloworldblockchain.util.JsonUtil;
-import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
-import com.xingkaichun.helloworldblockchain.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +27,7 @@ public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransa
     public boolean insertTransaction(TransactionDto transaction) {
         try {
             String transactionHash = TransactionDtoTool.calculateTransactionHash(transaction);
-            KvDbUtil.put(getUnconfirmedTransactionDatabasePath(), getKey(transactionHash), EncodeDecodeTool.encodeTransactionDto(transaction));
+            KvDbUtil.put(getUnconfirmedTransactionDatabasePath(), getKey(transactionHash), EncodeDecodeTool.encode(transaction));
             return true;
         }catch (Exception e){
             LogUtil.error("交易["+ JsonUtil.toString(transaction)+"]放入交易池异常。",e);
@@ -46,7 +41,7 @@ public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransa
         List<byte[]> bytesTransactionDtos = KvDbUtil.gets(getUnconfirmedTransactionDatabasePath(),from,size);
         if(bytesTransactionDtos != null){
             for(byte[] bytesTransactionDto:bytesTransactionDtos){
-                TransactionDto transactionDto = EncodeDecodeTool.decodeToTransactionDto(bytesTransactionDto);
+                TransactionDto transactionDto = EncodeDecodeTool.decode(bytesTransactionDto,TransactionDto.class);
                 transactionDtos.add(transactionDto);
             }
         }
@@ -64,7 +59,7 @@ public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransa
         if(byteTransactionDto == null){
             return null;
         }
-        return EncodeDecodeTool.decodeToTransactionDto(byteTransactionDto);
+        return EncodeDecodeTool.decode(byteTransactionDto,TransactionDto.class);
     }
 
     private String getUnconfirmedTransactionDatabasePath() {

@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.crypto.Sha256Util;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 

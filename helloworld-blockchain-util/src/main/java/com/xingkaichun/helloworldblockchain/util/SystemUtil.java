@@ -10,6 +10,7 @@ import java.nio.file.Paths;
  */
 public class SystemUtil {
 
+    //TODO 慎重调用
     public static void errorExit(String message, Exception exception) {
         LogUtil.error("system error occurred, and exited, please check the error！"+message,exception);
         System.exit(1);

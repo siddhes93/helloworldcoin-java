@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
 
 /**

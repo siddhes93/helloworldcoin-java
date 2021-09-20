@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.crypto;
+package com.xingkaichun.helloworldblockchain.util;
 
 import org.junit.Assert;
 import org.junit.Test;

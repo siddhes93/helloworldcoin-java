@@ -1,13 +1,9 @@
 package com.xingkaichun.helloworldblockchain.netcore.dao.impl;
 
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.po.NodePo;
-import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
-import com.xingkaichun.helloworldblockchain.util.FileUtil;
-import com.xingkaichun.helloworldblockchain.util.JsonUtil;
-import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
-import com.xingkaichun.helloworldblockchain.util.StringUtil;
+import com.xingkaichun.helloworldblockchain.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +36,12 @@ public class NodeDaoImpl implements NodeDao {
 
     @Override
     public void addNode(NodePo node){
-        KvDbUtil.put(getNodeDatabasePath(),getKeyByNodePo(node), encode(node));
+        KvDbUtil.put(getNodeDatabasePath(),getKeyByNodePo(node), EncodeDecodeTool.encode(node));
     }
 
     @Override
     public void updateNode(NodePo node){
-        KvDbUtil.put(getNodeDatabasePath(),getKeyByNodePo(node),encode(node));
+        KvDbUtil.put(getNodeDatabasePath(),getKeyByNodePo(node),EncodeDecodeTool.encode(node));
     }
 
     @Override
@@ -60,7 +56,7 @@ public class NodeDaoImpl implements NodeDao {
         List<byte[]> bytesNodePos = KvDbUtil.gets(getNodeDatabasePath(),1,100000000);
         if(bytesNodePos != null){
             for(byte[] bytesNodePo:bytesNodePos){
-                NodePo nodePo = decodeToNodePo(bytesNodePo);
+                NodePo nodePo = EncodeDecodeTool.decode(bytesNodePo,NodePo.class);
                 nodePos.add(nodePo);
             }
         }
@@ -74,11 +70,5 @@ public class NodeDaoImpl implements NodeDao {
     }
     private byte[] getKeyByIp(String ip){
         return ByteUtil.stringToUtf8Bytes(ip);
-    }
-    private byte[] encode(NodePo node){
-        return ByteUtil.stringToUtf8Bytes(JsonUtil.toString(node));
-    }
-    private NodePo decodeToNodePo(byte[] bytesNodePo){
-        return JsonUtil.toObject(ByteUtil.utf8BytesToString(bytesNodePo), NodePo.class);
     }
 }

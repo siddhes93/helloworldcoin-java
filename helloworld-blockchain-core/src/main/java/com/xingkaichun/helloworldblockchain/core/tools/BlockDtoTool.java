@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.crypto.MerkleTreeUtil;
 import com.xingkaichun.helloworldblockchain.crypto.Sha256Util;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
@@ -53,10 +53,6 @@ public class BlockDtoTool {
      * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
      */
     public static boolean isBlockEquals(BlockDto block1, BlockDto block2) {
-        //如果任一区块为为空，则认为两个区块不相等
-        if(block1 == null || block2 == null){
-            return false;
-        }
         String block1Hash = calculateBlockHash(block1);
         String block2Hash = calculateBlockHash(block2);
         return StringUtil.isEquals(block1Hash, block2Hash);

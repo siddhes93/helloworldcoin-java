@@ -19,6 +19,8 @@ public class ResourcePathTool {
             dataRootPath = "C:\\helloworld-blockchain-java\\";
         }else if(OperateSystemUtil.isMacOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java/";
+        }else if(OperateSystemUtil.isLinuxOperateSystem()){
+            dataRootPath = "/tmp/helloworld-blockchain-java/";
         }else{
             dataRootPath = "/tmp/helloworld-blockchain-java/";
         }
@@ -34,6 +36,8 @@ public class ResourcePathTool {
         if(OperateSystemUtil.isWindowsOperateSystem()){
             dataRootPath = "C:\\helloworld-blockchain-java-test\\";
         }else if(OperateSystemUtil.isMacOperateSystem()){
+            dataRootPath = "/tmp/helloworld-blockchain-java-test/";
+        }else if(OperateSystemUtil.isLinuxOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java-test/";
         }else{
             dataRootPath = "/tmp/helloworld-blockchain-java-test/";

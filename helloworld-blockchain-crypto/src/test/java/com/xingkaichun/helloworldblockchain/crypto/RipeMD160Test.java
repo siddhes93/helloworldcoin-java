@@ -1,7 +1,11 @@
 package com.xingkaichun.helloworldblockchain.crypto;
 
+import com.xingkaichun.helloworldblockchain.crypto.model.Account;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.Test;
+
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.assertArrayEquals;
 
@@ -37,6 +41,25 @@ public class RipeMD160Test {
             byte[] messageDigest = Ripemd160Util.digest(toByteArray(messages[i]));
             assertArrayEquals(Hex.decode(digests[i]), messageDigest);
         }
+    }
+    @Test
+    public void md5Test() throws NoSuchAlgorithmException {
+        System.out.println(ByteUtil.bytesToHexString(Sha256Util.digest(new byte[]{0x00})));
+        System.out.println(ByteUtil.bytesToHexString(Sha256Util.digest(new byte[]{0x01})));
+        System.out.println(ByteUtil.bytesToHexString(Sha256Util.digest(new byte[]{0x02})));
+        System.out.println(ByteUtil.bytesToHexString(Ripemd160Util.digest(new byte[]{0x00})));
+        System.out.println(ByteUtil.bytesToHexString(Ripemd160Util.digest(new byte[]{0x01})));
+        System.out.println(ByteUtil.bytesToHexString(Ripemd160Util.digest(new byte[]{0x02})));
+        System.out.println(Base58Util.encode(ByteUtil.hexStringToBytes("18EFBA81F02B8BFF148118BB58F38820642CCCC159E32254AEC4606CE6C71CC4FC124A1C7B61122BABE0576669F515A77568EED494F1E60B65DF3284269A153C36EC8D5911D77998FA530C689531")));
+        Account account = AccountUtil.accountFromPrivateKey("D026AD829A2EA66E7BE1FC004E0EB703543CFCD31E8047BEC7DA68E326194AAD");
+        System.out.println(account.getPrivateKey());
+        System.out.println(account.getPublicKey());
+        System.out.println(account.getPublicKeyHash());
+        System.out.println(account.getAddress());
+
+
+        System.out.println(AccountUtil.signature("B4D475E477B08F2BE5C524264CB9EE21830177788DF011C0F8C79512AE49B540",new byte[]{0x00}));
+
     }
 
 

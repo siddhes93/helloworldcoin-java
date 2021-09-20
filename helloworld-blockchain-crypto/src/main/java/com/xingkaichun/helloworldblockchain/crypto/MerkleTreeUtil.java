@@ -1,5 +1,6 @@
 package com.xingkaichun.helloworldblockchain.crypto;
 
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.MathUtil;
 
 import java.util.ArrayList;

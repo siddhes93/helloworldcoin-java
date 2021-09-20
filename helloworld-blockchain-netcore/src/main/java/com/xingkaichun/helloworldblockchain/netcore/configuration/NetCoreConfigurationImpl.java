@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.netcore.configuration;
 
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
 

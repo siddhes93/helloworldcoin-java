@@ -27,10 +27,9 @@ public class WalletTest {
         BlockchainCore blockchainCore = BlockchainCoreFactory.createBlockchainCore(ResourcePathTool.getTestDataRootPath());
         blockchainCore.getMiner().setMaxBlockHeight(1L);
         blockchainCore.start();
-        blockchainCore.getCoreConfiguration().activeMiner();
-
+        blockchainCore.getMiner().active();
         //留5秒时间挖矿
-        ThreadUtil.millisecondSleep(5000);
+        ThreadUtil.millisecondSleep(10000);
 
         //测试是否挖出一个区块
         Block block1 = blockchainCore.getBlockchainDatabase().queryTailBlock();
@@ -63,10 +62,9 @@ public class WalletTest {
         //将交易放入未确认交易池
         blockchainCore.getMiner().getUnconfirmedTransactionDatabase().insertTransaction(response.getTransaction());
         blockchainCore.getMiner().setMaxBlockHeight(2L);
-        blockchainCore.start();
 
         //留5秒时间挖矿
-        ThreadUtil.millisecondSleep(5000);
+        ThreadUtil.millisecondSleep(10000);
 
 
         Block block2 = blockchainCore.getBlockchainDatabase().queryTailBlock();
@@ -77,6 +75,6 @@ public class WalletTest {
         //测试挖出的区块第二笔交易的交易输出是否是我们指定的收款金额
         Assert.assertEquals(payeeValue,block2.getTransactions().get(1).getOutputs().get(0).getValue());
         Assert.assertNotNull(blockchainCore.queryUnspentTransactionOutputByAddress(payeeAddress));
-        Assert.assertNotNull(blockchainCore.queryUnspentTransactionOutputByAddress(block1.getTransactions().get(0).getOutputs().get(0).getAddress()));
+        Assert.assertNull(blockchainCore.queryUnspentTransactionOutputByAddress(block1.getTransactions().get(0).getOutputs().get(0).getAddress()));
     }
 }

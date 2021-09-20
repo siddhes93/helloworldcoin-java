@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import org.junit.Assert;

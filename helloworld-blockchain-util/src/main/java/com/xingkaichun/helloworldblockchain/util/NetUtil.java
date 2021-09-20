@@ -48,7 +48,6 @@ public class NetUtil {
             }
             return data.toString();
         } catch (Exception e){
-            LogUtil.error("io error.",e);
             //default return value null
             return null;
         } finally {

@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.crypto;
+package com.xingkaichun.helloworldblockchain.util;
 
 import com.google.common.primitives.Bytes;
 import com.google.common.primitives.Longs;

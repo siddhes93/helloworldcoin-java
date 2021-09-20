@@ -8,8 +8,9 @@ import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionTy
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.setting.TransactionSettingTool;
-import com.xingkaichun.helloworldblockchain.util.StringsUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
+import com.xingkaichun.helloworldblockchain.util.StringsUtil;
+import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,24 +54,30 @@ public class TransactionTool {
 
 
     /**
-     * 交易手续费（只计算标准交易的手续费，创世交易抛出异常）
+     * 交易手续费（创世交易交易手续费是0）
      */
     public static long getTransactionFee(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             long transactionFee = getInputValue(transaction) - getOutputValue(transaction);
             return transactionFee;
-        }else {
-            throw new RuntimeException("只能计算标准交易类型的手续费");
+        }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+            return 0L;
+        }else{
+            SystemUtil.errorExit("不能识别的交易类型", null);
+            return 0L;
         }
     }
     /**
-     * 交易费率（只计算标准交易的手续费，创世交易抛出异常）
+     * 交易费率（创世交易交易手续费率是0）
      */
     public static long getTransactionFeeRate(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             return getTransactionFee(transaction)/SizeTool.calculateTransactionSize(transaction);
+        }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+            return 0L;
         }else {
-            throw new RuntimeException("只能计算标准交易类型的交易费率");
+            SystemUtil.errorExit("不能识别的交易类型", null);
+            return 0L;
         }
     }
 

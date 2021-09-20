@@ -20,7 +20,7 @@ public class FileUtil {
         }
         boolean isMakeDirectorySuccess = file.mkdirs();
         if(!isMakeDirectorySuccess){
-            throw new RuntimeException("create directory failed.");
+            SystemUtil.errorExit("create directory failed. path is "+path + ".",null);
         }
     }
 
@@ -36,7 +36,7 @@ public class FileUtil {
         }
         boolean isDeleteDirectorySuccess = file.delete();
         if(!isDeleteDirectorySuccess){
-            throw new RuntimeException("delete directory failed.");
+            SystemUtil.errorExit("delete directory failed. path is "+path + ".",null);
         }
     }
 

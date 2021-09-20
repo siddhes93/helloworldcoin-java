@@ -8,7 +8,7 @@ import com.xingkaichun.helloworldblockchain.core.model.script.ScriptExecuteResul
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.tools.TransactionTool;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
-import com.xingkaichun.helloworldblockchain.crypto.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
 
 /**

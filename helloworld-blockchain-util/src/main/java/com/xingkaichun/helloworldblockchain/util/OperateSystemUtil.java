@@ -14,4 +14,8 @@ public class OperateSystemUtil {
     public static boolean isMacOperateSystem(){
         return System.getProperty("os.name").toLowerCase().contains("mac");
     }
+
+    public static boolean isLinuxOperateSystem(){
+        return System.getProperty("os.name").toLowerCase().contains("linux");
+    }
 }
