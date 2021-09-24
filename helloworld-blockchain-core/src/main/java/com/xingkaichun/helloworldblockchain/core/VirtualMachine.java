@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core;
 
 import com.xingkaichun.helloworldblockchain.core.model.script.Script;
-import com.xingkaichun.helloworldblockchain.core.model.script.ScriptExecuteResult;
+import com.xingkaichun.helloworldblockchain.core.model.script.Result;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 
 /**
@@ -14,6 +14,6 @@ public abstract class VirtualMachine {
     /**
      * 执行脚本
      */
-    public abstract ScriptExecuteResult executeScript(Transaction transactionEnvironment, Script script) throws RuntimeException ;
+    public abstract Result execute(Transaction transactionEnvironment, Script script) throws RuntimeException ;
 
 }

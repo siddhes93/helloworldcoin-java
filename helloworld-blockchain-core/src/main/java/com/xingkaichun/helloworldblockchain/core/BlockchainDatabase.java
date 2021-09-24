@@ -15,6 +15,8 @@ import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 public abstract class BlockchainDatabase {
 
     //region 变量与构造函数
+    //配置
+    protected CoreConfiguration coreConfiguration;
     //区块共识
     protected Consensus consensus ;
     //矿工激励

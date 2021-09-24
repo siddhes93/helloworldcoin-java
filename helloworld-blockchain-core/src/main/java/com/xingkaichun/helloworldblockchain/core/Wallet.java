@@ -14,8 +14,11 @@ import java.util.List;
  */
 public abstract class Wallet {
 
+    //配置
+    protected CoreConfiguration coreConfiguration;
     //钱包所在的区块链
     protected BlockchainDatabase blockchainDatabase;
+
 
     public abstract List<Account> getAllAccounts();
 

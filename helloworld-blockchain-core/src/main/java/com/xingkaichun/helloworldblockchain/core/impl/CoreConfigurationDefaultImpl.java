@@ -12,8 +12,6 @@ import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
  */
 public class CoreConfigurationDefaultImpl extends CoreConfiguration {
 
-    //BlockchainCore数据存放路径
-    private final String corePath;
     //配置数据库名字
     private static final String CONFIGURATION_DATABASE_NAME = "ConfigurationDatabase";
 
@@ -21,7 +19,7 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
     private static final String MINE_OPTION_KEY = "IS_MINER_ACTIVE";
 
     //'矿工可挖的最高区块高度'存入到数据库时的主键
-    private static final String MINE_MAX_BLOCK_HEIGHT_KEY = "MAX_BLOCK_HEIGHT";
+    private static final String MINER_MINE_MAX_BLOCK_HEIGHT_KEY = "MINER_MINE_MAX_BLOCK_HEIGHT";
 
 
 
@@ -63,13 +61,13 @@ public class CoreConfigurationDefaultImpl extends CoreConfiguration {
     }
 
     @Override
-    public void setMaxBlockHeight(long maxHeight) {
-        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY),ByteUtil.uint64ToBytes(maxHeight));
+    public void setMinerMineMaxBlockHeight(long maxHeight) {
+        addOrUpdateConfiguration(ByteUtil.stringToUtf8Bytes(MINER_MINE_MAX_BLOCK_HEIGHT_KEY),ByteUtil.uint64ToBytes(maxHeight));
     }
 
     @Override
-    public long getMaxBlockHeight() {
-        byte[] bytesMineMaxBlockHeight = getConfigurationValue(ByteUtil.stringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY));
+    public long getMinerMineMaxBlockHeight() {
+        byte[] bytesMineMaxBlockHeight = getConfigurationValue(ByteUtil.stringToUtf8Bytes(MINER_MINE_MAX_BLOCK_HEIGHT_KEY));
         if(bytesMineMaxBlockHeight == null){
             //设置默认值，这是一个十分巨大的数字，矿工永远挖不到的高度
             return 10000000000000000L;

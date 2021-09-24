@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
-import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
+import com.xingkaichun.helloworldblockchain.core.model.script.OperationCode;
 import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.InputScriptDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.OutputScriptDto;
@@ -15,7 +15,7 @@ public class ScriptToolTest {
     public void bytesScriptTest()
     {
         InputScriptDto inputScriptDto = new InputScriptDto();
-        inputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        inputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         inputScriptDto.add("955c1464982a1c904b7b1029598de6ace11bd2b1");
 
         InputScriptDto resumeInputScriptDto =  ScriptDtoTool.inputScriptDto(ScriptDtoTool.bytesInputScript(inputScriptDto));
@@ -24,12 +24,12 @@ public class ScriptToolTest {
 
 
         OutputScriptDto outputScriptDto = new OutputScriptDto();
-        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_DUP.getCode()));
-        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_HASH160.getCode()));
-        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_DUP.getCode()));
+        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_HASH160.getCode()));
+        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         outputScriptDto.add("955c1464982a1c904b7b1029598de6ace11bd2b1");
-        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.getCode()));
-        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_CHECKSIG.getCode()));
+        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_EQUALVERIFY.getCode()));
+        outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_CHECKSIG.getCode()));
 
         OutputScriptDto resumeOutputScriptDto =  ScriptDtoTool.outputScriptDto(ScriptDtoTool.bytesOutputScript(outputScriptDto));
         Assert.assertEquals(JsonUtil.toString(outputScriptDto),JsonUtil.toString(resumeOutputScriptDto));

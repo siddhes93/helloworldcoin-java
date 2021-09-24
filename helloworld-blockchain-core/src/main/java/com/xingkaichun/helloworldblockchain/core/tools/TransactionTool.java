@@ -7,7 +7,6 @@ import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionOu
 import com.xingkaichun.helloworldblockchain.core.model.transaction.TransactionType;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
-import com.xingkaichun.helloworldblockchain.setting.TransactionSettingTool;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.StringsUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
@@ -119,7 +118,7 @@ public class TransactionTool {
         if(inputs != null){
             //校验交易输入的金额
             for(TransactionInput input:inputs){
-                if(!TransactionSettingTool.checkTransactionValue(input.getUnspentTransactionOutput().getValue())){
+                if(!checkValue(input.getUnspentTransactionOutput().getValue())){
                     LogUtil.debug("交易金额不合法");
                     return false;
                 }
@@ -130,7 +129,7 @@ public class TransactionTool {
         if(outputs != null){
             //校验交易输出的金额
             for(TransactionOutput output:outputs){
-                if(!TransactionSettingTool.checkTransactionValue(output.getValue())){
+                if(!checkValue(output.getValue())){
                     LogUtil.debug("交易金额不合法");
                     return false;
                 }
@@ -281,5 +280,18 @@ public class TransactionTool {
     public static boolean verifySignature(Transaction transaction, String publicKey, byte[] bytesSignature) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return  TransactionDtoTool.verifySignature(transactionDto,publicKey,bytesSignature);
+    }
+
+    /**
+     * 校验交易金额是否是一个合法的交易金额：这里用于限制交易金额的最大值、最小值、小数保留位等
+     */
+    public static boolean checkValue(long transactionAmount) {
+        //交易金额不能小于等于0
+        if(transactionAmount <= 0){
+            return false;
+        }
+        //最大值是2^64
+        //小数保留位是0位
+        return true;
     }
 }

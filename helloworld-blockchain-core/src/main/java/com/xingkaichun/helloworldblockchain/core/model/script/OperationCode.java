@@ -7,7 +7,7 @@ package com.xingkaichun.helloworldblockchain.core.model.script;
  *
  * @author 邢开春 409060350@qq.com
  */
-public enum OperationCodeEnum {
+public enum OperationCode {
     /**
      * 操作前，假设栈元素为(A B C D E)(栈顶<---栈底)
      * 若栈内少于0个元素，抛出异常。
@@ -58,7 +58,7 @@ public enum OperationCodeEnum {
 
 
 
-    OperationCodeEnum(byte[] code, String name) {
+    OperationCode(byte[] code, String name) {
         this.code = code;
         this.name = name;
     }

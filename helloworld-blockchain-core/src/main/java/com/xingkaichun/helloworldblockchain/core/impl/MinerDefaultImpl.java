@@ -47,7 +47,7 @@ public class MinerDefaultImpl extends Miner {
 
             long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
             //'当前区块链的高度'是否大于'矿工最大被允许的挖矿高度'
-            if(blockChainHeight >= coreConfiguration.getMaxBlockHeight()){
+            if(blockChainHeight >= coreConfiguration.getMinerMineMaxBlockHeight()){
                 continue;
             }
 
@@ -102,13 +102,13 @@ public class MinerDefaultImpl extends Miner {
 
 
     @Override
-    public void setMaxBlockHeight(long maxHeight) {
-         coreConfiguration.setMaxBlockHeight(maxHeight);
+    public void setMinerMineMaxBlockHeight(long maxHeight) {
+         coreConfiguration.setMinerMineMaxBlockHeight(maxHeight);
     }
 
     @Override
-    public long getMaxBlockHeight( ) {
-        return coreConfiguration.getMaxBlockHeight();
+    public long getMinerMineMaxBlockHeight( ) {
+        return coreConfiguration.getMinerMineMaxBlockHeight();
     }
 
     /**

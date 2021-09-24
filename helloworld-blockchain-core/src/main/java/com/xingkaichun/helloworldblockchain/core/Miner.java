@@ -51,11 +51,11 @@ public abstract class Miner {
     /**
      * 设置矿工可挖掘的最高区块高度
      */
-    public abstract void setMaxBlockHeight(long maxHeight) ;
+    public abstract void setMinerMineMaxBlockHeight(long maxHeight) ;
     /**
      * 获取矿工可挖掘的最高区块高度
      */
-    public abstract long getMaxBlockHeight( ) ;
+    public abstract long getMinerMineMaxBlockHeight( ) ;
 
     //endregion
 

@@ -33,9 +33,9 @@ public class NodeConsoleApplicationApi {
     public static final String DEACTIVE_AUTO_SEARCH_NODE = "/Api/NodeConsoleApplication/DeactiveAutoSearchNode";
 
     //设置最大挖矿高度
-    public static final String SET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/SetMaxBlockHeight";
+    public static final String SET_MINER_MINE_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight";
     //获取最大挖矿高度
-    public static final String GET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/GetMaxBlockHeight";
+    public static final String GET_MINER_MINE_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/GetMinerMineMaxBlockHeight";
 
     //新增节点
     public static final String ADD_NODE = "/Api/NodeConsoleApplication/AddNode";

@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 import com.xingkaichun.helloworldblockchain.core.model.script.InputScript;
-import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
+import com.xingkaichun.helloworldblockchain.core.model.script.OperationCode;
 import com.xingkaichun.helloworldblockchain.core.model.script.OutputScript;
 import com.xingkaichun.helloworldblockchain.core.model.script.Script;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
@@ -29,17 +29,17 @@ public class ScriptTool {
         for(int i=0;i<script.size();i++){
             String operationCode = script.get(i);
             byte[] bytesOperationCode = ByteUtil.hexStringToBytes(operationCode);
-            if(ByteUtil.isEquals(OperationCodeEnum.OP_DUP.getCode(),bytesOperationCode)){
-                stringScript = StringUtil.concatenate3(stringScript,OperationCodeEnum.OP_DUP.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_HASH160.getCode(),bytesOperationCode)){
-                stringScript = StringUtil.concatenate3(stringScript,OperationCodeEnum.OP_HASH160.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
-                stringScript = StringUtil.concatenate3(stringScript,OperationCodeEnum.OP_EQUALVERIFY.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_CHECKSIG.getCode(),bytesOperationCode)){
-                stringScript = StringUtil.concatenate3(stringScript,OperationCodeEnum.OP_CHECKSIG.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_PUSHDATA.getCode(),bytesOperationCode)){
+            if(ByteUtil.isEquals(OperationCode.OP_DUP.getCode(),bytesOperationCode)){
+                stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_DUP.getName(),StringUtil.BLANKSPACE);
+            }else if(ByteUtil.isEquals(OperationCode.OP_HASH160.getCode(),bytesOperationCode)){
+                stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_HASH160.getName(),StringUtil.BLANKSPACE);
+            }else if(ByteUtil.isEquals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
+                stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_EQUALVERIFY.getName(),StringUtil.BLANKSPACE);
+            }else if(ByteUtil.isEquals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
+                stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_CHECKSIG.getName(),StringUtil.BLANKSPACE);
+            }else if(ByteUtil.isEquals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 String operationData = script.get(++i);
-                stringScript = StringUtil.concatenate3(stringScript,OperationCodeEnum.OP_PUSHDATA.getName(),StringUtil.BLANKSPACE);
+                stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_PUSHDATA.getName(),StringUtil.BLANKSPACE);
                 stringScript = StringUtil.concatenate3(stringScript,operationData,StringUtil.BLANKSPACE);
             }else {
                 throw new RuntimeException("不能识别的指令");
@@ -64,9 +64,9 @@ public class ScriptTool {
      */
     public static InputScript createPayToPublicKeyHashInputScript(String sign, String publicKey) {
         InputScript script = new InputScript();
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         script.add(sign);
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         script.add(publicKey);
         return script;
     }
@@ -76,13 +76,13 @@ public class ScriptTool {
      */
     public static OutputScript createPayToPublicKeyHashOutputScript(String address) {
         OutputScript script = new OutputScript();
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_DUP.getCode()));
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_HASH160.getCode()));
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_PUSHDATA.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_DUP.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_HASH160.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         String publicKeyHash = AccountUtil.publicKeyHashFromAddress(address);
         script.add(publicKeyHash);
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.getCode()));
-        script.add(ByteUtil.bytesToHexString(OperationCodeEnum.OP_CHECKSIG.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_EQUALVERIFY.getCode()));
+        script.add(ByteUtil.bytesToHexString(OperationCode.OP_CHECKSIG.getCode()));
         return script;
     }
 

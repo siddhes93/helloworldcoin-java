@@ -25,7 +25,7 @@ public class WalletTest {
         FileUtil.deleteDirectory(ResourcePathTool.getTestDataRootPath());
 
         BlockchainCore blockchainCore = BlockchainCoreFactory.createBlockchainCore(ResourcePathTool.getTestDataRootPath());
-        blockchainCore.getMiner().setMaxBlockHeight(1L);
+        blockchainCore.getMiner().setMinerMineMaxBlockHeight(1L);
         blockchainCore.start();
         blockchainCore.getMiner().active();
         //留5秒时间挖矿
@@ -61,7 +61,7 @@ public class WalletTest {
 
         //将交易放入未确认交易池
         blockchainCore.getMiner().getUnconfirmedTransactionDatabase().insertTransaction(response.getTransaction());
-        blockchainCore.getMiner().setMaxBlockHeight(2L);
+        blockchainCore.getMiner().setMinerMineMaxBlockHeight(2L);
 
         //留5秒时间挖矿
         ThreadUtil.millisecondSleep(10000);

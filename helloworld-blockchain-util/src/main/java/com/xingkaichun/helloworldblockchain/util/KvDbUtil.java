@@ -83,9 +83,9 @@ public class KvDbUtil {
         WriteBatch writeBatch = new WriteBatchImpl();
         if(kvWriteBatch != null){
             for (KvWrite kvWrite : kvWriteBatch.getKvWrites()){
-                if(kvWrite.getKvWriteActionEnum() == KvWriteActionEnum.ADD){
+                if(kvWrite.getKvWriteAction() == KvWriteAction.ADD){
                     writeBatch.put(kvWrite.key, kvWrite.value);
-                }else if(kvWrite.getKvWriteActionEnum() == KvWriteActionEnum.DELETE){
+                }else if(kvWrite.getKvWriteAction() == KvWriteAction.DELETE){
                     writeBatch.delete(kvWrite.key);
                 }else {
                     throw new RuntimeException();
@@ -109,23 +109,23 @@ public class KvDbUtil {
             this.kvWrites = kvWrites;
         }
         public void put(byte[] key, byte[] value) {
-            kvWrites.add(new KvWrite(KvWriteActionEnum.ADD,key,value));
+            kvWrites.add(new KvWrite(KvWriteAction.ADD,key,value));
         }
         public void delete(byte[] key) {
-            kvWrites.add(new KvWrite(KvWriteActionEnum.DELETE,key,null));
+            kvWrites.add(new KvWrite(KvWriteAction.DELETE,key,null));
         }
     }
     public static class KvWrite {
-        private KvWriteActionEnum kvWriteActionEnum;
+        private KvWriteAction kvWriteAction;
         private byte[] key;
         private byte[] value;
-        public KvWrite(KvWriteActionEnum kvWriteActionEnum, byte[] key, byte[] value) {
-            this.kvWriteActionEnum = kvWriteActionEnum;
+        public KvWrite(KvWriteAction kvWriteAction, byte[] key, byte[] value) {
+            this.kvWriteAction = kvWriteAction;
             this.key = key;
             this.value = value;
         }
-        public KvWriteActionEnum getKvWriteActionEnum() {
-            return kvWriteActionEnum;
+        public KvWriteAction getKvWriteAction() {
+            return kvWriteAction;
         }
         public byte[] getKey() {
             return key;
@@ -134,7 +134,7 @@ public class KvDbUtil {
             return value;
         }
     }
-    public enum KvWriteActionEnum {
+    public enum KvWriteAction {
         ADD,DELETE
     }
 }

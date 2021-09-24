@@ -1,10 +1,10 @@
 package com.xingkaichun.helloworldblockchain.core.impl;
 
 import com.xingkaichun.helloworldblockchain.core.VirtualMachine;
-import com.xingkaichun.helloworldblockchain.core.model.script.BooleanCodeEnum;
-import com.xingkaichun.helloworldblockchain.core.model.script.OperationCodeEnum;
+import com.xingkaichun.helloworldblockchain.core.model.script.BooleanCode;
+import com.xingkaichun.helloworldblockchain.core.model.script.OperationCode;
 import com.xingkaichun.helloworldblockchain.core.model.script.Script;
-import com.xingkaichun.helloworldblockchain.core.model.script.ScriptExecuteResult;
+import com.xingkaichun.helloworldblockchain.core.model.script.Result;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
 import com.xingkaichun.helloworldblockchain.core.tools.TransactionTool;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
@@ -17,34 +17,34 @@ import com.xingkaichun.helloworldblockchain.util.StringUtil;
  * @author 邢开春 409060350@qq.com
  */
 public class StackBasedVirtualMachine extends VirtualMachine {
-
+//TODO 封装Stack?
     @Override
-    public ScriptExecuteResult executeScript(Transaction transactionEnvironment, Script script) throws RuntimeException {
-        ScriptExecuteResult stack = new ScriptExecuteResult();
+    public Result execute(Transaction transactionEnvironment, Script script) throws RuntimeException {
+        Result stack = new Result();
 
         for(int i=0;i<script.size();i++){
             String operationCode = script.get(i);
             byte[] bytesOperationCode = ByteUtil.hexStringToBytes(operationCode);
-            if(ByteUtil.isEquals(OperationCodeEnum.OP_DUP.getCode(),bytesOperationCode)){
+            if(ByteUtil.isEquals(OperationCode.OP_DUP.getCode(),bytesOperationCode)){
                 if(stack.size()<1){
                     throw new RuntimeException("指令运行异常");
                 }
                 stack.push(stack.peek());
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_HASH160.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.isEquals(OperationCode.OP_HASH160.getCode(),bytesOperationCode)){
                 if(stack.size()<1){
                     throw new RuntimeException("指令运行异常");
                 }
                 String publicKey = stack.pop();
                 String publicKeyHash = AccountUtil.publicKeyHashFromPublicKey(publicKey);
                 stack.push(publicKeyHash);
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.isEquals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
                 if(stack.size()<2){
                     throw new RuntimeException("指令运行异常");
                 }
                 if(!StringUtil.isEquals(stack.pop(),stack.pop())){
                     throw new RuntimeException("脚本执行失败");
                 }
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_CHECKSIG.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.isEquals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
                 if(stack.size()<2){
                     throw new RuntimeException("指令运行异常");
                 }
@@ -55,8 +55,8 @@ public class StackBasedVirtualMachine extends VirtualMachine {
                 if(!verifySignatureSuccess){
                     throw new RuntimeException("脚本执行失败");
                 }
-                stack.push(ByteUtil.bytesToHexString(BooleanCodeEnum.TRUE.getCode()));
-            }else if(ByteUtil.isEquals(OperationCodeEnum.OP_PUSHDATA.getCode(),bytesOperationCode)){
+                stack.push(ByteUtil.bytesToHexString(BooleanCode.TRUE.getCode()));
+            }else if(ByteUtil.isEquals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 if(script.size()<i+2){
                     throw new RuntimeException("指令运行异常");
                 }

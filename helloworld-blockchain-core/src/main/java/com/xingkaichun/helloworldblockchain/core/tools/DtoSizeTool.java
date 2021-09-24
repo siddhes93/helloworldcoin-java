@@ -5,6 +5,7 @@ import com.xingkaichun.helloworldblockchain.setting.BlockSetting;
 import com.xingkaichun.helloworldblockchain.setting.ScriptSetting;
 import com.xingkaichun.helloworldblockchain.setting.TransactionSetting;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
+import com.xingkaichun.helloworldblockchain.util.StringUtil;
 
 import java.util.List;
 
@@ -162,7 +163,7 @@ public class DtoSizeTool {
     }
     private static long calculateTransactionsOutputSize(List<TransactionOutputDto> transactionOutputDtos) {
         long size = 0;
-        if(transactionOutputDtos == null || transactionOutputDtos.size()==0){
+        if(transactionOutputDtos == null){
             return size;
         }
         for(TransactionOutputDto transactionOutputDto:transactionOutputDtos){
@@ -180,7 +181,7 @@ public class DtoSizeTool {
     }
     private static long calculateTransactionInputsSize(List<TransactionInputDto> inputs) {
         long size = 0;
-        if(inputs == null || inputs.size()==0){
+        if(inputs == null){
             return size;
         }
         for(TransactionInputDto transactionInputDto:inputs){
@@ -200,7 +201,7 @@ public class DtoSizeTool {
     }
     private static long calculateScriptSize(ScriptDto script) {
         long size = 0;
-        if(script == null || script.size()==0){
+        if(script == null){
             return size;
         }
         for(String scriptCode:script){
@@ -211,11 +212,11 @@ public class DtoSizeTool {
 
 
     private static long sizeOfString(String value) {
-        return value.length();
+        return StringUtil.length(value);
     }
 
     private static long sizeOfUint64(long number) {
-        return String.valueOf(number).length();
+        return StringUtil.length(StringUtil.valueOfUint64(number));
     }
     //endregion
 }

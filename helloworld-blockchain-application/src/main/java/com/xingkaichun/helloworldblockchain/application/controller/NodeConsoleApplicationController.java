@@ -298,11 +298,11 @@ public class NodeConsoleApplicationController {
     /**
      * 获取最大挖矿高度
      */
-    @RequestMapping(value = NodeConsoleApplicationApi.GET_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<GetMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMaxBlockHeightRequest request){
+    @RequestMapping(value = NodeConsoleApplicationApi.GET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
+    public Response<GetMinerMineMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMinerMineMaxBlockHeightRequest request){
         try {
-            long  maxBlockHeight = blockchainNetCore.getBlockchainCore().getMiner().getMaxBlockHeight();
-            GetMaxBlockHeightResponse response = new GetMaxBlockHeightResponse();
+            long  maxBlockHeight = blockchainNetCore.getBlockchainCore().getMiner().getMinerMineMaxBlockHeight();
+            GetMinerMineMaxBlockHeightResponse response = new GetMinerMineMaxBlockHeightResponse();
             response.setMaxBlockHeight(maxBlockHeight);
             return Response.success(response);
         } catch (Exception e){
@@ -314,12 +314,12 @@ public class NodeConsoleApplicationController {
     /**
      * 设置最大挖矿高度
      */
-    @RequestMapping(value = NodeConsoleApplicationApi.SET_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<SetMaxBlockHeightResponse> setMaxBlockHeight(@RequestBody SetMaxBlockHeightRequest request){
+    @RequestMapping(value = NodeConsoleApplicationApi.SET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
+    public Response<SetMinerMineMaxBlockHeightResponse> setMaxBlockHeight(@RequestBody SetMinerMineMaxBlockHeightRequest request){
         try {
             long height = request.getMaxBlockHeight();
-            blockchainNetCore.getBlockchainCore().getMiner().setMaxBlockHeight(height);
-            SetMaxBlockHeightResponse response = new SetMaxBlockHeightResponse();
+            blockchainNetCore.getBlockchainCore().getMiner().setMinerMineMaxBlockHeight(height);
+            SetMinerMineMaxBlockHeightResponse response = new SetMinerMineMaxBlockHeightResponse();
             return Response.success(response);
         } catch (Exception e){
             String message = "设置[最大挖矿高度]失败";

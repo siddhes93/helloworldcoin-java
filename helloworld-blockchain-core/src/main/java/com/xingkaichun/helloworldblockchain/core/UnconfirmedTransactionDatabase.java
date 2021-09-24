@@ -13,6 +13,10 @@ import java.util.List;
  */
 public abstract class UnconfirmedTransactionDatabase {
 
+    //配置
+    protected CoreConfiguration coreConfiguration;
+
+
     /**
      * 新增交易
      */

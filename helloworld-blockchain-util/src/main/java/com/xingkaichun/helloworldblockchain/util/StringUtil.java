@@ -39,4 +39,8 @@ public class StringUtil {
     public static String valueOfUint64(long number) {
         return String.valueOf(number);
     }
+
+    public static long length(String value) {
+        return value.length();
+    }
 }

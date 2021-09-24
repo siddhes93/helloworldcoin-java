@@ -22,7 +22,6 @@ import java.util.List;
  */
 public class WalletImpl extends Wallet {
 
-    private CoreConfiguration coreConfiguration;
     private static final String WALLET_DATABASE_NAME = "WalletDatabase";
 
     public WalletImpl(CoreConfiguration coreConfiguration, BlockchainDatabase blockchainDatabase) {

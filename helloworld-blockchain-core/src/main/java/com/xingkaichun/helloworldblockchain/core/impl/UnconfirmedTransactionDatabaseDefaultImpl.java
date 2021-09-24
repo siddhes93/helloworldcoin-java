@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransactionDatabase {
 
-    private CoreConfiguration coreConfiguration;
     private static final String UNCONFIRMED_TRANSACTION_DATABASE_NAME = "UnconfirmedTransactionDatabase";
 
     public UnconfirmedTransactionDatabaseDefaultImpl(CoreConfiguration coreConfiguration) {

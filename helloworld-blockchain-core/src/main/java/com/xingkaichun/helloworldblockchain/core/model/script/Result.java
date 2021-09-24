@@ -7,6 +7,6 @@ import java.util.Stack;
  *
  * @author 邢开春 409060350@qq.com
  */
-public class ScriptExecuteResult extends Stack<String> {
+public class Result extends Stack<String> {
 
 }

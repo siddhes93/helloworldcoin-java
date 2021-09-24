@@ -12,7 +12,7 @@ import com.xingkaichun.helloworldblockchain.util.LogUtil;
  * @author 邢开春 409060350@qq.com
  */
 public class IncentiveDefaultImpl extends Incentive {
-
+    //TODO 封装大数?
     @Override
     public long incentiveValue(BlockchainDatabase blockchainDatabase, Block block) {
         //给予矿工的挖矿津贴
