@@ -98,9 +98,9 @@ public class BlockTool {
      */
     public static boolean checkPreviousBlockHash(Block previousBlock, Block currentBlock) {
         if(previousBlock == null){
-            return StringUtil.isEquals(GenesisBlockSetting.HASH,currentBlock.getPreviousHash());
+            return StringUtil.equals(GenesisBlockSetting.HASH,currentBlock.getPreviousHash());
         } else {
-            return StringUtil.isEquals(previousBlock.getHash(),currentBlock.getPreviousHash());
+            return StringUtil.equals(previousBlock.getHash(),currentBlock.getPreviousHash());
         }
     }
 
@@ -145,7 +145,7 @@ public class BlockTool {
      * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
      */
     public static boolean isBlockEquals(Block block1, Block block2) {
-        return StringUtil.isEquals(block1.getHash(), block2.getHash());
+        return StringUtil.equals(block1.getHash(), block2.getHash());
     }
 
     /**

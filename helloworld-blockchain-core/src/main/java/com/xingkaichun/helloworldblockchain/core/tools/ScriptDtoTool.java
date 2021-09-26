@@ -33,12 +33,12 @@ public class ScriptDtoTool {
         for(int i=0;i<script.size();i++){
             String operationCode = script.get(i);
             byte[] bytesOperationCode = ByteUtil.hexStringToBytes(operationCode);
-            if(ByteUtil.isEquals(OperationCode.OP_DUP.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_HASH160.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
+            if(ByteUtil.equals(OperationCode.OP_DUP.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_HASH160.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
                 bytesScript = ByteUtil.concatenate(bytesScript, ByteUtil.concatenateLength(bytesOperationCode));
-            }else if(ByteUtil.isEquals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 String operationData = script.get(++i);
                 byte[] bytesOperationData = ByteUtil.hexStringToBytes(operationData);
                 bytesScript = ByteUtil.concatenate3(bytesScript, ByteUtil.concatenateLength(bytesOperationCode), ByteUtil.concatenateLength(bytesOperationData));
@@ -87,13 +87,13 @@ public class ScriptDtoTool {
             start += ByteUtil.BYTE8_BYTE_COUNT;
             byte[] bytesOperationCode = ByteUtil.copy(bytesScript,start, start+(int) bytesOperationCodeLength);
             start += bytesOperationCodeLength;
-            if(ByteUtil.isEquals(OperationCode.OP_DUP.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_HASH160.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode) ||
-                    ByteUtil.isEquals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
+            if(ByteUtil.equals(OperationCode.OP_DUP.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_HASH160.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode) ||
+                    ByteUtil.equals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
                 String stringOperationCode = ByteUtil.bytesToHexString(bytesOperationCode);
                 script.add(stringOperationCode);
-            }else if(ByteUtil.isEquals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 String stringOperationCode = ByteUtil.bytesToHexString(bytesOperationCode);
                 script.add(stringOperationCode);
 
@@ -116,9 +116,9 @@ public class ScriptDtoTool {
      */
     public static boolean isPayToPublicKeyHashInputScript(InputScriptDto inputScriptDto) {
         return  (inputScriptDto.size() == 4) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),inputScriptDto.get(0))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),inputScriptDto.get(0))) &&
                 (136 <= inputScriptDto.get(1).length() && 144 >= inputScriptDto.get(1).length()) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),inputScriptDto.get(2))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),inputScriptDto.get(2))) &&
                 (66 == inputScriptDto.get(3).length());
     }
 
@@ -127,12 +127,12 @@ public class ScriptDtoTool {
      */
     public static boolean isPayToPublicKeyHashOutputScript(OutputScriptDto outputScriptDto) {
         return  (outputScriptDto.size() == 6) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_DUP.getCode()),outputScriptDto.get(0))) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_HASH160.getCode()),outputScriptDto.get(1))) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),outputScriptDto.get(2))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_DUP.getCode()),outputScriptDto.get(0))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_HASH160.getCode()),outputScriptDto.get(1))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()),outputScriptDto.get(2))) &&
                 (40 == outputScriptDto.get(3).length()) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_EQUALVERIFY.getCode()),outputScriptDto.get(4))) &&
-                (StringUtil.isEquals(ByteUtil.bytesToHexString(OperationCode.OP_CHECKSIG.getCode()),outputScriptDto.get(5)));
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_EQUALVERIFY.getCode()),outputScriptDto.get(4))) &&
+                (StringUtil.equals(ByteUtil.bytesToHexString(OperationCode.OP_CHECKSIG.getCode()),outputScriptDto.get(5)));
     }
 
     /**

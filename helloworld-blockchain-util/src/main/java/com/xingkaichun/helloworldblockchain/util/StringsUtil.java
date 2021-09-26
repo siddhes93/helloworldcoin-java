@@ -8,9 +8,9 @@ import java.util.*;
  */
 public class StringsUtil {
 
-    public static boolean hasDuplicateElement(List<String> list) {
-        Set<String> set = new HashSet<>(list);
-        return list.size() != set.size();
+    public static boolean hasDuplicateElement(List<String> values) {
+        Set<String> set = new HashSet<>(values);
+        return values.size() != set.size();
     }
 
     public static boolean contains(List<String> values, String value) {

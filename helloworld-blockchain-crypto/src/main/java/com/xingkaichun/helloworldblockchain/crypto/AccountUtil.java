@@ -202,7 +202,7 @@ public class AccountUtil {
             byte[] bytesPublicKeyHash = new byte[20];
             ByteUtil.copyTo(bytesAddress, 1, 20, bytesPublicKeyHash, 0);
             String base58Address = addressFromPublicKeyHash(ByteUtil.bytesToHexString(bytesPublicKeyHash));
-            return StringUtil.isEquals(base58Address,address);
+            return StringUtil.equals(base58Address,address);
         }catch (Exception e){
             LogUtil.debug("地址["+address+"]不是base58格式的地址。");
             return false;

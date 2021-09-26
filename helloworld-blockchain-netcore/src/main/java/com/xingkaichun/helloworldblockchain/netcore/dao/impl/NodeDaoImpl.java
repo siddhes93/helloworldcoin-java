@@ -26,7 +26,7 @@ public class NodeDaoImpl implements NodeDao {
         List<NodePo> nodePos = queryAllNodes();
         if(nodePos != null){
             for(NodePo nodePo: nodePos){
-                if(StringUtil.isEquals(ip,nodePo.getIp())){
+                if(StringUtil.equals(ip,nodePo.getIp())){
                     return nodePo;
                 }
             }

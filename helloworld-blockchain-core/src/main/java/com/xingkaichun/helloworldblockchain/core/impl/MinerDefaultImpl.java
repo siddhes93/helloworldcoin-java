@@ -138,7 +138,7 @@ public class MinerDefaultImpl extends Miner {
         long incentiveValue = incentive.incentiveValue(blockchainDatabase,nonNonceBlock);
         //激励交易
         Transaction mineAwardTransaction = buildIncentiveTransaction(minerAccount.getAddress(),incentiveValue);
-        packingTransactions.add(0,mineAwardTransaction);
+        nonNonceBlock.getTransactions().add(0,mineAwardTransaction);
 
         String merkleTreeRoot = BlockTool.calculateBlockMerkleTreeRoot(nonNonceBlock);
         nonNonceBlock.setMerkleTreeRoot(merkleTreeRoot);

@@ -12,10 +12,11 @@ public class StringUtil {
     public static final String BLANKSPACE = " ";
 
 
-    public static boolean isEquals(String string,String anotherString){
+    public static boolean equals(String string, String anotherString){
         return string.equals(anotherString);
     }
 
+    //TODO rename
     public static boolean isNullOrEmpty(String string) {
         return Strings.isNullOrEmpty(string);
     }

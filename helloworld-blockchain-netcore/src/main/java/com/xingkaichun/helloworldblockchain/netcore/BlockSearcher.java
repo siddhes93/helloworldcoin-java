@@ -217,7 +217,7 @@ public class BlockSearcher {
             return false;
         }
         String blockHash = BlockDtoTool.calculateBlockHash(blockDto);
-        return !StringUtil.isEquals(block.getHash(), blockHash);
+        return !StringUtil.equals(block.getHash(), blockHash);
     }
 
     private boolean isHardFork(BlockchainCore blockchainCore1, BlockchainCore blockchainCore2) {

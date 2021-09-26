@@ -86,15 +86,15 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
     }
 
     private String payAlert2PayAlertVo(String message) {
-        if(StringUtil.isEquals(PayAlertVo.BUILD_TRANSACTION_SUCCESS,message)){
+        if(StringUtil.equals(PayAlertVo.BUILD_TRANSACTION_SUCCESS,message)){
             return PayAlertVo.BUILD_TRANSACTION_SUCCESS;
-        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
+        }else if(StringUtil.equals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_CAN_NOT_EMPTY;
-        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO,message)){
+        }else if(StringUtil.equals(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO,message)){
             return PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO;
-        }else if(StringUtil.isEquals(PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY,message)){
+        }else if(StringUtil.equals(PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY,message)){
             return PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY;
-        }else if(StringUtil.isEquals(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY,message)){
+        }else if(StringUtil.equals(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY;
         }
         //exit when can not convert

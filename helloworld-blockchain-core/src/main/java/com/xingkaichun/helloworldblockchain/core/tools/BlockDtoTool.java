@@ -55,6 +55,6 @@ public class BlockDtoTool {
     public static boolean isBlockEquals(BlockDto block1, BlockDto block2) {
         String block1Hash = calculateBlockHash(block1);
         String block2Hash = calculateBlockHash(block2);
-        return StringUtil.isEquals(block1Hash, block2Hash);
+        return StringUtil.equals(block1Hash, block2Hash);
     }
 }

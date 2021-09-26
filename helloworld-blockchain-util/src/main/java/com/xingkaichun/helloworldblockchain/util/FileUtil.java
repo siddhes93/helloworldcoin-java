@@ -55,6 +55,12 @@ public class FileUtil {
             return text;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                fileStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -29,15 +29,15 @@ public class ScriptTool {
         for(int i=0;i<script.size();i++){
             String operationCode = script.get(i);
             byte[] bytesOperationCode = ByteUtil.hexStringToBytes(operationCode);
-            if(ByteUtil.isEquals(OperationCode.OP_DUP.getCode(),bytesOperationCode)){
+            if(ByteUtil.equals(OperationCode.OP_DUP.getCode(),bytesOperationCode)){
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_DUP.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCode.OP_HASH160.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_HASH160.getCode(),bytesOperationCode)){
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_HASH160.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_EQUALVERIFY.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_CHECKSIG.getName(),StringUtil.BLANKSPACE);
-            }else if(ByteUtil.isEquals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
+            }else if(ByteUtil.equals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 String operationData = script.get(++i);
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_PUSHDATA.getName(),StringUtil.BLANKSPACE);
                 stringScript = StringUtil.concatenate3(stringScript,operationData,StringUtil.BLANKSPACE);

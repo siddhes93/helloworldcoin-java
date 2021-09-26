@@ -18,8 +18,6 @@ public class ByteUtil {
 
     public static final int BYTE8_BYTE_COUNT = 8;
 
-
-
     /**
      * byte数组转十六进制字符串(十六进制字符串小写，仅包含字符0123456789abcdef)。
      * 不允许省略十六进制字符串前面的零，因此十六进制字符串的长度是字节数量的2倍。
@@ -128,19 +126,18 @@ public class ByteUtil {
     }
 
 
-
-    public static boolean isEquals(byte[] bytes1, byte[] bytes2) {
-        return Arrays.equals(bytes1,bytes2);
-    }
-
     public static byte[] copy(byte[] sourceBytes, int startPosition, int length) {
         byte[] destinationBytes = new byte[length];
         System.arraycopy(sourceBytes,startPosition,destinationBytes,0,length);
         return destinationBytes;
     }
-
     public static void copyTo(byte[] sourceBytes, int sourceStartPosition, int length, byte[] destinationBytes, int destinationStartPosition){
         System.arraycopy(sourceBytes,sourceStartPosition,destinationBytes,destinationStartPosition,length);
+    }
+
+
+    public static boolean equals(byte[] bytes1, byte[] bytes2) {
+        return Arrays.equals(bytes1,bytes2);
     }
 
     public static byte[] random32Bytes(){

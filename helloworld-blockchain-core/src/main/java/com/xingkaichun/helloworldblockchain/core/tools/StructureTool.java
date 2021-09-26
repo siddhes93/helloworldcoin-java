@@ -92,7 +92,7 @@ public class StructureTool {
             for (TransactionInput input:inputs) {
                 //这里采用严格校验，必须是P2PKH输入脚本。
                 if(!ScriptTool.isPayToPublicKeyHashInputScript(input.getInputScript())){
-                    LogUtil.debug("交易数据异常：创世交易不能有交易输入。");
+                    LogUtil.debug("交易数据异常：交易输入脚本不是P2PKH输入脚本。");
                     return false;
                 }
             }

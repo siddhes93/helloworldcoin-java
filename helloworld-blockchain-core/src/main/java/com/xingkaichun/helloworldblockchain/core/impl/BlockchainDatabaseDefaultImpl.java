@@ -982,7 +982,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
                     //执行脚本
                     Result result = virtualMachine.execute(transaction,script);
                     //脚本执行结果是个栈，如果栈有且只有一个元素，且这个元素是0x01，则解锁成功。
-                    boolean executeSuccess = result.size()==1 && ByteUtil.isEquals(BooleanCode.TRUE.getCode(),ByteUtil.hexStringToBytes(result.pop()));
+                    boolean executeSuccess = result.size()==1 && ByteUtil.equals(BooleanCode.TRUE.getCode(),ByteUtil.hexStringToBytes(result.pop()));
                     if(!executeSuccess){
                         return false;
                     }

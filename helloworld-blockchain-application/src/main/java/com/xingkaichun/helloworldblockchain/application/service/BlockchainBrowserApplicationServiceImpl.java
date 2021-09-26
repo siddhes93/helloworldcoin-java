@@ -65,7 +65,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                 for(int inputIndex=0; inputIndex<inputs.size(); inputIndex++){
                     TransactionInput transactionInput = inputs.get(inputIndex);
                     TransactionOutput unspentTransactionOutput = transactionInput.getUnspentTransactionOutput();
-                    if(StringUtil.isEquals(transactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionHash()) &&
+                    if(StringUtil.equals(transactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionHash()) &&
                             transactionOutput.getTransactionOutputIndex()==unspentTransactionOutput.getTransactionOutputIndex()){
                         transactionOutputVo3.setToTransactionInputIndex(inputIndex+1);
                         transactionOutputVo3.setToInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
