@@ -9,9 +9,8 @@ helloworld-blockchain开发调试简单，下载源码，导入idea，无需任�
 
 
 
-## 区块链学习交流群
-helloworld-blockchian有一个数百人的区块链聊天群，想加入的伙伴，可以先在github上给项目点star，然后加微信xing_kai_chun。
-
+## helloworld-blockchain区块链学习交流群
+![helloworld-blockchain区块链交流群](https://user-images.githubusercontent.com/49269996/135546933-851f13bc-9cd0-4fd1-b5c9-30a6f0fd4281.png)
 
 
 ## 项目意义

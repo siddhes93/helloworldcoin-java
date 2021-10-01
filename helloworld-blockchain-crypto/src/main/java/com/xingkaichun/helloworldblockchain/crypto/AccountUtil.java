@@ -75,7 +75,6 @@ public class AccountUtil {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * 私钥生成账户
      */
@@ -95,6 +94,7 @@ public class AccountUtil {
         }
     }
 
+
     /**
      * 公钥生成公钥哈希
      */
@@ -108,7 +108,6 @@ public class AccountUtil {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * 地址生成公钥哈希
      */
@@ -123,13 +122,6 @@ public class AccountUtil {
         }
     }
 
-    /**
-     * 私钥生成地址
-     */
-    public static String addressFromPrivateKey(String privateKey) {
-        Account account = accountFromPrivateKey(privateKey);
-        return addressFromPublicKey(account.getPublicKey());
-    }
 
     /**
      * 公钥生成地址
@@ -143,7 +135,6 @@ public class AccountUtil {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * 公钥哈希生成地址
      */
@@ -156,6 +147,7 @@ public class AccountUtil {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * 签名
@@ -170,7 +162,6 @@ public class AccountUtil {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * 验证签名
      */

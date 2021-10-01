@@ -2,11 +2,11 @@ package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PingRequest;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
+import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class NodeBroadcaster {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getNodeBroadcastTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("在区块链网络中广播自己出现异常",e);
+            LogUtil.error("在区块链网络中广播自己出现异常",e);
         }
     }
 

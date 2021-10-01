@@ -192,7 +192,7 @@ public class BlockTool {
                     long fee = TransactionTool.getTransactionFee(transaction);
                     blockFee += fee;
                 }else{
-                    throw new RuntimeException("不能识别的交易类型");
+                    throw new RuntimeException();
                 }
             }
         }

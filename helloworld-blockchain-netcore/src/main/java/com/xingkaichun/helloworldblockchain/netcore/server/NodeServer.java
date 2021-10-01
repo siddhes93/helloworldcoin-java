@@ -4,7 +4,6 @@ import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.setting.NetworkSetting;
-import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -40,10 +39,9 @@ public class NodeServer {
 					.childOption(ChannelOption.SO_KEEPALIVE, true);
 
 			ChannelFuture f = b.bind(NetworkSetting.PORT).sync();
-			LogUtil.debug("HttpServer已启动，端口：" + NetworkSetting.PORT);
 			f.channel().closeFuture().sync();
-		} catch (InterruptedException e) {
-			SystemUtil.errorExit("节点服务器运行出现异常。",e);
+		} catch (Exception e) {
+			SystemUtil.errorExit("blockchain node server can not start.",e);
 		} finally {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();

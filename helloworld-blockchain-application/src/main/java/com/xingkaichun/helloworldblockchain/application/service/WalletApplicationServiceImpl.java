@@ -15,7 +15,6 @@ import com.xingkaichun.helloworldblockchain.netcore.dto.PostTransactionResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,10 +95,9 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
             return PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY;
         }else if(StringUtil.equals(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY;
+        }else {
+            throw new RuntimeException();
         }
-        //exit when can not convert
-        SystemUtil.errorExit("PayAlertVo not have message value",null);
-        throw new RuntimeException();
     }
 
     private List<Payee> payeeVos2payees(List<PayeeVo> payeeVos){

@@ -72,7 +72,7 @@ public class BlockchainBrowserApplicationController {
     public Response<QueryTransactionsByBlockHashTransactionHeightResponse> queryTransactionsByBlockHashTransactionHeight(@RequestBody QueryTransactionsByBlockHashTransactionHeightRequest request){
         try {
             PageCondition pageCondition = request.getPageCondition();
-            if(StringUtil.isNullOrEmpty(request.getBlockHash())){
+            if(StringUtil.isEmpty(request.getBlockHash())){
                 return Response.requestParamIllegal();
             }
             List<TransactionVo> transactionVos = blockchainBrowserApplicationService.queryTransactionListByBlockHashTransactionHeight(request.getBlockHash(),pageCondition.getFrom(),pageCondition.getSize());

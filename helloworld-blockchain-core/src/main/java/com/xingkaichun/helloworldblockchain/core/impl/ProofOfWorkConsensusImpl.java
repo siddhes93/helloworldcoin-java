@@ -26,12 +26,12 @@ public class ProofOfWorkConsensusImpl extends Consensus {
     @Override
     public boolean checkConsensus(BlockchainDatabase blockchainDatabase, Block block) {
         String difficulty = block.getDifficulty();
-        if(StringUtil.isNullOrEmpty(difficulty)){
+        if(StringUtil.isEmpty(difficulty)){
             difficulty = calculateDifficult(blockchainDatabase,block);
         }
 
         String hash = block.getHash();
-        if(StringUtil.isNullOrEmpty(hash)){
+        if(StringUtil.isEmpty(hash)){
             hash = BlockTool.calculateBlockHash(block);
         }
         return new BigInteger(difficulty,16).compareTo(new BigInteger(hash,16)) > 0;

@@ -3,15 +3,13 @@ package com.xingkaichun.helloworldblockchain.netcore;
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactionsRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetUnconfirmedTransactionsResponse;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
-import com.xingkaichun.helloworldblockchain.util.JsonUtil;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
 import java.util.List;
@@ -39,10 +37,10 @@ public class UnconfirmedTransactionsSearcher {
         try {
             while (true){
                 searchUnconfirmedTransactions();
-                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchUnconfirmedTransactionsTimeInterval());
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getUnconfirmedTransactionsSearchTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("在区块链网络中搜寻未确认交易出现异常",e);
+            LogUtil.error("在区块链网络中搜寻未确认交易出现异常",e);
         }
     }
 

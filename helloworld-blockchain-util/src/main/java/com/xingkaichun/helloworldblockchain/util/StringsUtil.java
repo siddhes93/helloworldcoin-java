@@ -24,7 +24,7 @@ public class StringsUtil {
     }
 
     public static List<String> split(String values, String valueSeparator) {
-        if(StringUtil.isNullOrEmpty(values)){
+        if(StringUtil.isEmpty(values)){
             return new ArrayList<>();
         }
         return Arrays.asList(values.split(valueSeparator));

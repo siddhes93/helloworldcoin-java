@@ -22,8 +22,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /**
- * 区块链
- * 注意这是一个线程不安全的实现。在并发的情况下，不保证功能的正确性。
+ * 区块链数据库
  *
  * @author 邢开春 409060350@qq.com
  */

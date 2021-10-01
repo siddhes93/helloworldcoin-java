@@ -83,8 +83,7 @@ public class StructureTool {
                 return false;
             }
         }else {
-            LogUtil.debug("交易数据异常：不能识别的交易的类型。");
-            return false;
+            throw new RuntimeException();
         }
         //校验输入脚本
         List<TransactionInput> inputs = transaction.getInputs();

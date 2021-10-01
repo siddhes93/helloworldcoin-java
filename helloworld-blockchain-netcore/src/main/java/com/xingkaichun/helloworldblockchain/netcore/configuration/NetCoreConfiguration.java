@@ -12,9 +12,28 @@ package com.xingkaichun.helloworldblockchain.netcore.configuration;
 public interface NetCoreConfiguration {
 
     /**
-     * BlockchainNetCore数据存储路径
+     * BlockchainNetCore数据的存储路径
      */
     String getNetCorePath();
+
+
+    /**
+     * 种子节点初始化时间间隔
+     */
+    long getSeedNodeInitializeTimeInterval();
+    /**
+     * 节点搜索时间间隔
+     */
+    long getNodeSearchTimeInterval();
+    /**
+     * 节点广播时间间隔
+     */
+    long getNodeBroadcastTimeInterval();
+    /**
+     * 节点清理时间间隔
+     */
+    long getNodeCleanTimeInterval();
+
 
     /**
      * 是否"自动搜索新区块"
@@ -28,6 +47,7 @@ public interface NetCoreConfiguration {
      * 关闭"自动搜索新区块"选项
      */
     void deactiveAutoSearchBlock() ;
+
 
     /**
      * 是否自动搜索节点
@@ -43,20 +63,33 @@ public interface NetCoreConfiguration {
     void deactiveAutoSearchNode();
 
 
-    long getSearchNodeTimeInterval();
-    long getSearchBlockchainHeightTimeInterval();
-    long getSearchBlockTimeInterval();
-    long getBlockchainHeightBroadcastTimeInterval();
+    /**
+     * 区块搜索时间间隔
+     */
+    long getBlockSearchTimeInterval();
+    /**
+     * 区块广播时间间隔
+     */
     long getBlockBroadcastTimeInterval();
-    long getAddSeedNodeTimeInterval();
-    long getNodeBroadcastTimeInterval();
+
 
     /**
-     * 两个区块链有分叉时，区块差异数量大于这个值，则真的分叉了。
+     * 区块链高度搜索时间间隔
+     */
+    long getBlockchainHeightSearchTimeInterval();
+    /**
+     * 区块链高度广播时间间隔
+     */
+    long getBlockchainHeightBroadcastTimeInterval();
+
+
+    /**
+     * 硬分叉区块数量：两个区块链有分叉时，区块差异数量大于这个值，则真的分叉了。
      */
     long getHardForkBlockCount();
 
-    long getSearchUnconfirmedTransactionsTimeInterval();
-
-    long getNodeCleanTimeInterval();
+    /**
+     * 未确认交易的搜索时间间隔
+     */
+    long getUnconfirmedTransactionsSearchTimeInterval();
 }

@@ -2,13 +2,12 @@ package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PingRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.PingResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class NodeCleaner {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getNodeCleanTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("清理死亡节点出现异常",e);
+            LogUtil.error("清理死亡节点出现异常",e);
         }
     }
 

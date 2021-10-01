@@ -102,7 +102,7 @@ public class WalletImpl extends Wallet {
             return response;
         }
         for(Payee payee : nonChangePayees){
-            if(StringUtil.isNullOrEmpty(payee.getAddress())){
+            if(StringUtil.isEmpty(payee.getAddress())){
                 AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                 response.setBuildTransactionSuccess(false);
                 response.setMessage(PayAlert.PAYEE_ADDRESS_CAN_NOT_EMPTY);

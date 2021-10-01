@@ -1,11 +1,10 @@
 package com.xingkaichun.helloworldblockchain.netcore;
 
-import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
+import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.setting.NetworkSetting;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
 
@@ -33,14 +32,15 @@ public class SeedNodeInitializer {
         this.nodeService = nodeService;
     }
 
+    //TODO 提供两个方法 start and run ？
     public void start() {
         try {
             while (true){
                 addSeedNodes();
-                ThreadUtil.millisecondSleep(netCoreConfiguration.getAddSeedNodeTimeInterval());
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getSeedNodeInitializeTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("定时将种子节点加入区块链网络出现异常",e);
+            LogUtil.error("定时将种子节点加入区块链网络出现异常",e);
         }
     }
 

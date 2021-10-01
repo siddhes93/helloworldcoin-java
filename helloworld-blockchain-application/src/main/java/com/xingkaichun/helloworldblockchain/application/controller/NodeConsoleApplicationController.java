@@ -139,7 +139,7 @@ public class NodeConsoleApplicationController {
     public Response<AddNodeResponse> addNode(@RequestBody AddNodeRequest request){
         try {
             String ip = request.getIp();
-            if(StringUtil.isNullOrEmpty(ip)){
+            if(StringUtil.isEmpty(ip)){
                 return Response.requestParamIllegal();
             }
             if(blockchainNetCore.getNodeService().queryNode(ip) != null){
@@ -168,7 +168,7 @@ public class NodeConsoleApplicationController {
     public Response<UpdateNodeResponse> updateNode(@RequestBody UpdateNodeRequest request){
         try {
             String ip = request.getIp();
-            if(StringUtil.isNullOrEmpty(ip)){
+            if(StringUtil.isEmpty(ip)){
                 return Response.requestParamIllegal();
             }
             Node node = new Node();

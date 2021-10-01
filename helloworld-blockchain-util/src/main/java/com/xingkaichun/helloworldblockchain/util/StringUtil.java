@@ -1,7 +1,5 @@
 package com.xingkaichun.helloworldblockchain.util;
 
-import com.google.common.base.Strings;
-
 /**
  * String工具类
  *
@@ -16,9 +14,8 @@ public class StringUtil {
         return string.equals(anotherString);
     }
 
-    //TODO rename
-    public static boolean isNullOrEmpty(String string) {
-        return Strings.isNullOrEmpty(string);
+    public static boolean isEmpty(String string) {
+        return string == null || string.isEmpty();
     }
 
     public static String prefixPadding(String rawValue,int targetLength,String paddingValue) {

@@ -7,15 +7,15 @@ import com.xingkaichun.helloworldblockchain.core.tools.BlockTool;
 import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
+import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockRequest;
 import com.xingkaichun.helloworldblockchain.netcore.dto.GetBlockResponse;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
-import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.service.NodeService;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
+import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 
 import java.util.List;
@@ -45,18 +45,18 @@ public class BlockSearcher {
     public void start() {
         try {
             while (true){
-                searchBlocks();
-                ThreadUtil.millisecondSleep(netCoreConfiguration.getSearchBlockTimeInterval());
+                searchNodesBlocks();
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getBlockSearchTimeInterval());
             }
         } catch (Exception e) {
-            SystemUtil.errorExit("在区块链网络中同步节点的区块出现异常",e);
+            LogUtil.error("在区块链网络中同步节点的区块出现异常",e);
         }
     }
 
     /**
      * 搜索新的区块，并同步这些区块到本地区块链系统
      */
-    private void searchBlocks() {
+    private void searchNodesBlocks() {
         List<Node> nodes = nodeService.queryAllNodes();
         if(nodes == null || nodes.size()==0){
             return;
@@ -68,7 +68,7 @@ public class BlockSearcher {
     }
 
     /**
-     * 搜索远程节点的区块到本地，未分叉同步至主链，硬分叉不同步，软分叉同步至从链
+     * 搜索新的区块，并同步这些区块到本地区块链系统
      */
     public void searchNodeBlocks(BlockchainCore masterBlockchainCore, BlockchainCore slaveBlockchainCore, Node node) {
         if(!netCoreConfiguration.isAutoSearchBlock()){

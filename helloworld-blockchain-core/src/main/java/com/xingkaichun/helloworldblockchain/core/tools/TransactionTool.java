@@ -9,7 +9,6 @@ import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 import com.xingkaichun.helloworldblockchain.util.LogUtil;
 import com.xingkaichun.helloworldblockchain.util.StringsUtil;
-import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +61,7 @@ public class TransactionTool {
         }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
             return 0L;
         }else{
-            SystemUtil.errorExit("不能识别的交易类型", null);
-            return 0L;
+            throw new RuntimeException();
         }
     }
     /**
@@ -75,8 +73,7 @@ public class TransactionTool {
         }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
             return 0L;
         }else {
-            SystemUtil.errorExit("不能识别的交易类型", null);
-            return 0L;
+            throw new RuntimeException();
         }
     }
 
@@ -149,8 +146,7 @@ public class TransactionTool {
             }
             return true;
         } else {
-            LogUtil.debug("区块数据异常，不能识别的交易类型。");
-            return false;
+            throw new RuntimeException();
         }
         return true;
     }
@@ -222,7 +218,7 @@ public class TransactionTool {
             long outputsValue = getOutputValue(transaction);
             return inputsValue - outputsValue;
         }else {
-            throw new RuntimeException("没有该交易类型。");
+            throw new RuntimeException();
         }
     }
 

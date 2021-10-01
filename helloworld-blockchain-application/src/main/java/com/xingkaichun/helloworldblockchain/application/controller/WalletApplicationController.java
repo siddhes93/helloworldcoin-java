@@ -83,7 +83,7 @@ public class WalletApplicationController {
     public Response<SaveAccountResponse> saveAccount(@RequestBody SaveAccountRequest request){
         try {
             String privateKey = request.getPrivateKey();
-            if(StringUtil.isNullOrEmpty(privateKey)){
+            if(StringUtil.isEmpty(privateKey)){
                 return Response.requestParamIllegal();
             }
             Account account = AccountUtil.accountFromPrivateKey(privateKey);
@@ -104,7 +104,7 @@ public class WalletApplicationController {
     public Response<DeleteAccountResponse> deleteAccount(@RequestBody DeleteAccountRequest request){
         try {
             String address = request.getAddress();
-            if(StringUtil.isNullOrEmpty(address)){
+            if(StringUtil.isEmpty(address)){
                 return Response.requestParamIllegal();
             }
             blockchainNetCore.getBlockchainCore().getWallet().deleteAccountByAddress(address);

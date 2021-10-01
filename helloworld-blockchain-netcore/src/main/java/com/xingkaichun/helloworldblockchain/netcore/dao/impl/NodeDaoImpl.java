@@ -3,7 +3,10 @@ package com.xingkaichun.helloworldblockchain.netcore.dao.impl;
 import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.po.NodePo;
-import com.xingkaichun.helloworldblockchain.util.*;
+import com.xingkaichun.helloworldblockchain.util.ByteUtil;
+import com.xingkaichun.helloworldblockchain.util.EncodeDecodeTool;
+import com.xingkaichun.helloworldblockchain.util.FileUtil;
+import com.xingkaichun.helloworldblockchain.util.KvDbUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +26,9 @@ public class NodeDaoImpl implements NodeDao {
 
     @Override
     public NodePo queryNode(String ip){
-        List<NodePo> nodePos = queryAllNodes();
-        if(nodePos != null){
-            for(NodePo nodePo: nodePos){
-                if(StringUtil.equals(ip,nodePo.getIp())){
-                    return nodePo;
-                }
-            }
+        byte[] bytesNodePo = KvDbUtil.get(getNodeDatabasePath(),getKeyByIp(ip));
+        if(bytesNodePo != null){
+            return EncodeDecodeTool.decode(bytesNodePo,NodePo.class);
         }
         return null;
     }

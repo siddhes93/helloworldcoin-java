@@ -97,17 +97,17 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     @Override
-    public long getSearchNodeTimeInterval() {
+    public long getNodeSearchTimeInterval() {
         return SEARCH_NODE_TIME_INTERVAL;
     }
 
     @Override
-    public long getSearchBlockchainHeightTimeInterval() {
+    public long getBlockchainHeightSearchTimeInterval() {
         return SEARCH_BLOCKCHAIN_HEIGHT_TIME_INTERVAL;
     }
 
     @Override
-    public long getSearchBlockTimeInterval() {
+    public long getBlockSearchTimeInterval() {
         return SEARCH_BLOCKS_TIME_INTERVAL;
     }
 
@@ -122,7 +122,7 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     @Override
-    public long getAddSeedNodeTimeInterval() {
+    public long getSeedNodeInitializeTimeInterval() {
         return ADD_SEED_NODE_TIME_INTERVAL;
     }
 
@@ -137,7 +137,7 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     }
 
     @Override
-    public long getSearchUnconfirmedTransactionsTimeInterval() {
+    public long getUnconfirmedTransactionsSearchTimeInterval() {
         return SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL;
     }
 
