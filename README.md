@@ -29,6 +29,7 @@ http://119.3.57.171/
 ## 初识helloworld-blockchain
 [部分学习者对区块链一窍不懂，拿到项目无从下手，怎么破局开始](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/30)  
 [项目部署与简单使用](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/29)  
+[IP拦截](https://github.com/helloworldcoin/helloworld-blockchain-java/issues/48)
 
 
 
