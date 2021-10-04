@@ -161,7 +161,7 @@
             $('body').delegate('#table-update-node-button-add', 'click', async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/UpdateNode",
-                    data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": "${$('#table-update-node-text-blockchainHeight').val()}"}`
+                    data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": ${$('#table-update-node-text-blockchainHeight').val()}}`
                 });
                 if(response.status == 'success'){
                     alert("节点更新成功");
