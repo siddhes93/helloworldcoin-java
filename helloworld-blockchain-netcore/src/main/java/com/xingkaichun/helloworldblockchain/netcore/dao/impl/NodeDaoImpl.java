@@ -27,10 +27,10 @@ public class NodeDaoImpl implements NodeDao {
     @Override
     public NodePo queryNode(String ip){
         byte[] bytesNodePo = KvDbUtil.get(getNodeDatabasePath(),getKeyByIp(ip));
-        if(bytesNodePo != null){
-            return EncodeDecodeTool.decode(bytesNodePo,NodePo.class);
+        if(bytesNodePo == null){
+            return null;
         }
-        return null;
+        return EncodeDecodeTool.decode(bytesNodePo,NodePo.class);
     }
 
     @Override
