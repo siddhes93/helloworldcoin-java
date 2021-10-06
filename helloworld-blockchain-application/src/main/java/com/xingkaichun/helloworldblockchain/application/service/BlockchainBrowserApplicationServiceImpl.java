@@ -95,6 +95,9 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
     @Override
     public List<TransactionVo> queryTransactionListByBlockHashTransactionHeight(String blockHash, long from, long size) {
         Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHash(blockHash);
+        if(block == null){
+            return null;
+        }
         List<TransactionVo> transactionVos = new ArrayList<>();
         for(long i=from; i<from+size; i++){
             if(from < 0){
