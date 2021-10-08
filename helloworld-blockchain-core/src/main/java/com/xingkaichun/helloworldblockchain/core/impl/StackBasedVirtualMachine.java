@@ -6,7 +6,7 @@ import com.xingkaichun.helloworldblockchain.core.model.script.OperationCode;
 import com.xingkaichun.helloworldblockchain.core.model.script.Script;
 import com.xingkaichun.helloworldblockchain.core.model.script.Result;
 import com.xingkaichun.helloworldblockchain.core.model.transaction.Transaction;
-import com.xingkaichun.helloworldblockchain.core.tools.TransactionTool;
+import com.xingkaichun.helloworldblockchain.core.tool.TransactionTool;
 import com.xingkaichun.helloworldblockchain.crypto.AccountUtil;
 import com.xingkaichun.helloworldblockchain.util.ByteUtil;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;

@@ -2,7 +2,7 @@ package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.core.BlockchainCoreFactory;
-import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
+import com.xingkaichun.helloworldblockchain.core.tool.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.dao.NodeDao;
 import com.xingkaichun.helloworldblockchain.netcore.dao.impl.NodeDaoImpl;
 import com.xingkaichun.helloworldblockchain.netcore.server.NodeServer;

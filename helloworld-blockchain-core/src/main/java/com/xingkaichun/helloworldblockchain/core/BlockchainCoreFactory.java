@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core;
 
 import com.xingkaichun.helloworldblockchain.core.impl.*;
-import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
+import com.xingkaichun.helloworldblockchain.core.tool.ResourcePathTool;
 
 /**
  * 创建BlockchainCore的工厂

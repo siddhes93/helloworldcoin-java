@@ -1,4 +1,4 @@
-package com.xingkaichun.helloworldblockchain.core.tools;
+package com.xingkaichun.helloworldblockchain.core.tool;
 
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.SystemUtil;

@@ -2,7 +2,7 @@ package com.xingkaichun.helloworldblockchain.core.impl;
 
 import com.xingkaichun.helloworldblockchain.core.CoreConfiguration;
 import com.xingkaichun.helloworldblockchain.core.UnconfirmedTransactionDatabase;
-import com.xingkaichun.helloworldblockchain.core.tools.TransactionDtoTool;
+import com.xingkaichun.helloworldblockchain.core.tool.TransactionDtoTool;
 import com.xingkaichun.helloworldblockchain.util.*;
 import com.xingkaichun.helloworldblockchain.netcore.dto.TransactionDto;
 

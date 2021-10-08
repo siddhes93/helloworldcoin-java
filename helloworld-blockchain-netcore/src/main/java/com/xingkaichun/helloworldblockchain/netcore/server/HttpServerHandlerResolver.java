@@ -3,7 +3,7 @@ package com.xingkaichun.helloworldblockchain.netcore.server;
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.core.UnconfirmedTransactionDatabase;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
-import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
+import com.xingkaichun.helloworldblockchain.core.tool.Model2DtoTool;
 import com.xingkaichun.helloworldblockchain.netcore.dto.*;
 import com.xingkaichun.helloworldblockchain.netcore.model.Node;
 import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;

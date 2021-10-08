@@ -1,6 +1,6 @@
 package com.xingkaichun.helloworldblockchain.application.configuration;
 
-import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
+import com.xingkaichun.helloworldblockchain.core.tool.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCore;
 import com.xingkaichun.helloworldblockchain.netcore.BlockchainNetCoreFactory;
 import org.springframework.context.annotation.Bean;

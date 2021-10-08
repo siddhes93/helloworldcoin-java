@@ -2,7 +2,7 @@ package com.xingkaichun.helloworldblockchain.netcore;
 
 import com.xingkaichun.helloworldblockchain.core.BlockchainCore;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
-import com.xingkaichun.helloworldblockchain.core.tools.Model2DtoTool;
+import com.xingkaichun.helloworldblockchain.core.tool.Model2DtoTool;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClient;
 import com.xingkaichun.helloworldblockchain.netcore.client.NodeClientImpl;
 import com.xingkaichun.helloworldblockchain.netcore.configuration.NetCoreConfiguration;

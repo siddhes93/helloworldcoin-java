@@ -3,7 +3,7 @@ package com.xingkaichun.helloworldblockchain.core.impl;
 import com.xingkaichun.helloworldblockchain.core.BlockchainDatabase;
 import com.xingkaichun.helloworldblockchain.core.Consensus;
 import com.xingkaichun.helloworldblockchain.core.model.Block;
-import com.xingkaichun.helloworldblockchain.core.tools.BlockTool;
+import com.xingkaichun.helloworldblockchain.core.tool.BlockTool;
 import com.xingkaichun.helloworldblockchain.setting.GenesisBlockSetting;
 import com.xingkaichun.helloworldblockchain.setting.IncentiveSetting;
 import com.xingkaichun.helloworldblockchain.util.StringUtil;

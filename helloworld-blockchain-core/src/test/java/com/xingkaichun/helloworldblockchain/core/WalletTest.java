@@ -4,7 +4,7 @@ import com.xingkaichun.helloworldblockchain.core.model.Block;
 import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionRequest;
 import com.xingkaichun.helloworldblockchain.core.model.wallet.AutoBuildTransactionResponse;
 import com.xingkaichun.helloworldblockchain.core.model.wallet.Payee;
-import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
+import com.xingkaichun.helloworldblockchain.core.tool.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.ThreadUtil;
 import org.junit.Assert;

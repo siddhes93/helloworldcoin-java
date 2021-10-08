@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core;
 
 import com.xingkaichun.helloworldblockchain.core.model.Block;
-import com.xingkaichun.helloworldblockchain.core.tools.ResourcePathTool;
+import com.xingkaichun.helloworldblockchain.core.tool.ResourcePathTool;
 import com.xingkaichun.helloworldblockchain.netcore.dto.BlockDto;
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
 import com.xingkaichun.helloworldblockchain.util.JsonUtil;
