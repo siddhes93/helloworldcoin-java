@@ -228,7 +228,7 @@ public class BlockchainBrowserApplicationController {
     }
 
     /**
-     * 查询最近的10个区块
+     * 查询最新的10个区块
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TOP10_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTop10BlocksResponse> queryTop10Blocks(@RequestBody QueryTop10BlocksRequest request){
@@ -251,7 +251,7 @@ public class BlockchainBrowserApplicationController {
             for(Block block : blocks){
                 BlockVo2 blockVo = new BlockVo2();
                 blockVo.setHeight(block.getHeight());
-                blockVo.setBlockSize(SizeTool.calculateBlockSize(block)+"字符");
+                blockVo.setBlockSize(SizeTool.calculateBlockSize(block));
                 blockVo.setTransactionCount(BlockTool.getTransactionCount(block));
                 blockVo.setMinerIncentiveValue(BlockTool.getWritedIncentiveValue(block));
                 blockVo.setTime(TimeUtil.formatMillisecondTimestamp(block.getTimestamp()));
@@ -263,7 +263,7 @@ public class BlockchainBrowserApplicationController {
             response.setBlocks(blockVos);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[查询最近的10个区块]失败";
+            String message = "[查询最新的10个区块]失败";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }

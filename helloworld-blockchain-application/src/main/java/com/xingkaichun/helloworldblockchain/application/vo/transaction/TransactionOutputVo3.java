@@ -3,7 +3,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.transaction;
 public class TransactionOutputVo3 {
 
     private long value;
-    private boolean spent;
+    private boolean unspentTransactionOutput;
     private String transactionType;
 
 
@@ -23,12 +23,12 @@ public class TransactionOutputVo3 {
     private TransactionVo inputTransaction;
     private TransactionVo outputTransaction;
 
-    public boolean isSpent() {
-        return spent;
+    public boolean isUnspentTransactionOutput() {
+        return unspentTransactionOutput;
     }
 
-    public void setSpent(boolean spent) {
-        this.spent = spent;
+    public void setUnspentTransactionOutput(boolean unspentTransactionOutput) {
+        this.unspentTransactionOutput = unspentTransactionOutput;
     }
 
     public long getValue() {

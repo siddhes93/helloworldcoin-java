@@ -8,7 +8,7 @@ public class BlockVo {
 
     private long height;
     private long confirmCount;
-    private String blockSize;
+    private long blockSize;
     private long transactionCount;
     private String time;
     private long minerIncentiveValue;
@@ -36,11 +36,11 @@ public class BlockVo {
         this.confirmCount = confirmCount;
     }
 
-    public String getBlockSize() {
+    public long getBlockSize() {
         return blockSize;
     }
 
-    public void setBlockSize(String blockSize) {
+    public void setBlockSize(long blockSize) {
         this.blockSize = blockSize;
     }
 

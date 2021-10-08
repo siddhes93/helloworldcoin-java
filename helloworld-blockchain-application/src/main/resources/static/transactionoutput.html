@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>交易输出详情-HelloworldBlockchain</title>
+        <title>交易输出详情</title>
 
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
@@ -16,7 +16,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">HelloworldBlockchain</a>
+                    <a class="navbar-brand" href="./index.html">HelloworldBlockchain</a>
                 </div>
 
                 <div>
@@ -26,8 +26,8 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./node-console.html">节点控制台</a></li>
+                        <li><a href="./node-management.html">节点</a></li>
+                        <li><a href="./node-console.html">控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -70,8 +70,8 @@
                             <td>${transactionOutput.transactionType}</td>
                         </tr>
                         <tr>
-                            <td style="width:10%">是否已花费</td>
-                            <td style="width:40%">${transactionOutput.spent ? '是' : '否'}</td>
+                            <td style="width:10%">未花费交易输出</td>
+                            <td style="width:40%">${transactionOutput.unspentTransactionOutput ? '是' : '否'}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -84,7 +84,7 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td style="width:10%">块高度</td>
+                            <td style="width:10%">区块高度</td>
                             <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.fromBlockHash}">${transactionOutput.fromBlockHeight}</a></td>
                             <td style="width:10%">区块哈希</td>
                             <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.fromBlockHash}">${transactionOutput.fromBlockHash}</a></td>
@@ -111,7 +111,7 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td style="width:10%">块高度</td>
+                                <td style="width:10%">区块高度</td>
                                 <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.toBlockHash}">${transactionOutput.toBlockHeight}</a></td>
                                 <td style="width:10%">区块哈希</td>
                                 <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.toBlockHash}">${transactionOutput.toBlockHash}</a></td>

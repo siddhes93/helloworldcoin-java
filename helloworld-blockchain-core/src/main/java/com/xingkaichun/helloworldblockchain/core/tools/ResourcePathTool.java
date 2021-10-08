@@ -1,7 +1,7 @@
 package com.xingkaichun.helloworldblockchain.core.tools;
 
 import com.xingkaichun.helloworldblockchain.util.FileUtil;
-import com.xingkaichun.helloworldblockchain.util.OperateSystemUtil;
+import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 
 /**
  * 资源路径工具类
@@ -15,11 +15,11 @@ public class ResourcePathTool {
      */
     public static String getDataRootPath() {
         String dataRootPath;
-        if(OperateSystemUtil.isWindowsOperateSystem()){
+        if(SystemUtil.isWindowsOperateSystem()){
             dataRootPath = "C:\\helloworld-blockchain-java\\";
-        }else if(OperateSystemUtil.isMacOperateSystem()){
+        }else if(SystemUtil.isMacOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java/";
-        }else if(OperateSystemUtil.isLinuxOperateSystem()){
+        }else if(SystemUtil.isLinuxOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java/";
         }else{
             dataRootPath = "/tmp/helloworld-blockchain-java/";
@@ -33,11 +33,11 @@ public class ResourcePathTool {
      */
     public static String getTestDataRootPath() {
         String dataRootPath;
-        if(OperateSystemUtil.isWindowsOperateSystem()){
+        if(SystemUtil.isWindowsOperateSystem()){
             dataRootPath = "C:\\helloworld-blockchain-java-test\\";
-        }else if(OperateSystemUtil.isMacOperateSystem()){
+        }else if(SystemUtil.isMacOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java-test/";
-        }else if(OperateSystemUtil.isLinuxOperateSystem()){
+        }else if(SystemUtil.isLinuxOperateSystem()){
             dataRootPath = "/tmp/helloworld-blockchain-java-test/";
         }else{
             dataRootPath = "/tmp/helloworld-blockchain-java-test/";

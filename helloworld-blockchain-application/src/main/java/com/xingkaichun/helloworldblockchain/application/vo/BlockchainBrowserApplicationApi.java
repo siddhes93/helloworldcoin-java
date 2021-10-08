@@ -35,6 +35,6 @@ public class BlockchainBrowserApplicationApi {
     public static final String QUERY_BLOCK_BY_BLOCK_HEIGHT = "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight";
     //根据区块哈希查询区块
     public static final String QUERY_BLOCK_BY_BLOCK_HASH = "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash";
-    //查询最近的10个区块
+    //查询最新的10个区块
     public static final String QUERY_TOP10_BLOCKS = "/Api/BlockchainBrowserApplication/QueryTop10Blocks";
 }

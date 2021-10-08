@@ -2,7 +2,7 @@ package com.xingkaichun.helloworldblockchain.util;
 
 /**
  *
- * @author 邢开春 xingkaichun@qq.com
+ * @author 邢开春 409060350@qq.com
  */
 public class MathUtil {
 

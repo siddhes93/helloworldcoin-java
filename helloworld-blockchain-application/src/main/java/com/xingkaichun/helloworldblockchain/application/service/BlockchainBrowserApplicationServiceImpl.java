@@ -48,7 +48,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
         //是否是未花费输出
         TransactionOutput transactionOutputTemp = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryUnspentTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
-        transactionOutputVo3.setSpent(transactionOutputTemp==null);
+        transactionOutputVo3.setUnspentTransactionOutput(transactionOutputTemp!=null);
 
         //来源
         TransactionVo inputTransactionVo = queryTransactionByTransactionHash(transactionOutput.getTransactionHash());
@@ -125,7 +125,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         BlockVo blockVo = new BlockVo();
         blockVo.setHeight(block.getHeight());
         blockVo.setConfirmCount(BlockTool.getTransactionCount(block));
-        blockVo.setBlockSize(SizeTool.calculateBlockSize(block)+"字符");
+        blockVo.setBlockSize(SizeTool.calculateBlockSize(block));
         blockVo.setTransactionCount(BlockTool.getTransactionCount(block));
         blockVo.setTime(TimeUtil.formatMillisecondTimestamp(block.getTimestamp()));
         blockVo.setMinerIncentiveValue(BlockTool.getWritedIncentiveValue(block));

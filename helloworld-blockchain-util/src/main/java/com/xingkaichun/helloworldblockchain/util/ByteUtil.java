@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 字节工具类
  *
  * @author 邢开春 409060350@qq.com
  */

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>首页-最新出块-HelloworldBlockchain</title>
+        <title>最新出块</title>
 
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
@@ -32,31 +32,29 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node-management.html">节点管理</a></li>
-                        <li><a href="./node-console.html">节点控制台</a></li>
+                        <li><a href="./node-management.html">节点</a></li>
+                        <li><a href="./node-console.html">控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
         <div class="jumbotron">
-            <h1>Hello, world, blockchain!</h1>
-            <p>HelloworldBlockchain项目架构清晰，文档齐全，中文注释，可读性高，为区块链初学者学习研究而生。</p>
-            <p><a class="btn btn-primary btn-lg" href="https://github.com/xingkaichun/helloworldblockchain" role="button">更多...</a></p>
+            <h1>Hello, world, blockchain!&nbsp;<a class="btn btn-primary btn-lg" href="https://github.com/helloworldcoin" role="button">helloworldcoin</a></h1>
         </div>
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">☺最近出块☺</div>
+            <div class="panel-heading">☺最新出块☺</div>
 
             <!-- Table -->
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width:13%;">高度</th>
-                        <th style="width:8%;">块大小</th>
+                        <th style="width:13%;">区块高度</th>
+                        <th style="width:13%;">出块时间</th>
+                        <th style="width:8%;">区块收益</th>
                         <th style="width:8%;">交易数量</th>
-                        <th style="width:8%;">块收益</th>
-                        <th style="width:13%;">时间</th>
-                        <th style="width:50%;">块哈希</th>
+                        <th style="width:8%;">区块大小</th>
+                        <th style="width:50%;">区块哈希</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,10 +71,10 @@
                     $('tbody').append(`
                     <tr>
                         <td><a target="_blank" href="./block-by-height.html?height=${item.height}">${item.height}</a></td>
-                        <td>${item.blockSize}</td>
-                        <td>${item.transactionCount}</td>
-                        <td>${item.minerIncentiveValue}</td>
                         <td>${item.time}</td>
+                        <td>${item.minerIncentiveValue}</td>
+                        <td>${item.transactionCount}</td>
+                        <td>${item.blockSize}字符</td>
                         <td><a target="_blank" href="./block.html?hash=${item.hash}">${item.hash}</a></td>
                     </tr>
                     `)

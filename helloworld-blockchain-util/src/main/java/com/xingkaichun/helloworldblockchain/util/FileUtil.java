@@ -3,7 +3,6 @@ package com.xingkaichun.helloworldblockchain.util;
 import java.io.*;
 
 /**
- * File工具类
  *
  * @author 邢开春 409060350@qq.com
  */

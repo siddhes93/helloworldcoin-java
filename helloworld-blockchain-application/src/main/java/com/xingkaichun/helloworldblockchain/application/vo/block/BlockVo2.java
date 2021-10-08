@@ -7,7 +7,7 @@ package com.xingkaichun.helloworldblockchain.application.vo.block;
 public class BlockVo2 {
 
     private long height;
-    private String blockSize;
+    private long blockSize;
     private long transactionCount;
     private long minerIncentiveValue;
     private String time;
@@ -21,11 +21,11 @@ public class BlockVo2 {
         this.height = height;
     }
 
-    public String getBlockSize() {
+    public long getBlockSize() {
         return blockSize;
     }
 
-    public void setBlockSize(String blockSize) {
+    public void setBlockSize(long blockSize) {
         this.blockSize = blockSize;
     }
 

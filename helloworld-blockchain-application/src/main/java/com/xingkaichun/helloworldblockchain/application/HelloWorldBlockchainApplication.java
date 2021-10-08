@@ -1,5 +1,6 @@
 package com.xingkaichun.helloworldblockchain.application;
 
+import com.xingkaichun.helloworldblockchain.util.SystemUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,5 +14,6 @@ public class HelloWorldBlockchainApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HelloWorldBlockchainApplication.class, args);
+		SystemUtil.callDefaultBrowser("http://localhost/");
 	}
 }

@@ -6,7 +6,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 网络工具类
  *
  * @author 邢开春 409060350@qq.com
  */
