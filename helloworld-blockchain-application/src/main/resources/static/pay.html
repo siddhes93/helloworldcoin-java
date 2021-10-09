@@ -27,8 +27,8 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li class="active"><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node-management.html">节点</a></li>
-                        <li><a href="./node-console.html">控制台</a></li>
+                        <li><a href="./node.html">节点</a></li>
+                        <li><a href="./console.html">控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -159,9 +159,7 @@
                           <div class="panel-heading">支付到账确认方式</div>
                           <!-- List group -->
                           <ul class="list-group">
-                            <li class="list-group-item">方式一：付款方进入<a target="_blank" href="./wallet.html">钱包</a>查看钱的总额是否变化</li>
-                            <li class="list-group-item">方式二：通知收款方进入<a target="_blank" href="./wallet.html">钱包</a>查看钱的总额是否变化</li>
-                            <li class="list-group-item">方式三：查看<a target="_blank" href="./unconfirmed-transaction.html?transactionHash=${response.data.transactionHash}">交易</a>是否被区块链确认。若发现交易暂未被确认，可打开链接后，复制保存链接，稍后再查看。</li>
+                            <li class="list-group-item"><a target="_blank" href="./wallet.html">查看钱包余额</a></li>
                           </ul>
                         </div>
                         <button type="button" class="btn btn-success" style="margin-left:45%" onclick="layer.close(layer.index);">关闭</button>
@@ -178,11 +176,32 @@
                       content: payDetailHtml
                     });
                 }else {
-                    alert(localLanguage(response.message));
+                    alert(translateAutomaticBuildTransactionResponseMessage(response.message));
                 }
             }
 
             addNonChangePayee();
+
+            function translateAutomaticBuildTransactionResponseMessage(element){
+                let translateValue = commonTranslate(element);
+                if(!isEmpty(translateValue)){
+                    return translateValue;
+                }
+
+                if(element == 'payee_can_not_empty'){
+                    return '收款方不能为空';
+                }
+                if(element == 'payee_address_can_not_empty'){
+                    return '收款方地址不能为空';
+                }
+                if(element == 'payee_value_can_not_less_equal_than_zero'){
+                    return '收款金额不能小于等于零';
+                }
+                if(element == 'not_enough_money_to_pay'){
+                   return '没有足够的钱进行支付';
+                }
+                return element;
+            }
         </script>
     </body>
 </html>

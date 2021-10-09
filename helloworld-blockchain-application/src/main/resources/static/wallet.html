@@ -30,8 +30,8 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li class="active"><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node-management.html">节点</a></li>
-                        <li><a href="./node-console.html">控制台</a></li>
+                        <li><a href="./node.html">节点</a></li>
+                        <li><a href="./console.html">控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -41,9 +41,8 @@
             <!-- Default panel contents -->
             <div class="panel-heading">☺钱包☺&nbsp;&nbsp;
                 <span id="balance" class="f6">总余额</span>&nbsp;&nbsp;
-                <button type="button" class="btn btn-primary" onclick="increase()">添加账户到钱包</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-primary" onclick="createAndSave()">创建新账户(新账户添加到钱包)</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-primary" onclick="create()">创建新账户(新账户不添加到钱包)</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" onclick="save()">添加钱包</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" onclick="createAndSave()">创建钱包</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-primary" onclick="window.open('./pay.html')">支付</button>
             </div>
             <!-- Table -->
@@ -64,8 +63,8 @@
                     $('tbody').append(`
                         <tr>
                             <td style="width:80%;">
-                                地址(账号)：<a  title="地址，点击查看地址详情。" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
-                                私钥(密码)：${item.privateKey}<br/>
+                                地址：<a  title="地址，点击查看地址详情。" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
+                                私钥：${item.privateKey}<br/>
                                 余额：${item.value}
                             </td>
                             <td style="width:20%;"><button type="button" class="btn btn-danger">删除</button></td>
@@ -93,8 +92,8 @@
                 });
             })
 
-            async function increase(){
-                layer.prompt({title: '增加账户，请输入私钥(账户密码)。', formType: 2}, function(pass, index){
+            async function save(){
+                layer.prompt({title: '请输入私钥。', formType: 2}, function(pass, index){
                     $.ajax({
                          type: "post",
                          url : baseUrl() + "/Api/WalletApplication/SaveAccount",
@@ -112,25 +111,14 @@
                 });
             }
 
-            async function create(){
-                let response = await $ajax({
-                    url : baseUrl() + "/Api/WalletApplication/CreateAccount"
-                })
-                let account = response.data.account;
-                let content = '<h2 class="red">提示: 请在您信任的站点生成账户！</h2>' +
-                                 '<div><span>账号(区块链领域学名:地址)</span>&nbsp;&nbsp;'+account.address+'</div>' +
-                                 '<div><span>密码(区块链领域学名:私钥)</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
-                layer.alert(content);
-            }
-
             async function createAndSave(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/WalletApplication/CreateAndSaveAccount"
                 })
                 let account = response.data.account;
-                let content = '<h2 class="red">提示: 请在您信任的站点生成账户！你创建的数字货币账号与密码已经保存本网站了！</h2>' +
-                                 '<div><span>账号(区块链领域学名:地址)</span>&nbsp;&nbsp;'+account.address+'</div>' +
-                                 '<div><span>密码(区块链领域学名:私钥)</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
+                let content = '<h2 class="red">提示: 请在您信任的站点生成钱包！</h2>' +
+                                 '<div><span>地址:</span>&nbsp;&nbsp;'+account.address+'</div>' +
+                                 '<div><span>私钥:</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
                 layer.alert(content,function(){location.reload();});
             }
         </script>

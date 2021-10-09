@@ -149,7 +149,6 @@ public class WalletImpl extends Wallet {
                     TransactionDto transactionDto = buildTransaction(payers,payees);
                     AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                     response.setBuildTransactionSuccess(true);
-                    response.setMessage(PayAlert.BUILD_TRANSACTION_SUCCESS);
                     response.setTransaction(transactionDto);
                     response.setTransactionHash(TransactionDtoTool.calculateTransactionHash(transactionDto));
                     response.setFee(fee);

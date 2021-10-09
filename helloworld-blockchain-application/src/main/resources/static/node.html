@@ -30,8 +30,8 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
-                        <li class="active"><a href="./node-management.html">节点</a></li>
-                        <li><a href="./node-console.html">控制台</a></li>
+                        <li class="active"><a href="./node.html">节点</a></li>
+                        <li><a href="./console.html">控制台</a></li>
                     </ul>
                 </div>
             </div>
@@ -62,17 +62,16 @@
                     url : baseUrl() + "/Api/NodeConsoleApplication/QueryAllNodes"
                 });
                 let {nodes} = response.data
-                let $list = $('#table-node-list');
                 $(nodes).each((index, item) => {
-                    $list.append(`
-                    <tr>
-                        <td>${item.ip}</td>
-                        <td>${item.blockchainHeight}</td>
-                        <td>
-                            <button type="submit" ip="${item.ip}" class="btn btn-default update-node">修改</button>
-                            <button type="submit" class="btn btn-danger delete-node" name="">删除</button>
-                        </td>
-                    </tr>
+                    $('#table-node-list').append(`
+                        <tr>
+                            <td>${item.ip}</td>
+                            <td>${item.blockchainHeight}</td>
+                            <td>
+                                <button type="submit" ip="${item.ip}" class="btn btn-default update-node">修改</button>
+                                <button type="submit" class="btn btn-danger delete-node" name="">删除</button>
+                            </td>
+                        </tr>
                     `)
                 })
             }());
@@ -106,7 +105,7 @@
 
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let ip = $('#table-add-node-text-ip').val();
-                if(ip == ""){
+                if(isEmpty(ip)){
                     alert("节点不能为空");
                     return;
                 }
@@ -115,10 +114,10 @@
                     data: `{"ip": "${ip}"}`
                 });
                 if(response.status == 'success'){
-                    alert("节点添加成功");
+                    alert("添加成功");
                     location.reload();
                 }else {
-                    alert("节点添加失败");
+                    alert("添加失败");
                 }
             })
 
@@ -164,10 +163,10 @@
                     data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": ${$('#table-update-node-text-blockchainHeight').val()}}`
                 });
                 if(response.status == 'success'){
-                    alert("节点更新成功");
+                    alert("更新成功");
                     location.reload();
                 }else {
-                    alert("节点更新失败");
+                    alert("更新失败");
                 }
             })
 
@@ -177,8 +176,12 @@
                     url : baseUrl() + "/Api/NodeConsoleApplication/DeleteNode",
                     data: `{"ip": "${ip}"}`
                 });
-                alert("删除成功");
-                location.reload();
+                if(response.status == 'success'){
+                    alert("删除成功");
+                    location.reload();
+                }else {
+                    alert("删除失败");
+                }
             })
         </script>
     </body>

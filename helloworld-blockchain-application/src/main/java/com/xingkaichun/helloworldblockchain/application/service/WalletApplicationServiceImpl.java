@@ -85,9 +85,10 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
     }
 
     private String payAlert2PayAlertVo(String message) {
-        if(StringUtil.equals(PayAlertVo.BUILD_TRANSACTION_SUCCESS,message)){
-            return PayAlertVo.BUILD_TRANSACTION_SUCCESS;
-        }else if(StringUtil.equals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
+        if(StringUtil.isEmpty(message)){
+            return message;
+        }
+        if(StringUtil.equals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
             return PayAlertVo.PAYEE_CAN_NOT_EMPTY;
         }else if(StringUtil.equals(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO,message)){
             return PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO;

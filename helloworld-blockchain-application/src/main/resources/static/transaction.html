@@ -28,8 +28,8 @@
                         <li><a href="./unconfirmed-transactions.html">未确认交易池</a></li>
                         <li><a href="./pay.html">支付</a></li>
                         <li><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node-management.html">节点</a></li>
-                        <li><a href="./node-console.html">控制台</a></li>
+                        <li><a href="./node.html">节点</a></li>
+                        <li><a href="./console.html">控制台</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -107,7 +107,7 @@
                 $('.transactionFee').text(transactionFee);
                 $('.confirmCount').text(confirmCount);
                 $('.transactionInputCount').text(transactionInputCount);
-                $('.transactionType').text(transactionType);
+                $('.transactionType').text(transactionType == 'GENESIS_TRANSACTION'?"创世交易":"普通交易");
                 $('.transactionInputValues').text(transactionInputValues);
                 $('.blockTime').text(blockTime);
                 $('.transactionOutputValues').text(transactionOutputValues);
@@ -116,7 +116,7 @@
                 let item = response.data.transaction;
                 $('#transaction-list-container').append(transactionHtml(item))
 
-                if(!isNullOrUndefined(inputScripts)){
+                if(!isNull(inputScripts)){
                     inputScripts.forEach(item => {
                         $('.table1 tbody').append(`
                             <tr class="info">
@@ -126,7 +126,7 @@
                     })
                 }
 
-                if(!isNullOrUndefined(outputScripts)){
+                if(!isNull(outputScripts)){
                     outputScripts.forEach(item => {
                         $('.table2 tbody').append(`
                             <tr class="warning">
