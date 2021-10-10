@@ -9,6 +9,7 @@ import java.util.List;
 public class TransactionVo {
     private long blockHeight;
     private String blockHash;
+    //TODO confirmedCount
     private long confirmCount;
     private String transactionHash;
     private String blockTime;
