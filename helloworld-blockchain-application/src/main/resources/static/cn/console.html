@@ -84,7 +84,7 @@
                 });
                 minerInActiveState = response.data.minerInActiveState;
                 $('#minerStatus').text(response.data.minerInActiveState ? '挖矿中' : '休息中');
-                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop_mining' : 'start_mining');
+                $('#minerSwitch').text(response.data.minerInActiveState ? '停止挖矿' : '开启挖矿');
             }());
             $(async function(){
                 let response = await $ajax({

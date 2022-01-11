@@ -84,7 +84,7 @@
                 });
                 minerInActiveState = response.data.minerInActiveState;
                 $('#minerStatus').text(response.data.minerInActiveState ? 'mining' : 'resting');
-                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop_mining' : 'start_mining');
+                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop mining' : 'start mining');
             }());
             $(async function(){
                 let response = await $ajax({
