@@ -1,0 +1,67 @@
+package com.helloworldcoin.netcore;
+
+import com.helloworldcoin.netcore.configuration.NetCoreConfiguration;
+import com.helloworldcoin.netcore.service.NodeService;
+import com.helloworldcoin.core.BlockchainCore;
+import com.helloworldcoin.netcore.client.NodeClient;
+import com.helloworldcoin.netcore.client.NodeClientImpl;
+import com.helloworldcoin.netcore.dto.PostBlockchainHeightRequest;
+import com.helloworldcoin.netcore.model.Node;
+import com.helloworldcoin.util.LogUtil;
+import com.helloworldcoin.util.ThreadUtil;
+
+import java.util.List;
+
+/**
+ * 区块链高度广播器：将区块链高度传播至全网。
+ * 如果本地区块链的高度高于全网，那么就应该(通过在区块链网络中广播自己的高度的方式)通知其它节点
+ * ，好让其它节点知道可以来同步自己的区块数据了。
+ * 至于其它节点什么时候来同步自己的区块，应该由其它节点来决定。
+ *
+ * 顺便说一句，矿工把区块放入区块链后，当区块广播器广播区块链高度时，
+ * 也就相当于通知了其它节点"自己挖出了新的区块"这件事。
+ *
+ * @author x.king xdotking@gmail.com
+ */
+public class BlockchainHeightBroadcaster {
+
+    private NetCoreConfiguration netCoreConfiguration;
+    private BlockchainCore blockchainCore;
+    private NodeService nodeService;
+
+    public BlockchainHeightBroadcaster(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, NodeService nodeService) {
+        this.netCoreConfiguration = netCoreConfiguration;
+        this.blockchainCore = blockchainCore;
+        this.nodeService = nodeService;
+    }
+
+    public void start() {
+        try {
+            while (true){
+                broadcastBlockchainHeight();
+                ThreadUtil.millisecondSleep(netCoreConfiguration.getBlockchainHeightBroadcastTimeInterval());
+            }
+        } catch (Exception e) {
+            LogUtil.error("在区块链网络中广播自身区块链高度异常",e);
+        }
+    }
+
+    private void broadcastBlockchainHeight() {
+        List<Node> nodes = nodeService.queryAllNodes();
+        if(nodes == null || nodes.size()==0){
+            return;
+        }
+
+        for(Node node:nodes){
+            long blockchainHeight = blockchainCore.queryBlockchainHeight();
+            if(blockchainHeight <= node.getBlockchainHeight()){
+                continue;
+            }
+            NodeClient nodeClient = new NodeClientImpl(node.getIp());
+            PostBlockchainHeightRequest postBlockchainHeightRequest = new PostBlockchainHeightRequest();
+            postBlockchainHeightRequest.setBlockchainHeight(blockchainHeight);
+            nodeClient.postBlockchainHeight(postBlockchainHeightRequest);
+        }
+    }
+
+}

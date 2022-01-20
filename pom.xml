@@ -4,23 +4,20 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.xingkaichun.helloworldblockchain</groupId>
-  <artifactId>helloworld-blockchain-parent</artifactId>
+  <groupId>com.helloworldcoin</groupId>
+  <artifactId>helloworldcoin-java</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <modules>
-    <module>helloworld-blockchain-core</module>
-    <module>helloworld-blockchain-crypto</module>
-    <module>helloworld-blockchain-netcore</module>
-    <module>helloworld-blockchain-netcore-dto</module>
-    <module>helloworld-blockchain-setting</module>
-    <module>helloworld-blockchain-util</module>
-    <module>helloworld-blockchain-netcore-client</module>
-    <module>helloworld-blockchain-application</module>
+    <module>helloworldcoin-core</module>
+    <module>helloworldcoin-crypto</module>
+    <module>helloworldcoin-netcore</module>
+    <module>helloworldcoin-netcore-dto</module>
+    <module>helloworldcoin-setting</module>
+    <module>helloworldcoin-util</module>
+    <module>helloworldcoin-netcore-client</module>
+    <module>helloworldcoin-application</module>
   </modules>
-
-  <name>helloworld-blockchain-parent</name>
-  <url>http://www.helloworldblockchain.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,43 +38,43 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-core</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-core</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-application</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-application</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-crypto</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-crypto</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-netcore</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-netcore</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-netcore-client</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-netcore-client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-netcore-dto</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-netcore-dto</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-setting</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-setting</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.xingkaichun.helloworldblockchain</groupId>
-        <artifactId>helloworld-blockchain-util</artifactId>
+        <groupId>com.helloworldcoin</groupId>
+        <artifactId>helloworldcoin-util</artifactId>
         <version>${project.version}</version>
       </dependency>
 
