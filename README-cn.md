@@ -1,11 +1,13 @@
-## helloworldcoin
-helloworldcoin是一个helloworld级别的数字货币系统。
-helloworldcoin是一个helloworld级别的区块链公链系统。
-helloworldcoin设计目标是麻雀，秉承谚语麻雀虽小五脏俱全的理念，她小在代码精炼，小在不保留非必要区块链功能，小在零依赖、零配置的部署，她的全，在于区块链技术的宽度与深度的实践，在于丰富的文档。
-helloworldcoin架构清晰，文档丰富，精简易学，代码可读性高，代码注释清晰，为初学者学习研究实践区块链技术而生。
-通过这个项目，学习者将深入理解区块链，从技术细节到系统架构都将带给学习者超乎想象的收益。
-假设学习者将helloworldcoin不到万行的代码看完，学习者将会学会如下知识：哈希是什么?UTXO是什么?默克尔树是什么?挖矿是什么?钱包是什么?区块链是如何实现动态调整挖矿难度?区块链的不可篡改是如何实现的?数字货币的匿名性是如何实现的?如何自己发行一种数字货币?智能合约是怎么回事?等等所有区块链领域的根基知识在学习者的面前都将再无任何秘密而言。
-helloworldcoin开发调试简单，下载源码，导入idea，无需任何配置，找到启动类文件com.helloworldcoin.application.HelloworldcoinApplication，右键运行，即可启动项目，然后打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+[English](https://github.com/helloworldcoin/helloworldcoin-java/blob/master/README-cn.md) / 中文
+
+<h1><p align="center">helloworldcoin</p></h1>  
+
+helloworldcoin是一个helloworld级别的数字货币系统。.   
+   
+如果你懂java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ;
+如果你懂cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ;
+如果你懂go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) .
+<br/><br/><br/>
 
 
 
@@ -24,9 +26,17 @@ helloworldcoin开发调试简单，下载源码，导入idea，无需任何配�
 
 ## 集成开发环境搭建
 #### intellij idea
-helloworldcoin项目没有任何复杂依赖，将项目导入idea，找到类文件com.helloworldcoin.application.HelloworldcoinApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+``` 
+1. 将项目导入 idea
+2. 找到 '主类' com.helloworldcoin.application.HelloworldcoinApplication
+3. 运行 '主类'
+```
 #### eclipse
-helloworldcoin项目没有任何复杂依赖，将项目导入idea，找到类文件com.helloworldcoin.application.HelloworldcoinApplication，右键运行，正常情况下则会启动成功。接下来，打开浏览器，访问项目的前端地址 http://localhost/ ，快乐的调试玩耍吧。
+``` 
+1. 将项目导入 eclipse
+2. 找到 '主类' com.helloworldcoin.application.HelloworldcoinApplication
+3. 运行 '主类'
+```
 
 
 
@@ -37,7 +47,7 @@ mvn -DskipTests=true clean package
 ```
 #### 发布项目
 ```
-java -jar helloworldcoin-application-1.0-SNAPSHOT.jar
+java -jar helloworldcoin-application-1.0.0.jar
 ```
 
 
@@ -63,8 +73,8 @@ java -jar helloworldcoin-application-1.0-SNAPSHOT.jar
 #### helloworldcoin-node-dto
 该模块用于存放【节点之间数据传输使用的】dto类，不存在任何业务逻辑。该包中的dto类以字段精简【节约节点之间数据的传输流量】、类型简单【方便多种编程语言转换】为设计目标。 
 #### helloworldcoin-setting
-该模块存放全局配置
+该模块存放全局配置。
 #### helloworldcoin-crypto
 该模块封装了加密相关的工具。1.数字货币账户工具：①账户(私钥、公钥、公钥哈希、地址)生成工具。②私钥、公钥、公钥哈希、地址的相互转换工具。2.数字签名与签名验证工具。3.消息摘要工具：SHA-256、RipeMD160。4.字节编码工具：base58、hex。5.数据结构工具：默克尔树等。
 #### helloworldcoin-util
-该模块存放封装的开发工具类
+该模块存放工具类。
