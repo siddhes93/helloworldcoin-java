@@ -75,7 +75,7 @@
 
             $('body').delegate('table .btn-danger', 'click', async function(){
                 let privateKey = $(this).parent().parent().find('a').text();
-                layer.confirm('确认删除？', {
+                layer.confirm('确认删除', {
                   btn: ['删除','取消']
                 }, function(){
                     $.ajax({
