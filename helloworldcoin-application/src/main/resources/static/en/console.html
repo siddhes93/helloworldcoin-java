@@ -91,16 +91,16 @@
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock"
                 });
                 autoSearchBlock = response.data.autoSearchBlock;
-                $('#autoSearchBlock').text(autoSearchBlock ? 'automatic search for new blocks' : 'searching for new blocks has been suspended')
-                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'searching for new blocks has been suspended' : 'automatic search for new blocks')
+                $('#autoSearchBlock').text(autoSearchBlock ? 'automatic search new blocks' : 'search new blocks has been suspended')
+                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'search new blocks has been suspended' : 'automatic search new blocks')
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode"
                 });
                 autoSearchNode = response.data.autoSearchNode;
-                $('#autoSearchNode').text(autoSearchNode ? 'automatic search for new nodes' : 'searching for new nodes has been suspended');
-                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop searching for new nodes' : 'automatic search for new nodes');
+                $('#autoSearchNode').text(autoSearchNode ? 'automatic search new nodes' : 'search new nodes has been suspended');
+                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop search new nodes' : 'automatic search new nodes');
             }());
             $(async function(){
                 let response = await $ajax({
