@@ -3,11 +3,14 @@ English / [中文](https://github.com/helloworldcoin/helloworldcoin-java/blob/ma
 <h1><p align="center">helloworldcoin</p></h1>  
 
 helloworldcoin is a 'helloworld' level cryptocurrency system.   
+
+Give us a star, Give yourself a hope. We will Airdrop to the People who Star this project. The sooner star, The more helloworldcoin Get.  
    
 if you know java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ;
 if you know cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ;
 if you know go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) .
 <br/><br/><br/>
+
 
 
 ## Demo
