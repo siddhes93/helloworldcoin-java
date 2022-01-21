@@ -6,9 +6,9 @@ helloworldcoin是一个helloworld级别的数字货币系统。
 
 赠人star，手有余香。 我们将会根据用户star项目的先后顺序进行空投，早star，多空投。  
    
-如果你懂java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ；
-如果你懂cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ；
-如果你懂go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) 。
+如果您懂java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ；
+如果您懂cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ；
+如果您懂go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) 。
 <br/><br/><br/>
 
 
