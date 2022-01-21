@@ -2,23 +2,18 @@
 
 <h1><p align="center">helloworldcoin</p></h1>  
 
-helloworldcoin是一个helloworld级别的数字货币系统。.   
+helloworldcoin是一个helloworld级别的数字货币系统。   
    
-如果你懂java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ;
-如果你懂cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ;
-如果你懂go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) .
+如果你懂java , [helloworldcoin-java](https://github.com/helloworldcoin/helloworldcoin-java) ；
+如果你懂cpp , [helloworldcoin-cpp](https://github.com/helloworldcoin/helloworldcoin-cpp) ；
+如果你懂go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworldcoin-go) 。
 <br/><br/><br/>
-
-
-
-## 项目意义
-初学者实践与探索区块链技术。
 
 
 
 ## 演示
 #### 演示地址
-[english](http://119.3.57.171/en/index.html) or [中文](http://119.3.57.171/cn/index.html) or [language list](http://119.3.57.171).  
+[english](http://119.3.57.171/en/index.html) or [中文](http://119.3.57.171/cn/index.html) or [language list](http://119.3.57.171)。  
 #### 演示截图
 ![项目首页截图](https://z3.ax1x.com/2021/05/22/gLBlFA.png)
 
@@ -54,7 +49,6 @@ java -jar helloworldcoin-application-1.0.0.jar
 
 ## 架构图
 ![helloworldcoin-java架构图](https://user-images.githubusercontent.com/49269996/131206309-bf32c2de-efd3-4c0e-b075-e465fc53ffeb.png)
-
 
 
 
