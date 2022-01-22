@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>节点</title>
+        <title>ノード</title>
 
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
@@ -25,13 +25,13 @@
                 <div>
                     <!-- collapse navbar-collapse -->
                     <ul class="nav navbar-nav">
-                        <li><a href="./search.html">搜索</a></li>
-                        <li><a href="./miner.html">矿工</a></li>
-                        <li><a href="./unconfirmed-transaction-pool.html">未确认交易池</a></li>
-                        <li><a href="./pay.html">支付</a></li>
-                        <li><a href="./wallet.html">钱包</a></li>
-                        <li class="active"><a href="./node.html">节点</a></li>
-                        <li><a href="./console.html">控制台</a></li>
+                        <li><a href="./search.html">探（さが）す</a></li>
+                        <li><a href="./miner.html">鉱夫（こ゜ふ）</a></li>
+                        <li><a href="./unconfirmed-transaction-pool.html">未確認（みかくにん）のトランザクションプール</a></li>
+                        <li><a href="./pay.html">支払（しはら）い</a></li>
+                        <li><a href="./wallet.html">財布（さいふ）</a></li>
+                        <li class="active"><a href="./node.html">ノード</a></li>
+                        <li><a href="./console.html">コンソール</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,14 +40,14 @@
 
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">☺节点列表☺&nbsp;&nbsp;<button type="button" class="btn btn-default" id="show-add-page">增加</button></div>
+            <div class="panel-heading">☺ノードリスト☺&nbsp;&nbsp;<button type="button" class="btn btn-default" id="show-add-page">追加（ついか）</button></div>
             <!-- Table -->
             <table class="table" id="table-node-list">
                 <thead>
                 <tr>
-                    <th style="width:30%;">地址</th>
-                    <th style="width:10%;">高度</th>
-                    <th style="width:30%;">管理</th>
+                    <th style="width:30%;">住所（じゅうしょ）</th>
+                    <th style="width:10%;">高（たか）さ</th>
+                    <th style="width:30%;">管理（かんり）</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,8 +68,8 @@
                             <td>${item.ip}</td>
                             <td>${item.blockchainHeight}</td>
                             <td>
-                                <button type="submit" ip="${item.ip}" class="btn btn-default update-node">更新</button>
-                                <button type="submit" class="btn btn-danger delete-node" name="">删除</button>
+                                <button type="submit" ip="${item.ip}" class="btn btn-default update-node">更新（こうしん）</button>
+                                <button type="submit" class="btn btn-danger delete-node" name="">デリート</button>
                             </td>
                         </tr>
                     `)
@@ -81,21 +81,21 @@
                 <table class="table" id="table-add-node">
                     <tbody>
                         <tr>
-                            <th style="width:25%">地址：</th>
-                            <th style="width:75%"><input type="text" placeholder="输入ip" id="table-add-node-text-ip"></th>
+                            <th style="width:25%">住所（じゅうしょ）：</th>
+                            <th style="width:75%"><input type="text" placeholder="エンターIP" id="table-add-node-text-ip"></th>
                         </tr>
                         <tr>
                             <th></th>
                             <th>
-                                <button type="button" class="btn btn-primary" id="table-add-node-button-add">确认</button>
-                                <button type="button" class="btn btn-primary" onclick="layer.close(layer.index);">取消</button>
+                                <button type="button" class="btn btn-primary" id="table-add-node-button-add">確認（かくにん）</button>
+                                <button type="button" class="btn btn-primary" onclick="layer.close(layer.index);">取消（とりけし）</button>
                             </th>
                         </tr>
                     </tbody>
                 </table>`
 
                 var layIndex = layer.open({
-                  title:"新增节点",
+                  title:"ノードを追加",
                   type: 1,
                   closeBtn: 1,
                   shadeClose: true,
@@ -106,7 +106,7 @@
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let ip = $('#table-add-node-text-ip').val();
                 if(isEmpty(ip)){
-                    alert("节点不能为空");
+                    alert("ノードを空にすることはできません");
                     return;
                 }
                 let response = await $ajax({
@@ -114,10 +114,10 @@
                     data: `{"ip": "${ip}"}`
                 });
                 if(response.status == 'success'){
-                    alert("成功");
+                    alert("成功（せいこう）");
                     location.reload();
                 }else {
-                    alert("失败");
+                    alert("失敗（しっぱい）");
                 }
             })
 
@@ -126,20 +126,20 @@
                 <table class="table" id="table-add-node">
                     <tbody>
                         <tr>
-                            <th style="width:25%">地址：</th>
-                            <th style="width:75%"><input type="text" placeholder="输入ip" id="table-update-node-text-ip" readonly="readonly"></th>
+                            <th style="width:25%">住所（じゅうしょ）：</th>
+                            <th style="width:75%"><input type="text" placeholder="エンターIP" id="table-update-node-text-ip" readonly="readonly"></th>
                         </tr>
                         <tr>
-                            <th>高度：</th>
+                            <th>高（たか）さ：</th>
                             <th>
-                                <input type="text" placeholder="输入节点高度" id="table-update-node-text-blockchainHeight">
+                                <input type="text" placeholder="ノードの高さを入力" id="table-update-node-text-blockchainHeight">
                             </th>
                         </tr>
                         <tr>
                             <th></th>
                             <th>
-                                <button type="button" class="btn btn-primary" id="table-update-node-button-add">确认</button>
-                                <button type="button" class="btn btn-primary" onclick="layer.close(layer.index);">取消</button>
+                                <button type="button" class="btn btn-primary" id="table-update-node-button-add">確認（かくにん）</button>
+                                <button type="button" class="btn btn-primary" onclick="layer.close(layer.index);">取消（とりけし）</button>
                             </th>
                         </tr>
                     </tbody>
@@ -147,7 +147,7 @@
 
                 var layIndex = layer.open({
                   type: 1,
-                  title: '更新节点',
+                  title: '更新ノード',
                   closeBtn: 1,
                   shadeClose: true,
                   content: str
@@ -163,10 +163,10 @@
                     data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": ${$('#table-update-node-text-blockchainHeight').val()}}`
                 });
                 if(response.status == 'success'){
-                    alert("成功");
+                    alert("成功（せいこう）");
                     location.reload();
                 }else {
-                    alert("失败");
+                    alert("失敗（しっぱい）");
                 }
             })
 
@@ -177,10 +177,10 @@
                     data: `{"ip": "${ip}"}`
                 });
                 if(response.status == 'success'){
-                    alert("成功");
+                    alert("成功（せいこう）");
                     location.reload();
                 }else {
-                    alert("失败");
+                    alert("失敗（しっぱい）");
                 }
             })
         </script>
