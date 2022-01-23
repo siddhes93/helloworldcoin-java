@@ -56,14 +56,14 @@
                         <td><button class="btn btn-primary" type="submit" id="autoSearchBlockSwitch">placeholder</button></td>
                     </tr>
                     <tr>
-                        <td>nodes searcher status</td>
+                        <td>node searcher status</td>
                         <td id="autoSearchNode"></td>
                         <td ><button class="btn btn-primary" type="submit" id="autoSearchNodeSwitch">placeholder</button></td>
                     </tr>
                     <tr>
                         <td>maximum mine block height</td>
                         <td id="maxBlockHeight"></td>
-                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">set the maximum block height</button></td>
+                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">set maximum mine block height</button></td>
                     </tr>
                 </thead>
             </table>
@@ -91,7 +91,7 @@
                 });
                 autoSearchBlock = response.data.autoSearchBlock;
                 $('#autoSearchBlock').text(autoSearchBlock ? 'searching' : 'resting')
-                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'stop search new blocks' : 'start search new blocks')
+                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'stop search block' : 'start search block')
             }());
             $(async function(){
                 let response = await $ajax({
@@ -99,7 +99,7 @@
                 });
                 autoSearchNode = response.data.autoSearchNode;
                 $('#autoSearchNode').text(autoSearchNode ? 'searching' : 'resting');
-                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop search new nodes' : 'start search new nodes');
+                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop search node' : 'start search node');
             }());
             $(async function(){
                 let response = await $ajax({
@@ -175,7 +175,7 @@
             $('#setMaxBlockHeight').click(async function(){
                 layer.prompt({
                     formType: 2,
-                    title: 'please enter max mine block height',
+                    title: 'please enter maximum mine block height',
                     value:'',
                     area: ['400px', '25px'],
                     btn: ['confirm','cancel'],
