@@ -1,5 +1,6 @@
 package com.helloworldcoin.application.controller;
 
+import com.helloworldcoin.application.service.WalletApplicationService;
 import com.helloworldcoin.application.vo.WalletApplicationApi;
 import com.helloworldcoin.application.vo.account.*;
 import com.helloworldcoin.application.vo.framwork.Response;
@@ -7,13 +8,11 @@ import com.helloworldcoin.application.vo.transaction.SubmitTransactionToBlockcha
 import com.helloworldcoin.application.vo.transaction.SubmitTransactionToBlockchainNetworkResponse;
 import com.helloworldcoin.application.vo.wallet.AutomaticBuildTransactionRequest;
 import com.helloworldcoin.application.vo.wallet.AutomaticBuildTransactionResponse;
-import com.helloworldcoin.application.service.WalletApplicationService;
 import com.helloworldcoin.core.Wallet;
 import com.helloworldcoin.crypto.AccountUtil;
 import com.helloworldcoin.crypto.model.Account;
 import com.helloworldcoin.netcore.BlockchainNetCore;
 import com.helloworldcoin.util.LogUtil;
-import com.helloworldcoin.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,9 +82,6 @@ public class WalletApplicationController {
     public Response<SaveAccountResponse> saveAccount(@RequestBody SaveAccountRequest request){
         try {
             String privateKey = request.getPrivateKey();
-            if(StringUtil.isEmpty(privateKey)){
-                return Response.requestParamIllegal();
-            }
             Account account = AccountUtil.accountFromPrivateKey(privateKey);
             blockchainNetCore.getBlockchainCore().getWallet().saveAccount(account);
             SaveAccountResponse response = new SaveAccountResponse();
@@ -104,9 +100,6 @@ public class WalletApplicationController {
     public Response<DeleteAccountResponse> deleteAccount(@RequestBody DeleteAccountRequest request){
         try {
             String address = request.getAddress();
-            if(StringUtil.isEmpty(address)){
-                return Response.requestParamIllegal();
-            }
             blockchainNetCore.getBlockchainCore().getWallet().deleteAccountByAddress(address);
             DeleteAccountResponse response = new DeleteAccountResponse();
             return Response.success(response);

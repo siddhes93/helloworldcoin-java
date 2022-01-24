@@ -23,9 +23,6 @@ public class Response<T> {
     public static<T> Response fail(String message){
         return new Response("fail",message,null);
     }
-    public static<T> Response requestParamIllegal(){
-        return fail(ResponseMessage.REQUEST_PARAM_ILLEGAL);
-    }
     public static<T> Response serviceUnavailable(){
         return fail(ResponseMessage.SERVICE_UNAVAILABLE);
     }

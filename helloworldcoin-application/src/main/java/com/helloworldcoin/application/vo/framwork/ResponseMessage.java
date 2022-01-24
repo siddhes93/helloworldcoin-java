@@ -6,7 +6,6 @@ package com.helloworldcoin.application.vo.framwork;
  */
 public class ResponseMessage {
 
-    public static final String REQUEST_PARAM_ILLEGAL = "request_param_illegal";
     public static final String SERVICE_UNAVAILABLE = "service_unavailable";
     public static final String SERVICE_UNAUTHORIZED = "service_unauthorized";
 

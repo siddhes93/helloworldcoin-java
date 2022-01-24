@@ -139,9 +139,6 @@ public class NodeConsoleApplicationController {
     public Response<AddNodeResponse> addNode(@RequestBody AddNodeRequest request){
         try {
             String ip = request.getIp();
-            if(StringUtil.isEmpty(ip)){
-                return Response.requestParamIllegal();
-            }
             if(blockchainNetCore.getNodeService().queryNode(ip) != null){
                 //节点存在，认为是成功添加。
                 AddNodeResponse response = new AddNodeResponse();
@@ -167,12 +164,8 @@ public class NodeConsoleApplicationController {
     @RequestMapping(value = NodeConsoleApplicationApi.UPDATE_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<UpdateNodeResponse> updateNode(@RequestBody UpdateNodeRequest request){
         try {
-            String ip = request.getIp();
-            if(StringUtil.isEmpty(ip)){
-                return Response.requestParamIllegal();
-            }
             Node node = new Node();
-            node.setIp(ip);
+            node.setIp(request.getIp());
             node.setBlockchainHeight(request.getBlockchainHeight());
             blockchainNetCore.getNodeService().updateNode(node);
             UpdateNodeResponse response = new UpdateNodeResponse();
