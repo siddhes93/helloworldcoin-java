@@ -36,16 +36,6 @@ async function $ajax(option){
     })
 }
 
-function commonTranslate(element){
-    if(element == 'request_param_illegal'){
-        return '要求（ようきゅう）パラメータが不正（ふせい）です';
-    }
-    if(element == 'service_unavailable'){
-        return 'サービス利用（りよう）不可（ふか）';
-    }
-    return null;
-}
-
 function transactionHtml(item){
     let {transactionInputs,transactionOutputs} = item;
 

@@ -157,7 +157,7 @@ public class WalletApplicationController {
             if(autoBuildTransactionResponse.isBuildTransactionSuccess()){
                 return Response.success(autoBuildTransactionResponse);
             }else {
-                return Response.fail(autoBuildTransactionResponse.getMessage());
+                return Response.serviceUnavailable();
             }
         } catch (Exception e){
             String message = "构建交易失败";

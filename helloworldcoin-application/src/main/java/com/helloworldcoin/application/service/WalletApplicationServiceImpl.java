@@ -2,7 +2,10 @@ package com.helloworldcoin.application.service;
 
 import com.helloworldcoin.application.vo.transaction.SubmitTransactionToBlockchainNetworkRequest;
 import com.helloworldcoin.application.vo.transaction.SubmitTransactionToBlockchainNetworkResponse;
-import com.helloworldcoin.application.vo.wallet.*;
+import com.helloworldcoin.application.vo.wallet.AutomaticBuildTransactionRequest;
+import com.helloworldcoin.application.vo.wallet.AutomaticBuildTransactionResponse;
+import com.helloworldcoin.application.vo.wallet.PayeeVo;
+import com.helloworldcoin.application.vo.wallet.PayerVo;
 import com.helloworldcoin.core.model.wallet.AutoBuildTransactionRequest;
 import com.helloworldcoin.core.model.wallet.AutoBuildTransactionResponse;
 import com.helloworldcoin.core.model.wallet.Payee;
@@ -14,7 +17,6 @@ import com.helloworldcoin.netcore.dto.PostTransactionRequest;
 import com.helloworldcoin.netcore.dto.PostTransactionResponse;
 import com.helloworldcoin.netcore.dto.TransactionDto;
 import com.helloworldcoin.netcore.model.Node;
-import com.helloworldcoin.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +74,6 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
 
         AutomaticBuildTransactionResponse response = new AutomaticBuildTransactionResponse();
         response.setBuildTransactionSuccess(autoBuildTransactionResponse.isBuildTransactionSuccess());
-        response.setMessage(payAlert2PayAlertVo(autoBuildTransactionResponse.getMessage()));
         response.setTransactionHash(autoBuildTransactionResponse.getTransactionHash());
         response.setFee(autoBuildTransactionResponse.getFee());
         response.setTransaction(autoBuildTransactionResponse.getTransaction());
@@ -82,23 +83,6 @@ public class WalletApplicationServiceImpl implements WalletApplicationService {
         response.setNonChangePayees(payees2payeeVos(autoBuildTransactionResponse.getNonChangePayees()));
 
         return response;
-    }
-
-    private String payAlert2PayAlertVo(String message) {
-        if(StringUtil.isEmpty(message)){
-            return message;
-        }
-        if(StringUtil.equals(PayAlertVo.PAYEE_CAN_NOT_EMPTY,message)){
-            return PayAlertVo.PAYEE_CAN_NOT_EMPTY;
-        }else if(StringUtil.equals(PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO,message)){
-            return PayAlertVo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO;
-        }else if(StringUtil.equals(PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY,message)){
-            return PayAlertVo.NOT_ENOUGH_MONEY_TO_PAY;
-        }else if(StringUtil.equals(PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY,message)){
-            return PayAlertVo.PAYEE_ADDRESS_CAN_NOT_EMPTY;
-        }else {
-            throw new RuntimeException();
-        }
     }
 
     private List<Payee> payeeVos2payees(List<PayeeVo> payeeVos){

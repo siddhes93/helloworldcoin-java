@@ -98,20 +98,17 @@ public class WalletImpl extends Wallet {
         if(nonChangePayees == null || nonChangePayees.isEmpty()){
             AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
             response.setBuildTransactionSuccess(false);
-            response.setMessage(PayAlert.PAYEE_CAN_NOT_EMPTY);
             return response;
         }
         for(Payee payee : nonChangePayees){
             if(StringUtil.isEmpty(payee.getAddress())){
                 AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                 response.setBuildTransactionSuccess(false);
-                response.setMessage(PayAlert.PAYEE_ADDRESS_CAN_NOT_EMPTY);
                 return response;
             }
             if(payee.getValue() <= 0){
                 AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
                 response.setBuildTransactionSuccess(false);
-                response.setMessage(PayAlert.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO);
                 return response;
             }
         }
@@ -161,7 +158,6 @@ public class WalletImpl extends Wallet {
             }
         }
         AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
-        response.setMessage(PayAlert.NOT_ENOUGH_MONEY_TO_PAY);
         response.setBuildTransactionSuccess(false);
         return response;
     }

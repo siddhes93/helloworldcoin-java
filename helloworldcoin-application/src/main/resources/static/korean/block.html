@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>区块详情</title>
+        <title>블록 세부 정보</title>
 
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
@@ -23,13 +23,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="./search.html">搜索</a></li>
-                        <li><a href="./miner.html">矿工</a></li>
-                        <li><a href="./unconfirmed-transaction-pool.html">未确认交易池</a></li>
-                        <li><a href="./pay.html">支付</a></li>
-                        <li><a href="./wallet.html">钱包</a></li>
-                        <li><a href="./node.html">节点</a></li>
-                        <li><a href="./console.html">控制台</a></li>
+                        <li><a href="./search.html"> 검색</a></li>
+                        <li><a href="./miner.html"> 광부</a></li>
+                        <li><a href="./unconfirmed-transaction-pool.html">확인되지 않은 트랜잭션 풀</a></li>
+                        <li><a href="./pay.html">지불</a></li>
+                        <li><a href="./wallet.html">지갑</a></li>
+                        <li><a href="./node.html"> 노드</a></li>
+                        <li><a href="./console.html">콘솔</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -39,7 +39,7 @@
         </div>
 
         <div align="center">
-            <button id="button-load" class="btn btn-primary" onclick="loadTransactions()">加载更多交易</button>
+            <button id="button-load" class="btn btn-primary" onclick="loadTransactions()">더 많은 트랜잭션 로드</button>
         </div>
 
         <script>
@@ -55,45 +55,45 @@
                 $('#box').append(`
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">区块哈希&nbsp;${block.hash}</div>
-                    <button type="button" class="btn btn-default">摘要</button>
+                    <div class="panel-heading"> 블록 해시&nbsp;${block.hash}</div>
+                    <button type="button" class="btn btn-default"> 요약</button>
                     <!-- Table -->
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td style="width:15%">区块高度</td>
+                                <td style="width:15%"> 블록 높이</td>
                                 <td style="width:31%"><a target="_blank" href="./block-by-height.html?height=${block.height}">${block.height}</a></td>
-                                <td style="width:14%">挖矿难度</td>
+                                <td style="width:14%">채굴 난이도</td>
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>确认数</td>
+                                <td>확인 수량</td>
                                 <td>${block.confirmCount}</td>
-                                <td>随机数</td>
+                                <td>난수</td>
                                 <td>${block.nonce}</td>
                             </tr>
                             <tr>
-                                <td>区块大小</td>
-                                <td>${block.blockSize}字符</td>
-                                <td>区块哈希</td>
+                                <td> 블록 크기</td>
+                                <td>${block.blockSize} 문자</td>
+                                <td> 블록 해시</td>
                                 <td>${block.hash}</td>
                             </tr>
                             <tr>
-                                <td>交易数量</td>
+                                <td>거래 수량</td>
                                 <td>${block.transactionCount}</td>
-                                <td>上一个区块哈希</td>
+                                <td>이전 블록 해시</td>
                                 <td><a href='./block.html?hash=${block.previousBlockHash}'>${block.previousBlockHash}</a></td>
                             </tr>
                             <tr>
-                                <td>区块时间</td>
+                                <td> 블록 시간</td>
                                 <td>${block.time}</td>
-                                <td>下一个区块哈希</td>
+                                <td>다음 블록 해시</td>
                                 <td><a href='./block.html?hash=${block.nextBlockHash}'>${block.nextBlockHash || ''}</a></td>
                             </tr>
                             <tr>
-                                <td>矿工激励</td>
+                                <td>광부 인센티브</td>
                                 <td>${block.minerIncentiveValue}</td>
-                                <td>默克尔树根</td>
+                                <td> 메르켈 루트</td>
                                 <td>${block.merkleTreeRoot}</td>
                             </tr>
                         </tbody>
@@ -110,7 +110,7 @@
                 });
                 console.log(response2);
                 if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
-                    $("#button-load").html("交易数据加载完毕");
+                    $("#button-load").html("거래 데이터 로드됨");
                     return;
                 }
                 let transactions = response2.data.transactions;
