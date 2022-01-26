@@ -15,7 +15,7 @@ helloworldcoin是一个helloworld级别的数字货币系统。
 
 ## 演示
 #### 演示地址
-[english](http://119.3.57.171/en/index.html) or [中文](http://119.3.57.171/cn/index.html) or [language list](http://119.3.57.171)。  
+[english](http://119.3.57.171/english/index.html) or [简体中文](http://119.3.57.171/chinese/index.html) or [日本語（にほんご）](http://119.3.57.171/japanese/index.html) or [language list](http://119.3.57.171).  
 #### 演示截图
 ![项目首页截图](https://z3.ax1x.com/2021/05/22/gLBlFA.png)
 

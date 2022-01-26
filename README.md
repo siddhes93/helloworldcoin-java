@@ -15,7 +15,7 @@ if you know go , [helloworldcoin-go](https://github.com/helloworldcoin/helloworl
 
 ## Demo
 #### demo address
-[english](http://119.3.57.171/en/index.html) or [简体中文](http://119.3.57.171/cn/index.html) or [日本語（にほんご）](http://119.3.57.171/japanese/index.html) or [language list](http://119.3.57.171).  
+[english](http://119.3.57.171/english/index.html) or [简体中文](http://119.3.57.171/chinese/index.html) or [日本語（にほんご）](http://119.3.57.171/japanese/index.html) or [language list](http://119.3.57.171).  
 #### demo screenshot
 ![hellowroldcoin project index screenshot](https://user-images.githubusercontent.com/49269996/136792423-39e61d2b-4f10-4845-beb8-91b741e649df.jpg)  
 
