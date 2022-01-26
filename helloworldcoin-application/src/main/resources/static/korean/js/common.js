@@ -42,18 +42,18 @@ function transactionHtml(item){
     let left = '';
     if(!isNull(transactionInputs)){
         transactionInputs.forEach(item1 => {
-            left += `<div> 지급인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            left += `<div>지급인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         })
     }
 
     let right = ''
     if(!isNull(transactionOutputs)){
         transactionOutputs.forEach(item1 => {
-            right += `<div style="display:flex"> 수취인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            right += `<div style="display:flex">수취인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         });
     }
 
-    let itemTransactionType = item.transactionType == 'GENESIS_TRANSACTION'?" 창세기 거래":" 기준 거래";
+    let itemTransactionType = item.transactionType == 'GENESIS_TRANSACTION'?"창세기 거래":"기준 거래";
 
     let transactionHtml = `
         <div style="font-size: 14px; line-height: 40px; margin-top: 10px;">
@@ -79,14 +79,14 @@ function unconfirmedTransactionHtml(item){
     let left = '';
     if(!isNull(transactionInputs)){
         transactionInputs.forEach(item1 => {
-            left += `<div> 지급인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            left += `<div>지급인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         })
     }
 
     let right = ''
     if(!isNull(transactionOutputs)){
         transactionOutputs.forEach(item1 => {
-            right += `<div style="display:flex"> 수취인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            right += `<div style="display:flex">수취인：<span><a title="주소 세부정보" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="거래 출력 세부정보" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         });
     }
 

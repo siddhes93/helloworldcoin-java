@@ -23,12 +23,12 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="./search.html"> 검색</a></li>
-                        <li><a href="./miner.html"> 광부</a></li>
+                        <li><a href="./search.html">검색</a></li>
+                        <li><a href="./miner.html">광부</a></li>
                         <li><a href="./unconfirmed-transaction-pool.html">확인되지 않은 트랜잭션 풀</a></li>
                         <li><a href="./pay.html">지불</a></li>
                         <li><a href="./wallet.html">지갑</a></li>
-                        <li><a href="./node.html"> 노드</a></li>
+                        <li><a href="./node.html">노드</a></li>
                         <li><a href="./console.html">콘솔</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -55,13 +55,13 @@
                 $('#box').append(`
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading"> 블록 해시&nbsp;${block.hash}</div>
-                    <button type="button" class="btn btn-default"> 요약</button>
+                    <div class="panel-heading">블록 해시&nbsp;${block.hash}</div>
+                    <button type="button" class="btn btn-default">요약</button>
                     <!-- Table -->
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td style="width:15%"> 블록 높이</td>
+                                <td style="width:15%">블록 높이</td>
                                 <td style="width:31%"><a target="_blank" href="./block-by-height.html?height=${block.height}">${block.height}</a></td>
                                 <td style="width:14%">채굴 난이도</td>
                                 <td style="width:40%">${block.difficulty}</td>
@@ -73,9 +73,9 @@
                                 <td>${block.nonce}</td>
                             </tr>
                             <tr>
-                                <td> 블록 크기</td>
-                                <td>${block.blockSize} 문자</td>
-                                <td> 블록 해시</td>
+                                <td>블록 크기</td>
+                                <td>${block.blockSize}문자</td>
+                                <td>블록 해시</td>
                                 <td>${block.hash}</td>
                             </tr>
                             <tr>
@@ -85,7 +85,7 @@
                                 <td><a href='./block.html?hash=${block.previousBlockHash}'>${block.previousBlockHash}</a></td>
                             </tr>
                             <tr>
-                                <td> 블록 시간</td>
+                                <td>블록 시간</td>
                                 <td>${block.time}</td>
                                 <td>다음 블록 해시</td>
                                 <td><a href='./block.html?hash=${block.nextBlockHash}'>${block.nextBlockHash || ''}</a></td>
@@ -93,13 +93,13 @@
                             <tr>
                                 <td>광부 인센티브</td>
                                 <td>${block.minerIncentiveValue}</td>
-                                <td> 메르켈 루트</td>
+                                <td>메르켈 루트</td>
                                 <td>${block.merkleTreeRoot}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>`)
-                $('#box').append(`<br/><br/><button type="button" class="btn btn-default">transaction list</button>`)
+                $('#box').append(`<br/><br/><button type="button" class="btn btn-default">거래 목록</button>`)
             }())
 
             let request2 = `{"blockHash":"${urlParameters.get("hash")}","pageCondition":{"from":1,"size":10}}`;

@@ -21,12 +21,12 @@
 
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="./search.html"> 검색</a></li>
-                        <li><a href="./miner.html"> 광부</a></li>
+                        <li><a href="./search.html">검색</a></li>
+                        <li><a href="./miner.html">광부</a></li>
                         <li><a href="./unconfirmed-transaction-pool.html">확인되지 않은 트랜잭션 풀</a></li>
                         <li><a href="./pay.html">지불</a></li>
                         <li><a href="./wallet.html">지갑</a></li>
-                        <li><a href="./node.html"> 노드</a></li>
+                        <li><a href="./node.html">노드</a></li>
                         <li><a href="./console.html">콘솔</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -57,16 +57,16 @@
                 console.log(response);
                 let transactionOutput = response.data.transactionOutput;
 
-                $('.panel-heading').text(` 주소 ${urlParameters.get("address")}`);
+                $('.panel-heading').text(`주소 ${urlParameters.get("address")}`);
 
                 $('#summary').html(`
-                    <button type="button" class="btn btn-default"> 요약</button>
+                    <button type="button" class="btn btn-default">요약</button>
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td style="width:15%"> 미사용 거래 출력</td>
-                            <td style="width:35%">${transactionOutput.unspentTransactionOutput ? ' 예' : ' 아니오'}</td>
-                            <td style="width:10%"> 금액</td>
+                            <td style="width:15%">미사용 거래 출력</td>
+                            <td style="width:35%">${transactionOutput.unspentTransactionOutput ? '예' : '아니오'}</td>
+                            <td style="width:10%">금액</td>
                             <td style="width:40%">${transactionOutput.value}</td>
                         </tr>
                         </tbody>
@@ -74,13 +74,13 @@
                 `);
 
                 $('#from').html(`
-                    <button type="button" class="btn btn-default"> 출처</button>
+                    <button type="button" class="btn btn-default">출처</button>
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td style="width:15%"> 블록 높이</td>
+                            <td style="width:15%">블록 높이</td>
                             <td style="width:35%"><a target="_blank" href="./block.html?hash=${transactionOutput.fromBlockHash}">${transactionOutput.fromBlockHeight}</a></td>
-                            <td style="width:10%"> 블록 해시</td>
+                            <td style="width:10%">블록 해시</td>
                             <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.fromBlockHash}">${transactionOutput.fromBlockHash}</a></td>
                         </tr>
                         <tr>
@@ -91,7 +91,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-default"> 출처 거래</button>
+                    <button type="button" class="btn btn-default">출처 거래</button>
                     <div>${transactionHtml(transactionOutput.inputTransaction)}</div>
                 `);
 
@@ -101,9 +101,9 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td style="width:15%"> 블록 높이</td>
+                                <td style="width:15%">블록 높이</td>
                                 <td style="width:35%"><a target="_blank" href="./block.html?hash=${transactionOutput.toBlockHash}">${transactionOutput.toBlockHeight}</a></td>
-                                <td style="width:10%"> 블록 해시</td>
+                                <td style="width:10%">블록 해시</td>
                                 <td style="width:40%"><a target="_blank" href="./block.html?hash=${transactionOutput.toBlockHash}">${transactionOutput.toBlockHash}</a></td>
                             </tr>
                             <tr>

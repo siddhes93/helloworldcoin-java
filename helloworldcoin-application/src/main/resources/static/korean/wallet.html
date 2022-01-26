@@ -25,12 +25,12 @@
                 <div>
                     <!-- collapse navbar-collapse -->
                     <ul class="nav navbar-nav">
-                        <li><a href="./search.html"> 검색</a></li>
-                        <li><a href="./miner.html"> 광부</a></li>
+                        <li><a href="./search.html">검색</a></li>
+                        <li><a href="./miner.html">광부</a></li>
                         <li><a href="./unconfirmed-transaction-pool.html">확인되지 않은 트랜잭션 풀</a></li>
                         <li><a href="./pay.html">지불</a></li>
                         <li class="active"><a href="./wallet.html">지갑</a></li>
-                        <li><a href="./node.html"> 노드</a></li>
+                        <li><a href="./node.html">노드</a></li>
                         <li><a href="./console.html">콘솔</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -40,7 +40,7 @@
         <div class="panel panel-default">
             <!-- Default panel contents -->
             <div class="panel-heading">☺지갑☺&nbsp;&nbsp;
-                <span id="balance" class="f6"> 총 잔액</span>&nbsp;&nbsp;
+                <span id="balance" class="f6">총 잔액</span>&nbsp;&nbsp;
                 <button type="button" class="btn btn-primary" onclick="saveAccount()">지갑 추가</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-primary" onclick="createAndSaveAccount()">지갑 생성</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-primary" onclick="window.open('./pay.html')">지불</button>
@@ -57,15 +57,15 @@
                 let response = await $ajax({
                     url : baseUrl() + "/Api/WalletApplication/QueryAllAccounts"
                 })
-                $("#balance").text(" 총 잔액 "+response.data.balance);
+                $("#balance").text("총 잔액 "+response.data.balance);
                 let accounts = response.data.accounts
                 $(accounts).each((index, item) => {
                     $('tbody').append(`
                         <tr>
                             <td style="width:80%;">
-                                 주소：<a  title="주소 세부정보" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
-                                 개인 키：${item.privateKey}<br/>
-                                 잔액：${item.value}
+                                주소：<a  title="주소 세부정보" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
+                                개인 키：${item.privateKey}<br/>
+                                잔액：${item.value}
                             </td>
                             <td style="width:20%;"><button type="button" class="btn btn-danger">삭제</button></td>
                         </tr>
@@ -75,8 +75,8 @@
 
             $('body').delegate('table .btn-danger', 'click', async function(){
                 let privateKey = $(this).parent().parent().find('a').text();
-                layer.confirm(' 확인 삭제', {
-                  title: ' 정보',
+                layer.confirm('확인 삭제', {
+                  title: '정보',
                   btn: ['삭제','취소']
                 }, function(){
                     $.ajax({
@@ -127,8 +127,8 @@
                 })
                 let account = response.data.account;
                 let content = '<h2 class="red">지갑</h2>' +
-                                 '<div><span> 주소:</span>&nbsp;&nbsp;'+account.address+'</div>' +
-                                 '<div><span> 개인 키:</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
+                                 '<div><span>주소:</span>&nbsp;&nbsp;'+account.address+'</div>' +
+                                 '<div><span>개인 키:</span>&nbsp;&nbsp;'+account.privateKey+'</div>' ;
                 layer.msg(content, {
                      time: 100000,
                      btn: ['확인하다'],
