@@ -49,7 +49,7 @@
                 });
                 let {unconfirmedTransactions} = response.data;
                 if(unconfirmedTransactions == null || unconfirmedTransactions.length == 0){
-                    $("#page button").html("未確認のトランザクションのロードが終了しました");
+                    $("#page button").html("未確認のトランザクションの読み込みが完了しました");
                 }
                 if(!isNull(unconfirmedTransactions)){
                     unconfirmedTransactions.forEach(item => {

@@ -67,7 +67,7 @@
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>確認（かくにん）カウント</td>
+                                <td>ブロック 確認（かくにん）カウント</td>
                                 <td>${block.confirmCount}</td>
                                 <td>ノンス</td>
                                 <td>${block.nonce}</td>
@@ -110,7 +110,7 @@
                 });
                 console.log(response2);
                 if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
-                    $("#button-load").html("ロードトランザクション終了（しゅうりょう）");
+                    $("#button-load").html("トランザクションのロードが完了しました");
                     return;
                 }
                 let transactions = response2.data.transactions;

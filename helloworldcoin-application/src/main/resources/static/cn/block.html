@@ -67,7 +67,7 @@
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>确认数</td>
+                                <td>区块确认数</td>
                                 <td>${block.confirmCount}</td>
                                 <td>随机数</td>
                                 <td>${block.nonce}</td>
@@ -110,7 +110,7 @@
                 });
                 console.log(response2);
                 if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
-                    $("#button-load").html("交易数据加载完毕");
+                    $("#button-load").html("加载交易完成");
                     return;
                 }
                 let transactions = response2.data.transactions;

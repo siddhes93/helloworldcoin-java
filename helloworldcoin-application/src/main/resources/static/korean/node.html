@@ -82,7 +82,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%"> 주소：</th>
-                            <th style="width:75%"><input type="text" placeholder="아이피 입력" id="table-add-node-text-ip"></th>
+                            <th style="width:75%"><input type="text" placeholder="노드 ip 입력" id="table-add-node-text-ip"></th>
                         </tr>
                         <tr>
                             <th></th>
@@ -106,7 +106,7 @@
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let ip = $('#table-add-node-text-ip').val();
                 if(isEmpty(ip)){
-                    alert("노드는 비어 있을 수 없습니다.");
+                    alert("실패하다");
                     return;
                 }
                 let response = await $ajax({
@@ -126,7 +126,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%"> 주소：</th>
-                            <th style="width:75%"><input type="text" placeholder="아이피 입력" id="table-update-node-text-ip" readonly="readonly"></th>
+                            <th style="width:75%"><input type="text" placeholder="노드 ip 입력" id="table-update-node-text-ip" readonly="readonly"></th>
                         </tr>
                         <tr>
                             <th> 높이：</th>

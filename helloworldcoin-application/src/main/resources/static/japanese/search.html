@@ -62,7 +62,6 @@
                         data: request
                     });
                     if(response.data != null){
-                        alert("ブロックの高さと認識し、確認ボタンをクリックしてブロック詳細ページにジャンプ。");
                         let {block} = response.data;
                         let redirectUrl = `./block.html?hash=${block.hash}`;
                         console.log(redirectUrl);
@@ -78,7 +77,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("ブロックハッシュとして認識し、確認ボタンをクリックしてブロック詳細ページにジャンプ。");
                     let redirectUrl = `./block.html?hash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -91,7 +89,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("トランザクションハッシュとして認識し、確認ボタンをクリックしてトランザクション詳細ページにジャンプ。");
                     let redirectUrl = `./transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -104,7 +101,6 @@
                     data: request
                 });
                 if(response.data != null && response.data.transactionOutput != null){
-                    alert("アドレスとして認識し、確認ボタンをクリックしてアドレス詳細ページにジャンプ。");
                     let redirectUrl = `./address.html?address=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -117,12 +113,11 @@
                     data: request
                 });
                 if(response.data != null && response.data.transaction != null){
-                    alert("未確認取引と認識し確認ボタンをクリックし未確認取引詳細ページへ。");
                     let redirectUrl = `./unconfirmed-transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
                 }
-                alert("入力されたブロックの高さ、ブロックハッシュ、トランザクションハッシュ、アドレスを確認してください...");
+                alert("入力を確認してください");
             }
         </script>
     </body>

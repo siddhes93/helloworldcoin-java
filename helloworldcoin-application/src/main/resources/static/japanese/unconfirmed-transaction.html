@@ -38,11 +38,11 @@
         </div>
         <div style="width: 100%;" id="container">
         </div>
-        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="load()">再（さい）負荷（ふか）</button></div>
+        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="refresh()">リフレッシュ</button></div>
         <script>
             let urlParameters = parseUrlParameters(location)
-            load();
-            async function load(){
+            refresh();
+            async function refresh(){
                 //トランザクションハッシュ
                 let request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 let response = await $ajax({

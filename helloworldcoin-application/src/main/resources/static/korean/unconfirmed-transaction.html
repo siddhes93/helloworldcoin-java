@@ -38,11 +38,11 @@
         </div>
         <div style="width: 100%;" id="container">
         </div>
-        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="load()"> 새로 고침</button></div>
+        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="refresh()"> 새로 고치다</button></div>
         <script>
             let urlParameters = parseUrlParameters(location)
-            load();
-            async function load(){
+            refresh();
+            async function refresh(){
                 //거래 해시시
                 let request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 let response = await $ajax({

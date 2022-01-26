@@ -62,7 +62,6 @@
                         data: request
                     });
                     if(response.data != null){
-                        alert("블록 높이로 인식, 확인 버튼을 누르면 블록 상세 페이지로 이동합니다.");
                         let {block} = response.data;
                         let redirectUrl = `./block.html?hash=${block.hash}`;
                         console.log(redirectUrl);
@@ -78,7 +77,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("해시 블록으로 인식, 확인 버튼을 누르면 블록 상세 페이지로 이동합니다.");
                     let redirectUrl = `./block.html?hash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -91,7 +89,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("트랜잭션 해시로 인식, 확인 버튼을 클릭하면 거래 상세 페이지로 이동합니다.");
                     let redirectUrl = `./transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -104,7 +101,6 @@
                     data: request
                 });
                 if(response.data != null && response.data.transactionOutput != null){
-                    alert("주소로 인식, 확인 버튼을 누르면 주소 상세 페이지로 이동합니다.");
                     let redirectUrl = `./address.html?address=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -117,12 +113,11 @@
                     data: request
                 });
                 if(response.data != null && response.data.transaction != null){
-                    alert("미확인 거래로 인식, 확인 버튼을 클릭하면 미확인 거래 상세 페이지로 이동합니다.");
                     let redirectUrl = `./unconfirmed-transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
                 }
-                alert("입력된 블록 높이, 블록 해시, 트랜잭션 해시, 주소를 확인하십시오...");
+                alert("입력을 확인하십시오");
             }
         </script>
     </body>

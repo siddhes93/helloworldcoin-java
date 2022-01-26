@@ -67,7 +67,7 @@
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>확인 수량</td>
+                                <td>블록 확인 수량</td>
                                 <td>${block.confirmCount}</td>
                                 <td>난수</td>
                                 <td>${block.nonce}</td>
@@ -110,7 +110,7 @@
                 });
                 console.log(response2);
                 if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
-                    $("#button-load").html("거래 데이터 로드됨");
+                    $("#button-load").html("로드 트랜잭션 완료");
                     return;
                 }
                 let transactions = response2.data.transactions;

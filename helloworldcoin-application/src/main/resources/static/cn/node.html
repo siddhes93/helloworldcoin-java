@@ -82,7 +82,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%">地址：</th>
-                            <th style="width:75%"><input type="text" placeholder="输入ip" id="table-add-node-text-ip"></th>
+                            <th style="width:75%"><input type="text" placeholder="输入节点ip" id="table-add-node-text-ip"></th>
                         </tr>
                         <tr>
                             <th></th>
@@ -106,7 +106,7 @@
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let ip = $('#table-add-node-text-ip').val();
                 if(isEmpty(ip)){
-                    alert("节点不能为空");
+                    alert("失败");
                     return;
                 }
                 let response = await $ajax({
@@ -126,7 +126,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%">地址：</th>
-                            <th style="width:75%"><input type="text" placeholder="输入ip" id="table-update-node-text-ip" readonly="readonly"></th>
+                            <th style="width:75%"><input type="text" placeholder="输入节点ip" id="table-update-node-text-ip" readonly="readonly"></th>
                         </tr>
                         <tr>
                             <th>高度：</th>

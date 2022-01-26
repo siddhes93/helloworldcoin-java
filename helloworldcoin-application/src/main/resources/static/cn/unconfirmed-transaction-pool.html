@@ -49,7 +49,7 @@
                 });
                 let {unconfirmedTransactions} = response.data;
                 if(unconfirmedTransactions == null || unconfirmedTransactions.length == 0){
-                    $("#page button").html("未确认交易加载完毕");
+                    $("#page button").html("加载未确认交易完成");
                 }
                 if(!isNull(unconfirmedTransactions)){
                     unconfirmedTransactions.forEach(item => {

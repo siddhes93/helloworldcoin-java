@@ -49,7 +49,7 @@
                 });
                 let {unconfirmedTransactions} = response.data;
                 if(unconfirmedTransactions == null || unconfirmedTransactions.length == 0){
-                    $("#page button").html("확인되지 않은 트랜잭션이 로드되었습니다.");
+                    $("#page button").html("확인되지 않은 거래 로드 완료");
                 }
                 if(!isNull(unconfirmedTransactions)){
                     unconfirmedTransactions.forEach(item => {
