@@ -63,9 +63,9 @@
                     $('tbody').append(`
                         <tr>
                             <td style="width:80%;">
-                                住所（じゅうしょ）：<a  title="住所（じゅうしょ）の詳細（しょうさい）" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
-                                秘密（ひみつ）鍵（かぎ）：${item.privateKey}<br/>
-                                バランス：${item.value}
+                                <div style="float:left">住所（じゅうしょ）：</div><div style="float:left"><a  title="住所（じゅうしょ）の詳細（しょうさい）" target="_blank" href="./address.html?address=${item.address}">${item.address}</a></div><br/>
+                                <div style="float:left">秘密（ひみつ）鍵（かぎ）：</div><div style="float:left">${item.privateKey}</div><br/>
+                                <div style="float:left">バランス：</div><div style="float:left">${item.value}</div>
                             </td>
                             <td style="width:20%;"><button type="button" class="btn btn-danger">デリート</button></td>
                         </tr>
