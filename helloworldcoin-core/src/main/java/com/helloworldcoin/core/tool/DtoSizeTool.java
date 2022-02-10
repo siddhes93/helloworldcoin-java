@@ -140,7 +140,7 @@ public class DtoSizeTool {
     public static long calculateBlockSize(BlockDto blockDto) {
         long size = 0;
         long timestamp = blockDto.getTimestamp();
-        size += sizeOfUint64(timestamp);
+        size += sizeOfNumber(timestamp);
 
         String previousBlockHash = blockDto.getPreviousHash();
         size += sizeOfString(previousBlockHash);
@@ -176,7 +176,7 @@ public class DtoSizeTool {
         OutputScriptDto outputScriptDto = transactionOutputDto.getOutputScript();
         size += calculateScriptSize(outputScriptDto);
         long value = transactionOutputDto.getValue();
-        size += sizeOfUint64(value);
+        size += sizeOfNumber(value);
         return size;
     }
     private static long calculateTransactionInputsSize(List<TransactionInputDto> inputs) {
@@ -194,7 +194,7 @@ public class DtoSizeTool {
         String transactionHash = input.getTransactionHash();
         size += sizeOfString(transactionHash);
         long transactionOutputIndex = input.getTransactionOutputIndex();
-        size += sizeOfUint64(transactionOutputIndex);
+        size += sizeOfNumber(transactionOutputIndex);
         InputScriptDto inputScriptDto = input.getInputScript();
         size += calculateScriptSize(inputScriptDto);
         return size;
@@ -215,7 +215,7 @@ public class DtoSizeTool {
         return StringUtil.length(value);
     }
 
-    private static long sizeOfUint64(long number) {
+    private static long sizeOfNumber(long number) {
         return StringUtil.length(StringUtil.valueOfUint64(number));
     }
     //endregion
