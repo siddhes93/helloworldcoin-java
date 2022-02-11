@@ -63,9 +63,9 @@
                     $('tbody').append(`
                         <tr>
                             <td style="width:80%;">
-                                <div style="float:left">주소：</div><div style="float:left"><a  title="주소 세부정보" target="_blank" href="./address.html?address=${item.address}">${item.address}</a></div><br/>
-                                <div style="float:left">개인 키：</div><div style="float:left">${item.privateKey}</div><br/>
-                                <div style="float:left">잔액：</div><div style="float:left">${item.value}</div>
+                                주소：<a  title="주소 세부정보" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
+                                개인 키：${item.privateKey}<br/>
+                                잔액：${item.value}
                             </td>
                             <td style="width:20%;"><button type="button" class="btn btn-danger">삭제</button></td>
                         </tr>

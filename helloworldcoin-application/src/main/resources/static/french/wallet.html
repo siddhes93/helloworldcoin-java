@@ -63,9 +63,9 @@
                     $('tbody').append(`
                         <tr>
                             <td style="width:80%;">
-                                <div style="float:left">adresse：</div><div style="float:left"><a  title="Détails de l'adresse" target="_blank" href="./address.html?address=${item.address}">${item.address}</a></div><br/>
-                                <div style="float:left">clé privée：</div><div style="float:left">${item.privateKey}</div><br/>
-                                <div style="float:left">équilibre：</div><div style="float:left">${item.value}</div>
+                                adresse：<a  title="Détails de l'adresse" target="_blank" href="./address.html?address=${item.address}">${item.address}</a><br/>
+                                clé privée：${item.privateKey}<br/>
+                                équilibre：${item.value}
                             </td>
                             <td style="width:20%;"><button type="button" class="btn btn-danger">supprimer</button></td>
                         </tr>
