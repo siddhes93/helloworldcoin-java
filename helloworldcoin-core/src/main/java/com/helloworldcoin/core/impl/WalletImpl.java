@@ -95,24 +95,6 @@ public class WalletImpl extends Wallet {
     public AutoBuildTransactionResponse autoBuildTransaction(AutoBuildTransactionRequest request) {
         //校验[非找零]收款方
         List<Payee> nonChangePayees = request.getNonChangePayees();
-        if(nonChangePayees == null || nonChangePayees.isEmpty()){
-            AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
-            response.setBuildTransactionSuccess(false);
-            return response;
-        }
-        for(Payee payee : nonChangePayees){
-            if(StringUtil.isEmpty(payee.getAddress())){
-                AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
-                response.setBuildTransactionSuccess(false);
-                return response;
-            }
-            if(payee.getValue() <= 0){
-                AutoBuildTransactionResponse response = new AutoBuildTransactionResponse();
-                response.setBuildTransactionSuccess(false);
-                return response;
-            }
-        }
-
         //创建付款方
         List<Payer> payers = new ArrayList<>();
         //遍历钱包里的账户,用钱包里的账户付款
