@@ -3,50 +3,49 @@ package com.helloworldcoin.netcore.client;
 import com.helloworldcoin.netcore.dto.*;
 
 /**
- * 区块链节点客户端
- * 向目标节点请求、提交数据
+ * node client
  *
  * @author x.king xdotking@gmail.com
  */
 public interface NodeClient {
 
     /**
-     * 提交交易至节点
+     * post transaction to node
      */
     PostTransactionResponse postTransaction(PostTransactionRequest request);
 
     /**
-     * Ping节点
+     * ping node
      */
     PingResponse pingNode(PingRequest request);
 
     /**
-     * 根据区块高度，获取区块
+     * get block by block height
      */
     GetBlockResponse getBlock(GetBlockRequest request);
 
     /**
-     * 获取节点列表
+     * get nodes
      */
     GetNodesResponse getNodes(GetNodesRequest request);
 
     /**
-     * 提交区块至节点
+     * post block to node
      */
     PostBlockResponse postBlock(PostBlockRequest request);
 
     /**
-     * 提交区块链高度至节点
+     * post blockchain height to node
      */
     PostBlockchainHeightResponse postBlockchainHeight(PostBlockchainHeightRequest request);
 
     /**
-     * 获取区块链高度
+     * get blockchain height
      */
     GetBlockchainHeightResponse getBlockchainHeight(GetBlockchainHeightRequest request);
 
     /**
-     * 根据交易高度，获取交易
+     * get unconfirmed transactions
      */
     GetUnconfirmedTransactionsResponse getUnconfirmedTransactions(GetUnconfirmedTransactionsRequest getUnconfirmedTransactionsRequest);
 }
