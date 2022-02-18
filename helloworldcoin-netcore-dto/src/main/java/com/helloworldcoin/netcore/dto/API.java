@@ -1,7 +1,6 @@
 package com.helloworldcoin.netcore.dto;
 
 /**
- * 节点接口常量
  *
  * @author x.king xdotking@gmail.com
  */

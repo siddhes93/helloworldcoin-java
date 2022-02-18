@@ -4,21 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 区块
- * 属性含义参考
  * @see com.helloworldcoin.core.model.Block
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockDto implements Serializable {
 
-    //区块产生的时间戳
+    //timestamp of block generation
     private long timestamp;
-    //上一个区块的哈希
+    //previous block hash
     private String previousHash;
-    //区块里的交易
+    //transactions in block
     private List<TransactionDto> transactions;
-    //随机数
+    //nonce
     private String nonce;
 
 

@@ -14,8 +14,11 @@ public class NodeDto {
         this.ip = ip;
     }
 
-    //region get set
 
+
+
+
+    //region get set
     public String getIp() {
         return ip;
     }
@@ -23,6 +26,5 @@ public class NodeDto {
     public void setIp(String ip) {
         this.ip = ip;
     }
-
     //endregion
 }

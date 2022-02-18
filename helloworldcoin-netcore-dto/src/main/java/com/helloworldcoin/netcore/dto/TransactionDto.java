@@ -5,18 +5,17 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 交易
- * 属性含义参考
  * @see com.helloworldcoin.core.model.transaction.Transaction
  *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionDto implements Serializable {
 
-    //交易输入
+    //inputs of transaction
     private List<TransactionInputDto> inputs;
-    //交易输出
+    //outputs of transaction
     private List<TransactionOutputDto> outputs;
+
 
 
 

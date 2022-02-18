@@ -3,19 +3,17 @@ package com.helloworldcoin.netcore.dto;
 import java.io.Serializable;
 
 /**
- * 交易输入
- * 属性含义参考
  * @see com.helloworldcoin.core.model.transaction.TransactionInput
  *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionInputDto implements Serializable {
 
-    //交易哈希
+    //transaction hash
     private String transactionHash;
-    //交易输出的索引
+    //transaction output index
     private long transactionOutputIndex;
-    //[输入脚本]
+    //input script
     private InputScriptDto inputScript;
 
 
@@ -45,6 +43,5 @@ public class TransactionInputDto implements Serializable {
     public void setInputScript(InputScriptDto inputScript) {
         this.inputScript = inputScript;
     }
-
-//endregion
+    //endregion
 }
