@@ -1,16 +1,16 @@
 package com.helloworldcoin.setting;
 
 /**
- * 创世区块设置
+ * genesis block setting
  *
  * @author x.king xdotking@gmail.com
  */
 public class GenesisBlockSetting {
 
-    //创世区块的高度
+    //genesis block height
     public static final long HEIGHT = 0;
-    //创世区块的哈希
+    //genesis block hash
     public static final String HASH = "0000000000000000000000000000000000000000000000000000000000000000";
-    //创世区块的挖矿难度
+    //genesis block difficulty
     public static final String DIFFICULTY = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
 }

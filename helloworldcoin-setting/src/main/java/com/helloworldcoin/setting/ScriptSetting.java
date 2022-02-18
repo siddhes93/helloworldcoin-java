@@ -1,12 +1,12 @@
 package com.helloworldcoin.setting;
 
 /**
- * 脚本设置
+ * script setting
  *
  * @author x.king xdotking@gmail.com
  */
 public class ScriptSetting {
 
-    //脚本的最大字符数量：用于限制脚本的大小
+    //max character count of script
     public static final long SCRIPT_MAX_CHARACTER_COUNT = 1024;
 }

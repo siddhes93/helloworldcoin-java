@@ -1,16 +1,16 @@
 package com.helloworldcoin.setting;
 
 /**
- * 区块设置
+ * block setting
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockSetting {
 
-    //区块最多含有的交易数量
+    //max transaction count of block
     public static final long BLOCK_MAX_TRANSACTION_COUNT = 600;
-    //区块的最大字符数量：用于限制区块的大小
+    //max character count of block
     public static final long BLOCK_MAX_CHARACTER_COUNT = 1024 * 1024;
-    //随机数的字符数量：用于限制随机数的大小只能是64个字符。
+    //the character count of nonce
     public static final long NONCE_CHARACTER_COUNT = 64;
 }
