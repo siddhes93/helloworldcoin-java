@@ -16,5 +16,5 @@ public class IncentiveSetting {
     //block initialization incentive
     public static final long BLOCK_INIT_INCENTIVE = 50L * 100000000L;
     //incentive amount halving cycle: incentives are halved every 210,000 blocks
-    public static final long INCENTIVE_HALVING_INTERVAL = 210000L;
+    public static final long INCENTIVE_HALVE_INTERVAL = 210000L;
 }

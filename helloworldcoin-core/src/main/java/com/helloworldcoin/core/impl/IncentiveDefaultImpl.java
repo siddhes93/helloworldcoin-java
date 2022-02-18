@@ -36,7 +36,7 @@ public class IncentiveDefaultImpl extends Incentive {
 
     private static long getMinerSubsidy(Block block) {
         long initCoin = IncentiveSetting.BLOCK_INIT_INCENTIVE;
-        long multiple = (block.getHeight() - 1L) / IncentiveSetting.INCENTIVE_HALVING_INTERVAL;
+        long multiple = (block.getHeight() - 1L) / IncentiveSetting.INCENTIVE_HALVE_INTERVAL;
         while (multiple > 0){
             initCoin = initCoin / 2L;
             --multiple;
