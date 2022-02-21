@@ -4,25 +4,25 @@ package com.helloworldcoin.crypto.model;
 import java.io.Serializable;
 
 /**
- * 数字货币账户
+ * digital currency account
  *
- * 数字货币的账户(账户在区块链领域被称为钱包)由账号(账号在区块链领域被称为地址)、密码(密码在区块链领域被称为私钥)组成。
+ * digital currency account (account is called wallet in the blockchain field) consists of account number (account is called address in the blockchain field) and password (the password is called private key in the blockchain field).
  *
- * 私钥可以推导出公钥，公钥不能逆推出私钥。
- * 公钥可以推导出公钥哈希，公钥哈希不能逆推出公钥。
- * 公钥哈希可以推导出地址，地址可以逆推出公钥哈希。
+ * private key can deduce public key, but public key cannot deduce private key.
+ * public key can deduce public key hash, but public key hash cannot deduce public key.
+ * public key hash can deduce address, and address can deduce public key hash.
  *
  * @author x.king xdotking@gmail.com
  */
 public class Account implements Serializable {
 
-    //私钥
+    //private key
     private String privateKey;
-    //公钥
+    //public Key
     private String publicKey;
-    //公钥哈希
+    //public key hash
     private String publicKeyHash;
-    //地址
+    //address
     private String address;
 
     public Account(String privateKey, String publicKey, String publicKeyHash, String address) {
@@ -31,6 +31,8 @@ public class Account implements Serializable {
         this.publicKeyHash = publicKeyHash;
         this.address = address;
     }
+
+
 
 
     //region get set

@@ -6,7 +6,7 @@ import java.security.Provider;
 import java.security.Security;
 
 /**
- * JavaCryptographyExtension Provider工具类
+ * JavaCryptographyExtension Provider Util
  *
  * @author x.king xdotking@gmail.com
  */

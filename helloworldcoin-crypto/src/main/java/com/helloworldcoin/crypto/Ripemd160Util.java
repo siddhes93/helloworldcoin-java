@@ -3,7 +3,7 @@ package com.helloworldcoin.crypto;
 import java.security.MessageDigest;
 
 /**
- * RipeMD160消息摘要工具类
+ * RipeMD160 message digest tool
  *
  * @author x.king xdotking@gmail.com
  */
@@ -14,7 +14,7 @@ public class Ripemd160Util {
     }
 
     /**
-     * RipeMD160消息摘要
+     * RipeMD160 message digest
      */
     public static byte[] digest(byte[] input) {
         try {

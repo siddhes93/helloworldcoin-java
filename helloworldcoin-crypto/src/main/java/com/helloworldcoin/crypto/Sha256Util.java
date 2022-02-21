@@ -3,7 +3,7 @@ package com.helloworldcoin.crypto;
 import java.security.MessageDigest;
 
 /**
- * Sha256消息摘要工具类
+ * Sha256 message digest tool
  *
  * @author x.king xdotking@gmail.com
  */
@@ -14,7 +14,7 @@ public class Sha256Util {
     }
 
     /**
-     * Sha256消息摘要
+     * Sha256 message digest
      */
     public static byte[] digest(byte[] input) {
         try {
@@ -27,11 +27,7 @@ public class Sha256Util {
     }
 
     /**
-     * 双重哈希，即进行两次Sha256操作的消息摘要
-     * 相比单次哈希，双重哈希更安全，双重哈希修复了单次哈希的漏洞，例如长度扩展攻击。
-     * 在一般情况下，如果没有足够的分析，直接使用单次哈希，有可能会有长度扩展等攻击漏洞，
-     * 而使用双重哈希，不需要考虑单次哈希的漏洞，又废不了几个算力，
-     * 所以，无脑使用双重哈希不香吗？
+     * Double Sha256 message digest
      */
     public static byte[] doubleDigest(byte[] input) {
         return digest(digest(input));

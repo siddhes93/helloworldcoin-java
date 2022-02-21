@@ -8,15 +8,14 @@ import java.util.List;
 
 
 /**
- * 默克尔树工具类
+ * Merkle Tree Util
  *
  * @author x.king xdotking@gmail.com
  */
 public class MerkleTreeUtil {
 
     /**
-     * 计算默克尔树根
-     * Ctrl+V 于 bitcoinj-core-0.15.8.jar!\org\bitcoinj\core\Block.java MerkleRoot()
+     * calculate merkle tree root
      *
      * @author x.king xdotking@gmail.com
      */
