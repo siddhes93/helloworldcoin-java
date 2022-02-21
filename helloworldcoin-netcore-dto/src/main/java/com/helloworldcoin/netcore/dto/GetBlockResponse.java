@@ -8,6 +8,10 @@ public class GetBlockResponse {
 
     private BlockDto block;
 
+
+
+
+    //region get set
     public BlockDto getBlock() {
         return block;
     }
@@ -15,4 +19,5 @@ public class GetBlockResponse {
     public void setBlock(BlockDto block) {
         this.block = block;
     }
+    //endregion
 }

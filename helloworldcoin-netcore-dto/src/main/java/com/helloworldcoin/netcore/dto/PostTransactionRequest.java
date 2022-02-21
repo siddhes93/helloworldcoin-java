@@ -8,6 +8,10 @@ public class PostTransactionRequest {
 
     private TransactionDto transaction;
 
+
+
+
+    //region get set
     public TransactionDto getTransaction() {
         return transaction;
     }
@@ -15,4 +19,5 @@ public class PostTransactionRequest {
     public void setTransaction(TransactionDto transaction) {
         this.transaction = transaction;
     }
+    //endregion
 }

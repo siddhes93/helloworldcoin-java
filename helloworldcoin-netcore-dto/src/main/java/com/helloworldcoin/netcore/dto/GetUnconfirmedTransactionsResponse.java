@@ -10,6 +10,10 @@ public class GetUnconfirmedTransactionsResponse {
 
     private List<TransactionDto> transactions;
 
+
+
+
+    //region get set
     public List<TransactionDto> getTransactions() {
         return transactions;
     }
@@ -17,4 +21,5 @@ public class GetUnconfirmedTransactionsResponse {
     public void setTransactions(List<TransactionDto> transactions) {
         this.transactions = transactions;
     }
+    //endregion
 }

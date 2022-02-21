@@ -23,7 +23,6 @@ public class BlockDto implements Serializable {
 
 
     //region get set
-
     public long getTimestamp() {
         return timestamp;
     }

@@ -8,6 +8,10 @@ public class GetBlockRequest {
 
     private long blockHeight;
 
+
+
+
+    //region get set
     public long getBlockHeight() {
         return blockHeight;
     }
@@ -15,4 +19,5 @@ public class GetBlockRequest {
     public void setBlockHeight(long blockHeight) {
         this.blockHeight = blockHeight;
     }
+    //endregion
 }

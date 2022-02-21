@@ -8,6 +8,10 @@ public class GetBlockchainHeightResponse {
 
     private long blockchainHeight;
 
+
+
+
+    //region get set
     public long getBlockchainHeight() {
         return blockchainHeight;
     }
@@ -15,4 +19,5 @@ public class GetBlockchainHeightResponse {
     public void setBlockchainHeight(long blockchainHeight) {
         this.blockchainHeight = blockchainHeight;
     }
+    //endregion
 }

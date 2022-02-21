@@ -10,6 +10,10 @@ public class GetNodesResponse {
 
     private List<NodeDto> nodes;
 
+
+
+
+    //region get set
     public List<NodeDto> getNodes() {
         return nodes;
     }
@@ -17,4 +21,5 @@ public class GetNodesResponse {
     public void setNodes(List<NodeDto> nodes) {
         this.nodes = nodes;
     }
+    //endregion
 }
