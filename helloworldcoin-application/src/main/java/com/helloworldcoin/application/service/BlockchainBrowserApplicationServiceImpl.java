@@ -35,7 +35,6 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
     @Override
     public TransactionOutputVo3 queryTransactionOutputByTransactionOutputId(String transactionHash, long transactionOutputIndex) {
-        //查询交易输出
         TransactionOutput transactionOutput = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryTransactionOutputByTransactionOutputId(transactionHash,transactionOutputIndex);
         if(transactionOutput == null){
             return null;
@@ -49,17 +48,14 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         transactionOutputVo3.setFromOutputScript(ScriptTool.stringOutputScript(transactionOutput.getOutputScript()));
         transactionOutputVo3.setFromTransactionOutputIndex(transactionOutput.getTransactionOutputIndex());
 
-        //是否是未花费输出
         TransactionOutput transactionOutputTemp = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryUnspentTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
         transactionOutputVo3.setUnspentTransactionOutput(transactionOutputTemp!=null);
 
-        //来源
         TransactionVo inputTransactionVo = queryTransactionByTransactionHash(transactionOutput.getTransactionHash());
         transactionOutputVo3.setInputTransaction(inputTransactionVo);
         transactionOutputVo3.setTransactionType(inputTransactionVo.getTransactionType());
 
 
-        //去向
         TransactionVo outputTransactionVo;
         if(transactionOutputTemp==null){
             Transaction destinationTransaction = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryDestinationTransactionByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
