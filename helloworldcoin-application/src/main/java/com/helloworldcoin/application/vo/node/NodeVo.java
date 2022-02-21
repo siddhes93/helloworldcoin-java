@@ -13,12 +13,15 @@ public class NodeVo {
     public String getIp() {
         return ip;
     }
+
     public void setIp(String ip) {
         this.ip = ip;
     }
+
     public long getBlockchainHeight() {
         return blockchainHeight;
     }
+
     public void setBlockchainHeight(long blockchainHeight) {
         this.blockchainHeight = blockchainHeight;
     }

@@ -11,6 +11,8 @@ public class QueryTop10BlocksResponse {
     private List<BlockVo2> blocks;
 
 
+
+
     //region get set
     public List<BlockVo2> getBlocks() {
         return blocks;

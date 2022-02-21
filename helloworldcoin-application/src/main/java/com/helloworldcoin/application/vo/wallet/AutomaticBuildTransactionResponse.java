@@ -5,30 +5,25 @@ import com.helloworldcoin.netcore.dto.TransactionDto;
 import java.util.List;
 
 /**
- * 构建交易响应
  *
  * @author x.king xdotking@gmail.com
  */
 public class AutomaticBuildTransactionResponse {
-    //是否构建交易成功
+
     private boolean buildTransactionSuccess;
 
-    //构建的交易哈希
     private String transactionHash;
-    //交易手续费
     private long fee;
-    //付款方
     private List<PayerVo> payers;
-    //[非找零]收款方
     private List<PayeeVo> nonChangePayees;
-    //[找零]收款方
     private PayeeVo changePayee;
-    //收款方=[非找零]收款方+[找零]收款方
     private List<PayeeVo> payees;
-    //构建的完整交易
     private TransactionDto transaction;
 
 
+
+
+    //region get set
     public boolean isBuildTransactionSuccess() {
         return buildTransactionSuccess;
     }
@@ -92,4 +87,5 @@ public class AutomaticBuildTransactionResponse {
     public void setPayees(List<PayeeVo> payees) {
         this.payees = payees;
     }
+    //endregion
 }

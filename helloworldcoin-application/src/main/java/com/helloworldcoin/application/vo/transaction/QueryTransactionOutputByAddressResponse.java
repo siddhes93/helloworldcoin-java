@@ -8,6 +8,10 @@ public class QueryTransactionOutputByAddressResponse {
 
     private TransactionOutputVo3 transactionOutput;
 
+
+
+
+    //region get set
     public TransactionOutputVo3 getTransactionOutput() {
         return transactionOutput;
     }
@@ -15,4 +19,5 @@ public class QueryTransactionOutputByAddressResponse {
     public void setTransactionOutput(TransactionOutputVo3 transactionOutput) {
         this.transactionOutput = transactionOutput;
     }
+    //endregion
 }

@@ -1,36 +1,25 @@
 package com.helloworldcoin.application.vo.wallet;
 
 /**
- * 付款方
  *
  * @author x.king xdotking@gmail.com
  */
 public class PayerVo {
 
-    /**
-     * 付款方私钥
-     */
     private String privateKey;
 
-    /**
-     * 付款来源的交易哈希
-     */
     private String transactionHash;
-    /**
-     * 付款来源的交易输出序列号。
-     */
+
     private long transactionOutputIndex;
-    /**
-     * 付款来源的交易输出的金额
-     */
+
     private long value;
 
-    /**
-     * 付款方地址
-     */
     private String address;
 
 
+
+
+    //region get set
     public String getPrivateKey() {
         return privateKey;
     }
@@ -70,4 +59,5 @@ public class PayerVo {
     public void setAddress(String address) {
         this.address = address;
     }
+    //endregion
 }

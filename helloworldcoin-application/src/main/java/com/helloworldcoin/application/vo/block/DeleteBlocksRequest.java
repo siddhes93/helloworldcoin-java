@@ -7,9 +7,11 @@ package com.helloworldcoin.application.vo.block;
 public class DeleteBlocksRequest {
 
     /**
-     * 删除区块的高度。因为区块是连续的，所以大于等于这个高度的区块都将被删除
+     * The height of the removed block. Because blocks are continuous, blocks that height greater than or equal to this block height will be deleted
      */
     private long blockHeight;
+
+
 
 
     //region get set

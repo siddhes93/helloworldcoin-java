@@ -12,7 +12,6 @@ public class IsAutoSearchBlockResponse {
 
 
     //region get set
-
     public boolean isAutoSearchBlock() {
         return autoSearchBlock;
     }
@@ -20,6 +19,5 @@ public class IsAutoSearchBlockResponse {
     public void setAutoSearchBlock(boolean autoSearchBlock) {
         this.autoSearchBlock = autoSearchBlock;
     }
-
     //endregion
 }

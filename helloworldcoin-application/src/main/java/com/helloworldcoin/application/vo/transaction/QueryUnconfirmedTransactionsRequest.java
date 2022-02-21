@@ -14,7 +14,6 @@ public class QueryUnconfirmedTransactionsRequest {
 
 
     //region get set
-
     public PageCondition getPageCondition() {
         return pageCondition;
     }
@@ -22,6 +21,5 @@ public class QueryUnconfirmedTransactionsRequest {
     public void setPageCondition(PageCondition pageCondition) {
         this.pageCondition = pageCondition;
     }
-
     //endregion
 }

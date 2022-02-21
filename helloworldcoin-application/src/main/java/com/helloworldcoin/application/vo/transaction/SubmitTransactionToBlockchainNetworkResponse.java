@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class SubmitTransactionToBlockchainNetworkResponse {
 
-    //交易
+    //transaction
     private TransactionDto transaction;
-    //交易成功提交的节点
+    //successfully submitted nodes
     private List<String> successSubmitNodes;
-    //交易提交失败的节点
+    //Commit failed node
     private List<String> failedSubmitNodes;
 
 

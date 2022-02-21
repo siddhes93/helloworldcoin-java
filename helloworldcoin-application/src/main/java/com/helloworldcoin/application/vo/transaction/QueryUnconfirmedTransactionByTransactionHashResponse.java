@@ -8,8 +8,10 @@ public class QueryUnconfirmedTransactionByTransactionHashResponse {
 
     private UnconfirmedTransactionVo transaction;
 
-    //region get set
 
+
+
+    //region get set
     public UnconfirmedTransactionVo getTransaction() {
         return transaction;
     }
@@ -17,8 +19,6 @@ public class QueryUnconfirmedTransactionByTransactionHashResponse {
     public void setTransaction(UnconfirmedTransactionVo transaction) {
         this.transaction = transaction;
     }
-
-
     //endregion
 
 }

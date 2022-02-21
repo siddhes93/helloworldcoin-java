@@ -11,10 +11,13 @@ public class QueryUnconfirmedTransactionsResponse {
     private List<UnconfirmedTransactionVo> unconfirmedTransactions;
 
 
+
+
     //region get set
     public List<UnconfirmedTransactionVo> getUnconfirmedTransactions() {
         return unconfirmedTransactions;
     }
+
     public void setUnconfirmedTransactions(List<UnconfirmedTransactionVo> unconfirmedTransactions) {
         this.unconfirmedTransactions = unconfirmedTransactions;
     }

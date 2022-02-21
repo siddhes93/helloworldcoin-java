@@ -12,6 +12,10 @@ public class TransactionInputVo {
     private String transactionHash;
     private long transactionOutputIndex;
 
+
+
+
+    //region get set
     public String getAddress() {
         return address;
     }
@@ -51,5 +55,5 @@ public class TransactionInputVo {
     public void setTransactionOutputIndex(long transactionOutputIndex) {
         this.transactionOutputIndex = transactionOutputIndex;
     }
-
+    //endregion
 }

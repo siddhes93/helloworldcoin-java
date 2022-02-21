@@ -9,6 +9,10 @@ public class QueryTransactionOutputByTransactionOutputIdRequest {
     private String transactionHash;
     private long transactionOutputIndex;
 
+
+
+
+    //region get set
     public String getTransactionHash() {
         return transactionHash;
     }
@@ -24,4 +28,5 @@ public class QueryTransactionOutputByTransactionOutputIdRequest {
     public void setTransactionOutputIndex(long transactionOutputIndex) {
         this.transactionOutputIndex = transactionOutputIndex;
     }
+    //endregion
 }

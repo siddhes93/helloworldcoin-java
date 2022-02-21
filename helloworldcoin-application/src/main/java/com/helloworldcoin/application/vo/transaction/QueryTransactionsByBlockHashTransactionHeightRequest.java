@@ -15,8 +15,6 @@ public class QueryTransactionsByBlockHashTransactionHeightRequest {
 
 
     //region get set
-
-
     public String getBlockHash() {
         return blockHash;
     }
@@ -32,6 +30,5 @@ public class QueryTransactionsByBlockHashTransactionHeightRequest {
     public void setPageCondition(PageCondition pageCondition) {
         this.pageCondition = pageCondition;
     }
-
     //endregion
 }

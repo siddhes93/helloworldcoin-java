@@ -14,7 +14,6 @@ public class SubmitTransactionToBlockchainNetworkRequest {
 
 
     //region get set
-
     public TransactionDto getTransaction() {
         return transaction;
     }
@@ -22,7 +21,5 @@ public class SubmitTransactionToBlockchainNetworkRequest {
     public void setTransaction(TransactionDto transaction) {
         this.transaction = transaction;
     }
-
-
     //endregion
 }

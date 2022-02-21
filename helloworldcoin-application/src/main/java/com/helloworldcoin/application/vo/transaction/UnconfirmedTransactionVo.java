@@ -12,6 +12,10 @@ public class UnconfirmedTransactionVo {
     private List<TransactionInputVo2> transactionInputs;
     private List<TransactionOutputVo2> transactionOutputs;
 
+
+
+
+    //region get set
     public String getTransactionHash() {
         return transactionHash;
     }
@@ -35,4 +39,5 @@ public class UnconfirmedTransactionVo {
     public void setTransactionOutputs(List<TransactionOutputVo2> transactionOutputs) {
         this.transactionOutputs = transactionOutputs;
     }
+    //endregion
 }

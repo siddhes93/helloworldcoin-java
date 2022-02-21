@@ -7,13 +7,9 @@ package com.helloworldcoin.application.vo.account;
  */
 public class AccountVo {
 
-    //私钥
     private String privateKey;
-    //公钥
     private String publicKey;
-    //公钥哈希
     private String publicKeyHash;
-    //地址
     private String address;
 
     public AccountVo(String privateKey, String publicKey, String publicKeyHash, String address) {
@@ -22,6 +18,8 @@ public class AccountVo {
         this.publicKeyHash = publicKeyHash;
         this.address = address;
     }
+
+
 
 
     //region get set

@@ -1,21 +1,19 @@
 package com.helloworldcoin.application.vo.wallet;
 
 /**
- * 收款方
  *
  * @author x.king xdotking@gmail.com
  */
 public class PayeeVo {
 
-    //交易输出的地址
     private String address;
 
-    //交易输出的金额
     private long value;
 
 
 
 
+    //region get set
     public String getAddress() {
         return address;
     }
@@ -31,4 +29,5 @@ public class PayeeVo {
     public void setValue(long value) {
         this.value = value;
     }
+    //endregion
 }

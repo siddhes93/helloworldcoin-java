@@ -9,6 +9,9 @@ public class QueryTransactionOutputByTransactionOutputIdResponse {
     private TransactionOutputVo3 transactionOutput;
 
 
+
+
+    //region get set
     public TransactionOutputVo3 getTransactionOutput() {
         return transactionOutput;
     }
@@ -16,4 +19,5 @@ public class QueryTransactionOutputByTransactionOutputIdResponse {
     public void setTransactionOutput(TransactionOutputVo3 transactionOutput) {
         this.transactionOutput = transactionOutput;
     }
+    //endregion
 }

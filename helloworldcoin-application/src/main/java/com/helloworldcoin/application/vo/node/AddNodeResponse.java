@@ -12,7 +12,6 @@ public class AddNodeResponse {
 
 
     //region get set
-
     public boolean isAddNodeSuccess() {
         return addNodeSuccess;
     }
@@ -20,7 +19,5 @@ public class AddNodeResponse {
     public void setAddNodeSuccess(boolean addNodeSuccess) {
         this.addNodeSuccess = addNodeSuccess;
     }
-
-
     //endregion
 }

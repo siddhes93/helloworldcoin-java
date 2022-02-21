@@ -9,6 +9,10 @@ public class TransactionInputVo2 {
     private String transactionHash;
     private long transactionOutputIndex;
 
+
+
+
+    //region get set
     public long getValue() {
         return value;
     }
@@ -40,4 +44,5 @@ public class TransactionInputVo2 {
     public void setTransactionOutputIndex(long transactionOutputIndex) {
         this.transactionOutputIndex = transactionOutputIndex;
     }
+    //endregion
 }

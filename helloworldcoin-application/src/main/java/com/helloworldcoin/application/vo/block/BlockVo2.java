@@ -13,6 +13,10 @@ public class BlockVo2 {
     private String time;
     private String hash;
 
+
+
+
+    //region get set
     public long getHeight() {
         return height;
     }
@@ -60,4 +64,5 @@ public class BlockVo2 {
     public void setHash(String hash) {
         this.hash = hash;
     }
+    //endregion
 }

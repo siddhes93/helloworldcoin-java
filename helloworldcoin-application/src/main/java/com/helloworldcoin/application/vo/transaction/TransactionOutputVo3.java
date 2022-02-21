@@ -23,6 +23,10 @@ public class TransactionOutputVo3 {
     private TransactionVo inputTransaction;
     private TransactionVo outputTransaction;
 
+
+
+
+    //region get set
     public boolean isUnspentTransactionOutput() {
         return unspentTransactionOutput;
     }
@@ -142,4 +146,5 @@ public class TransactionOutputVo3 {
     public void setToTransactionInputIndex(long toTransactionInputIndex) {
         this.toTransactionInputIndex = toTransactionInputIndex;
     }
+    //endregion
 }

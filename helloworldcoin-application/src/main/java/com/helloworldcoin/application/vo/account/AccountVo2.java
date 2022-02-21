@@ -5,6 +5,7 @@ package com.helloworldcoin.application.vo.account;
  * @author x.king xdotking@gmail.com
  */
 public class AccountVo2 {
+
     private String privateKey;
     private String address;
     private long value;
@@ -17,6 +18,9 @@ public class AccountVo2 {
 
     public AccountVo2() {
     }
+
+
+
 
     //region get set
     public String getPrivateKey() {

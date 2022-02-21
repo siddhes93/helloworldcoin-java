@@ -28,6 +28,9 @@ public class TransactionVo {
     private List<String> outputScripts;
 
 
+
+
+    //region get set
     public String getTransactionHash() {
         return transactionHash;
     }
@@ -147,4 +150,5 @@ public class TransactionVo {
     public void setBlockHash(String blockHash) {
         this.blockHash = blockHash;
     }
+    //endregion
 }

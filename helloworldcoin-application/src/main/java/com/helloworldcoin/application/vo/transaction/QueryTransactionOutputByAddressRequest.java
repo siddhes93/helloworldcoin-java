@@ -12,7 +12,6 @@ public class QueryTransactionOutputByAddressRequest {
 
 
     //region get set
-
     public String getAddress() {
         return address;
     }
@@ -20,6 +19,5 @@ public class QueryTransactionOutputByAddressRequest {
     public void setAddress(String address) {
         this.address = address;
     }
-
     //endregion
 }

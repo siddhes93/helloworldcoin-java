@@ -14,7 +14,6 @@ public class QueryTransactionsByBlockHashTransactionHeightResponse {
 
 
     //region get set
-
     public List<TransactionVo> getTransactions() {
         return transactions;
     }
@@ -22,7 +21,5 @@ public class QueryTransactionsByBlockHashTransactionHeightResponse {
     public void setTransactions(List<TransactionVo> transactions) {
         this.transactions = transactions;
     }
-
-
     //endregion
 }

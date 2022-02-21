@@ -12,7 +12,6 @@ public class IsAutoSearchNodeResponse {
 
 
     //region get set
-
     public boolean isAutoSearchNode() {
         return autoSearchNode;
     }
@@ -20,7 +19,5 @@ public class IsAutoSearchNodeResponse {
     public void setAutoSearchNode(boolean autoSearchNode) {
         this.autoSearchNode = autoSearchNode;
     }
-
-
     //endregion
 }

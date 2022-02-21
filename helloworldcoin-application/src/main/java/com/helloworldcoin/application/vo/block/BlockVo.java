@@ -20,6 +20,10 @@ public class BlockVo {
     private String nextBlockHash;
     private String merkleTreeRoot;
 
+
+
+
+    //region get set
     public long getHeight() {
         return height;
     }
@@ -115,5 +119,5 @@ public class BlockVo {
     public void setMerkleTreeRoot(String merkleTreeRoot) {
         this.merkleTreeRoot = merkleTreeRoot;
     }
-
+    //endregion
 }

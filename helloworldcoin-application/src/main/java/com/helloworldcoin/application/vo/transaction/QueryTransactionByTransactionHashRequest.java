@@ -12,7 +12,6 @@ public class QueryTransactionByTransactionHashRequest {
 
 
     //region get set
-
     public String getTransactionHash() {
         return transactionHash;
     }
@@ -20,6 +19,5 @@ public class QueryTransactionByTransactionHashRequest {
     public void setTransactionHash(String transactionHash) {
         this.transactionHash = transactionHash;
     }
-
     //endregion
 }

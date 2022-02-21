@@ -4,9 +4,14 @@ package com.helloworldcoin.application.vo.transaction;
  * @author x.king xdotking@gmail.com
  */
 public class TransactionOutputVo2 {
+
     private long value;
     private String address;
 
+
+
+
+    //region get set
     public long getValue() {
         return value;
     }
@@ -22,4 +27,5 @@ public class TransactionOutputVo2 {
     public void setAddress(String address) {
         this.address = address;
     }
+    //endregion
 }

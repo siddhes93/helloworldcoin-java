@@ -12,7 +12,6 @@ public class QueryUnconfirmedTransactionByTransactionHashRequest {
 
 
     //region get set
-
     public String getTransactionHash() {
         return transactionHash;
     }
@@ -20,6 +19,5 @@ public class QueryUnconfirmedTransactionByTransactionHashRequest {
     public void setTransactionHash(String transactionHash) {
         this.transactionHash = transactionHash;
     }
-
     //endregion
 }
