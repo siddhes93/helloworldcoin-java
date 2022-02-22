@@ -6,7 +6,7 @@ import java.util.List;
  *
  * @author x.king xdotking@gmail.com
  */
-public class QueryTop10BlocksResponse {
+public class QueryLatest10BlocksResponse {
 
     private List<BlockVo2> blocks;
 

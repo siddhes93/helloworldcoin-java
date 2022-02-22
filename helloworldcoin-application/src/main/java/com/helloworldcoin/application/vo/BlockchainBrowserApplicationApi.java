@@ -25,5 +25,5 @@ public class BlockchainBrowserApplicationApi {
 
     public static final String QUERY_BLOCK_BY_BLOCK_HEIGHT = "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight";
     public static final String QUERY_BLOCK_BY_BLOCK_HASH = "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash";
-    public static final String QUERY_TOP10_BLOCKS = "/Api/BlockchainBrowserApplication/QueryTop10Blocks";
+    public static final String QUERY_LATEST_10_BLOCKS = "/Api/BlockchainBrowserApplication/QueryLatest10Blocks";
 }

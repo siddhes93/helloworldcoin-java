@@ -17,7 +17,6 @@ import com.helloworldcoin.netcore.BlockchainNetCore;
 import com.helloworldcoin.netcore.dto.TransactionDto;
 import com.helloworldcoin.setting.GenesisBlockSetting;
 import com.helloworldcoin.util.LogUtil;
-import com.helloworldcoin.util.StringUtil;
 import com.helloworldcoin.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -226,10 +225,9 @@ public class BlockchainBrowserApplicationController {
 
     /**
      * query latest 10 blocks
-     * //TODO
      */
-    @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TOP10_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<QueryTop10BlocksResponse> queryTop10Blocks(@RequestBody QueryTop10BlocksRequest request){
+    @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_LATEST_10_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
+    public Response<QueryLatest10BlocksResponse> queryLatest10Blocks(@RequestBody QueryLatest10BlocksRequest request){
         try {
             List<Block> blocks = new ArrayList<>();
             long blockHeight = blockchainNetCore.getBlockchainCore().queryBlockchainHeight();
@@ -257,7 +255,7 @@ public class BlockchainBrowserApplicationController {
                 blockVos.add(blockVo);
             }
 
-            QueryTop10BlocksResponse response = new QueryTop10BlocksResponse();
+            QueryLatest10BlocksResponse response = new QueryLatest10BlocksResponse();
             response.setBlocks(blockVos);
             return Response.success(response);
         } catch (Exception e){
