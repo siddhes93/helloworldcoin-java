@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 区块链浏览器应用控制器：查询区块、交易、地址等功能。
+ * Blockchain Browser Application Controller : query block、query transaction、query address and so on.
  *
  * @author x.king xdotking@gmail.com
  */
@@ -45,7 +45,7 @@ public class BlockchainBrowserApplicationController {
 
 
     /**
-     * 根据交易哈希查询交易
+     * query transaction by transaction hash
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TRANSACTION_BY_TRANSACTION_HASH,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTransactionByTransactionHashResponse> queryTransactionByTransactionHash(@RequestBody QueryTransactionByTransactionHashRequest request){
@@ -59,14 +59,14 @@ public class BlockchainBrowserApplicationController {
             response.setTransaction(transactionVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "根据交易哈希查询交易失败";
+            String message = "'query transaction by transaction hash' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据区块哈希与交易高度查询交易列表
+     * query transactions by (block hash and transaction height)
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TRANSACTIONS_BY_BLOCK_HASH_TRANSACTION_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTransactionsByBlockHashTransactionHeightResponse> queryTransactionsByBlockHashTransactionHeight(@RequestBody QueryTransactionsByBlockHashTransactionHeightRequest request){
@@ -77,14 +77,14 @@ public class BlockchainBrowserApplicationController {
             response.setTransactions(transactionVos);
             return Response.success(response);
         } catch (Exception e){
-            String message = "根据交易高度查询交易失败";
+            String message = "'query transactions by (block hash and transaction height)' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据地址获取交易输出
+     * query transaction output by address
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TRANSACTION_OUTPUT_BY_ADDRESS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTransactionOutputByAddressResponse> queryTransactionOutputByAddress(@RequestBody QueryTransactionOutputByAddressRequest request){
@@ -94,14 +94,14 @@ public class BlockchainBrowserApplicationController {
             response.setTransactionOutput(transactionOutputVo3);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[查询交易输出]失败";
+            String message = "'query transaction output by address' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据交易输出ID获取交易输出
+     * query transaction output by transaction output id
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TRANSACTION_OUTPUT_BY_TRANSACTION_OUTPUT_ID,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTransactionOutputByTransactionOutputIdResponse> queryTransactionOutputByTransactionOutputId(@RequestBody QueryTransactionOutputByTransactionOutputIdRequest request){
@@ -111,14 +111,14 @@ public class BlockchainBrowserApplicationController {
             response.setTransactionOutput(transactionOutputVo3);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[查询交易输出]失败";
+            String message = "'query transaction output by transaction output id' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 查询区块链高度
+     * query blockchain height
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_BLOCKCHAIN_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryBlockchainHeightResponse> queryBlockchainHeight(@RequestBody QueryBlockchainHeightRequest request){
@@ -128,14 +128,14 @@ public class BlockchainBrowserApplicationController {
             response.setBlockchainHeight(blockchainHeight);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询区块链高度失败";
+            String message = "'query blockchain height' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据交易哈希查询未确认交易
+     * query unconfirmed transaction by transaction hash
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_UNCONFIRMED_TRANSACTION_BY_TRANSACTION_HASH,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryUnconfirmedTransactionByTransactionHashResponse> queryUnconfirmedTransactionByTransactionHash(@RequestBody QueryUnconfirmedTransactionByTransactionHashRequest request){
@@ -148,14 +148,14 @@ public class BlockchainBrowserApplicationController {
             response.setTransaction(unconfirmedTransactionVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "根据交易哈希查询未确认交易失败";
+            String message = "'query unconfirmed transaction by transaction hash' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 查询未确认交易
+     * query unconfirmed transactions
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_UNCONFIRMED_TRANSACTIONS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryUnconfirmedTransactionsResponse> queryUnconfirmedTransactions(@RequestBody QueryUnconfirmedTransactionsRequest request){
@@ -177,14 +177,14 @@ public class BlockchainBrowserApplicationController {
             response.setUnconfirmedTransactions(unconfirmedTransactionVos);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询未确认交易失败";
+            String message = "'query unconfirmed transactions' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据区块高度查询区块
+     * query block by block height
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_BLOCK_BY_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryBlockByBlockHeightResponse> queryBlockByBlockHeight(@RequestBody QueryBlockByBlockHeightRequest request){
@@ -197,14 +197,14 @@ public class BlockchainBrowserApplicationController {
             response.setBlock(blockVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询获取失败";
+            String message = "'query block by block height' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 根据区块哈希查询区块
+     * query block by block hash
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_BLOCK_BY_BLOCK_HASH,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryBlockByBlockHashResponse> queryBlockByBlockHash(@RequestBody QueryBlockByBlockHashRequest request){
@@ -218,14 +218,15 @@ public class BlockchainBrowserApplicationController {
             response.setBlock(blockVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[根据区块哈希查询区块]失败";
+            String message = "'query block by block hash' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 查询最新的10个区块
+     * query latest 10 blocks
+     * //TODO
      */
     @RequestMapping(value = BlockchainBrowserApplicationApi.QUERY_TOP10_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryTop10BlocksResponse> queryTop10Blocks(@RequestBody QueryTop10BlocksRequest request){
@@ -260,7 +261,7 @@ public class BlockchainBrowserApplicationController {
             response.setBlocks(blockVos);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[查询最新的10个区块]失败";
+            String message = "'query latest 10 blocks' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }

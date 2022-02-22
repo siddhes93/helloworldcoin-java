@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 钱包应用控制器：新增账户，删除账户、查询账户、构建交易等。
- * 这里的操作都应该需要权限才可以操作，不适合对所有人开放。
+ * Wallet Application Controller : create account、save account、delete account and so on.
  *
  * @author x.king xdotking@gmail.com
  */
@@ -40,7 +39,7 @@ public class WalletApplicationController {
 
 
     /**
-     * 生成账户(私钥、公钥、公钥哈希、地址)
+     * create account
      */
     @RequestMapping(value = WalletApplicationApi.CREATE_ACCOUNT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<CreateAccountResponse> createAccount(@RequestBody CreateAccountRequest request){
@@ -51,14 +50,14 @@ public class WalletApplicationController {
             response.setAccount(accountVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "生成账户失败";
+            String message = "'create account' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 生成账户(私钥、公钥、公钥哈希、地址)并保存
+     * create and save account
      */
     @RequestMapping(value = WalletApplicationApi.CREATE_AND_SAVE_ACCOUNT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<CreateAndSaveAccountResponse> createAndSaveAccount(@RequestBody CreateAndSaveAccountRequest request){
@@ -69,14 +68,14 @@ public class WalletApplicationController {
             response.setAccount(accountVo);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[生成账户并保存]失败";
+            String message = "'create and save account' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 新增账户
+     * save account
      */
     @RequestMapping(value = WalletApplicationApi.SAVE_ACCOUNT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<SaveAccountResponse> saveAccount(@RequestBody SaveAccountRequest request){
@@ -87,14 +86,14 @@ public class WalletApplicationController {
             SaveAccountResponse response = new SaveAccountResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "新增账户失败";
+            String message = "'save account' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 删除账户
+     * delete account
      */
     @RequestMapping(value = WalletApplicationApi.DELETE_ACCOUNT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeleteAccountResponse> deleteAccount(@RequestBody DeleteAccountRequest request){
@@ -104,14 +103,14 @@ public class WalletApplicationController {
             DeleteAccountResponse response = new DeleteAccountResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "删除账号失败";
+            String message = "'delete account' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 查询所有的账户
+     * query all accounts
      */
     @RequestMapping(value = WalletApplicationApi.QUERY_ALL_ACCOUNTS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryAllAccountsResponse> queryAllAccounts(@RequestBody QueryAllAccountsRequest request){
@@ -140,19 +139,18 @@ public class WalletApplicationController {
             response.setBalance(balance);
             return Response.success(response);
         } catch (Exception e){
-            String message = "[查询所有账户]失败";
+            String message = "'query all accounts' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 构建交易
+     * automatic build transaction
      */
     @RequestMapping(value = WalletApplicationApi.AUTOMATIC_BUILD_TRANSACTION,method={RequestMethod.GET,RequestMethod.POST})
     public Response<AutomaticBuildTransactionResponse> automaticBuildTransaction(@RequestBody AutomaticBuildTransactionRequest request){
         try {
-            //构建交易
             AutomaticBuildTransactionResponse autoBuildTransactionResponse = walletApplicationService.automaticBuildTransaction(request);
             if(autoBuildTransactionResponse.isBuildTransactionSuccess()){
                 return Response.success(autoBuildTransactionResponse);
@@ -160,14 +158,14 @@ public class WalletApplicationController {
                 return Response.serviceUnavailable();
             }
         } catch (Exception e){
-            String message = "构建交易失败";
+            String message = "'automatic build transaction' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
 
     /**
-     * 提交交易到区块链网络
+     * submit transaction to blockchain network
      */
     @RequestMapping(value = WalletApplicationApi.SUBMIT_TRANSACTION_TO_BLOCKCHIAIN_NEWWORK,method={RequestMethod.GET,RequestMethod.POST})
     public Response<SubmitTransactionToBlockchainNetworkResponse> submitTransactionToBlockchainNetwork(@RequestBody SubmitTransactionToBlockchainNetworkRequest request){
@@ -175,7 +173,7 @@ public class WalletApplicationController {
             SubmitTransactionToBlockchainNetworkResponse response = walletApplicationService.submitTransactionToBlockchainNetwork(request);
             return Response.success(response);
         } catch (Exception e){
-            String message = "提交交易到区块链网络失败";
+            String message = "'submit transaction to blockchain network' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }

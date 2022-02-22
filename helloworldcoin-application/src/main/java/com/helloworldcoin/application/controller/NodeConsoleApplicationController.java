@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 节点控制台应用控制器：用于控制本地区块链节点，如激活矿工、停用矿工、同步其它节点数据等。
- * 这里的操作都应该需要权限才可以操作，不适合对所有人开放。
+ * Node Console Application Controller : active miner、deactive miner and so on.
  *
  * @author x.king xdotking@gmail.com
  */
@@ -35,23 +34,23 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 矿工是否激活
+     * is miner active
      */
     @RequestMapping(value = NodeConsoleApplicationApi.IS_MINER_ACTIVE,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<IsMinerActiveResponse> isMineActive(@RequestBody IsMinerActiveRequest request){
+    public Response<IsMinerActiveResponse> isMinerActive(@RequestBody IsMinerActiveRequest request){
         try {
             boolean isMineActive = blockchainNetCore.getBlockchainCore().getMiner().isActive();
             IsMinerActiveResponse response = new IsMinerActiveResponse();
             response.setMinerInActiveState(isMineActive);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询矿工是否处于激活状态失败";
+            String message = "'is miner active' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 激活矿工
+     * active miner
      */
     @RequestMapping(value = NodeConsoleApplicationApi.ACTIVE_MINER,method={RequestMethod.GET,RequestMethod.POST})
     public Response<ActiveMinerResponse> activeMiner(@RequestBody ActiveMinerRequest request){
@@ -60,13 +59,13 @@ public class NodeConsoleApplicationController {
             ActiveMinerResponse response = new ActiveMinerResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "激活矿工失败";
+            String message = "'active miner' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 停用矿工
+     * deactive miner
      */
     @RequestMapping(value = NodeConsoleApplicationApi.DEACTIVE_MINER,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeactiveMinerResponse> deactiveMiner(@RequestBody DeactiveMinerRequest request){
@@ -75,7 +74,7 @@ public class NodeConsoleApplicationController {
             DeactiveMinerResponse response = new DeactiveMinerResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "停用矿工失败";
+            String message = "'deactive miner' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
@@ -84,7 +83,7 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 是否"自动搜索新区块"
+     * is auto search block
      */
     @RequestMapping(value = NodeConsoleApplicationApi.IS_AUTO_SEARCH_BLOCK,method={RequestMethod.GET,RequestMethod.POST})
     public Response<IsAutoSearchBlockResponse> isAutoSearchBlock(@RequestBody IsAutoSearchBlockRequest request){
@@ -94,13 +93,13 @@ public class NodeConsoleApplicationController {
             response.setAutoSearchBlock(isAutoSearchBlock);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询[是否自动搜索新区块]失败";
+            String message = "'is auto search block' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 开启"自动搜索新区块"选项
+     * active auto search block
      */
     @RequestMapping(value = NodeConsoleApplicationApi.ACTIVE_AUTO_SEARCH_BLOCK,method={RequestMethod.GET,RequestMethod.POST})
     public Response<ActiveAutoSearchBlockResponse> activeAutoSearchBlock(@RequestBody ActiveAutoSearchBlockRequest request){
@@ -109,13 +108,13 @@ public class NodeConsoleApplicationController {
             ActiveAutoSearchBlockResponse response = new ActiveAutoSearchBlockResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "开启自动搜索新区块选项失败";
+            String message = "'active auto search block' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 关闭"自动搜索新区块"选项
+     * deactive auto search block
      */
     @RequestMapping(value = NodeConsoleApplicationApi.DEACTIVE_AUTO_SEARCH_BLOCK,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeactiveAutoSearchBlockResponse> deactiveAutoSearchBlock(@RequestBody DeactiveAutoSearchBlockRequest request){
@@ -124,7 +123,7 @@ public class NodeConsoleApplicationController {
             DeactiveAutoSearchBlockResponse response = new DeactiveAutoSearchBlockResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "关闭自动搜索新区块选项失败";
+            String message = "'deactive auto search block' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
@@ -133,14 +132,13 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 新增节点
+     * add node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.ADD_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<AddNodeResponse> addNode(@RequestBody AddNodeRequest request){
         try {
             String ip = request.getIp();
             if(blockchainNetCore.getNodeService().queryNode(ip) != null){
-                //节点存在，认为是成功添加。
                 AddNodeResponse response = new AddNodeResponse();
                 response.setAddNodeSuccess(true);
                 return Response.success(response);
@@ -153,13 +151,13 @@ public class NodeConsoleApplicationController {
             response.setAddNodeSuccess(true);
             return Response.success(response);
         } catch (Exception e){
-            String message = "新增节点失败";
+            String message = "'add node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 更新节点信息
+     * update node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.UPDATE_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<UpdateNodeResponse> updateNode(@RequestBody UpdateNodeRequest request){
@@ -171,13 +169,13 @@ public class NodeConsoleApplicationController {
             UpdateNodeResponse response = new UpdateNodeResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "更新节点信息失败";
+            String message = "'update node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 删除节点
+     * delete node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.DELETE_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeleteNodeResponse> deleteNode(@RequestBody DeleteNodeRequest request){
@@ -186,13 +184,13 @@ public class NodeConsoleApplicationController {
             DeleteNodeResponse response = new DeleteNodeResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "删除节点失败";
+            String message = "'delete node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 查询所有节点
+     * query all nodes
      */
     @RequestMapping(value = NodeConsoleApplicationApi.QUERY_ALL_NODES,method={RequestMethod.GET,RequestMethod.POST})
     public Response<QueryAllNodesResponse> queryAllNodes(@RequestBody QueryAllNodesRequest request){
@@ -213,7 +211,7 @@ public class NodeConsoleApplicationController {
             response.setNodes(nodeVos);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询节点失败";
+            String message = "'query all nodes' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
@@ -222,7 +220,7 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 是否开启了自动寻找区块链节点的功能
+     * is auto search node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.IS_AUTO_SEARCH_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<IsAutoSearchNodeResponse> isAutoSearchNode(@RequestBody IsAutoSearchNodeRequest request){
@@ -232,13 +230,13 @@ public class NodeConsoleApplicationController {
             response.setAutoSearchNode(isAutoSearchNode);
             return Response.success(response);
         } catch (Exception e){
-            String message = "查询是否允许自动搜索区块链节点失败";
+            String message = "'is auto search node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 开启"自动搜索节点"选项
+     * active auto search node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.ACTIVE_AUTO_SEARCH_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<ActiveAutoSearchNodeResponse> activeAutoSearchNode(@RequestBody ActiveAutoSearchNodeRequest request){
@@ -247,13 +245,13 @@ public class NodeConsoleApplicationController {
             ActiveAutoSearchNodeResponse response = new ActiveAutoSearchNodeResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "开启自动搜索节点选项失败";
+            String message = "'active auto search node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 关闭"自动搜索节点"选项
+     * deactive auto search node
      */
     @RequestMapping(value = NodeConsoleApplicationApi.DEACTIVE_AUTO_SEARCH_NODE,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeactiveAutoSearchNodeResponse> deactiveAutoSearchNode(@RequestBody DeactiveAutoSearchNodeRequest request){
@@ -262,7 +260,7 @@ public class NodeConsoleApplicationController {
             DeactiveAutoSearchNodeResponse response = new DeactiveAutoSearchNodeResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "关闭自动搜索新区块选项失败";
+            String message = "'deactive auto search node' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
@@ -271,7 +269,7 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 删除区块
+     * delete blocks
      */
     @RequestMapping(value = NodeConsoleApplicationApi.DELETE_BLOCKS,method={RequestMethod.GET,RequestMethod.POST})
     public Response<DeleteBlocksResponse> deleteBlocks(@RequestBody DeleteBlocksRequest request){
@@ -280,7 +278,7 @@ public class NodeConsoleApplicationController {
             DeleteBlocksResponse response = new DeleteBlocksResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "删除区块失败";
+            String message = "'delete blocks' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
@@ -289,7 +287,8 @@ public class NodeConsoleApplicationController {
 
 
     /**
-     * 获取最大挖矿高度
+     * Get Miner Mine Max Block Height
+     * //TODO
      */
     @RequestMapping(value = NodeConsoleApplicationApi.GET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<GetMinerMineMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMinerMineMaxBlockHeightRequest request){
@@ -299,13 +298,13 @@ public class NodeConsoleApplicationController {
             response.setMaxBlockHeight(maxBlockHeight);
             return Response.success(response);
         } catch (Exception e){
-            String message = "获取[最大挖矿高度]失败";
+            String message = "'Get Miner Mine Max Block Height' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
     }
     /**
-     * 设置最大挖矿高度
+     * Set Miner Mine Max Block Height
      */
     @RequestMapping(value = NodeConsoleApplicationApi.SET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
     public Response<SetMinerMineMaxBlockHeightResponse> setMaxBlockHeight(@RequestBody SetMinerMineMaxBlockHeightRequest request){
@@ -315,7 +314,7 @@ public class NodeConsoleApplicationController {
             SetMinerMineMaxBlockHeightResponse response = new SetMinerMineMaxBlockHeightResponse();
             return Response.success(response);
         } catch (Exception e){
-            String message = "设置[最大挖矿高度]失败";
+            String message = "'Set Miner Mine Max Block Height' error.";
             LogUtil.error(message,e);
             return Response.serviceUnavailable();
         }
