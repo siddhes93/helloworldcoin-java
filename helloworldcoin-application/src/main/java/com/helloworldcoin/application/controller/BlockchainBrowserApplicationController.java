@@ -5,7 +5,6 @@ import com.helloworldcoin.application.vo.BlockchainBrowserApplicationApi;
 import com.helloworldcoin.application.vo.block.*;
 import com.helloworldcoin.application.vo.framwork.PageCondition;
 import com.helloworldcoin.application.vo.framwork.Response;
-import com.helloworldcoin.application.vo.framwork.ResponseMessage;
 import com.helloworldcoin.application.vo.node.QueryBlockchainHeightRequest;
 import com.helloworldcoin.application.vo.node.QueryBlockchainHeightResponse;
 import com.helloworldcoin.application.vo.transaction.*;
@@ -50,10 +49,6 @@ public class BlockchainBrowserApplicationController {
     public Response<QueryTransactionByTransactionHashResponse> queryTransactionByTransactionHash(@RequestBody QueryTransactionByTransactionHashRequest request){
         try {
             TransactionVo transactionVo = blockchainBrowserApplicationService.queryTransactionByTransactionHash(request.getTransactionHash());
-            if(transactionVo == null){
-                return Response.fail(ResponseMessage.NOT_FOUND_TRANSACTION);
-            }
-
             QueryTransactionByTransactionHashResponse response = new QueryTransactionByTransactionHashResponse();
             response.setTransaction(transactionVo);
             return Response.success(response);
@@ -140,9 +135,6 @@ public class BlockchainBrowserApplicationController {
     public Response<QueryUnconfirmedTransactionByTransactionHashResponse> queryUnconfirmedTransactionByTransactionHash(@RequestBody QueryUnconfirmedTransactionByTransactionHashRequest request){
         try {
             UnconfirmedTransactionVo unconfirmedTransactionVo = blockchainBrowserApplicationService.queryUnconfirmedTransactionByTransactionHash(request.getTransactionHash());
-            if(unconfirmedTransactionVo == null){
-                return Response.fail(ResponseMessage.NOT_FOUND_UNCONFIRMED_TRANSACTIONS);
-            }
             QueryUnconfirmedTransactionByTransactionHashResponse response = new QueryUnconfirmedTransactionByTransactionHashResponse();
             response.setTransaction(unconfirmedTransactionVo);
             return Response.success(response);
@@ -162,7 +154,8 @@ public class BlockchainBrowserApplicationController {
             PageCondition pageCondition = request.getPageCondition();
             List<TransactionDto> transactionDtos = blockchainNetCore.getBlockchainCore().queryUnconfirmedTransactions(pageCondition.getFrom(),pageCondition.getSize());
             if(transactionDtos == null){
-                return Response.fail(ResponseMessage.NOT_FOUND_UNCONFIRMED_TRANSACTIONS);
+                QueryUnconfirmedTransactionsResponse response = new QueryUnconfirmedTransactionsResponse();
+                return Response.success(response);
             }
 
             List<UnconfirmedTransactionVo> unconfirmedTransactionVos = new ArrayList<>();
@@ -189,9 +182,6 @@ public class BlockchainBrowserApplicationController {
     public Response<QueryBlockByBlockHeightResponse> queryBlockByBlockHeight(@RequestBody QueryBlockByBlockHeightRequest request){
         try {
             BlockVo blockVo = blockchainBrowserApplicationService.queryBlockViewByBlockHeight(request.getBlockHeight());
-            if(blockVo == null){
-                return Response.fail(ResponseMessage.NOT_FOUND_BLOCK);
-            }
             QueryBlockByBlockHeightResponse response = new QueryBlockByBlockHeightResponse();
             response.setBlock(blockVo);
             return Response.success(response);
@@ -210,7 +200,8 @@ public class BlockchainBrowserApplicationController {
         try {
             Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHash(request.getBlockHash());
             if(block == null){
-                return Response.fail(ResponseMessage.NOT_FOUND_BLOCK);
+                QueryBlockByBlockHashResponse response = new QueryBlockByBlockHashResponse();
+                return Response.success(response);
             }
             BlockVo blockVo = blockchainBrowserApplicationService.queryBlockViewByBlockHeight(block.getHeight());
             QueryBlockByBlockHashResponse response = new QueryBlockByBlockHashResponse();
