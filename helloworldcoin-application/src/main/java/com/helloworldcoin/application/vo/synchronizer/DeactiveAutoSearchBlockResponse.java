@@ -6,4 +6,11 @@ package com.helloworldcoin.application.vo.synchronizer;
  */
 public class DeactiveAutoSearchBlockResponse {
 
+
+
+
+    //region get set
+
+
+    //endregion
 }

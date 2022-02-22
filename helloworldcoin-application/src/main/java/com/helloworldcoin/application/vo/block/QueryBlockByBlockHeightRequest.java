@@ -12,7 +12,6 @@ public class QueryBlockByBlockHeightRequest {
 
 
     //region get set
-
     public long getBlockHeight() {
         return blockHeight;
     }
@@ -20,7 +19,5 @@ public class QueryBlockByBlockHeightRequest {
     public void setBlockHeight(long blockHeight) {
         this.blockHeight = blockHeight;
     }
-
-
     //endregion
 }

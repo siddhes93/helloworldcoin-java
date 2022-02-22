@@ -30,6 +30,9 @@ public class Response<T> {
         return fail(ResponseMessage.SERVICE_UNAUTHORIZED);
     }
 
+
+
+
     //region get set
     public String getStatus() {
         return status;

@@ -9,6 +9,8 @@ public class GetMinerMineMaxBlockHeightResponse {
     private long maxBlockHeight;
 
 
+
+
     //region get set
     public long getMaxBlockHeight() {
         return maxBlockHeight;

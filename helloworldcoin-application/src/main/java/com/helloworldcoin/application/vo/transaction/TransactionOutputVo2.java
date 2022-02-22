@@ -1,6 +1,7 @@
 package com.helloworldcoin.application.vo.transaction;
 
 /**
+ *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionOutputVo2 {

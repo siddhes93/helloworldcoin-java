@@ -21,6 +21,5 @@ public class SetMinerMineMaxBlockHeightRequest {
     public void setMaxBlockHeight(long maxBlockHeight) {
         this.maxBlockHeight = maxBlockHeight;
     }
-
     //endregion
 }

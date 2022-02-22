@@ -12,6 +12,9 @@ public class QueryAllAccountsResponse {
     private List<AccountVo2> accounts;
 
 
+
+
+    //region get set
     public long getBalance() {
         return balance;
     }
@@ -27,5 +30,5 @@ public class QueryAllAccountsResponse {
     public void setAccounts(List<AccountVo2> accounts) {
         this.accounts = accounts;
     }
-
+    //endregion
 }

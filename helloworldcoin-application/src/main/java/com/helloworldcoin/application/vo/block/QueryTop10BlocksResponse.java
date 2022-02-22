@@ -17,6 +17,7 @@ public class QueryTop10BlocksResponse {
     public List<BlockVo2> getBlocks() {
         return blocks;
     }
+
     public void setBlocks(List<BlockVo2> blocks) {
         this.blocks = blocks;
     }

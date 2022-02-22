@@ -12,7 +12,6 @@ public class QueryBlockByBlockHeightResponse {
 
 
     //region get set
-
     public BlockVo getBlock() {
         return block;
     }

@@ -176,7 +176,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
             return transactionDtoVo;
         }catch (Exception e){
-            LogUtil.error("根据交易哈希查询未确认交易异常",e);
+            LogUtil.error("'query unconfirmed transaction by transaction hash' error.",e);
             return null;
         }
     }

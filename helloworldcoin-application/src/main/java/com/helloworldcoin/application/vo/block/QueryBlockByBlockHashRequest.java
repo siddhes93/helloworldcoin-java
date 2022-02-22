@@ -12,7 +12,6 @@ public class QueryBlockByBlockHashRequest {
 
 
     //region get set
-
     public String getBlockHash() {
         return blockHash;
     }
@@ -20,6 +19,5 @@ public class QueryBlockByBlockHashRequest {
     public void setBlockHash(String blockHash) {
         this.blockHash = blockHash;
     }
-
     //endregion
 }

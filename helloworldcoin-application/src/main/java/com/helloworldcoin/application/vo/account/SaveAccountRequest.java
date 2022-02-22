@@ -9,6 +9,9 @@ public class SaveAccountRequest {
     private String privateKey;
 
 
+
+
+    //region get set
     public String getPrivateKey() {
         return privateKey;
     }
@@ -16,4 +19,5 @@ public class SaveAccountRequest {
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
+    //endregion
 }
