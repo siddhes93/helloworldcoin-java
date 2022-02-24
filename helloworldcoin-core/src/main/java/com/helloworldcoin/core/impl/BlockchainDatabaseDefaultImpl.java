@@ -423,7 +423,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         storeTransactionOutputIdToSourceTransactionHeight(kvWriteBatch,block, blockchainAction);
         storeTransactionOutputIdToDestinationTransactionHeight(kvWriteBatch,block, blockchainAction);
 
-        //TODO 将地址改为交易输出脚本
         storeAddressToTransactionOutputHeight(kvWriteBatch,block, blockchainAction);
         storeAddressToUnspentTransactionOutputHeight(kvWriteBatch,block, blockchainAction);
         storeAddressToSpentTransactionOutputHeight(kvWriteBatch,block, blockchainAction);

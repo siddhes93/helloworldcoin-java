@@ -32,7 +32,6 @@ public class SeedNodeInitializer {
         this.nodeService = nodeService;
     }
 
-    //TODO 提供两个方法 start and run ？
     public void start() {
         try {
             while (true){

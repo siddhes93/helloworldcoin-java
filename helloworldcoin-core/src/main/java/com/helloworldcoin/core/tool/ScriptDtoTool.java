@@ -69,7 +69,6 @@ public class ScriptDtoTool {
         }
         OutputScriptDto outputScriptDto = new OutputScriptDto();
         List<String> script = script(bytesScript);
-        //TODO addAll
         outputScriptDto.addAll(script);
         return outputScriptDto;
     }

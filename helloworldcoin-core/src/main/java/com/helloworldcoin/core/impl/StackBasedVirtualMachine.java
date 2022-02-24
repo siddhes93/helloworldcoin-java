@@ -17,7 +17,7 @@ import com.helloworldcoin.util.StringUtil;
  * @author x.king xdotking@gmail.com
  */
 public class StackBasedVirtualMachine extends VirtualMachine {
-//TODO 封装Stack?
+
     @Override
     public Result execute(Transaction transactionEnvironment, Script script) throws RuntimeException {
         Result stack = new Result();
