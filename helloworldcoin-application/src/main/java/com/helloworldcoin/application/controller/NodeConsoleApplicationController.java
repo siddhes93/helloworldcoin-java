@@ -10,7 +10,6 @@ import com.helloworldcoin.application.vo.synchronizer.*;
 import com.helloworldcoin.netcore.BlockchainNetCore;
 import com.helloworldcoin.netcore.model.Node;
 import com.helloworldcoin.util.LogUtil;
-import com.helloworldcoin.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -288,10 +287,9 @@ public class NodeConsoleApplicationController {
 
     /**
      * Get Miner Mine Max Block Height
-     * //TODO
      */
     @RequestMapping(value = NodeConsoleApplicationApi.GET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<GetMinerMineMaxBlockHeightResponse> getMaxBlockHeight(@RequestBody GetMinerMineMaxBlockHeightRequest request){
+    public Response<GetMinerMineMaxBlockHeightResponse> getMinerMineMaxBlockHeight(@RequestBody GetMinerMineMaxBlockHeightRequest request){
         try {
             long  maxBlockHeight = blockchainNetCore.getBlockchainCore().getMiner().getMinerMineMaxBlockHeight();
             GetMinerMineMaxBlockHeightResponse response = new GetMinerMineMaxBlockHeightResponse();
@@ -307,7 +305,7 @@ public class NodeConsoleApplicationController {
      * Set Miner Mine Max Block Height
      */
     @RequestMapping(value = NodeConsoleApplicationApi.SET_MINER_MINE_MAX_BLOCK_HEIGHT,method={RequestMethod.GET,RequestMethod.POST})
-    public Response<SetMinerMineMaxBlockHeightResponse> setMaxBlockHeight(@RequestBody SetMinerMineMaxBlockHeightRequest request){
+    public Response<SetMinerMineMaxBlockHeightResponse> setMinerMineMaxBlockHeight(@RequestBody SetMinerMineMaxBlockHeightRequest request){
         try {
             long height = request.getMaxBlockHeight();
             blockchainNetCore.getBlockchainCore().getMiner().setMinerMineMaxBlockHeight(height);
