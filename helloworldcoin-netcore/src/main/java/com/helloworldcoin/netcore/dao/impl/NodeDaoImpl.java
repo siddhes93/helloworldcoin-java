@@ -51,7 +51,7 @@ public class NodeDaoImpl implements NodeDao {
     @Override
     public List<NodePo> queryAllNodes(){
         List<NodePo> nodePos = new ArrayList<>();
-        //获取所有
+
         List<byte[]> bytesNodePos = KvDbUtil.gets(getNodeDatabasePath(),1,100000000);
         if(bytesNodePos != null){
             for(byte[] bytesNodePo:bytesNodePos){

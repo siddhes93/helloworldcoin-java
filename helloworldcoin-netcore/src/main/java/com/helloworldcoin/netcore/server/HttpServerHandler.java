@@ -35,14 +35,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 
 		String responseMessage;
 		/*
-		 * 任何节点都可以访问这里的接口，请不要在这里写任何能泄露用户私钥的代码。
-		 * 因为有的节点没有公网IP，所以为了照顾这些节点，新增了一系列的接口。
-		 * 但是我们假设所有节点都有公网IP，我们只需要写五个接口就可以了。
-		 * @see API.PING
-		 * @see API.GET_NODES
-		 * @see API.POST_BLOCKCHAIN_HEIGHT
-		 * @see API.GET_BLOCK
-		 * @see API.POST_TRANSACTION
+		 * Any node can access the interface here, please don't write any code here that can expose the user's private key.
 		 */
 		if("/".equals(requestApi)){
 			responseMessage = "Helloworldcoin";

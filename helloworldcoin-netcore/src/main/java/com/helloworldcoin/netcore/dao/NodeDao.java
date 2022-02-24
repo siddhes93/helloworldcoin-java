@@ -5,31 +5,30 @@ import com.helloworldcoin.netcore.po.NodePo;
 import java.util.List;
 
 /**
- * 节点dao
- * 管理（增删改查）已知的网络节点。
+ * node dao
  *
  * @author x.king xdotking@gmail.com
  */
 public interface NodeDao {
 
     /**
-     * 查询节点
+     * query node
      */
     NodePo queryNode(String ip);
     /**
-     * 查询所有节点
+     * query all nodes
      */
     List<NodePo> queryAllNodes();
     /**
-     * 添加节点
+     * add node
      */
     void addNode(NodePo node);
     /**
-     * 更新节点信息
+     * update node
      */
     void updateNode(NodePo node);
     /**
-     * 删除节点
+     * delete node
      */
     void deleteNode(String ip);
 }

@@ -5,6 +5,7 @@ package com.helloworldcoin.netcore.po;
  * @author x.king xdotking@gmail.com
  */
 public class NodePo {
+
     private String ip;
     private long blockchainHeight;
 
@@ -27,6 +28,5 @@ public class NodePo {
     public void setBlockchainHeight(long blockchainHeight) {
         this.blockchainHeight = blockchainHeight;
     }
-
     //endregion
 }

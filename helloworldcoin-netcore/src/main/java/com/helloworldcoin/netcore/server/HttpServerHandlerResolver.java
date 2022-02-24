@@ -1,13 +1,13 @@
 package com.helloworldcoin.netcore.server;
 
-import com.helloworldcoin.netcore.configuration.NetCoreConfiguration;
-import com.helloworldcoin.netcore.dto.*;
-import com.helloworldcoin.netcore.model.Node;
-import com.helloworldcoin.netcore.service.NodeService;
 import com.helloworldcoin.core.BlockchainCore;
 import com.helloworldcoin.core.UnconfirmedTransactionDatabase;
 import com.helloworldcoin.core.model.Block;
 import com.helloworldcoin.core.tool.Model2DtoTool;
+import com.helloworldcoin.netcore.configuration.NetCoreConfiguration;
+import com.helloworldcoin.netcore.dto.*;
+import com.helloworldcoin.netcore.model.Node;
+import com.helloworldcoin.netcore.service.NodeService;
 import com.helloworldcoin.setting.BlockSetting;
 import com.helloworldcoin.util.LogUtil;
 
@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 节点请求处理器
- *
+ * //TODO rename
  * @author x.king xdotking@gmail.com
  */
 public class HttpServerHandlerResolver {
@@ -31,18 +30,13 @@ public class HttpServerHandlerResolver {
         this.netCoreConfiguration = netCoreConfiguration;
     }
 
-    /**
-     * Ping节点
-     */
     public PingResponse ping(String requestIp, PingRequest request){
         try {
-            //将ping的来路作为区块链节点
             if(netCoreConfiguration.isAutoSearchNode()){
                 Node node = new Node();
                 node.setIp(requestIp);
                 node.setBlockchainHeight(0);
                 nodeService.addNode(node);
-                LogUtil.debug("发现节点["+requestIp+"]在Ping本地节点，已将发现的节点放入了节点数据库。");
             }
             PingResponse response = new PingResponse();
             return response;
@@ -53,9 +47,6 @@ public class HttpServerHandlerResolver {
         }
     }
 
-    /**
-     * 根据区块高度查询区块
-     */
     public GetBlockResponse getBlock(GetBlockRequest request){
         try {
             Block blockByBlockHeight = blockchainCore.queryBlockByBlockHeight(request.getBlockHeight());
@@ -70,9 +61,6 @@ public class HttpServerHandlerResolver {
         }
     }
 
-    /**
-     * 接收其它节点提交的交易
-     */
     public PostTransactionResponse postTransaction(PostTransactionRequest request){
         try {
             blockchainCore.postTransaction(request.getTransaction());

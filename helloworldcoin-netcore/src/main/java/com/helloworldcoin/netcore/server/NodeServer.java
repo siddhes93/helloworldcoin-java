@@ -13,7 +13,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * 区块链节点服务器：其它节点与之通信，同步节点数据、区块数据、交易数据等。
+ * node server
  *
  * @author x.king xdotking@gmail.com
  */

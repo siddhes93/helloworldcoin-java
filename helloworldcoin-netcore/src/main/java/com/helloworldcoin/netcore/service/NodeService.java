@@ -5,32 +5,32 @@ import com.helloworldcoin.netcore.model.Node;
 import java.util.List;
 
 /**
- * 节点service
+ * node service
  *
  * @author x.king xdotking@gmail.com
  */
 public interface NodeService {
     /**
-     * 查询node
+     * query node
      */
     Node queryNode(String ip);
     /**
-     * 获取所有节点
+     * query all nodes
      */
     List<Node> queryAllNodes();
 
     /**
-     * 删除节点
+     * delete node
      */
     void deleteNode(String ip);
 
     /**
-     * 新增节点
+     * add node
      */
     void addNode(Node node);
 
     /**
-     * 更新节点
+     * update node
      */
     void updateNode(Node node);
 }
