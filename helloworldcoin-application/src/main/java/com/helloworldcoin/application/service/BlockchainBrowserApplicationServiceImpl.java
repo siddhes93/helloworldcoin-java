@@ -119,11 +119,12 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         if(block == null){
             return null;
         }
+        long blockchainHeight = blockchainNetCore.getBlockchainCore().queryBlockchainHeight();
         Block nextBlock = blockchainNetCore.getBlockchainCore().queryBlockByBlockHeight(block.getHeight()+1);
 
         BlockVo blockVo = new BlockVo();
         blockVo.setHeight(block.getHeight());
-        blockVo.setConfirmCount(BlockTool.getTransactionCount(block));
+        blockVo.setBlockConfirmations(blockchainHeight-block.getHeight()+1);
         blockVo.setBlockSize(SizeTool.calculateBlockSize(block));
         blockVo.setTransactionCount(BlockTool.getTransactionCount(block));
         blockVo.setTime(TimeUtil.formatMillisecondTimestamp(block.getTimestamp()));
@@ -202,7 +203,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
 
         long blockchainHeight = blockchainNetCore.getBlockchainCore().queryBlockchainHeight();
         Block block = blockchainNetCore.getBlockchainCore().queryBlockByBlockHeight(transaction.getBlockHeight());
-        transactionVo.setConfirmCount(blockchainHeight-block.getHeight()+1);
+        transactionVo.setBlockConfirmations(blockchainHeight-block.getHeight()+1);
         transactionVo.setBlockTime(TimeUtil.formatMillisecondTimestamp(block.getTimestamp()));
         transactionVo.setBlockHash(block.getHash());
 

@@ -7,7 +7,7 @@ package com.helloworldcoin.application.vo.block;
 public class BlockVo {
 
     private long height;
-    private long confirmCount;
+    private long blockConfirmations;
     private long blockSize;
     private long transactionCount;
     private String time;
@@ -32,12 +32,12 @@ public class BlockVo {
         this.height = height;
     }
 
-    public long getConfirmCount() {
-        return confirmCount;
+    public long getBlockConfirmations() {
+        return blockConfirmations;
     }
 
-    public void setConfirmCount(long confirmCount) {
-        this.confirmCount = confirmCount;
+    public void setBlockConfirmations(long blockConfirmations) {
+        this.blockConfirmations = blockConfirmations;
     }
 
     public long getBlockSize() {

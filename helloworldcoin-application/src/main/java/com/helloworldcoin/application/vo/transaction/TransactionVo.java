@@ -9,8 +9,7 @@ import java.util.List;
 public class TransactionVo {
     private long blockHeight;
     private String blockHash;
-    //TODO confirmedCount
-    private long confirmCount;
+    private long blockConfirmations;
     private String transactionHash;
     private String blockTime;
 
@@ -47,12 +46,12 @@ public class TransactionVo {
         this.blockHeight = blockHeight;
     }
 
-    public long getConfirmCount() {
-        return confirmCount;
+    public long getBlockConfirmations() {
+        return blockConfirmations;
     }
 
-    public void setConfirmCount(long confirmCount) {
-        this.confirmCount = confirmCount;
+    public void setBlockConfirmations(long blockConfirmations) {
+        this.blockConfirmations = blockConfirmations;
     }
 
     public String getBlockTime() {
