@@ -13,23 +13,23 @@ import com.helloworldcoin.netcore.server.NodeServer;
 import com.helloworldcoin.util.FileUtil;
 
 /**
- * 区块链网络版核心工厂
+ * BlockchainNetCore Factory
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockchainNetCoreFactory {
 
     /**
-     * 创建[区块链网络版核心]实例
+     * create BlockchainNetCore instance
      */
     public static BlockchainNetCore createDefaultBlockchainNetCore(){
         return createBlockchainNetCore(ResourcePathTool.getDataRootPath());
     }
 
     /**
-     * 创建[区块链网络版核心]实例
+     * create BlockchainNetCore instance
      *
-     * @param netcorePath 区块链数据存放位置
+     * @param netcorePath Blockchain data storage path
      */
     public static BlockchainNetCore createBlockchainNetCore(String netcorePath){
         NetCoreConfiguration netCoreConfiguration = new NetCoreConfigurationImpl(netcorePath);

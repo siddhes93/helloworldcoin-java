@@ -13,38 +13,24 @@ public class NetCoreConfigurationImpl implements NetCoreConfiguration {
     private String netCorePath;
     private static final String NETCORE_CONFIGURATION_DATABASE_NAME = "NetCoreConfigurationDatabase";
 
-    //节点搜索器"是否是自动搜索新区块"状态存入到数据库时的主键
     private static final String AUTO_SEARCH_BLOCK_OPTION_KEY = "IS_AUTO_SEARCH_BLOCK";
-    //节点搜索器"是否是自动搜索新区块"开关的默认状态
     private static final boolean AUTO_SEARCH_BLOCK_OPTION_DEFAULT_VALUE = true;
 
-    //节点搜索器'是否自动搜索节点'状态存入到数据库时的主键
     private static final String AUTO_SEARCH_NODE_OPTION_KEY = "IS_AUTO_SEARCH_NODE";
-    //节点搜索器'是否自动搜索节点'开关的默认状态
     private static final boolean AUTO_SEARCH_NODE_OPTION_DEFAULT_VALUE = true;
 
-    //在区块链网络中自动搜寻新的节点的间隔时间
     private static final long SEARCH_NODE_TIME_INTERVAL = 1000 * 60 * 2;
-    //在区块链网络中自动搜索节点的区块链高度
     private static final long SEARCH_BLOCKCHAIN_HEIGHT_TIME_INTERVAL = 1000 * 60 * 2;
-    //在区块链网络中自动搜寻新的区块的间隔时间。
     private static final long SEARCH_BLOCKS_TIME_INTERVAL = 1000 * 60 * 2;
-    //区块高度广播时间间隔
     private static final long BLOCKCHAIN_HEIGHT_BROADCASTER_TIME_INTERVAL = 1000 * 20;
-    //区块广播时间间隔。
     private static final long BLOCK_BROADCASTER_TIME_INTERVAL = 1000 * 20;
-    //定时将种子节点加入本地区块链网络的时间间隔。
     private static final long ADD_SEED_NODE_TIME_INTERVAL = 1000 * 60 * 2;
-    //广播自己节点的时间间隔。
     private static final long NODE_BROADCAST_TIME_INTERVAL = 1000 * 60 * 2;
-    //清理死亡节点的时间间隔。
     private static final long NODE_CLEAN_TIME_INTERVAL = 1000 * 60 * 10;
 
 
-    //两个区块链有分叉时，区块差异数量大于这个值，则硬分叉了。
     private static final long HARD_FORK_BLOCK_COUNT = 100000000;
 
-    //在区块链网络中搜寻未确认交易的间隔时间。
     private static final long SEARCH_UNCONFIRMED_TRANSACTIONS_TIME_INTERVAL = 1000 * 60 * 2;
 
     public NetCoreConfigurationImpl(String netCorePath) {

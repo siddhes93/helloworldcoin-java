@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * 节点搜索器：在区块链网络中搜寻新的节点。
+ * node searcher : search for nodes in the blockchain network.
  *
  * @author x.king xdotking@gmail.com
  */
@@ -34,7 +34,7 @@ public class NodeSearcher {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getNodeSearchTimeInterval());
             }
         } catch (Exception e) {
-            LogUtil.error("在区块链网络中搜索新的节点出现异常",e);
+            LogUtil.error("'search for nodes in the blockchain network' error.",e);
         }
     }
 
@@ -79,7 +79,6 @@ public class NodeSearcher {
                 n.setIp(node.getIp());
                 n.setBlockchainHeight(0);
                 nodeService.addNode(n);
-                LogUtil.debug("自动机制发现节点["+node.getIp()+"]，已在节点数据库中添加了该节点。");
             }
         }
     }

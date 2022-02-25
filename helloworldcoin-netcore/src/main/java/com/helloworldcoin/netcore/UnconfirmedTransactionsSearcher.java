@@ -15,8 +15,8 @@ import com.helloworldcoin.util.ThreadUtil;
 import java.util.List;
 
 /**
- * 未确认交易搜索器
- * 搜索区块链网络中的未确认交易，放入未确认交易池，等待矿工用于挖矿。
+ * unconfirmed transactions searcher
+ * search for unconfirmed transactions in the blockchain network and put them into the unconfirmed transaction pool for miners to mine.
  *
  * @author x.king xdotking@gmail.com
  */
@@ -40,7 +40,7 @@ public class UnconfirmedTransactionsSearcher {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getUnconfirmedTransactionsSearchTimeInterval());
             }
         } catch (Exception e) {
-            LogUtil.error("在区块链网络中搜寻未确认交易出现异常",e);
+            LogUtil.error("'search for unconfirmed transactions in the blockchain network' error.",e);
         }
     }
 

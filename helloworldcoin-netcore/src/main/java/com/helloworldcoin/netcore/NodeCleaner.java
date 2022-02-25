@@ -3,10 +3,10 @@ package com.helloworldcoin.netcore;
 import com.helloworldcoin.netcore.client.NodeClient;
 import com.helloworldcoin.netcore.client.NodeClientImpl;
 import com.helloworldcoin.netcore.configuration.NetCoreConfiguration;
-import com.helloworldcoin.netcore.service.NodeService;
 import com.helloworldcoin.netcore.dto.PingRequest;
 import com.helloworldcoin.netcore.dto.PingResponse;
 import com.helloworldcoin.netcore.model.Node;
+import com.helloworldcoin.netcore.service.NodeService;
 import com.helloworldcoin.util.LogUtil;
 import com.helloworldcoin.util.ThreadUtil;
 
@@ -14,8 +14,7 @@ import java.util.List;
 
 
 /**
- * 节点清理器：清除死亡节点。
- * 所谓死亡节点就是无法联系的节点。
+ * node cleaner : clean up dead nodes
  *
  * @author x.king xdotking@gmail.com
  */
@@ -36,7 +35,7 @@ public class NodeCleaner {
                 ThreadUtil.millisecondSleep(netCoreConfiguration.getNodeCleanTimeInterval());
             }
         } catch (Exception e) {
-            LogUtil.error("清理死亡节点出现异常",e);
+            LogUtil.error("'clean up dead nodes' error.",e);
         }
     }
 
@@ -52,7 +51,6 @@ public class NodeCleaner {
             PingResponse pingResponse = nodeClient.pingNode(pingRequest);
             if(pingResponse == null){
                 nodeService.deleteNode(node.getIp());
-                LogUtil.debug("节点清理器发现死亡节点["+node.getIp()+"]，已在节点数据库中将该节点删除了。");
             }
         }
     }
