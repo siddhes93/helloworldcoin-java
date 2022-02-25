@@ -19,11 +19,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class NodeServer {
 
-	private HttpServerHandlerResolver httpServerHandlerResolver;
+	private BlockchainCore blockchainCore;
+	private NodeService nodeService;
+	private NetCoreConfiguration netCoreConfiguration;
 
 	public NodeServer(NetCoreConfiguration netCoreConfiguration, BlockchainCore blockchainCore, NodeService nodeService) {
 		super();
-		this.httpServerHandlerResolver = new HttpServerHandlerResolver(netCoreConfiguration,blockchainCore,nodeService);
+		this.blockchainCore = blockchainCore;
+		this.nodeService = nodeService;
+		this.netCoreConfiguration = netCoreConfiguration;
 	}
 
 
@@ -34,7 +38,7 @@ public class NodeServer {
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup)
 					.channel(NioServerSocketChannel.class)
-					.childHandler(new HttpServerChannelInitializer(httpServerHandlerResolver))
+					.childHandler(new NodeServerChannelInitializer(netCoreConfiguration,blockchainCore,nodeService))
 					.option(ChannelOption.SO_BACKLOG, 128)
 					.childOption(ChannelOption.SO_KEEPALIVE, true);
 
