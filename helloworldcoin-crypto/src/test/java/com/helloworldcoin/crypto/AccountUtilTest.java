@@ -52,7 +52,7 @@ public class AccountUtilTest {
         verifySignatureTest();
     }
 
-    //来源org.bitcoinj.core.ECKeyTest.testSignatures()
+
     @Test
     public void verifySignatureTest()
     {
@@ -71,32 +71,31 @@ public class AccountUtilTest {
         Account account = AccountUtil.randomAccount();
         ECKey bitcoinjECKey = ECKey.fromPrivate(decodePrivateKey0Proxy(account.getPrivateKey()),true);
 
-        //随机生成32位数组字节
         byte[] randomByte = new byte[32];
         RANDOM.nextBytes(randomByte);
         Sha256Hash randomSha256Hash = Sha256Hash.wrap(randomByte);
 
         byte[] signByAccount = signature0Proxy(decodePrivateKey0Proxy(account.getPrivateKey()),randomByte);
         byte[] signByAccount2 = signature0Proxy(decodePrivateKey0Proxy(account.getPrivateKey()),randomByte);
-        //校验同一私钥，两次签名是否一致
+        //Verify the same private key, whether the two signatures are consistent
         assertArrayEquals(signByAccount,signByAccount2);
-        //校验签名是否正确
+        //Verify the signature is correct
         assertTrue(verifySignature0Proxy(decodePublicKey0Proxy(account.getPublicKey()),randomByte,signByAccount));
-        //用bitcoinj校验签名是否正确
+        //Verify the signature is correct with bitcoinj
         assert(bitcoinjECKey.verify(randomSha256Hash.getBytes(), signByAccount));
 
 
         byte[] signByBitcoinj = bitcoinjECKey.sign(randomSha256Hash).encodeToDER();
         ECKey bitcoinjECKey2 = ECKey.fromPrivate(decodePrivateKey0Proxy(account.getPrivateKey()),true);
         byte[] signByBitcoinj2 = bitcoinjECKey2.sign(randomSha256Hash).encodeToDER();
-        //校验同一私钥，两次bitcoinj签名是否一致
+        //Verify the same private key, whether the two bitcoinj signatures are consistent
         assertArrayEquals(signByBitcoinj,signByBitcoinj2);
-        //bitcoinj校验bitcoinj签名是否正确
+        //bitcoinj verifies whether the bitcoinj signature is correct
         assert(bitcoinjECKey.verify(randomSha256Hash.getBytes(), signByBitcoinj));
-        //校验bitcoinj签名是否正确
+        //Verify that the bitcoinj signature is correct
         assertTrue(verifySignature0Proxy(decodePublicKey0Proxy(account.getPublicKey()),randomByte,signByBitcoinj));
 
-        //校验同一私钥，签名是否与bitcoinj签名
+        //Verify the same private key, whether the signature is signed with bitcoinj
         assertArrayEquals(signByAccount,signByBitcoinj);
     }
 
@@ -127,7 +126,7 @@ public class AccountUtilTest {
         assertEquals(account.getPublicKey(),accountFromPrivateKey.getPublicKey());
         assertEquals(account.getAddress(),accountFromPrivateKey.getAddress());
 
-        //用bitcoinj解析账户，并对比私钥、公钥、地址
+        //Use bitcoinj to parse the account and compare the private key, public key, and address
         ECKey bitcoinjECKey = ECKey.fromPrivate(decodePrivateKey0Proxy(account.getPrivateKey()),true);
         assertEquals(account.getPrivateKey(),bitcoinjECKey.getPrivateKeyAsHex());
         assertEquals(account.getPublicKey(),bitcoinjECKey.getPublicKeyAsHex());

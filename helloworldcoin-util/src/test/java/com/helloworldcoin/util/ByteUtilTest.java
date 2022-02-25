@@ -20,9 +20,7 @@ public class ByteUtilTest {
             Random random = new Random();
             long number = random.nextLong();
             long resumeNumber = ByteUtil.bytesToUint64(ByteUtil.uint64ToBytes(number));
-            //校验互转
             Assert.assertEquals(number,resumeNumber);
-            //校验long转8字节大端数组
             assertArrayEquals(uint64ToBytes(number),ByteUtil.uint64ToBytes(number));
         }
     }
@@ -34,14 +32,12 @@ public class ByteUtilTest {
         for(int i=0;i<10000;i++){
             random.nextBytes(byte8);
             byte[] resumeByte8 = ByteUtil.uint64ToBytes(ByteUtil.bytesToUint64(byte8));
-            //校验互转
             Assert.assertArrayEquals(byte8,resumeByte8);
-            //校验8字节大端数组转long
             assertEquals(bytesToUint64(byte8),ByteUtil.bytesToUint64(resumeByte8));
         }
     }
     /**
-     * long转换为(大端模式)8个字节的字节数组(8*8=64个bit)。
+     * long is converted to (big endian mode) an 8-byte byte array (8*8=64 bits).
      */
     private static byte[] uint64ToBytes(long value) {
         byte[] bytes = new byte[8];
@@ -56,7 +52,7 @@ public class ByteUtilTest {
         return bytes;
     }
     /**
-     * (大端模式)8个字节的字节数组(8*8=64个bit)转换为long。
+     * (Big endian mode) 8-byte byte array (8*8=64 bits) is converted to long.
      */
     private static long bytesToUint64(byte[] bytes) {
         long n0 = bytes[0] & 0xff;
@@ -115,10 +111,10 @@ public class ByteUtilTest {
             random.nextBytes(test);
             assert Arrays.equals(test, ByteUtil.hexStringToBytes(ByteUtil.bytesToHexString(test)));
 
-            //十六进制字符串的长度是字节数量的2倍
+            //Length is 2 times the number of bytes
             assertEquals(test.length*2, ByteUtil.bytesToHexString(test).length());
 
-            //只包含0123456789abcdef这些字符
+            //Contains only 0123456789abcdef
             assert Pattern.matches("^[0123456789abcdef]*$", ByteUtil.bytesToHexString(test));
         }
     }

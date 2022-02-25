@@ -49,7 +49,7 @@ public class Base58UtilTest {
             random.nextBytes(test);
             assert Arrays.equals(test, Base58Util.decode(Base58Util.encode(test)));
 
-            //只包含123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz这些字符
+            //Contains only 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
             assert Pattern.matches("^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]*$", Base58Util.encode(test));
         }
     }

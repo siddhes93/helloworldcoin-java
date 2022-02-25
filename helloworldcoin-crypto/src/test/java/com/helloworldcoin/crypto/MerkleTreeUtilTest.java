@@ -13,9 +13,9 @@ import static org.junit.Assert.assertArrayEquals;
 
 public class MerkleTreeUtilTest {
 
-    //数据来源 https://bsv.btc.com/00000000000080b66c911bd5ba14a74260057311eaeb1982802f7010f1a9f090
+    //Data Sources https://bsv.btc.com/00000000000080b66c911bd5ba14a74260057311eaeb1982802f7010f1a9f090
     /**
-     * bitcoin 采用小端模式，本项目采用java默认的大端模式。
+     * bitcoin project - little-endian mode, this project - big-endian mode.
      */
     private static final String hex1 = "bb28a1a5b3a02e7657a81c38355d56c6f05e80b9219432e3352ddcfc3cb6304c";
     private static final String hex2 = "fbde5d03b027d2b9ba4cf5d4fecab9a99864df2637b25ea4cbcb1796ff6550ca";
