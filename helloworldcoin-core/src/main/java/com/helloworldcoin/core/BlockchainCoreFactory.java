@@ -4,23 +4,23 @@ import com.helloworldcoin.core.impl.*;
 import com.helloworldcoin.core.tool.ResourcePathTool;
 
 /**
- * 创建BlockchainCore的工厂
+ * BlockchainCore Factory
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockchainCoreFactory {
 
     /**
-     * 创建BlockchainCore实例
+     * Create BlockchainCore instance
      */
     public static BlockchainCore createDefaultBlockchainCore(){
         return createBlockchainCore(ResourcePathTool.getDataRootPath());
     }
 
     /**
-     * 创建BlockchainCore实例
+     * Create BlockchainCore instance
      *
-     * @param corePath BlockchainCore数据存放位置
+     * @param corePath BlockchainCore Data storage path
      */
     public static BlockchainCore createBlockchainCore(String corePath) {
 

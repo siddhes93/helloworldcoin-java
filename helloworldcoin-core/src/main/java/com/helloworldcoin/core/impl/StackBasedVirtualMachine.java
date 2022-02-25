@@ -12,7 +12,6 @@ import com.helloworldcoin.util.ByteUtil;
 import com.helloworldcoin.util.StringUtil;
 
 /**
- * 基于栈的虚拟机
  *
  * @author x.king xdotking@gmail.com
  */

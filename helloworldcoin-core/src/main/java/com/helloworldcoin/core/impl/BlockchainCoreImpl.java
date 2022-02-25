@@ -14,7 +14,6 @@ import com.helloworldcoin.util.LogUtil;
 import java.util.List;
 
 /**
- * 默认实现
  *
  * @author x.king xdotking@gmail.com
  */
@@ -26,7 +25,6 @@ public class BlockchainCoreImpl extends BlockchainCore {
 
     @Override
     public void start() {
-        //启动矿工线程
         new Thread(
                 ()->{
                     try {

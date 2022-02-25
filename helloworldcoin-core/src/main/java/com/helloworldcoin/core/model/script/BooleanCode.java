@@ -1,7 +1,7 @@
 package com.helloworldcoin.core.model.script;
 
 /**
- * 布尔枚举
+ * boolean enumeration
  *
  * @author x.king xdotking@gmail.com
  */

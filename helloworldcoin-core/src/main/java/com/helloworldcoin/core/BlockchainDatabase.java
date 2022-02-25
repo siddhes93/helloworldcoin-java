@@ -8,20 +8,21 @@ import com.helloworldcoin.netcore.dto.TransactionDto;
 
 
 /**
- * 区块链数据库：该类用于区块链数据的持久化。
+ * Blockchain Database
+ * This class is used for persistence of blockchain data.
  *
  * @author x.king xdotking@gmail.com
  */
 public abstract class BlockchainDatabase {
 
-    //region 变量与构造函数
-    //配置
+    //region
+    //Core Configuration
     protected CoreConfiguration coreConfiguration;
-    //区块共识
+    //Consensus
     protected Consensus consensus ;
-    //矿工激励
+    //Incentive
     protected Incentive incentive ;
-    //虚拟机
+    //Virtual Machine
     protected VirtualMachine virtualMachine;
 
     public BlockchainDatabase(Consensus consensus, Incentive incentive,VirtualMachine virtualMachine) {
@@ -33,31 +34,31 @@ public abstract class BlockchainDatabase {
 
 
 
-    //region 区块增加与删除
+    //region add block、delete block
     /**
-     * 将一个区块添加到区块链的尾部。
+     * Add a block to the tail of the blockchain.
      */
     public abstract boolean addBlockDto(BlockDto blockDto) ;
     /**
-     * 删除区块链的尾巴区块(最后一个区块)
+     * Delete the tail block (the last block) of the blockchain
      */
     public abstract void deleteTailBlock() ;
     /**
-     * 删除区块高度大于等于@blockHeight@的区块
+     * Delete blocks with block height greater than or equal to @blockHeight@
      */
     public abstract void deleteBlocks(long blockHeight) ;
     //endregion
 
 
 
-    //region 校验区块、交易
+    //region check blocks, check transactions
     /**
-     * 检测区块是否可以被添加到区块链上
-     * 只有一种情况，区块可以被添加到区块链，即: 区块是区块链上的下一个区块。
+     * Check if a block can be added to the blockchain
+     * There is only one case where a block can be added to the blockchain, namely: the block is the next block on the blockchain.
      */
     public abstract boolean checkBlock(Block block) ;
     /**
-     * 校验交易是否可以被添加进下一个区块之中。
+     * Check that the transaction can be added to the next block.
      * 注意，如果是创世交易，则会跳过激励金额的校验，但除了不校验激励金额外，仍然会校验创世交易的方方面面，如交易大小、交易的结构等。
      * 为什么会跳过创世交易的激励金额的校验？
      * 因为激励金额的校验需要整个区块的信息，因此激励校验是区块层面的校验，而不是在交易层面校验激励金额。
@@ -67,93 +68,95 @@ public abstract class BlockchainDatabase {
 
 
 
-    //region 区块链查询
+    //region Blockchain query related
     /**
-     * 查询区块链的长度
+     * query Blockchain Height
      */
     public abstract long queryBlockchainHeight() ;
     /**
-     * 查询区块链中总的交易数量
+     * Query the total number of transactions in the blockchain
      */
     public abstract long queryBlockchainTransactionHeight() ;
     /**
-     * 查询区块链中总的交易输出数量
+     * Query the total number of transaction outputs in the blockchain
      */
     public abstract long queryBlockchainTransactionOutputHeight() ;
     //endregion
 
 
 
-    //region 区块查询
+    //region block query related
     /**
-     * 查询区块链上的最后一个区块
+     * Query the last block on the blockchain
      */
     public abstract Block queryTailBlock() ;
     /**
-     * 在区块链中根据区块高度查找区块
+     * query Block By Block Height
      */
     public abstract Block queryBlockByBlockHeight(long blockHeight) ;
     /**
-     * 在区块链中根据区块哈希查找区块
+     * query Block By Block Hash
      */
     public abstract Block queryBlockByBlockHash(String blockHash) ;
     //endregion
 
 
 
-    //region 交易查询
+    //region transaction query related
     /**
-     * 根据交易高度查询交易。交易高度从1开始。
+     * query Transaction By Transaction Height. The transaction height starts at 1.
      */
     public abstract Transaction queryTransactionByTransactionHeight(long transactionHeight) ;
     /**
-     * 在区块链中根据交易哈希查找交易
+     * query Transaction By TransactionHash
      */
     public abstract Transaction queryTransactionByTransactionHash(String transactionHash) ;
     /**
-     * 查询来源交易：查询交易输出产生于的那笔交易
+     * query Source Transaction By Transaction Output Id
+     * Source Transaction: The transaction from which the transaction output was generated
      */
     public abstract Transaction querySourceTransactionByTransactionOutputId(String transactionHash,long transactionOutputIndex) ;
     /**
-     * 查询去向交易：查询使用交易输出的那笔交易
+     * query Destination Transaction By Transaction Output Id
+     * Destination Transaction: The transaction that use the transaction output
      */
     public abstract Transaction queryDestinationTransactionByTransactionOutputId(String transactionHash,long transactionOutputIndex) ;
     //endregion
 
 
 
-    //region 交易输出查询
+    //region Transaction output query related
     /**
-     * 根据 交易输出高度 查找 交易输出
+     * query Transaction Output By Transaction Output Height
      */
     public abstract TransactionOutput queryTransactionOutputByTransactionOutputHeight(long transactionOutputHeight) ;
     /**
-     * 根据 交易输出ID 查找 交易输出
+     * query Transaction Output By Transaction Output Id
      */
     public abstract TransactionOutput queryTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) ;
     /**
-     * 根据 交易输出ID 查找 未花费交易输出
+     * query Unspent Transaction Output By Transaction Output Id
      */
     public abstract TransactionOutput queryUnspentTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) ;
     /**
-     * 根据 交易输出ID 查找 已花费交易输出
+     * query Spent Transaction Output By Transaction Output Id
      */
     public abstract TransactionOutput querySpentTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) ;
     //endregion
 
 
 
-    //region 地址查询
+    //region Address query related
     /**
-     * 根据 地址 查询 交易输出
+     * query Transaction Output By Address
      */
     public abstract TransactionOutput queryTransactionOutputByAddress(String address) ;
     /**
-     * 根据 地址 查询 未花费交易输出
+     * query Unspent Transaction Output By Address
      */
     public abstract TransactionOutput queryUnspentTransactionOutputByAddress(String address) ;
     /**
-     * 根据 地址 查询 已花费交易输出
+     * query Spent Transaction Output By Address
      */
     public abstract TransactionOutput querySpentTransactionOutputByAddress(String address) ;
     //endregion
@@ -168,6 +171,8 @@ public abstract class BlockchainDatabase {
      */
     public abstract Transaction transactionDto2Transaction(TransactionDto transactionDto) ;
     //endregion
+
+
 
 
     //region get set

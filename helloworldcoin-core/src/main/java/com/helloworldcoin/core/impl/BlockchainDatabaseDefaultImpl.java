@@ -22,19 +22,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /**
- * 区块链数据库
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
-    //region 变量与构造函数
+    //region
     private static final String BLOCKCHAIN_DATABASE_NAME = "BlockchainDatabase";
 
-    /**
-     * 锁:保证对区块链增区块、删区块的操作是同步的。
-     * 查询区块操作不需要加锁，原因是，只有对区块链进行区块的增删才会改变区块链的数据。
-     */
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     public BlockchainDatabaseDefaultImpl(CoreConfiguration coreConfiguration, Incentive incentive, Consensus consensus, VirtualMachine virtualMachine) {
@@ -45,7 +40,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 区块增加与删除
+    //region add block、delete block
     @Override
     public boolean addBlockDto(BlockDto blockDto) {
         Lock writeLock = readWriteLock.writeLock();
@@ -105,66 +100,66 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 校验区块、交易
+    //region
     @Override
     public boolean checkBlock(Block block) {
 
-        //校验区块的结构
+        //check block structure
         if(!StructureTool.checkBlockStructure(block)){
             LogUtil.debug("区块数据异常，请校验区块的结构。");
             return false;
         }
-        //校验区块的大小
+        //check block size
         if(!SizeTool.checkBlockSize(block)){
             LogUtil.debug("区块数据异常，请校验区块的大小。");
             return false;
         }
 
 
-        //校验业务
+        //check business
         Block previousBlock = queryTailBlock();
-        //校验区块高度的连贯性
+        //check block height
         if(!BlockTool.checkBlockHeight(previousBlock,block)){
             LogUtil.debug("区块写入的区块高度出错。");
             return false;
         }
-        //校验区块的前区块哈希
+        //check previous block hash
         if(!BlockTool.checkPreviousBlockHash(previousBlock,block)){
             LogUtil.debug("区块写入的前区块哈希出错。");
             return false;
         }
-        //校验区块时间
+        //check block timestamp
         if(!BlockTool.checkBlockTimestamp(previousBlock,block)){
             LogUtil.debug("区块生成的时间太滞后。");
             return false;
         }
-        //校验新产生的哈希
+        //check block new hash
         if(!checkBlockNewHash(block)){
             LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
             return false;
         }
-        //校验新产生的地址
+        //check block new address
         if(!checkBlockNewAddress(block)){
             LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
             return false;
         }
-        //校验双花
+        //check block double spend
         if(!checkBlockDoubleSpend(block)){
             LogUtil.debug("区块数据异常，检测到双花攻击。");
             return false;
         }
-        //校验共识
+        //check consensus
         if(!consensus.checkConsensus(this,block)){
             LogUtil.debug("区块数据异常，未满足共识规则。");
             return false;
         }
-        //校验激励
+        //check incentive
         if(!incentive.checkIncentive(this,block)){
             LogUtil.debug("区块数据异常，激励校验失败。");
             return false;
         }
 
-        //从交易角度校验每一笔交易
+        //check transaction
         for(Transaction transaction : block.getTransactions()){
             boolean transactionCanAddToNextBlock = checkTransaction(transaction);
             if(!transactionCanAddToNextBlock){

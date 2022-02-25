@@ -105,8 +105,9 @@ public class Block implements Serializable {
     private long previousTransactionHeight;
 
 
-    //region get set
 
+
+    //region get set
     public long getTimestamp() {
         return timestamp;
     }
@@ -186,6 +187,5 @@ public class Block implements Serializable {
     public void setPreviousTransactionHeight(long previousTransactionHeight) {
         this.previousTransactionHeight = previousTransactionHeight;
     }
-
     //endregion
 }

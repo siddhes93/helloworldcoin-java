@@ -2,7 +2,7 @@ package com.helloworldcoin.core.model.enums;
 
 
 /**
- * 在区块链上操作区块有两种动作，一是新增区块，二是删除区块。
+ * There are only two actions to operate blocks on the blockchain, one is add block,  the other is delete block.
  *
  * @author x.king xdotking@gmail.com
  */

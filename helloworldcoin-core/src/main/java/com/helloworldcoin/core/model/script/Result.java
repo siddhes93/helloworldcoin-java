@@ -3,7 +3,7 @@ package com.helloworldcoin.core.model.script;
 import java.util.Stack;
 
 /**
- * 脚本执行结果
+ * script execution result
  *
  * @author x.king xdotking@gmail.com
  */

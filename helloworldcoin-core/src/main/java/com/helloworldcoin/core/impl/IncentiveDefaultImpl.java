@@ -5,7 +5,6 @@ import com.helloworldcoin.core.Incentive;
 import com.helloworldcoin.core.model.Block;
 import com.helloworldcoin.core.tool.BlockTool;
 import com.helloworldcoin.setting.IncentiveSetting;
-import com.helloworldcoin.util.LogUtil;
 
 /**
  *
@@ -15,11 +14,8 @@ public class IncentiveDefaultImpl extends Incentive {
 
     @Override
     public long incentiveValue(BlockchainDatabase blockchainDatabase, Block block) {
-        //给予矿工的挖矿津贴
         long minerSubsidy = getMinerSubsidy(block);
-        //给予矿工的交易手续费
         long minerFee = BlockTool.getBlockFee(block);
-        //总的激励
         return minerSubsidy + minerFee;
     }
 
@@ -28,7 +24,6 @@ public class IncentiveDefaultImpl extends Incentive {
         long writeIncentiveValue = BlockTool.getWritedIncentiveValue(block);
         long targetIncentiveValue = incentiveValue(blockchainDatabase,block);
         if(writeIncentiveValue != targetIncentiveValue){
-            LogUtil.debug("区块数据异常，挖矿奖励数据异常。");
             return false;
         }
         return true;

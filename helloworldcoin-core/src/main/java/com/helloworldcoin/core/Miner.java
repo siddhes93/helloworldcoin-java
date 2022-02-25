@@ -1,19 +1,15 @@
 package com.helloworldcoin.core;
 
 /**
- * 矿工:挖矿、将挖取的区块放入区块链
+ * miner
  *
  * @author x.king xdotking@gmail.com
  */
 public abstract class Miner {
 
-    //配置
     protected CoreConfiguration coreConfiguration;
-    //矿工钱包：矿工的挖矿奖励会放到钱包里。
     protected Wallet wallet;
-    //矿工挖矿所在的区块链
     protected BlockchainDatabase blockchainDatabase;
-    //未确认交易数据库：矿工从未确认交易数据库里获取挖矿的原材料(未确认交易数据)
     protected UnconfirmedTransactionDatabase unconfirmedTransactionDatabase;
 
     public Miner(CoreConfiguration coreConfiguration, Wallet wallet, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase) {
@@ -24,46 +20,42 @@ public abstract class Miner {
     }
 
 
-    //region 挖矿相关
+    //region miner related
     /**
-     * 启用矿工。
-     * 矿工有两种状态：活动状态与非活动状态。
-     * 若矿工处于活动作态，矿工会进行挖矿劳作。
-     * 若矿工处于非活动状态，矿工不会进行任何工作。
+     * start miner
+     * Miners have two states: active and deactive.
+     * If the miner is in active state, the miner will do work , such as mining.
+     * If the miner is in deactive, the miner will not do any work.
      */
     public abstract void start() ;
 
     /**
-     * 矿工是否处于活动状态。
+     * Whether the miner is active status?
      */
     public abstract boolean isActive() ;
-
     /**
-     * 激活矿工：设置矿工为活动状态。
+     * active Miner: Set the miner as active status.
      */
     public abstract void active() ;
-
     /**
-     * 停用矿工：设置矿工为非活动状态。
+     * deactive Miner: Set the miner as deactive status.
      */
     public abstract void deactive() ;
 
     /**
-     * 设置矿工可挖掘的最高区块高度
+     * Set the maximum block height that miners can mine
      */
     public abstract void setMinerMineMaxBlockHeight(long maxHeight) ;
     /**
-     * 获取矿工可挖掘的最高区块高度
+     * Get the maximum block height that miner can mine
      */
     public abstract long getMinerMineMaxBlockHeight( ) ;
-
     //endregion
 
 
 
+
     //region get set
-
-
     public Wallet getWallet() {
         return wallet;
     }
@@ -79,6 +71,5 @@ public abstract class Miner {
     public CoreConfiguration getCoreConfiguration() {
         return coreConfiguration;
     }
-
     //endregion
 }

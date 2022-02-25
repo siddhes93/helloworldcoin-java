@@ -23,13 +23,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 默认实现
  *
  * @author x.king xdotking@gmail.com
  */
 public class MinerDefaultImpl extends Miner {
 
-    //region 属性与构造函数
+    //region
     public MinerDefaultImpl(CoreConfiguration coreConfiguration, Wallet wallet, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase) {
         super(coreConfiguration, wallet, blockchainDatabase, unconfirmedTransactionDatabase);
     }

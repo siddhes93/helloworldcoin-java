@@ -3,7 +3,7 @@ package com.helloworldcoin.core.model.script;
 import java.util.ArrayList;
 
 /**
- * 脚本
+ * Script
  *
  * @author x.king xdotking@gmail.com
  */

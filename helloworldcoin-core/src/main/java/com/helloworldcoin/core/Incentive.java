@@ -3,20 +3,20 @@ package com.helloworldcoin.core;
 import com.helloworldcoin.core.model.Block;
 
 /**
- * 矿工挖矿激励
- * 矿工挖到矿了，系统应该给予矿工多少数字货币的奖励？在这里会确定矿工的具体激励金额。
+ * Incentive
+ * How much digital currency should the system reward miners? It will be determined here.
  *
  * @author x.king xdotking@gmail.com
  */
 public abstract class Incentive {
 
     /**
-     * 矿工挖矿成功后，奖励给矿工的激励金额。
+     * Determine how much digital currency to reward miner
      */
     public abstract long incentiveValue(BlockchainDatabase blockchainDatabase, Block block) ;
 
     /**
-     * 校验激励。
+     * Check Incentive
      */
     public abstract boolean checkIncentive(BlockchainDatabase blockchainDatabase, Block block) ;
 }

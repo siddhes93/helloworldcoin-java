@@ -1,7 +1,7 @@
 package com.helloworldcoin.core.model.script;
 
 /**
- * 输入脚本
+ * Input Script
  *
  * @author x.king xdotking@gmail.com
  */

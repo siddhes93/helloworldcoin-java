@@ -9,6 +9,7 @@ package com.helloworldcoin.core.model.transaction;
 public enum TransactionType {
 
     /**
+     * TODO COINBASE_TRANSACTION
      * 创世交易：每个区块的第一笔交易都有一个名字叫创世交易。每个区块有且只有一笔创世交易。
      * 在区块中，创世交易是区块的第一笔交易，没有第一笔交易，就没有其它交易。相对这个区块的其它交易来说，它是一笔极其特殊的交易
      * ，它没有交易输入，它的交易输入被允许小于交易输出，它的交易输出被用于发放矿工挖矿激励，它是维持区块链网络存在的动力之一，

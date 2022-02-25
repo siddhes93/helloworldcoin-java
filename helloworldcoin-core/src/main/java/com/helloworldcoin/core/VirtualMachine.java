@@ -5,14 +5,14 @@ import com.helloworldcoin.core.model.script.Result;
 import com.helloworldcoin.core.model.transaction.Transaction;
 
 /**
- * 虚拟机
+ * Virtual Machine
  *
  * @author x.king xdotking@gmail.com
  */
 public abstract class VirtualMachine {
 
     /**
-     * 执行脚本
+     * execute script
      */
     public abstract Result execute(Transaction transactionEnvironment, Script script) throws RuntimeException ;
 
