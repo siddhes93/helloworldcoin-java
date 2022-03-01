@@ -106,12 +106,12 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
         //check block structure
         if(!StructureTool.checkBlockStructure(block)){
-            LogUtil.debug("区块数据异常，请校验区块的结构。");
+            LogUtil.debug("The block data is abnormal. Please verify the block structure.");
             return false;
         }
         //check block size
         if(!SizeTool.checkBlockSize(block)){
-            LogUtil.debug("区块数据异常，请校验区块的大小。");
+            LogUtil.debug("The block data is abnormal, please check the size of the block.");
             return false;
         }
 
@@ -120,42 +120,42 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         Block previousBlock = queryTailBlock();
         //check block height
         if(!BlockTool.checkBlockHeight(previousBlock,block)){
-            LogUtil.debug("区块写入的区块高度出错。");
+            LogUtil.debug("Wrong block height for block write.");
             return false;
         }
         //check previous block hash
         if(!BlockTool.checkPreviousBlockHash(previousBlock,block)){
-            LogUtil.debug("区块写入的前区块哈希出错。");
+            LogUtil.debug("The previous block hash of the block write was wrong.");
             return false;
         }
         //check block timestamp
         if(!BlockTool.checkBlockTimestamp(previousBlock,block)){
-            LogUtil.debug("区块生成的时间太滞后。");
+            LogUtil.debug("Block generation is too late.");
             return false;
         }
         //check block new hash
         if(!checkBlockNewHash(block)){
-            LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
+            LogUtil.debug("The block data is abnormal, and the newly generated hash in the block is abnormal.");
             return false;
         }
         //check block new address
         if(!checkBlockNewAddress(block)){
-            LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
+            LogUtil.debug("The block data is abnormal, and the newly generated hash in the block is abnormal.");
             return false;
         }
         //check block double spend
         if(!checkBlockDoubleSpend(block)){
-            LogUtil.debug("区块数据异常，检测到双花攻击。");
+            LogUtil.debug("The block data is abnormal, and a double-spending attack is detected.");
             return false;
         }
         //check consensus
         if(!consensus.checkConsensus(this,block)){
-            LogUtil.debug("区块数据异常，未满足共识规则。");
+            LogUtil.debug("The block data is abnormal and the consensus rules are not met.");
             return false;
         }
         //check incentive
         if(!incentive.checkIncentive(this,block)){
-            LogUtil.debug("区块数据异常，激励校验失败。");
+            LogUtil.debug("The block data is abnormal, and the incentive verification fails.");
             return false;
         }
 
@@ -163,7 +163,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         for(Transaction transaction : block.getTransactions()){
             boolean transactionCanAddToNextBlock = checkTransaction(transaction);
             if(!transactionCanAddToNextBlock){
-                LogUtil.debug("区块数据异常，交易异常。");
+                LogUtil.debug("The block data is abnormal, and the transaction is abnormal.");
                 return false;
             }
         }
@@ -172,51 +172,51 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
     @Override
     public boolean checkTransaction(Transaction transaction) {
-        //校验交易的结构
+        //check Transaction Structure
         if(!StructureTool.checkTransactionStructure(transaction)){
-            LogUtil.debug("交易数据异常，请校验交易的结构。");
+            LogUtil.debug("The transaction data is abnormal, please verify the structure of the transaction.");
             return false;
         }
-        //校验交易的大小
+        //check Transaction Size
         if(!SizeTool.checkTransactionSize(transaction)){
-            LogUtil.debug("交易数据异常，请校验交易的大小。");
+            LogUtil.debug("The transaction data is abnormal, please check the size of the transaction.");
             return false;
         }
 
 
-        //校验交易中的地址是否是P2PKH地址
+        //Check if the address in the transaction is a P2PKH address
         if(!TransactionTool.checkPayToPublicKeyHashAddress(transaction)){
             return false;
         }
-        //校验交易中的脚本是否是P2PKH脚本
+        //Check if the script in the transaction is a P2PKH script
         if(!TransactionTool.checkPayToPublicKeyHashScript(transaction)){
             return false;
         }
 
-        //业务校验
-        //校验新产生的哈希
+        //business verification
+        //check Transaction New Hash
         if(!checkTransactionNewHash(transaction)){
-            LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
+            LogUtil.debug("The block data is abnormal, and the newly generated hash in the block is abnormal.");
             return false;
         }
-        //校验新产生的地址
+        //check Transaction New Address
         if(!checkTransactionNewAddress(transaction)){
-            LogUtil.debug("区块数据异常，区块中新产生的哈希异常。");
+            LogUtil.debug("The block data is abnormal, and the newly generated hash in the block is abnormal.");
             return false;
         }
-        //校验交易金额
+        //check Transaction Value
         if(!TransactionTool.checkTransactionValue(transaction)){
-            LogUtil.debug("交易金额不合法");
+            LogUtil.debug("The block data is abnormal and the transaction amount is illegal");
             return false;
         }
-        //校验双花
+        //check Transaction Double Spend
         if(!checkTransactionDoubleSpend(transaction)){
-            LogUtil.debug("交易数据异常，检测到双花攻击。");
+            LogUtil.debug("The transaction data is abnormal, and a double-spending attack is detected.");
             return false;
         }
-        //校验脚本
+        //check Transaction Script
         if(!checkTransactionScript(transaction)) {
-            LogUtil.debug("交易校验失败：交易[输入脚本]解锁交易[输出脚本]异常。");
+            LogUtil.debug("Transaction verification failed: transaction [input script] unlock transaction [output script] exception.");
             return false;
         }
         return true;
@@ -225,7 +225,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 普通查询
+    //region Blockchain query related
     @Override
     public long queryBlockchainHeight() {
         byte[] bytesBlockchainHeight = KvDbUtil.get(getBlockchainDatabasePath(), BlockchainDatabaseKeyTool.buildBlockchainHeightKey());
@@ -255,7 +255,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 区块查询
+    //region
     @Override
     public Block queryTailBlock() {
         long blockchainHeight = queryBlockchainHeight();
@@ -284,7 +284,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 交易查询
+    //region Transaction query related
     @Override
     public Transaction queryTransactionByTransactionHash(String transactionHash) {
         byte[] transactionHeight = KvDbUtil.get(getBlockchainDatabasePath(), BlockchainDatabaseKeyTool.buildTransactionHashToTransactionHeightKey(transactionHash));
@@ -333,7 +333,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 交易输出查询
+    //region Transaction Output Query related
     @Override
     public TransactionOutput queryTransactionOutputByTransactionOutputId(String transactionHash,long transactionOutputIndex) {
         byte[] bytesTransactionOutputHeight = KvDbUtil.get(getBlockchainDatabasePath(), BlockchainDatabaseKeyTool.buildTransactionOutputIdToTransactionOutputHeightKey(transactionHash,transactionOutputIndex));
@@ -391,10 +391,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
 
 
 
-    //region 拼装WriteBatch
-    /**
-     * 根据区块信息组装WriteBatch对象
-     */
+    //region Assemble WriteBatch
     private KvDbUtil.KvWriteBatch createBlockWriteBatch(Block block, BlockchainAction blockchainAction) {
         KvDbUtil.KvWriteBatch kvWriteBatch = new KvDbUtil.KvWriteBatch();
 
@@ -425,9 +422,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     }
 
 
-    /**
-     * [交易输出ID]到[来源交易高度]的映射
-     */
     private void storeTransactionOutputIdToSourceTransactionHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -446,9 +440,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * [已花费交易输出ID]到[去向交易高度]的映射
-     */
     private void storeTransactionOutputIdToDestinationTransactionHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -468,9 +459,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * [交易输出ID]到[交易输出]的映射
-     */
     private void storeTransactionOutputIdToTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -489,9 +477,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * [交易输出高度]到[交易输出]的映射
-     */
     private void storeTransactionOutputHeightToTransactionOutput(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -510,9 +495,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储未花费交易输出ID到未花费交易输出的映射
-     */
     private void storeTransactionOutputIdToUnspentTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -543,9 +525,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储已花费交易输出ID到已花费交易输出的映射
-     */
     private void storeTransactionOutputIdToSpentTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -576,14 +555,10 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储交易高度到交易的映射
-     */
     private void storeTransactionHeightToTransaction(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
             for(Transaction transaction:transactions){
-                //更新区块链中的交易序列号数据
                 byte[] transactionHeightToTransactionKey = BlockchainDatabaseKeyTool.buildTransactionHeightToTransactionKey(transaction.getTransactionHeight());
                 if(BlockchainAction.ADD_BLOCK == blockchainAction){
                     kvWriteBatch.put(transactionHeightToTransactionKey, EncodeDecodeTool.encode(transaction));
@@ -593,9 +568,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储交易哈希到交易高度的映射
-     */
     private void storeTransactionHashToTransactionHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -609,9 +581,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储区块链的高度
-     */
     private void storeBlockchainHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         byte[] blockchainHeightKey = BlockchainDatabaseKeyTool.buildBlockchainHeightKey();
         if(BlockchainAction.ADD_BLOCK == blockchainAction){
@@ -620,9 +589,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             kvWriteBatch.put(blockchainHeightKey, ByteUtil.uint64ToBytes(block.getHeight()-1));
         }
     }
-    /**
-     * 存储区块哈希到区块高度的映射
-     */
     private void storeBlockHashToBlockHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         byte[] blockHashBlockHeightKey = BlockchainDatabaseKeyTool.buildBlockHashToBlockHeightKey(block.getHash());
         if(BlockchainAction.ADD_BLOCK == blockchainAction){
@@ -631,9 +597,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             kvWriteBatch.delete(blockHashBlockHeightKey);
         }
     }
-    /**
-     * 存储区块链中总的交易高度
-     */
     private void storeBlockchainTransactionHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         long transactionCount = queryBlockchainTransactionHeight();
         byte[] bytesBlockchainTransactionCountKey = BlockchainDatabaseKeyTool.buildBlockchainTransactionHeightKey();
@@ -643,9 +606,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             kvWriteBatch.put(bytesBlockchainTransactionCountKey, ByteUtil.uint64ToBytes(transactionCount - BlockTool.getTransactionCount(block)));
         }
     }
-    /**
-     * 存储区块链中总的交易数量
-     */
     private void storeBlockchainTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         long transactionOutputCount = queryBlockchainTransactionOutputHeight();
         byte[] bytesBlockchainTransactionOutputHeightKey = BlockchainDatabaseKeyTool.buildBlockchainTransactionOutputHeightKey();
@@ -655,9 +615,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             kvWriteBatch.put(bytesBlockchainTransactionOutputHeightKey, ByteUtil.uint64ToBytes(transactionOutputCount - BlockTool.getTransactionOutputCount(block)));
         }
     }
-    /**
-     * 存储区块链高度到区块的映射
-     */
     private void storeBlockHeightToBlock(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         byte[] blockHeightKey = BlockchainDatabaseKeyTool.buildBlockHeightToBlockKey(block.getHeight());
         if(BlockchainAction.ADD_BLOCK == blockchainAction){
@@ -667,9 +624,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         }
     }
 
-    /**
-     * 存储已使用的哈希
-     */
     private void storeHash(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         byte[] blockHashKey = BlockchainDatabaseKeyTool.buildHashKey(block.getHash());
         if(BlockchainAction.ADD_BLOCK == blockchainAction){
@@ -690,9 +644,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         }
     }
 
-    /**
-     * 存储已使用的地址
-     */
     private void storeAddress(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
@@ -711,9 +662,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储地址到未花费交易输出列表
-     */
     private void storeAddressToUnspentTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions == null){
@@ -745,9 +693,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储地址到交易输出
-     */
     private void storeAddressToTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions == null){
@@ -767,9 +712,6 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             }
         }
     }
-    /**
-     * 存储地址到交易输出高度
-     */
     private void storeAddressToSpentTransactionOutputHeight(KvDbUtil.KvWriteBatch kvWriteBatch, Block block, BlockchainAction blockchainAction) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions == null){
@@ -796,26 +738,22 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         return FileUtil.newPath(coreConfiguration.getCorePath(), BLOCKCHAIN_DATABASE_NAME);
     }
 
-    //region 新产生的哈希相关
+    //region block hash related
     /**
-     * 校验区块新产生的哈希
+     * check Block New Hash
      */
     private boolean checkBlockNewHash(Block block) {
-        //校验哈希作为主键的正确性
-        //新产生的哈希不能有重复
         if(BlockTool.isExistDuplicateNewHash(block)){
-            LogUtil.debug("区块数据异常，区块中新产生的哈希有重复。");
+            LogUtil.debug("The block data is abnormal, exist duplicate hash.");
             return false;
         }
 
-        //新产生的哈希不能被区块链使用过了
-        //校验区块Hash是否已经被使用了
         String blockHash = block.getHash();
         if(isHashUsed(blockHash)){
-            LogUtil.debug("区块数据异常，区块Hash已经被使用了。");
+            LogUtil.debug("The block data is abnormal, and the block hash has been used.");
             return false;
         }
-        //校验每一笔交易新产生的Hash是否正确
+
         List<Transaction> blockTransactions = block.getTransactions();
         if(blockTransactions != null){
             for(Transaction transaction:blockTransactions){
@@ -826,37 +764,22 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         }
         return true;
     }
-    /**
-     * 区块中校验新产生的哈希
-     */
     private boolean checkTransactionNewHash(Transaction transaction) {
-        //校验哈希作为主键的正确性
-        //校验交易Hash是否已经被使用了
         String transactionHash = transaction.getTransactionHash();
         if(isHashUsed(transactionHash)){
-            LogUtil.debug("交易数据异常，交易Hash已经被使用了。");
             return false;
         }
         return true;
     }
-    /**
-     * 哈希是否已经被区块链系统使用了？
-     */
     private boolean isHashUsed(String hash){
         byte[] bytesHash = KvDbUtil.get(getBlockchainDatabasePath(), BlockchainDatabaseKeyTool.buildHashKey(hash));
         return bytesHash != null;
     }
     //endregion
 
-    //region 新产生的地址相关
-    /**
-     * 校验区块新产生的地址
-     */
+    //region address related
     private boolean checkBlockNewAddress(Block block) {
-        //校验地址作为主键的正确性
-        //新产生的地址不能有重复
         if(BlockTool.isExistDuplicateNewAddress(block)){
-            LogUtil.debug("区块数据异常，区块中新产生的地址有重复。");
             return false;
         }
         List<Transaction> transactions = block.getTransactions();
@@ -869,21 +792,16 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         }
         return true;
     }
-    /**
-     * 区块中校验新产生的哈希
-     */
     private boolean checkTransactionNewAddress(Transaction transaction) {
-        //区块新产生的地址不能有重复
         if(TransactionTool.isExistDuplicateNewAddress(transaction)){
             return false;
         }
-        //区块新产生的地址不能被使用过了
+
         List<TransactionOutput> outputs = transaction.getOutputs();
         if(outputs != null){
             for (TransactionOutput output:outputs){
                 String address = output.getAddress();
                 if(isAddressUsed(address)){
-                    LogUtil.debug("区块数据异常，地址["+address+"]重复。");
                     return false;
                 }
             }
@@ -897,22 +815,17 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     //endregion
 
 
-    //region 双花攻击
-    /**
-     * 校验双花
-     * 双花指的是同一笔UTXO被花费两次或多次。
-     */
+    //region Double spend attack
     private boolean checkBlockDoubleSpend(Block block) {
-        //双花交易：区块内部存在重复的[未花费交易输出]
         if(BlockTool.isExistDuplicateUtxo(block)){
-            LogUtil.debug("区块数据异常：发生双花交易。");
+            LogUtil.debug("Abnormal block data: a double-spend transaction occurred.");
             return false;
         }
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
             for(Transaction transaction:transactions){
                 if(!checkTransactionDoubleSpend(transaction)){
-                    LogUtil.debug("区块数据异常：发生双花交易。");
+                    LogUtil.debug("Abnormal block data: a double-spend transaction occurred.");
                     return false;
                 }
             }
@@ -920,23 +833,23 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         return true;
     }
     /**
-     * 校验双花
+     * check Transaction Double Spend
      */
     private boolean checkTransactionDoubleSpend(Transaction transaction) {
-        //双花交易：交易内部存在重复的[未花费交易输出]
+        //Double spend transaction: there is a duplicate [unspent transaction output] inside the transaction
         if(TransactionTool.isExistDuplicateUtxo(transaction)){
-            LogUtil.debug("交易数据异常，检测到双花攻击。");
+            LogUtil.debug("The transaction data is abnormal, and a double-spending attack is detected.");
             return false;
         }
-        //双花交易：交易内部使用了[已经花费的[未花费交易输出]]
+        //Double spend transaction: transaction uses [spent [unspent transaction output]] inside the transaction
         if(!checkStxoIsUtxo(transaction)){
-            LogUtil.debug("交易数据异常：发生双花交易。");
+            LogUtil.debug("The transaction data is abnormal, and a double-spending attack is detected.");
             return false;
         }
         return true;
     }
     /**
-     * 检查[花费的交易输出]是否都是[未花费的交易输出]
+     * Check if [spent transaction outputs] are all [unspent transaction outputs] ?
      */
     private boolean checkStxoIsUtxo(Transaction transaction) {
         List<TransactionInput> inputs = transaction.getInputs();
@@ -945,7 +858,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
                 TransactionOutput unspentTransactionOutput = transactionInput.getUnspentTransactionOutput();
                 TransactionOutput transactionOutput = queryUnspentTransactionOutputByTransactionOutputId(unspentTransactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionOutputIndex());
                 if(transactionOutput == null){
-                    LogUtil.debug("交易数据异常：交易输入不是未花费交易输出。");
+                    LogUtil.debug("Transaction data exception: transaction input is not unspent transaction output.");
                     return false;
                 }
             }
@@ -955,26 +868,15 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     //endregion
 
 
-    /**
-     * 检验交易脚本，即校验交易输入能解锁交易输出吗？即用户花费的是自己的钱吗？
-     * 校验用户花费的是自己的钱吗，用户只可以花费自己的钱。专业点的说法，校验UTXO所有权，用户只可以花费自己拥有的UTXO。
-     * 用户如何能证明自己拥有这个UTXO，只要用户能创建出一个能解锁(该UTXO对应的交易输出脚本)的交易输入脚本，就证明了用户拥有该UTXO。
-     * 这是因为锁(交易输出脚本)是用户创建的，自然只有该用户有对应的钥匙(交易输入脚本)，自然意味着有钥匙的用户拥有这把锁的所有权。
-     */
     private boolean checkTransactionScript(Transaction transaction){
         try{
             List<TransactionInput> inputs = transaction.getInputs();
             if(inputs != null && inputs.size()!=0){
                 for(TransactionInput transactionInput:inputs){
-                    //锁(交易输出脚本)
                     OutputScript outputScript = transactionInput.getUnspentTransactionOutput().getOutputScript();
-                    //钥匙(交易输入脚本)
                     InputScript inputScript = transactionInput.getInputScript();
-                    //完整脚本
                     Script script = ScriptTool.createScript(inputScript,outputScript);
-                    //执行脚本
                     Result result = virtualMachine.execute(transaction,script);
-                    //脚本执行结果是个栈，如果栈有且只有一个元素，且这个元素是0x01，则解锁成功。
                     boolean executeSuccess = result.size()==1 && ByteUtil.equals(BooleanCode.TRUE.getCode(),ByteUtil.hexStringToBytes(result.pop()));
                     if(!executeSuccess){
                         return false;
@@ -982,7 +884,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
                 }
             }
         }catch (Exception e){
-            LogUtil.error("交易校验失败：交易[输入脚本]解锁交易[输出脚本]异常。",e);
+            LogUtil.error("Transaction verification failed: transaction [input script] unlock transaction [output script] exception.",e);
             return false;
         }
         return true;
@@ -1017,13 +919,9 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         block.setDifficulty(difficult);
 
         fillBlockProperty(block);
-        /*
-         * 预先校验区块工作量共识。伪造工作量共识是一件十分耗费资源的事情，因此预先校验工作量共识可以抵消绝大部分的攻击。
-         * 也可以选择跳过此处预检，后续业务有完整的校验检测。
-         * 此处预检，只是想预先抵消绝大部分的攻击。
-         */
+
         if(!getConsensus().checkConsensus(this,block)){
-            throw new RuntimeException("区块预检失败。");
+            throw new RuntimeException("Check Block Consensus Failed.");
         }
         return block;
     }
@@ -1044,7 +942,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
             for (TransactionInputDto transactionInputDto:transactionInputDtos){
                 TransactionOutput unspentTransactionOutput = queryUnspentTransactionOutputByTransactionOutputId(transactionInputDto.getTransactionHash(),transactionInputDto.getTransactionOutputIndex());
                 if(unspentTransactionOutput == null){
-                    throw new RuntimeException("非法交易。交易输入并不是一笔未花费交易输出。");
+                    throw new RuntimeException("Illegal transaction. the transaction input is not an unspent transaction output.");
                 }
                 TransactionInput transactionInput = new TransactionInput();
                 transactionInput.setUnspentTransactionOutput(unspentTransactionOutput);
@@ -1101,9 +999,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
         inputScript.addAll(inputScriptDto);
         return inputScript;
     }
-    /**
-     * 补充区块的属性
-     */
+
     private void fillBlockProperty(Block block) {
         long transactionIndex = 0;
         long transactionHeight = queryBlockchainTransactionHeight();
