@@ -30,7 +30,7 @@ public class BlockchainCoreImpl extends BlockchainCore {
                     try {
                         miner.start();
                     } catch (Exception e) {
-                        LogUtil.error("矿工在运行中发生异常，请检查修复异常！",e);
+                        LogUtil.error("start miner error.",e);
                     }
                 }
         ).start();
