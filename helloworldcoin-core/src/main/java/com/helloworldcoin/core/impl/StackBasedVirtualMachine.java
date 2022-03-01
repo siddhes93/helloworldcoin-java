@@ -26,43 +26,43 @@ public class StackBasedVirtualMachine extends VirtualMachine {
             byte[] bytesOperationCode = ByteUtil.hexStringToBytes(operationCode);
             if(ByteUtil.equals(OperationCode.OP_DUP.getCode(),bytesOperationCode)){
                 if(stack.size()<1){
-                    throw new RuntimeException("指令运行异常");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 stack.push(stack.peek());
             }else if(ByteUtil.equals(OperationCode.OP_HASH160.getCode(),bytesOperationCode)){
                 if(stack.size()<1){
-                    throw new RuntimeException("指令运行异常");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 String publicKey = stack.pop();
                 String publicKeyHash = AccountUtil.publicKeyHashFromPublicKey(publicKey);
                 stack.push(publicKeyHash);
             }else if(ByteUtil.equals(OperationCode.OP_EQUALVERIFY.getCode(),bytesOperationCode)){
                 if(stack.size()<2){
-                    throw new RuntimeException("指令运行异常");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 if(!StringUtil.equals(stack.pop(),stack.pop())){
-                    throw new RuntimeException("脚本执行失败");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
             }else if(ByteUtil.equals(OperationCode.OP_CHECKSIG.getCode(),bytesOperationCode)){
                 if(stack.size()<2){
-                    throw new RuntimeException("指令运行异常");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 String publicKey = stack.pop();
                 String signature = stack.pop();
                 byte[] bytesSignature = ByteUtil.hexStringToBytes(signature);
                 boolean verifySignatureSuccess = TransactionTool.verifySignature(transactionEnvironment,publicKey,bytesSignature);
                 if(!verifySignatureSuccess){
-                    throw new RuntimeException("脚本执行失败");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 stack.push(ByteUtil.bytesToHexString(BooleanCode.TRUE.getCode()));
             }else if(ByteUtil.equals(OperationCode.OP_PUSHDATA.getCode(),bytesOperationCode)){
                 if(script.size()<i+2){
-                    throw new RuntimeException("指令运行异常");
+                    throw new RuntimeException("Virtual Machine Execute Error.");
                 }
                 i++;
                 stack.push(script.get(i));
             }else {
-                throw new RuntimeException("不能识别的操作码");
+                throw new RuntimeException("Virtual Machine Execute Error.");
             }
         }
         return stack;
