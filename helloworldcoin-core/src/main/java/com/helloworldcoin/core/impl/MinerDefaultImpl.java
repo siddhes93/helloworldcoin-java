@@ -38,19 +38,17 @@ public class MinerDefaultImpl extends Miner {
     @Override
     public void start() {
         while (true){
-            //防止空跑，浪费CPU
             ThreadUtil.millisecondSleep(10);
             if(!isActive()){
                 continue;
             }
 
+            //TODO
             long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
-            //'当前区块链的高度'是否大于'矿工最大被允许的挖矿高度'
             if(blockChainHeight >= coreConfiguration.getMinerMineMaxBlockHeight()){
                 continue;
             }
 
-            //创建一个账户用于存放挖矿成功后发放的激励金额
             Account minerAccount = wallet.createAccount();
             Block block = buildMiningBlock(blockchainDatabase,unconfirmedTransactionDatabase,minerAccount);
             long startTimestamp = TimeUtil.millisecondTimestamp();
@@ -58,25 +56,18 @@ public class MinerDefaultImpl extends Miner {
                 if(!isActive()){
                     break;
                 }
-                //在挖矿的期间，可能收集到新的交易。每隔一定的时间，重新组装挖矿中的区块，这样新收集到交易就可以被放进挖矿中的区块了。
                 if(TimeUtil.millisecondTimestamp()-startTimestamp > coreConfiguration.getMinerMineTimeInterval()){
                     break;
                 }
-                //随机数
                 block.setNonce(ByteUtil.bytesToHexString(ByteUtil.random32Bytes()));
-                //计算区块哈希
                 block.setHash(BlockTool.calculateBlockHash(block));
-                //判断共识是否达成(即挖矿是否成功)
                 if(blockchainDatabase.getConsensus().checkConsensus(blockchainDatabase,block)){
-                    //挖到矿了，账户里有挖矿成功发放的激励金额，将账户放入钱包。
                     wallet.saveAccount(minerAccount);
-                    LogUtil.debug("祝贺您！挖矿成功！！！区块高度:"+block.getHeight()+",区块哈希:"+block.getHash());
-                    //业务模型转换
+                    LogUtil.debug("Congratulations! Mining success! Block height:"+block.getHeight()+", Block hash:"+block.getHash());
                     BlockDto blockDto = Model2DtoTool.block2BlockDto(block);
-                    //将矿放入区块链
                     boolean isAddBlockToBlockchainSuccess = blockchainDatabase.addBlockDto(blockDto);
                     if(!isAddBlockToBlockchainSuccess){
-                        LogUtil.debug("挖矿成功，但是区块放入区块链失败。");
+                        LogUtil.debug("Mining succeeded, but the block failed to be put into the blockchain.");
                     }
                     break;
                 }
@@ -110,15 +101,11 @@ public class MinerDefaultImpl extends Miner {
         return coreConfiguration.getMinerMineMaxBlockHeight();
     }
 
-    /**
-     * 构建挖矿区块
-     */
     private Block buildMiningBlock(BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase, Account minerAccount) {
         long timestamp = TimeUtil.millisecondTimestamp();
 
         Block tailBlock = blockchainDatabase.queryTailBlock();
         Block nonNonceBlock = new Block();
-        //这个挖矿时间不需要特别精确，没必要非要挖出矿的前一霎那时间。
         nonNonceBlock.setTimestamp(timestamp);
 
         if(tailBlock == null){
@@ -131,24 +118,19 @@ public class MinerDefaultImpl extends Miner {
         List<Transaction> packingTransactions = packingTransactions(blockchainDatabase,unconfirmedTransactionDatabase);
         nonNonceBlock.setTransactions(packingTransactions);
 
-        //创建挖矿奖励交易
-        //激励金额
         Incentive incentive = blockchainDatabase.getIncentive();
         long incentiveValue = incentive.incentiveValue(blockchainDatabase,nonNonceBlock);
-        //激励交易
+
         Transaction mineAwardTransaction = buildIncentiveTransaction(minerAccount.getAddress(),incentiveValue);
         nonNonceBlock.getTransactions().add(0,mineAwardTransaction);
 
         String merkleTreeRoot = BlockTool.calculateBlockMerkleTreeRoot(nonNonceBlock);
         nonNonceBlock.setMerkleTreeRoot(merkleTreeRoot);
 
-        //计算挖矿难度
         nonNonceBlock.setDifficulty(blockchainDatabase.getConsensus().calculateDifficult(blockchainDatabase,nonNonceBlock));
         return nonNonceBlock;
     }
-    /**
-     * 构建区块的挖矿奖励交易。
-     */
+
     private Transaction buildIncentiveTransaction(String address,long incentiveValue) {
         Transaction transaction = new Transaction();
         transaction.setTransactionType(TransactionType.GENESIS_TRANSACTION);
@@ -164,11 +146,8 @@ public class MinerDefaultImpl extends Miner {
         transaction.setTransactionHash(TransactionTool.calculateTransactionHash(transaction));
         return transaction;
     }
-    /**
-     * 确认打包哪些'未确认交易'
-     */
+
     private List<Transaction> packingTransactions(BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase) {
-        //获取一部分未确认交易，最优的方式是获取所有未确认的交易进行处理，但是数据处理起来会很复杂，因为项目是helloworld的，所以简单的拿一部分数据即可。
         List<TransactionDto> forMineBlockTransactionDtos = unconfirmedTransactionDatabase.selectTransactions(1,10000);
 
         List<Transaction> transactions = new ArrayList<>();
@@ -181,7 +160,7 @@ public class MinerDefaultImpl extends Miner {
                     transactions.add(transaction);
                 } catch (Exception e) {
                     String transactionHash = TransactionDtoTool.calculateTransactionHash(transactionDto);
-                    LogUtil.error("类型转换异常,将从挖矿交易数据库中删除该交易["+transactionHash+"]。",e);
+                    LogUtil.error("Abnormal transaction, transaction hash:"+transactionHash,e);
                     unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                 }
             }
@@ -196,7 +175,7 @@ public class MinerDefaultImpl extends Miner {
                 transactions.add(transaction);
             }else {
                 String transactionHash = TransactionTool.calculateTransactionHash(transaction);
-                LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
+                LogUtil.debug("Abnormal transaction, transaction hash:"+transactionHash);
                 unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
             }
         }
@@ -204,7 +183,8 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-        //防止双花
+
+        //prevent double spending
         Set<String> transactionOutputIdSet = new HashSet<>();
         for(Transaction transaction : backupTransactions){
             List<TransactionInput> inputs = transaction.getInputs();
@@ -224,7 +204,7 @@ public class MinerDefaultImpl extends Miner {
                     transactions.add(transaction);
                 }else {
                     String transactionHash = TransactionTool.calculateTransactionHash(transaction);
-                    LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
+                    LogUtil.debug("Abnormal transaction, transaction hash:"+transactionHash);
                     unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                 }
             }
@@ -235,7 +215,8 @@ public class MinerDefaultImpl extends Miner {
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-        //防止一个地址被用多次
+
+        //Prevent an address used multiple times
         Set<String> addressSet = new HashSet<>();
         for(Transaction transaction : backupTransactions){
             List<TransactionOutput> outputs = transaction.getOutputs();
@@ -254,26 +235,22 @@ public class MinerDefaultImpl extends Miner {
                     transactions.add(transaction);
                 }else {
                     String transactionHash = TransactionTool.calculateTransactionHash(transaction);
-                    LogUtil.debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希"+transactionHash);
+                    LogUtil.debug("Abnormal transaction, transaction hash:"+transactionHash);
                     unconfirmedTransactionDatabase.deleteByTransactionHash(transactionHash);
                 }
             }
         }
 
 
-        //按照费率(每字符的手续费)从大到小排序交易
         TransactionTool.sortByTransactionFeeRateDescend(transactions);
 
 
         backupTransactions.clear();
         backupTransactions.addAll(transactions);
         transactions.clear();
-        //到此时，剩余交易都是经过验证的了，且按照交易费率从大到小排列了。
-        //尽可能多的获取交易
+
         long size = 0;
         for(int i=0; i<backupTransactions.size(); i++){
-            //序号从0开始，加一。
-            //留给挖矿交易一个位置，减一。
             if(i+1 > BlockSetting.BLOCK_MAX_TRANSACTION_COUNT-1){
                 break;
             }
