@@ -28,7 +28,7 @@ public class UnconfirmedTransactionDatabaseDefaultImpl extends UnconfirmedTransa
             KvDbUtil.put(getUnconfirmedTransactionDatabasePath(), getKey(transactionHash), EncodeDecodeTool.encode(transaction));
             return true;
         }catch (Exception e){
-            LogUtil.error("交易["+ JsonUtil.toString(transaction)+"]放入交易池异常。",e);
+            LogUtil.error("'insert transaction to database' error. ["+ JsonUtil.toString(transaction)+"]",e);
             return false;
         }
     }
