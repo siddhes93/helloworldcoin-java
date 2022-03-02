@@ -32,9 +32,6 @@ public class TransactionTool {
         }
         return total;
     }
-
-
-
     /**
      * Get Total Output Value Of Transaction
      */
@@ -48,14 +45,14 @@ public class TransactionTool {
         }
         return total;
     }
-
-
     /**
      * Get Total Fees Of Transaction
      */
     public static long getTransactionFee(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
-            long transactionFee = getInputValue(transaction) - getOutputValue(transaction);
+            long inputsValue = getInputValue(transaction);
+            long outputsValue = getOutputValue(transaction);
+            long transactionFee = inputsValue - outputsValue;
             return transactionFee;
         }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
             return 0L;
@@ -77,6 +74,8 @@ public class TransactionTool {
     }
 
 
+
+
     /**
      * Signature Hash All
      */
@@ -84,7 +83,6 @@ public class TransactionTool {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return TransactionDtoTool.signatureHashAll(transactionDto);
     }
-
     /**
      * Signature
      */
@@ -92,16 +90,34 @@ public class TransactionTool {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return TransactionDtoTool.signature(privateKey,transactionDto);
     }
-
     /**
-     * Calculate Transaction Hash
+     * Verify Signature
      */
+    public static boolean verifySignature(Transaction transaction, String publicKey, byte[] bytesSignature) {
+        TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
+        return  TransactionDtoTool.verifySignature(transactionDto,publicKey,bytesSignature);
+    }
+
+
+
+
     public static String calculateTransactionHash(Transaction transaction){
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return TransactionDtoTool.calculateTransactionHash(transactionDto);
     }
-
-
+    public static long getTransactionInputCount(Transaction transaction) {
+        List<TransactionInput> inputs = transaction.getInputs();
+        long transactionInputCount = inputs==null?0:inputs.size();
+        return transactionInputCount;
+    }
+    public static long getTransactionOutputCount(Transaction transaction) {
+        List<TransactionOutput> outputs = transaction.getOutputs();
+        long transactionOutputCount = outputs==null?0:outputs.size();
+        return transactionOutputCount;
+    }
+    public static String getTransactionOutputId(TransactionOutput transactionOutput) {
+        return BlockchainDatabaseKeyTool.buildTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
+    }
 
 
 
@@ -149,7 +165,18 @@ public class TransactionTool {
         }
         return true;
     }
-
+    /**
+     * Check whether the transaction value is legal: this is used to limit the maximum value, minimum value, decimal places, etc. of the transaction value
+     */
+    public static boolean checkValue(long transactionAmount) {
+        //The transaction value cannot be less than or equal to 0
+        if(transactionAmount <= 0){
+            return false;
+        }
+        //The maximum value is 2^64
+        //The reserved decimal place is 0
+        return true;
+    }
     /**
      * Check if the address in the transaction is a P2PKH address
      */
@@ -165,6 +192,31 @@ public class TransactionTool {
         }
         return true;
     }
+    /**
+     * Check if the script in the transaction is a P2PKH script
+     */
+    public static boolean checkPayToPublicKeyHashScript(Transaction transaction) {
+        List<TransactionInput> inputs = transaction.getInputs();
+        if(inputs != null){
+            for(TransactionInput input:inputs){
+                if(!ScriptTool.isPayToPublicKeyHashInputScript(input.getInputScript())){
+                    return false;
+                }
+            }
+        }
+        List<TransactionOutput> outputs = transaction.getOutputs();
+        if(outputs != null){
+            for (TransactionOutput output:outputs) {
+                if(!ScriptTool.isPayToPublicKeyHashOutputScript(output.getOutputScript())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+
 
     /**
      * Is there a duplicate [unspent transaction output] in the transaction
@@ -195,31 +247,6 @@ public class TransactionTool {
         }
         return StringsUtil.hasDuplicateElement(newAddresss);
     }
-
-    public static long getTransactionInputCount(Transaction transaction) {
-        List<TransactionInput> inputs = transaction.getInputs();
-        long transactionInputCount = inputs==null?0:inputs.size();
-        return transactionInputCount;
-    }
-
-    public static long getTransactionOutputCount(Transaction transaction) {
-        List<TransactionOutput> outputs = transaction.getOutputs();
-        long transactionOutputCount = outputs==null?0:outputs.size();
-        return transactionOutputCount;
-    }
-
-    public static long calculateTransactionFee(Transaction transaction) {
-        if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
-            return 0;
-        }else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
-            long inputsValue = getInputValue(transaction);
-            long outputsValue = getOutputValue(transaction);
-            return inputsValue - outputsValue;
-        }else {
-            throw new RuntimeException();
-        }
-    }
-
     /**
      * Sort transactions by rate (fee per character) from largest to smallest
      */
@@ -239,53 +266,5 @@ public class TransactionTool {
                 return 1;
             }
         });
-    }
-
-    /**
-     * Check if the script in the transaction is a P2PKH script
-     */
-    public static boolean checkPayToPublicKeyHashScript(Transaction transaction) {
-        List<TransactionInput> inputs = transaction.getInputs();
-        if(inputs != null){
-            for(TransactionInput input:inputs){
-                if(!ScriptTool.isPayToPublicKeyHashInputScript(input.getInputScript())){
-                    return false;
-                }
-            }
-        }
-        List<TransactionOutput> outputs = transaction.getOutputs();
-        if(outputs != null){
-            for (TransactionOutput output:outputs) {
-                if(!ScriptTool.isPayToPublicKeyHashOutputScript(output.getOutputScript())){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public static String getTransactionOutputId(TransactionOutput transactionOutput) {
-        return BlockchainDatabaseKeyTool.buildTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
-    }
-
-    /**
-     * Verify Signature
-     */
-    public static boolean verifySignature(Transaction transaction, String publicKey, byte[] bytesSignature) {
-        TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
-        return  TransactionDtoTool.verifySignature(transactionDto,publicKey,bytesSignature);
-    }
-
-    /**
-     * Check whether the transaction value is legal: this is used to limit the maximum value, minimum value, decimal places, etc. of the transaction value
-     */
-    public static boolean checkValue(long transactionAmount) {
-        //The transaction value cannot be less than or equal to 0
-        if(transactionAmount <= 0){
-            return false;
-        }
-        //The maximum value is 2^64
-        //The reserved decimal place is 0
-        return true;
     }
 }

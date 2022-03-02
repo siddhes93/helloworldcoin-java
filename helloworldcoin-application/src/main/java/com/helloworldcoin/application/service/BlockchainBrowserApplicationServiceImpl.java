@@ -194,7 +194,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         transactionVo.setTransactionHash(transaction.getTransactionHash());
         transactionVo.setBlockHeight(transaction.getBlockHeight());
 
-        transactionVo.setTransactionFee(TransactionTool.calculateTransactionFee(transaction));
+        transactionVo.setTransactionFee(TransactionTool.getTransactionFee(transaction));
         transactionVo.setTransactionType(transaction.getTransactionType().name());
         transactionVo.setTransactionInputCount(TransactionTool.getTransactionInputCount(transaction));
         transactionVo.setTransactionOutputCount(TransactionTool.getTransactionOutputCount(transaction));
