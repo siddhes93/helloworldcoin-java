@@ -10,79 +10,74 @@ import com.helloworldcoin.util.StringUtil;
 import java.util.List;
 
 /**
- * (区块、交易)大小工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class DtoSizeTool {
 
-    //region 校验大小
+    //region check Size
     /**
-     * 校验区块大小。用来限制区块的大小。
-     * 注意：校验区块的大小，不仅要校验区块的大小
-     * ，还要校验区块内部各个属性(时间戳、前哈希、随机数、交易)的大小。
+     * check Block Size: used to limit the size of the block.
      */
     public static boolean checkBlockSize(BlockDto blockDto) {
-        //区块的时间戳的长度不需要校验  假设时间戳长度不正确，则在随后的业务逻辑中走不通
+        //The length of the timestamp of the block does not need to be verified. If the timestamp length is incorrect, it will not work in the business logic.
 
-        //区块的前哈希的长度不需要校验  假设前哈希长度不正确，则在随后的业务逻辑中走不通
+        //The length of the previous hash of the block does not need to be verified. If the previous hash length is incorrect, it will not work in the business logic.
 
-        //校验区块随机数大小
+        //Check block nonce size
         long nonceSize = sizeOfString(blockDto.getNonce());
         if(nonceSize != BlockSetting.NONCE_CHARACTER_COUNT){
-            LogUtil.debug("nonce["+blockDto.getNonce()+"]长度非法。");
+            LogUtil.debug("Illegal nonce length.");
             return false;
         }
 
-        //校验每一笔交易大小
+        //Check the size of each transaction
         List<TransactionDto> transactionDtos = blockDto.getTransactions();
         if(transactionDtos != null){
             for(TransactionDto transactionDto:transactionDtos){
                 if(!checkTransactionSize(transactionDto)){
-                    LogUtil.debug("交易数据异常，交易大小非法。");
+                    LogUtil.debug("Illegal transaction size.");
                     return false;
                 }
             }
         }
 
-        //校验区块占用的存储空间
+        //Check Block size
         long blockSize = calculateBlockSize(blockDto);
         if(blockSize > BlockSetting.BLOCK_MAX_CHARACTER_COUNT){
-            LogUtil.debug("区块数据的大小是["+blockSize+"]超过了限制["+BlockSetting.BLOCK_MAX_CHARACTER_COUNT +"]。");
+            LogUtil.debug("Block size exceeds limit.");
             return false;
         }
         return true;
     }
     /**
-     * 校验交易的大小：用来限制交易的大小。
-     * 注意：校验交易的大小，不仅要校验交易的大小
-     * ，还要校验交易内部各个属性(交易输入、交易输出)的大小。
+     * Check transaction size: used to limit the size of the transaction.
      */
     public static boolean checkTransactionSize(TransactionDto transactionDto) {
-        //校验交易输入
+        //Check transaction input size
         List<TransactionInputDto> transactionInputDtos = transactionDto.getInputs();
         if(transactionInputDtos != null){
             for(TransactionInputDto transactionInputDto:transactionInputDtos){
-                //交易的未花费输出大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
+                //The unspent output size of the transaction does not need to be verified. If the assumption is incorrect, it will not work in the business logic.
 
-                //校验脚本大小
+                //Check script size
                 InputScriptDto inputScriptDto = transactionInputDto.getInputScript();
-                //校验输入脚本的大小
+                //Check the size of the input script
                 if(!checkInputScriptSize(inputScriptDto)){
                     return false;
                 }
             }
         }
 
-        //校验交易输出
+        //Check transaction output size
         List<TransactionOutputDto> transactionOutputDtos = transactionDto.getOutputs();
         if(transactionOutputDtos != null){
             for(TransactionOutputDto transactionOutputDto:transactionOutputDtos){
-                //交易输出金额大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
+                //The size of the transaction output amount does not need to be verified. If the assumption is incorrect, it will not work in the business logic.
 
-                //校验脚本大小
+                //Check script size
                 OutputScriptDto outputScriptDto = transactionOutputDto.getOutputScript();
-                //校验输出脚本的大小
+                //Check the size of the output script
                 if(!checkOutputScriptSize(outputScriptDto)){
                     return false;
                 }
@@ -90,20 +85,19 @@ public class DtoSizeTool {
             }
         }
 
-        //校验整笔交易大小十分合法
+        //Check transaction size
         long transactionSize = calculateTransactionSize(transactionDto);
         if(transactionSize > TransactionSetting.TRANSACTION_MAX_CHARACTER_COUNT){
-            LogUtil.debug("交易的大小是["+transactionSize+"]，超过了限制值["+TransactionSetting.TRANSACTION_MAX_CHARACTER_COUNT +"]。");
+            LogUtil.debug("Transaction size exceeds limit.");
             return false;
         }
         return true;
     }
 
     /**
-     * 校验输入脚本的大小
+     * check Input Script Size
      */
-    private static boolean checkInputScriptSize(InputScriptDto inputScriptDto) {
-        //校验脚本大小
+    public static boolean checkInputScriptSize(InputScriptDto inputScriptDto) {
         if(!checkScriptSize(inputScriptDto)){
             return false;
         }
@@ -111,10 +105,9 @@ public class DtoSizeTool {
     }
 
     /**
-     * 校验输出脚本的大小
+     * check Output Script Size
      */
     public static boolean checkOutputScriptSize(OutputScriptDto outputScriptDto) {
-        //校验脚本大小
         if(!checkScriptSize(outputScriptDto)){
             return false;
         }
@@ -122,12 +115,14 @@ public class DtoSizeTool {
     }
 
     /**
-     * 校验脚本的大小
+     * check Script Size
      */
     public static boolean checkScriptSize(ScriptDto scriptDto) {
-        //脚本内的操作码、操作数大小不需要校验，因为操作码、操作数不合规，在脚本结构上就构不成一个合格的脚本。
+        //There is no need to check the size of opcodes and operands in the script.
+        //Illegal opcodes, illegal operands cannot constitute a legal script.
+        //Illegal script will not work in the business logic.
         if(calculateScriptSize(scriptDto) > ScriptSetting.SCRIPT_MAX_CHARACTER_COUNT){
-            LogUtil.debug("交易校验失败：交易输出脚本大小超出限制。");
+            LogUtil.debug("Script size exceeds limit.");
             return false;
         }
         return true;
@@ -136,7 +131,7 @@ public class DtoSizeTool {
 
 
 
-    //region 计算大小
+    //region calculate Size
     public static long calculateBlockSize(BlockDto blockDto) {
         long size = 0;
         long timestamp = blockDto.getTimestamp();

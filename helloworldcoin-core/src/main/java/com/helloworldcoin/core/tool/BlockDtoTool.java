@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 区块工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockDtoTool {
 
     /**
-     * 计算区块的Hash值
+     * calculate Block Hash
      */
     public static String calculateBlockHash(BlockDto blockDto) {
         byte[] bytesTimestamp = ByteUtil.uint64ToBytes(blockDto.getTimestamp());
@@ -32,7 +31,7 @@ public class BlockDtoTool {
     }
 
     /**
-     * 计算区块的默克尔树根值
+     * calculate Block Merkle Tree Root
      */
     public static String calculateBlockMerkleTreeRoot(BlockDto blockDto) {
         List<TransactionDto> transactions = blockDto.getTransactions();
@@ -48,9 +47,7 @@ public class BlockDtoTool {
     }
 
     /**
-     * 简单的校验两个区块是否相等
-     * 注意：这里没有严格校验,例如没有校验区块中的交易是否完全一样
-     * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
+     * is Block Equals ?
      */
     public static boolean isBlockEquals(BlockDto block1, BlockDto block2) {
         String block1Hash = calculateBlockHash(block1);
