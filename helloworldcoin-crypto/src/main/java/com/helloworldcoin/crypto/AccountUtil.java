@@ -52,7 +52,7 @@ public class AccountUtil {
     }
 
     /**
-     * generate random accounts
+     * generate random account
      */
     public static Account randomAccount() {
         try {
@@ -71,7 +71,7 @@ public class AccountUtil {
             Account account = new Account(privateKey,publicKey,publicKeyHash,address);
             return account;
         } catch (Exception e) {
-            LogUtil.error("生成账户失败。",e);
+            LogUtil.error("'generate random account' error.",e);
             throw new RuntimeException(e);
         }
     }

@@ -9,6 +9,8 @@ public class DeleteNodeRequest {
     private String ip;
 
 
+
+
     //region get set
     public String getIp() {
         return ip;

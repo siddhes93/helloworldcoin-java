@@ -7,7 +7,7 @@ package com.helloworldcoin.application.vo.node;
 public class UpdateNodeResponse {
 
 
-
+    
 
     //region get set
 

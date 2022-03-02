@@ -4,6 +4,7 @@ package com.helloworldcoin.application.vo.transaction;
  * @author x.king xdotking@gmail.com
  */
 public class TransactionInputVo2 {
+
     private long value;
     private String address;
     private String transactionHash;

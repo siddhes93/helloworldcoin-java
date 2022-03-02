@@ -11,12 +11,6 @@ import org.junit.Test;
 
 public class BlockchainCoreTest {
 
-    /**
-     * 测试数据格式是否发生改变，若改变，提供的几个区块数据99%的可能性不能被加入区块链。
-     * 数据格式包含: 交易哈希生产规则、区块哈希生成规则、默克尔树根计算规则、区块链链式结构、虚拟机执行规则等等
-     * 为什么验证几个区块的数据，就可以验证那么多的细节？
-     * 因为区块链是一个完整的系统，牵一发而动全身，任一环节有所改变，将影响后续链路。
-     */
     @Test
     public void blockchainDataFormatTest()
     {

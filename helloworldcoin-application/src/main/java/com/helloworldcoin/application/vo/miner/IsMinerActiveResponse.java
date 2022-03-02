@@ -12,7 +12,6 @@ public class IsMinerActiveResponse {
 
 
     //region get set
-
     public boolean isMinerInActiveState() {
         return minerInActiveState;
     }
@@ -20,7 +19,5 @@ public class IsMinerActiveResponse {
     public void setMinerInActiveState(boolean minerInActiveState) {
         this.minerInActiveState = minerInActiveState;
     }
-
-
     //endregion
 }

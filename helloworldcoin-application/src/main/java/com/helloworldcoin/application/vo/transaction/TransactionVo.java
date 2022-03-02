@@ -7,6 +7,7 @@ import java.util.List;
  * @author x.king xdotking@gmail.com
  */
 public class TransactionVo {
+
     private long blockHeight;
     private String blockHash;
     private long blockConfirmations;
