@@ -14,14 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Transaction工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionTool {
 
     /**
-     * 交易输入总额
+     * Get Total Input Value Of Transaction
      */
     public static long getInputValue(Transaction transaction) {
         List<TransactionInput> inputs = transaction.getInputs();
@@ -37,7 +36,7 @@ public class TransactionTool {
 
 
     /**
-     * 交易输出总额
+     * Get Total Output Value Of Transaction
      */
     public static long getOutputValue(Transaction transaction) {
         List<TransactionOutput> outputs = transaction.getOutputs();
@@ -52,7 +51,7 @@ public class TransactionTool {
 
 
     /**
-     * 交易手续费（创世交易交易手续费是0）
+     * Get Total Fees Of Transaction
      */
     public static long getTransactionFee(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
@@ -65,7 +64,7 @@ public class TransactionTool {
         }
     }
     /**
-     * 交易费率（创世交易交易手续费率是0）
+     * Get Fee Rate Of Transaction
      */
     public static long getTransactionFeeRate(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
@@ -79,7 +78,7 @@ public class TransactionTool {
 
 
     /**
-     * 获取待签名数据
+     * Signature Hash All
      */
     public static String signatureHashAll(Transaction transaction) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
@@ -87,7 +86,7 @@ public class TransactionTool {
     }
 
     /**
-     * 交易签名
+     * Signature
      */
     public static String signature(String privateKey, Transaction transaction) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
@@ -95,7 +94,7 @@ public class TransactionTool {
     }
 
     /**
-     * 计算交易哈希
+     * Calculate Transaction Hash
      */
     public static String calculateTransactionHash(Transaction transaction){
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
@@ -108,15 +107,15 @@ public class TransactionTool {
 
 
     /**
-     * 交易中的金额是否符合系统的约束
+     * Check Transaction Value
      */
     public static boolean checkTransactionValue(Transaction transaction) {
         List<TransactionInput> inputs = transaction.getInputs();
         if(inputs != null){
-            //校验交易输入的金额
+            //Check Transaction Input Value
             for(TransactionInput input:inputs){
                 if(!checkValue(input.getUnspentTransactionOutput().getValue())){
-                    LogUtil.debug("交易金额不合法");
+                    LogUtil.debug("Transaction value is illegal.");
                     return false;
                 }
             }
@@ -124,24 +123,24 @@ public class TransactionTool {
 
         List<TransactionOutput> outputs = transaction.getOutputs();
         if(outputs != null){
-            //校验交易输出的金额
+            //Check Transaction Output Value
             for(TransactionOutput output:outputs){
                 if(!checkValue(output.getValue())){
-                    LogUtil.debug("交易金额不合法");
+                    LogUtil.debug("Transaction value is illegal.");
                     return false;
                 }
             }
         }
 
-        //根据交易类型，做进一步的校验
+        //further check by transaction type
         if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
-            //没有需要校验的，跳过。
+            //There is no need to check, skip.
         } else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
-            //交易输入必须要大于等于交易输出
+            //The transaction input value must be greater than or equal to the transaction output value
             long inputsValue = getInputValue(transaction);
             long outputsValue = getOutputValue(transaction);
             if(inputsValue < outputsValue) {
-                LogUtil.debug("交易校验失败：交易的输入必须大于等于交易的输出。不合法的交易。");
+                LogUtil.debug("Transaction value is illegal.");
                 return false;
             }
             return true;
@@ -152,14 +151,14 @@ public class TransactionTool {
     }
 
     /**
-     * 校验交易中的地址是否是P2PKH地址
+     * Check if the address in the transaction is a P2PKH address
      */
     public static boolean checkPayToPublicKeyHashAddress(Transaction transaction) {
         List<TransactionOutput> outputs = transaction.getOutputs();
         if(outputs != null){
             for(TransactionOutput output:outputs){
                 if(!AccountUtil.isPayToPublicKeyHashAddress(output.getAddress())){
-                    LogUtil.debug("交易地址不合法");
+                    LogUtil.debug("Transaction address is illegal.");
                     return false;
                 }
             }
@@ -168,7 +167,7 @@ public class TransactionTool {
     }
 
     /**
-     * 交易中是否存在重复的[未花费交易输出]
+     * Is there a duplicate [unspent transaction output] in the transaction
      */
     public static boolean isExistDuplicateUtxo(Transaction transaction) {
         List<String> utxoIds = new ArrayList<>();
@@ -183,7 +182,7 @@ public class TransactionTool {
         return StringsUtil.hasDuplicateElement(utxoIds);
     }
     /**
-     * 区块新产生的地址是否存在重复
+     * Whether the newly generated address of the block is duplicated
      */
     public static boolean isExistDuplicateNewAddress(Transaction transaction) {
         List<String> newAddresss = new ArrayList<>();
@@ -211,7 +210,6 @@ public class TransactionTool {
 
     public static long calculateTransactionFee(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
-            //创世交易没有交易手续费
             return 0;
         }else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             long inputsValue = getInputValue(transaction);
@@ -223,7 +221,7 @@ public class TransactionTool {
     }
 
     /**
-     * 按照费率(每字符的手续费)从大到小排序交易
+     * Sort transactions by rate (fee per character) from largest to smallest
      */
     public static void sortByTransactionFeeRateDescend(List<Transaction> transactions) {
         if(transactions == null){
@@ -244,7 +242,7 @@ public class TransactionTool {
     }
 
     /**
-     * 校验交易中的脚本是否是P2PKH脚本
+     * Check if the script in the transaction is a P2PKH script
      */
     public static boolean checkPayToPublicKeyHashScript(Transaction transaction) {
         List<TransactionInput> inputs = transaction.getInputs();
@@ -271,7 +269,7 @@ public class TransactionTool {
     }
 
     /**
-     * 验证签名
+     * Verify Signature
      */
     public static boolean verifySignature(Transaction transaction, String publicKey, byte[] bytesSignature) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
@@ -279,15 +277,15 @@ public class TransactionTool {
     }
 
     /**
-     * 校验交易金额是否是一个合法的交易金额：这里用于限制交易金额的最大值、最小值、小数保留位等
+     * Check whether the transaction value is legal: this is used to limit the maximum value, minimum value, decimal places, etc. of the transaction value
      */
     public static boolean checkValue(long transactionAmount) {
-        //交易金额不能小于等于0
+        //The transaction value cannot be less than or equal to 0
         if(transactionAmount <= 0){
             return false;
         }
-        //最大值是2^64
-        //小数保留位是0位
+        //The maximum value is 2^64
+        //The reserved decimal place is 0
         return true;
     }
 }
