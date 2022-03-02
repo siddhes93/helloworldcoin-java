@@ -24,10 +24,10 @@ public class Response<T> {
         return new Response("fail",message,null);
     }
     public static<T> Response serviceUnavailable(){
-        return fail(ResponseMessage.SERVICE_UNAVAILABLE);
+        return fail("service_unavailable");
     }
     public static<T> Response serviceUnauthorized(){
-        return fail(ResponseMessage.SERVICE_UNAUTHORIZED);
+        return fail("service_unauthorized");
     }
 
 
