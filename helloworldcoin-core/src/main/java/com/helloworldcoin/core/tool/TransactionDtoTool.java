@@ -9,31 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TransactionDto工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionDtoTool {
-
-    /**
-     * 获取待签名数据
-     */
-    public static String signatureHashAll(TransactionDto transactionDto) {
-        byte[] bytesTransaction = bytesTransaction(transactionDto,true);
-        byte[] sha256Digest = Sha256Util.doubleDigest(bytesTransaction);
-        return ByteUtil.bytesToHexString(sha256Digest);
-    }
-
-    /**
-     * 交易签名
-     */
-    public static String signature(String privateKey, TransactionDto transactionDto) {
-        String signatureHashAll = signatureHashAll(transactionDto);
-        byte[] bytesSignatureHashAll = ByteUtil.hexStringToBytes(signatureHashAll);
-        String signature = AccountUtil.signature(privateKey,bytesSignatureHashAll);
-        return signature;
-    }
-
 
     public static String calculateTransactionHash(TransactionDto transactionDto){
         byte[] bytesTransaction = bytesTransaction(transactionDto,false);
@@ -41,9 +20,29 @@ public class TransactionDtoTool {
         return ByteUtil.bytesToHexString(bytesTransactionHash);
     }
 
-    //region 序列化与反序列化
+    //TODO rename
+    public static String signatureHashAll(TransactionDto transactionDto) {
+        byte[] bytesTransaction = bytesTransaction(transactionDto,true);
+        byte[] sha256Digest = Sha256Util.doubleDigest(bytesTransaction);
+        return ByteUtil.bytesToHexString(sha256Digest);
+    }
+
+    public static String signature(String privateKey, TransactionDto transactionDto) {
+        String signatureHashAll = signatureHashAll(transactionDto);
+        byte[] bytesSignatureHashAll = ByteUtil.hexStringToBytes(signatureHashAll);
+        String signature = AccountUtil.signature(privateKey,bytesSignatureHashAll);
+        return signature;
+    }
+
+    public static boolean verifySignature(TransactionDto transaction, String publicKey, byte[] bytesSignature) {
+        String message = signatureHashAll(transaction);
+        byte[] bytesMessage = ByteUtil.hexStringToBytes(message);
+        return AccountUtil.verifySignature(publicKey,bytesMessage,bytesSignature);
+    }
+
+    //region Serialization and Deserialization
     /**
-     * 序列化。将交易转换为字节数组，要求生成的字节数组反过来能还原为原始交易。
+     * Serialization: Convert TransactionDto into byte array. Requires that the resulting byte array can Convert into the original transaction.
      */
     public static byte[] bytesTransaction(TransactionDto transactionDto, boolean omitInputScript) {
         List<byte[]> bytesUnspentTransactionOutputs = new ArrayList<>();
@@ -83,7 +82,7 @@ public class TransactionDtoTool {
         return data;
     }
     /**
-     * 反序列化。将字节数组转换为交易。
+     * Deserialization: Convert byte array into TransactionDto.
      */
     public static TransactionDto transactionDto(byte[] bytesTransaction, boolean omitInputScript) {
         TransactionDto transactionDto = new TransactionDto();
@@ -185,13 +184,4 @@ public class TransactionDtoTool {
         return transactionInputDto;
     }
     //endregion
-
-    /**
-     * 验证签名
-     */
-    public static boolean verifySignature(TransactionDto transaction, String publicKey, byte[] bytesSignature) {
-        String message = signatureHashAll(transaction);
-        byte[] bytesMessage = ByteUtil.hexStringToBytes(message);
-        return AccountUtil.verifySignature(publicKey,bytesMessage,bytesSignature);
-    }
 }
