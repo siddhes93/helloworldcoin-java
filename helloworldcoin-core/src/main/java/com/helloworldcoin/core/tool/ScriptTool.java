@@ -11,20 +11,18 @@ import com.helloworldcoin.netcore.dto.OutputScriptDto;
 import com.helloworldcoin.util.StringUtil;
 
 /**
- * 脚本工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class ScriptTool {
 
-    //region 可视、可阅读的脚本，区块链浏览器使用
-    public static String stringInputScript(InputScript inputScript) {
-        return stringScript(inputScript);
+    public static String inputScript2String(InputScript inputScript) {
+        return script2String(inputScript);
     }
-    public static String stringOutputScript(OutputScript outputScript) {
-        return stringScript(outputScript);
+    public static String outputScript2String(OutputScript outputScript) {
+        return script2String(outputScript);
     }
-    public static String stringScript(Script script) {
+    public static String script2String(Script script) {
         String stringScript = "";
         for(int i=0;i<script.size();i++){
             String operationCode = script.get(i);
@@ -42,26 +40,21 @@ public class ScriptTool {
                 stringScript = StringUtil.concatenate3(stringScript, OperationCode.OP_PUSHDATA.getName(),StringUtil.BLANKSPACE);
                 stringScript = StringUtil.concatenate3(stringScript,operationData,StringUtil.BLANKSPACE);
             }else {
-                throw new RuntimeException("不能识别的指令");
+                throw new RuntimeException("Unrecognized OperationCode.");
             }
         }
         return stringScript;
     }
-    //endregion
 
-    /**
-     * 构建完整脚本
-     */
+
+
+
     public static Script createScript(InputScript inputScript, OutputScript outputScript) {
         Script script = new Script();
         script.addAll(inputScript);
         script.addAll(outputScript);
         return script;
     }
-
-    /**
-     * 创建P2PKH输入脚本
-     */
     public static InputScript createPayToPublicKeyHashInputScript(String sign, String publicKey) {
         InputScript script = new InputScript();
         script.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
@@ -70,10 +63,6 @@ public class ScriptTool {
         script.add(publicKey);
         return script;
     }
-
-    /**
-     * 创建P2PKH输出脚本
-     */
     public static OutputScript createPayToPublicKeyHashOutputScript(String address) {
         OutputScript script = new OutputScript();
         script.add(ByteUtil.bytesToHexString(OperationCode.OP_DUP.getCode()));
@@ -86,17 +75,13 @@ public class ScriptTool {
         return script;
     }
 
-    /**
-     * 是否是P2PKH输入脚本
-     */
+
+
+
     public static boolean isPayToPublicKeyHashInputScript(InputScript inputScript) {
         InputScriptDto inputScriptDto = Model2DtoTool.inputScript2InputScriptDto(inputScript);
         return ScriptDtoTool.isPayToPublicKeyHashInputScript(inputScriptDto);
     }
-
-    /**
-     * 是否是P2PKH输出脚本
-     */
     public static boolean isPayToPublicKeyHashOutputScript(OutputScript outputScript) {
         OutputScriptDto outputScriptDto = Model2DtoTool.outputScript2OutputScriptDto(outputScript);
         return ScriptDtoTool.isPayToPublicKeyHashOutputScript(outputScriptDto);

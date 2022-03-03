@@ -45,7 +45,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
         transactionOutputVo3.setFromBlockHash(transactionOutput.getBlockHash());
         transactionOutputVo3.setFromTransactionHash(transactionOutput.getTransactionHash());
         transactionOutputVo3.setValue(transactionOutput.getValue());
-        transactionOutputVo3.setFromOutputScript(ScriptTool.stringOutputScript(transactionOutput.getOutputScript()));
+        transactionOutputVo3.setFromOutputScript(ScriptTool.outputScript2String(transactionOutput.getOutputScript()));
         transactionOutputVo3.setFromTransactionOutputIndex(transactionOutput.getTransactionOutputIndex());
 
         TransactionOutput transactionOutputTemp = blockchainNetCore.getBlockchainCore().getBlockchainDatabase().queryUnspentTransactionOutputByTransactionOutputId(transactionOutput.getTransactionHash(),transactionOutput.getTransactionOutputIndex());
@@ -67,7 +67,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                     if(StringUtil.equals(transactionOutput.getTransactionHash(),unspentTransactionOutput.getTransactionHash()) &&
                             transactionOutput.getTransactionOutputIndex()==unspentTransactionOutput.getTransactionOutputIndex()){
                         transactionOutputVo3.setToTransactionInputIndex(inputIndex+1);
-                        transactionOutputVo3.setToInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
+                        transactionOutputVo3.setToInputScript(ScriptTool.inputScript2String(transactionInput.getInputScript()));
                         break;
                     }
                 }
@@ -214,7 +214,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                 TransactionInputVo transactionInputVo = new TransactionInputVo();
                 transactionInputVo.setAddress(transactionInput.getUnspentTransactionOutput().getAddress());
                 transactionInputVo.setValue(transactionInput.getUnspentTransactionOutput().getValue());
-                transactionInputVo.setInputScript(ScriptTool.stringInputScript(transactionInput.getInputScript()));
+                transactionInputVo.setInputScript(ScriptTool.inputScript2String(transactionInput.getInputScript()));
                 transactionInputVo.setTransactionHash(transactionInput.getUnspentTransactionOutput().getTransactionHash());
                 transactionInputVo.setTransactionOutputIndex(transactionInput.getUnspentTransactionOutput().getTransactionOutputIndex());
                 transactionInputVos.add(transactionInputVo);
@@ -229,7 +229,7 @@ public class BlockchainBrowserApplicationServiceImpl implements BlockchainBrowse
                 TransactionOutputVo transactionOutputVo = new TransactionOutputVo();
                 transactionOutputVo.setAddress(transactionOutput.getAddress());
                 transactionOutputVo.setValue(transactionOutput.getValue());
-                transactionOutputVo.setOutputScript(ScriptTool.stringOutputScript(transactionOutput.getOutputScript()));
+                transactionOutputVo.setOutputScript(ScriptTool.outputScript2String(transactionOutput.getOutputScript()));
                 transactionOutputVo.setTransactionHash(transactionOutput.getTransactionHash());
                 transactionOutputVo.setTransactionOutputIndex(transactionOutput.getTransactionOutputIndex());
                 transactionOutputVos.add(transactionOutputVo);
