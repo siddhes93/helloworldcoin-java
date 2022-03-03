@@ -18,7 +18,7 @@ public class ScriptToolTest {
         inputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_PUSHDATA.getCode()));
         inputScriptDto.add("955c1464982a1c904b7b1029598de6ace11bd2b1");
 
-        InputScriptDto resumeInputScriptDto =  ScriptDtoTool.inputScriptDto(ScriptDtoTool.bytesInputScript(inputScriptDto));
+        InputScriptDto resumeInputScriptDto =  ScriptDtoTool.bytes2InputScript(ScriptDtoTool.inputScript2Bytes(inputScriptDto));
         Assert.assertEquals(JsonUtil.toString(inputScriptDto),JsonUtil.toString(resumeInputScriptDto));
 
 
@@ -31,7 +31,7 @@ public class ScriptToolTest {
         outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_EQUALVERIFY.getCode()));
         outputScriptDto.add(ByteUtil.bytesToHexString(OperationCode.OP_CHECKSIG.getCode()));
 
-        OutputScriptDto resumeOutputScriptDto =  ScriptDtoTool.outputScriptDto(ScriptDtoTool.bytesOutputScript(outputScriptDto));
+        OutputScriptDto resumeOutputScriptDto =  ScriptDtoTool.bytes2OutputScript(ScriptDtoTool.outputScript2Bytes(outputScriptDto));
         Assert.assertEquals(JsonUtil.toString(outputScriptDto),JsonUtil.toString(resumeOutputScriptDto));
     }
 }

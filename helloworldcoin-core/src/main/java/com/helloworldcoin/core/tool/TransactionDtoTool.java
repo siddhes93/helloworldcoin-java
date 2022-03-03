@@ -58,7 +58,7 @@ public class TransactionDtoTool {
                 }else {
                     byte[] bytesTransactionHash = ByteUtil.hexStringToBytes(transactionInputDto.getTransactionHash());
                     byte[] bytesTransactionOutputIndex = ByteUtil.uint64ToBytes(transactionInputDto.getTransactionOutputIndex());
-                    byte[] bytesInputScript = ScriptDtoTool.bytesInputScript(transactionInputDto.getInputScript());
+                    byte[] bytesInputScript = ScriptDtoTool.inputScript2Bytes(transactionInputDto.getInputScript());
                     bytesUnspentTransactionOutput = ByteUtil.concatenate3(ByteUtil.concatenateLength(bytesTransactionHash),
                             ByteUtil.concatenateLength(bytesTransactionOutputIndex),ByteUtil.concatenateLength(bytesInputScript));
                 }
@@ -70,7 +70,7 @@ public class TransactionDtoTool {
         List<TransactionOutputDto> outputs = transactionDto.getOutputs();
         if(outputs != null){
             for(TransactionOutputDto transactionOutputDto:outputs){
-                byte[] bytesOutputScript = ScriptDtoTool.bytesOutputScript(transactionOutputDto.getOutputScript());
+                byte[] bytesOutputScript = ScriptDtoTool.outputScript2Bytes(transactionOutputDto.getOutputScript());
                 byte[] bytesValue = ByteUtil.uint64ToBytes(transactionOutputDto.getValue());
                 byte[] bytesTransactionOutput = ByteUtil.concatenate(ByteUtil.concatenateLength(bytesOutputScript),ByteUtil.concatenateLength(bytesValue));
                 bytesTransactionOutputs.add(ByteUtil.concatenateLength(bytesTransactionOutput));
@@ -127,7 +127,7 @@ public class TransactionDtoTool {
         start += ByteUtil.BYTE8_BYTE_COUNT;
         byte[] bytesOutputScript = ByteUtil.copy(bytesTransactionOutput,start, start+(int) bytesOutputScriptLength);
         start += bytesOutputScriptLength;
-        OutputScriptDto outputScriptDto = ScriptDtoTool.outputScriptDto(bytesOutputScript);
+        OutputScriptDto outputScriptDto = ScriptDtoTool.bytes2OutputScript(bytesOutputScript);
 
         long bytesValueLength = ByteUtil.bytesToUint64(ByteUtil.copy(bytesTransactionOutput,start,start + ByteUtil.BYTE8_BYTE_COUNT));
         start += ByteUtil.BYTE8_BYTE_COUNT;
@@ -176,7 +176,7 @@ public class TransactionDtoTool {
             start += ByteUtil.BYTE8_BYTE_COUNT;
             byte[] bytesOutputScript = ByteUtil.copy(bytesTransactionInputDto,start, start+(int) bytesOutputScriptLength);
             start += bytesOutputScriptLength;
-            InputScriptDto inputScriptDto = ScriptDtoTool.inputScriptDto(bytesOutputScript);
+            InputScriptDto inputScriptDto = ScriptDtoTool.bytes2InputScript(bytesOutputScript);
             transactionInputDto.setInputScript(inputScriptDto);
         }
         transactionInputDto.setTransactionHash(ByteUtil.bytesToHexString(bytesTransactionHash));
