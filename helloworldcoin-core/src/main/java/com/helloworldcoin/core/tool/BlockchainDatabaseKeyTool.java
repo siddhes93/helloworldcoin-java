@@ -4,67 +4,65 @@ import com.helloworldcoin.util.ByteUtil;
 import com.helloworldcoin.util.StringUtil;
 
 /**
- * 区块链数据库主键工具类
  *
  * @author x.king xdotking@gmail.com
  */
 public class BlockchainDatabaseKeyTool {
-    //区块链标识：它对应的值是区块链的高度
+
+    //BLOCKCHAIN HEIGHT KEY => blockchain height value
     private static final String BLOCKCHAIN_HEIGHT_KEY = "A";
-    //区块链标识：它对应的值是区块链的交易高度
+    //BLOCKCHAIN TRANSACTION HEIGHT KEY => blockchain transaction height value
     private static final String BLOCKCHAIN_TRANSACTION_HEIGHT_KEY = "B";
-    //区块链标识：它对应的值是区块链的交易输出高度
+    //BLOCKCHAIN TRANSACTION OUTPUT HEIGHT KEY => blockchain transaction output height value
     private static final String BLOCKCHAIN_TRANSACTION_OUTPUT_HEIGHT_KEY = "C";
 
-    //哈希标识：哈希(区块哈希、交易哈希)的前缀
+    //HASH FLAG: hash prefix flag
     private static final String HASH_PREFIX_FLAG = "D";
 
 
-    //区块标识：存储区块链高度到区块的映射
+    //BLOCK FLAG: block height => block
     private static final String BLOCK_HEIGHT_TO_BLOCK_PREFIX_FLAG = "E";
-    //区块标识：存储区块Hash到区块高度的映射
+    //BLOCK FLAG: block hash => block
     private static final String BLOCK_HASH_TO_BLOCK_HEIGHT_PREFIX_FLAG = "F";
 
 
-    //交易标识：存储交易高度到交易的映射
+    //TRANSACTION FLAG: transaction height => transaction
     private static final String TRANSACTION_HEIGHT_TO_TRANSACTION_PREFIX_FLAG = "G";
-    //交易标识：存储交易哈希到交易高度的映射
+    //TRANSACTION FLAG: transaction hash => transaction height
     private static final String TRANSACTION_HASH_TO_TRANSACTION_HEIGHT_PREFIX_FLAG = "H";
 
 
-    //交易输出标识：存储交易输出高度到交易输出的映射
+    //TRANSACTION OUTPUT FLAG: transaction output height => transaction output
     private static final String TRANSACTION_OUTPUT_HEIGHT_TO_TRANSACTION_OUTPUT_PREFIX_FLAG = "I";
-    //交易输出标识：存储交易输出ID到交易输出高度的映射
+    //TRANSACTION OUTPUT FLAG: transaction output id => transaction output height
     private static final String TRANSACTION_OUTPUT_ID_TO_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "J";
-    //交易输出标识：存储交易输出ID到未花费交易输出高度的映射
+    //TRANSACTION OUTPUT FLAG: transaction output id => unspent transaction output height
     private static final String TRANSACTION_OUTPUT_ID_TO_UNSPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "K";
-    //交易输出标识：存储交易输出ID到已花费交易输出高度的映射
+    //TRANSACTION OUTPUT FLAG: transaction output id => spent transaction output height
     private static final String TRANSACTION_OUTPUT_ID_TO_SPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "L";
-    //交易输出标识：存储交易输出ID到来源交易高度的映射
+    //TRANSACTION OUTPUT FLAG: transaction output id => source transaction output height
     private static final String TRANSACTION_OUTPUT_ID_TO_SOURCE_TRANSACTION_HEIGHT_PREFIX_FLAG = "M";
-    //交易输出标识：存储交易输出ID到花费去向交易高度的映射
+    //TRANSACTION OUTPUT FLAG: transaction output id => to transaction output height
     private static final String TRANSACTION_OUTPUT_ID_TO_DESTINATION_TRANSACTION_HEIGHT_PREFIX_FLAG = "N";
 
 
-    //地址标识：存储地址
+    //ADDRESS FLAG: address prefix flag
     private static final String ADDRESS_PREFIX_FLAG = "O";
-    //地址标识：存储地址到交易输出高度的映射
+    //ADDRESS FLAG: address => transaction output height
     private static final String ADDRESS_TO_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "P";
-    //地址标识：存储地址到未花费交易输出高度的映射
+    //ADDRESS FLAG: address => unspent transaction output height
     private static final String ADDRESS_TO_UNSPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "Q";
-    //地址标识：存储地址到已花费交易输出高度的映射
+    //ADDRESS FLAG: address => spent transaction output height
     private static final String ADDRESS_TO_SPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG = "R";
 
 
-    //截止标识
     private static final String END_FLAG = "#" ;
-    //竖线分隔符
     private static final String VERTICAL_LINE_FLAG = "|" ;
 
 
 
 
-    //拼装数据库Key的值
+    //region Build Key
     public static byte[] buildBlockchainHeightKey() {
         String stringKey = BLOCKCHAIN_HEIGHT_KEY + END_FLAG;
         return ByteUtil.stringToUtf8Bytes(stringKey);
@@ -137,12 +135,12 @@ public class BlockchainDatabaseKeyTool {
         String stringKey = TRANSACTION_HEIGHT_TO_TRANSACTION_PREFIX_FLAG + transactionHeight + END_FLAG;
         return ByteUtil.stringToUtf8Bytes(stringKey);
     }
-
     public static byte[] buildTransactionOutputIdToSpentTransactionOutputHeightKey(String transactionHash,long transactionOutputIndex) {
         String transactionOutputId = buildTransactionOutputId(transactionHash, transactionOutputIndex);
         String stringKey = TRANSACTION_OUTPUT_ID_TO_SPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG + transactionOutputId + END_FLAG;
         return ByteUtil.stringToUtf8Bytes(stringKey);
     }
+    //endregion
 
     public static String buildTransactionOutputId(String transactionHash,long transactionOutputIndex) {
         String transactionOutputId = StringUtil.concatenate3(transactionHash, VERTICAL_LINE_FLAG, StringUtil.valueOfUint64(transactionOutputIndex));
