@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * model转dto工具
  *
  * @author x.king xdotking@gmail.com
  */
