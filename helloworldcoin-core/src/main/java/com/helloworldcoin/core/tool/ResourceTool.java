@@ -4,15 +4,11 @@ import com.helloworldcoin.util.FileUtil;
 import com.helloworldcoin.util.SystemUtil;
 
 /**
- * 资源路径工具类
  *
  * @author x.king xdotking@gmail.com
  */
-public class ResourcePathTool {
+public class ResourceTool {
 
-    /**
-     * 获取区块链数据存放目录
-     */
     public static String getDataRootPath() {
         String dataRootPath;
         if(SystemUtil.isWindowsOperateSystem()){
@@ -28,9 +24,6 @@ public class ResourcePathTool {
         return dataRootPath;
     }
 
-    /**
-     * 获取测试区块链数据存放目录
-     */
     public static String getTestDataRootPath() {
         String dataRootPath;
         if(SystemUtil.isWindowsOperateSystem()){

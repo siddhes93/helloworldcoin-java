@@ -1,7 +1,7 @@
 package com.helloworldcoin.core;
 
 import com.helloworldcoin.core.impl.*;
-import com.helloworldcoin.core.tool.ResourcePathTool;
+import com.helloworldcoin.core.tool.ResourceTool;
 
 /**
  * BlockchainCore Factory
@@ -14,7 +14,7 @@ public class BlockchainCoreFactory {
      * Create BlockchainCore instance
      */
     public static BlockchainCore createDefaultBlockchainCore(){
-        return createBlockchainCore(ResourcePathTool.getDataRootPath());
+        return createBlockchainCore(ResourceTool.getDataRootPath());
     }
 
     /**

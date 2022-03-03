@@ -6,7 +6,7 @@ import com.helloworldcoin.netcore.service.NodeService;
 import com.helloworldcoin.netcore.service.NodeServiceImpl;
 import com.helloworldcoin.core.BlockchainCore;
 import com.helloworldcoin.core.BlockchainCoreFactory;
-import com.helloworldcoin.core.tool.ResourcePathTool;
+import com.helloworldcoin.core.tool.ResourceTool;
 import com.helloworldcoin.netcore.dao.NodeDao;
 import com.helloworldcoin.netcore.dao.impl.NodeDaoImpl;
 import com.helloworldcoin.netcore.server.NodeServer;
@@ -23,7 +23,7 @@ public class BlockchainNetCoreFactory {
      * create BlockchainNetCore instance
      */
     public static BlockchainNetCore createDefaultBlockchainNetCore(){
-        return createBlockchainNetCore(ResourcePathTool.getDataRootPath());
+        return createBlockchainNetCore(ResourceTool.getDataRootPath());
     }
 
     /**

@@ -4,7 +4,7 @@ import com.helloworldcoin.core.model.Block;
 import com.helloworldcoin.core.model.wallet.AutoBuildTransactionRequest;
 import com.helloworldcoin.core.model.wallet.AutoBuildTransactionResponse;
 import com.helloworldcoin.core.model.wallet.Payee;
-import com.helloworldcoin.core.tool.ResourcePathTool;
+import com.helloworldcoin.core.tool.ResourceTool;
 import com.helloworldcoin.util.FileUtil;
 import com.helloworldcoin.util.ThreadUtil;
 import org.junit.Assert;
@@ -18,9 +18,9 @@ public class WalletTest {
     @Test
     public void autoBuildTransactionTest()
     {
-        FileUtil.deleteDirectory(ResourcePathTool.getTestDataRootPath());
+        FileUtil.deleteDirectory(ResourceTool.getTestDataRootPath());
 
-        BlockchainCore blockchainCore = BlockchainCoreFactory.createBlockchainCore(ResourcePathTool.getTestDataRootPath());
+        BlockchainCore blockchainCore = BlockchainCoreFactory.createBlockchainCore(ResourceTool.getTestDataRootPath());
         blockchainCore.getMiner().setMinerMineMaxBlockHeight(1L);
         blockchainCore.start();
         blockchainCore.getMiner().active();
