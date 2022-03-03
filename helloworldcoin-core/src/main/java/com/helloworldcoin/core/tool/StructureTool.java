@@ -11,7 +11,6 @@ import com.helloworldcoin.util.LogUtil;
 import java.util.List;
 
 /**
- * (区块、交易)结构工具类
  *
  * @author x.king xdotking@gmail.com
  */
@@ -19,89 +18,90 @@ public class StructureTool {
 
 
     /**
-     * 校验区块的结构
+     * Check Block Structure
      */
     public static boolean checkBlockStructure(Block block) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions == null || transactions.size()==0){
-            LogUtil.debug("区块数据异常：区块中的交易数量为0。区块必须有一笔创世的交易。");
+            LogUtil.debug("Block data error: The number of transactions in the block is 0. A block must have a genesis transaction.");
             return false;
         }
-        //校验区块中交易的数量
+        //Check the number of transactions in the block
         long transactionCount = BlockTool.getTransactionCount(block);
         if(transactionCount > BlockSetting.BLOCK_MAX_TRANSACTION_COUNT){
-            LogUtil.debug("区块包含的交易数量是["+transactionCount+"]，超过了限制["+ BlockSetting.BLOCK_MAX_TRANSACTION_COUNT+"]。");
+            LogUtil.debug("Block data error: The number of transactions in the block exceeds the limit.");
             return false;
         }
         for(int i=0; i<transactions.size(); i++){
             Transaction transaction = transactions.get(i);
             if(i == 0){
                 if(transaction.getTransactionType() != TransactionType.GENESIS_TRANSACTION){
-                    LogUtil.debug("区块数据异常：区块第一笔交易必须是创世交易。");
+                    LogUtil.debug("Block data error: The first transaction of the block must be a genesis transaction.");
                     return false;
                 }
             }else {
                 if(transaction.getTransactionType() != TransactionType.STANDARD_TRANSACTION){
-                    LogUtil.debug("区块数据异常：区块非第一笔交易必须是标准交易。");
+                    LogUtil.debug("Block data error: The non-first transaction of the block must be a standard transaction.");
                     return false;
                 }
             }
         }
-        //校验交易的结构
+        //Check the structure of the transaction
         for(Transaction transaction:transactions){
             if(!checkTransactionStructure(transaction)){
-                LogUtil.debug("交易数据异常：交易结构异常。");
+                LogUtil.debug("Transaction data error: The transaction structure is abnormal.");
                 return false;
             }
         }
         return true;
     }
     /**
-     * 校验交易的结构
+     * Check Transaction Structure
      */
     public static boolean checkTransactionStructure(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
             List<TransactionInput> inputs = transaction.getInputs();
             if(inputs != null && inputs.size()!=0){
-                LogUtil.debug("交易数据异常：创世交易不能有交易输入。");
+                LogUtil.debug("Transaction data error: Genesis transactions cannot have transaction input.");
                 return false;
             }
             List<TransactionOutput> outputs = transaction.getOutputs();
             if(outputs == null || outputs.size()!=1){
-                LogUtil.debug("交易数据异常：创世交易有且只能有一笔交易输出。");
+                LogUtil.debug("Transaction data error: The genesis transaction has one and only one transaction output.");
                 return false;
             }
         }else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             List<TransactionInput> inputs = transaction.getInputs();
             if(inputs == null || inputs.size()<1){
-                LogUtil.debug("交易数据异常：标准交易的交易输入数量至少是1。");
+                LogUtil.debug("Transaction data error: The number of transaction inputs for a standard transaction is at least 1.");
                 return false;
             }
             List<TransactionOutput> outputs = transaction.getOutputs();
             if(outputs == null || outputs.size()<1){
-                LogUtil.debug("交易数据异常：标准交易的交易输出数量至少是1。");
+                LogUtil.debug("Transaction data error: The transaction output number of a standard transaction is at least 1.");
                 return false;
             }
         }else {
             throw new RuntimeException();
         }
-        //校验输入脚本
+        //Check Transaction Input Script
         List<TransactionInput> inputs = transaction.getInputs();
         if(inputs != null){
             for (TransactionInput input:inputs) {
-                //这里采用严格校验，必须是P2PKH输入脚本。
+                //Strict Check: must be a P2PKH input script.
                 if(!ScriptTool.isPayToPublicKeyHashInputScript(input.getInputScript())){
-                    LogUtil.debug("交易数据异常：交易输入脚本不是P2PKH输入脚本。");
+                    LogUtil.debug("Transaction data error: The transaction input script is not a P2PKH input script.");
                     return false;
                 }
             }
         }
-        //校验输出脚本
+        //Check Transaction Output Script
         List<TransactionOutput> outputs = transaction.getOutputs();
         if(outputs != null){
             for (TransactionOutput output:outputs) {
-                //这里采用严格校验，必须是P2PKH输出脚本
+                //Strict Check: must be a P2PKH output script.
                 if(!ScriptTool.isPayToPublicKeyHashOutputScript(output.getOutputScript())){
+                    LogUtil.debug("Transaction data error: The transaction output script is not a P2PKH output script.");
                     return false;
                 }
             }
