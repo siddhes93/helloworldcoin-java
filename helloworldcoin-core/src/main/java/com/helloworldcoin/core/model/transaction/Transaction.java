@@ -19,13 +19,13 @@ public class Transaction implements Serializable {
      * 交易哈希是交易的摘要。可以认为交易哈希和交易一一对应。交易确定了，交易哈希也就确定了。交易哈希确定了，交易也就确定了。
      * 这里要求区块链系统不允许同一个哈希被使用两次或是两次以上(一个哈希同时被交易哈希、区块哈希使用也不行)。
      *
-     * 冗余字段，这个值可以由区块链系统推算出来
+     * Redundant field, this value can be calculated by the blockchain system
      */
     private String transactionHash;
     /**
      * 交易类型
      *
-     * 冗余字段，这个值可以由区块链系统推算出来
+     * Redundant field, this value can be calculated by the blockchain system
      */
     private TransactionType transactionType;
     /**
@@ -39,19 +39,19 @@ public class Transaction implements Serializable {
     /**
      * 交易在区块中的序列号，每个区块的第一笔交易的序列号都是从1开始计算，其后交易的序列号依次递增1。
      *
-     * 冗余字段，这个值可以由区块链系统推算出来
+     * Redundant field, this value can be calculated by the blockchain system
      */
     private long transactionIndex;
     /**
      * 交易在区块链中的高度，这是一个全局高度，区块链系统中的第一笔交易，交易高度为1，其后交易的高度依次递增1。
      *
-     * 冗余字段，这个值可以由区块链系统推算出来
+     * Redundant field, this value can be calculated by the blockchain system
      */
     private long transactionHeight;
     /**
      * 交易所在区块的区块高度。
      *
-     * 冗余字段，这个值可以由区块链系统推算出来
+     * Redundant field, this value can be calculated by the blockchain system
      */
     private long blockHeight;
 
