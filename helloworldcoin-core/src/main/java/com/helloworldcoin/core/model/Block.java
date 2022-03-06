@@ -17,7 +17,8 @@ public class Block implements Serializable {
      */
     private long timestamp;
     /**
-     * Block height: the height of the genesis block is 0, and the height of the standard block starts from 1 and increases by 1 in turn.
+     * Block height: the height of the genesis block is 0,
+     * and the height of the standard block starts from 1 and increases by 1 in turn.
      *
      * Redundant field, this value can be calculated by the blockchain system
      */
@@ -38,39 +39,40 @@ public class Block implements Serializable {
     private String merkleTreeRoot;
     /**
      * Nonce is the central part of Proof of Work.
-     * The Nonce is a random whole number, which is a 64-bit (8 byte) field, which is adjusted by the miners, so that it becomes a valid number to be used for hashing the value of block.
+     * The Nonce is a random whole number, which is a 64-bit (8 byte) field, which is adjusted by the miners,
+     * so that it becomes a valid number to be used for hashing the value of block.
      * Nonce is the number which can be used only once. Once the perfect Nonce is found, it is added to the block.
      * Along with this number, the hash value of that block will get rehashed.
      */
     private String nonce;
     /**
      * A Block Hash or just Hash is a unique string of characters (numbers and letters) that identifies a specific block.
-     * Think of it as a fingerprint - if you have the hash, then a search of that hash on the block explorer  will give you the corresponding block it relates to, with all the information in it.
+     * Think of it as a fingerprint - if you have the hash, then a search of that hash on the block explorer
+     * will give you the corresponding block it relates to, with all the information in it.
      *
      * Redundant field, this value can be calculated by the blockchain system
      */
     private String hash;
 
     /**
-     * 挖矿难度
-     * 这里保存的是一个十六进制数据。
-     * 如果区块哈希十六进制表示小于这个值，则认为挖矿成功
+     * Mining difficulty
+     * What is saved here is a hexadecimal data.
+     * If the block hash hexadecimal representation is less than this value, it is valid mining.
      *
      * Redundant field, this value can be calculated by the blockchain system
      */
     private String difficulty;
 
     /**
-     * 区块中的交易总笔数
+     * The total number of transactions in the block.
      *
      * Redundant field, this value can be calculated by the blockchain system
      */
     private long transactionCount;
 
     /**
-     * 上一个区块最后一笔交易在所有交易中的高度。
-     * 这个序列号是站在整个区块链的角度而产生的，而不是站在这个区块的角度而产生的。
-     * 它的值等于：(高度低于当前区块的所有区块中包含的)交易数量之和
+     * The height of the last transaction in the previous block among all transactions.
+     * Its value is equal to: the sum of the number of transactions in all blocks whose height is less than the current block.
      *
      * Redundant field, this value can be calculated by the blockchain system
      */

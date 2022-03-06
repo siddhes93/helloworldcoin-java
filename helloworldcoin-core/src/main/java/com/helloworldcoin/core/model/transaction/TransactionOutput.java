@@ -1,84 +1,75 @@
 package com.helloworldcoin.core.model.transaction;
 
 
-import com.helloworldcoin.core.VirtualMachine;
 import com.helloworldcoin.core.model.script.OutputScript;
 
 import java.io.Serializable;
 
 /**
- * 交易输出：交易的收款方叫作交易输出。
+ * Transaction output: The recipient of the transaction is called the transaction output.
  *
  * @author x.king xdotking@gmail.com
  */
 public class TransactionOutput implements Serializable {
 
     /**
-     * 交易输出的金额
+     * Amount of transaction output
      */
     private long value;
     /**
-     * [输出脚本]
-     * [交易输出]不应该是任何用户都可以使用的，(只有证明了拥有[交易输出]所有权)的用户才可以使用这个[交易输出]。
-     * 如何证明用户拥有这个[交易输出]？
-     * [输出脚本]相当于一把锁，[输入脚本]相当于一把钥匙，
-     * 自然当钥匙可以打开锁时，就可以证明能拿出钥匙[输入脚本]的用户拥有锁[输出脚本]。
-     * [输出脚本]并不是真的锁，[输入脚本]也不是真的钥匙，回归本质，它们是一串代码
-     * ，所谓代码(输入脚本)解锁代码(输出脚本)的含义是，[输入脚本]与[输出脚本]组合成一个[输入输出脚本]
-     * ，执行输入输出脚本，执行的结果符合预期，即代码层面的解锁。
-     * 谁来执行[输入输出脚本]
-     * @see VirtualMachine
+     * Output Script
      */
     private OutputScript outputScript;
 
     /**
-     * 交易哈希
-     * 冗余
+     * Transaction Hash
+     * redundancy
      */
     private String transactionHash;
     /**
-     * 交易输出在[此笔交易所有的交易输出]中的序列号，序列号从1开始。
-     * 从日常生活角度看，交易的第1笔交易输出明显比交易的第0笔交易输出符合认知，因此我选择序列号从1开始。
-     * 冗余
+     * The sequence number of the transaction output in [transaction output of this transaction],
+     * the sequence number starts from 1.
+     * redundancy
      */
     private long transactionOutputIndex;
     /**
-     * 交易输出的地址
-     * 冗余；可以从[输出脚本]解析出地址
+     * The address of the transaction output
+     * redundancy: address can be parsed from [output script]
      */
     private String address;
 
     /**
-     * [[产生交易输出的]交易所在的]区块的区块高度
-     * 冗余
+     * The block height of the block where the transaction that produced the transaction output is located.
+     * redundancy
      */
     private long blockHeight;
     /**
-     * [[产生交易输出的]交易所在的]区块的区块哈希
-     * 冗余
+     * The block hash of the block where the transaction that produced the transaction output is located.
+     * redundancy
      */
     private String blockHash;
     /**
-     * [[产生交易输出的]交易在]区块链中的高度
-     * 冗余
+     * The height in the blockchain of the transaction that produced the transaction output.
+     * redundancy
      */
     private long transactionHeight;
     /**
-     * [[产生交易输出的]交易在]区块中的交易序列号
-     * 冗余
-     * 在这个交易区块中的的排序号
+     * The transaction sequence number in the block of the transaction that produced the transaction output.
+     * redundancy
      */
     private long transactionIndex;
     /**
-     * [交易输出]在区块链中的高度，这是一个全局高度，区块链系统中的第一笔[交易输出]高度为1，其后交易输出高度依次递增1。
-     * 冗余
+     * The height of the transaction output in the blockchain, which is a global height.
+     * The first transaction output height in the blockchain system is 1,
+     * and the subsequent transaction output heights increase by 1.
+     * redundancy
      */
     private long transactionOutputHeight;
 
 
 
-    //region get set
 
+    //region get set
     public long getValue() {
         return value;
     }

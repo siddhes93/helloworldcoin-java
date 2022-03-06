@@ -1,36 +1,38 @@
 package com.helloworldcoin.core.model.wallet;
 
 /**
- * 付款方
  *
  * @author x.king xdotking@gmail.com
  */
 public class Payer {
 
     /**
-     * 付款方私钥
+     * Payer's private key
      */
     private String privateKey;
 
     /**
-     * 付款来源的交易哈希
+     * The transaction hash of the payment source
      */
     private String transactionHash;
     /**
-     * 付款来源的交易输出序列号。
+     * The transaction output index of the payment source.
      */
     private long transactionOutputIndex;
     /**
-     * 付款来源的交易输出的金额
+     * Payment amount
      */
     private long value;
 
     /**
-     * 付款方地址
+     * Payer's address
      */
     private String address;
 
 
+
+
+    //region get set
     public String getPrivateKey() {
         return privateKey;
     }
@@ -70,4 +72,5 @@ public class Payer {
     public void setAddress(String address) {
         this.address = address;
     }
+    //endregion
 }

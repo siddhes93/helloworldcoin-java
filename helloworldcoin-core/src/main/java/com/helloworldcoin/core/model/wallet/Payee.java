@@ -1,21 +1,20 @@
 package com.helloworldcoin.core.model.wallet;
 
 /**
- * 收款方
  *
  * @author x.king xdotking@gmail.com
  */
 public class Payee {
 
-    //交易输出的地址
+    //Payee's address
     private String address;
-
-    //交易输出的金额
+    //The amount received by the payee
     private long value;
 
 
 
 
+    //region get set
     public String getAddress() {
         return address;
     }
@@ -31,4 +30,5 @@ public class Payee {
     public void setValue(long value) {
         this.value = value;
     }
+    //endregion
 }
