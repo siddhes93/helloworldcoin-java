@@ -5,7 +5,7 @@ import com.helloworldcoin.core.model.script.InputScript;
 import java.io.Serializable;
 
 /**
- * 交易输入：交易的付款方叫作交易输入。
+ * Transaction Input: The payer of a transaction is called a transaction input.
  *
  * @author x.king xdotking@gmail.com
  */
