@@ -133,7 +133,7 @@ public class MinerDefaultImpl extends Miner {
 
     private Transaction buildIncentiveTransaction(String address,long incentiveValue) {
         Transaction transaction = new Transaction();
-        transaction.setTransactionType(TransactionType.GENESIS_TRANSACTION);
+        transaction.setTransactionType(TransactionType.COINBASE_TRANSACTION);
 
         ArrayList<TransactionOutput> outputs = new ArrayList<>();
         TransactionOutput output = new TransactionOutput();

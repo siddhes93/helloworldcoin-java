@@ -54,7 +54,7 @@ public class TransactionTool {
             long outputsValue = getOutputValue(transaction);
             long transactionFee = inputsValue - outputsValue;
             return transactionFee;
-        }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+        }else if(transaction.getTransactionType() == TransactionType.COINBASE_TRANSACTION){
             return 0L;
         }else{
             throw new RuntimeException();
@@ -66,7 +66,7 @@ public class TransactionTool {
     public static long getTransactionFeeRate(Transaction transaction) {
         if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             return getTransactionFee(transaction)/SizeTool.calculateTransactionSize(transaction);
-        }else if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+        }else if(transaction.getTransactionType() == TransactionType.COINBASE_TRANSACTION){
             return 0L;
         }else {
             throw new RuntimeException();
@@ -149,7 +149,7 @@ public class TransactionTool {
         }
 
         //further check by transaction type
-        if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+        if(transaction.getTransactionType() == TransactionType.COINBASE_TRANSACTION){
             //There is no need to check, skip.
         } else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
             //The transaction input value must be greater than or equal to the transaction output value

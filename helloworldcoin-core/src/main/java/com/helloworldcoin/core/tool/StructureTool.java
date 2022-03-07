@@ -23,7 +23,7 @@ public class StructureTool {
     public static boolean checkBlockStructure(Block block) {
         List<Transaction> transactions = block.getTransactions();
         if(transactions == null || transactions.size()==0){
-            LogUtil.debug("Block data error: The number of transactions in the block is 0. A block must have a genesis transaction.");
+            LogUtil.debug("Block data error: The number of transactions in the block is 0. A block must have a coinbase transaction.");
             return false;
         }
         //Check the number of transactions in the block
@@ -35,8 +35,8 @@ public class StructureTool {
         for(int i=0; i<transactions.size(); i++){
             Transaction transaction = transactions.get(i);
             if(i == 0){
-                if(transaction.getTransactionType() != TransactionType.GENESIS_TRANSACTION){
-                    LogUtil.debug("Block data error: The first transaction of the block must be a genesis transaction.");
+                if(transaction.getTransactionType() != TransactionType.COINBASE_TRANSACTION){
+                    LogUtil.debug("Block data error: The first transaction of the block must be a coinbase transaction.");
                     return false;
                 }
             }else {
@@ -59,15 +59,15 @@ public class StructureTool {
      * Check Transaction Structure
      */
     public static boolean checkTransactionStructure(Transaction transaction) {
-        if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+        if(transaction.getTransactionType() == TransactionType.COINBASE_TRANSACTION){
             List<TransactionInput> inputs = transaction.getInputs();
             if(inputs != null && inputs.size()!=0){
-                LogUtil.debug("Transaction data error: Genesis transactions cannot have transaction input.");
+                LogUtil.debug("Transaction data error: The coinbase transaction cannot have transaction input.");
                 return false;
             }
             List<TransactionOutput> outputs = transaction.getOutputs();
             if(outputs == null || outputs.size()!=1){
-                LogUtil.debug("Transaction data error: The genesis transaction has one and only one transaction output.");
+                LogUtil.debug("Transaction data error: The coinbase transaction has one and only one transaction output.");
                 return false;
             }
         }else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){

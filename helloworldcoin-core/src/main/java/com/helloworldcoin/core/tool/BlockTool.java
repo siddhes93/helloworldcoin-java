@@ -139,7 +139,7 @@ public class BlockTool {
         List<Transaction> transactions = block.getTransactions();
         if(transactions != null){
             for(Transaction transaction:transactions){
-                if(transaction.getTransactionType() == TransactionType.GENESIS_TRANSACTION){
+                if(transaction.getTransactionType() == TransactionType.COINBASE_TRANSACTION){
                     continue;
                 }else if(transaction.getTransactionType() == TransactionType.STANDARD_TRANSACTION){
                     long fee = TransactionTool.getTransactionFee(transaction);

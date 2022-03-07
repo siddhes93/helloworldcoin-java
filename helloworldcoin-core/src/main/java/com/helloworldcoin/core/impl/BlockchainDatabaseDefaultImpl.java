@@ -979,7 +979,7 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     }
     private TransactionType obtainTransactionDto(TransactionDto transactionDto) {
         if(transactionDto.getInputs() == null || transactionDto.getInputs().size()==0){
-            return TransactionType.GENESIS_TRANSACTION;
+            return TransactionType.COINBASE_TRANSACTION;
         }
         return TransactionType.STANDARD_TRANSACTION;
     }
