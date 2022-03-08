@@ -1,18 +1,18 @@
 package com.helloworldcoin.core.impl;
 
 import com.helloworldcoin.core.*;
-import com.helloworldcoin.core.tool.*;
 import com.helloworldcoin.core.model.Block;
 import com.helloworldcoin.core.model.transaction.Transaction;
 import com.helloworldcoin.core.model.transaction.TransactionInput;
 import com.helloworldcoin.core.model.transaction.TransactionOutput;
 import com.helloworldcoin.core.model.transaction.TransactionType;
-import com.helloworldcoin.util.ByteUtil;
+import com.helloworldcoin.core.tool.*;
 import com.helloworldcoin.crypto.model.Account;
 import com.helloworldcoin.netcore.dto.BlockDto;
 import com.helloworldcoin.netcore.dto.TransactionDto;
 import com.helloworldcoin.setting.BlockSetting;
 import com.helloworldcoin.setting.GenesisBlockSetting;
+import com.helloworldcoin.util.ByteUtil;
 import com.helloworldcoin.util.LogUtil;
 import com.helloworldcoin.util.ThreadUtil;
 import com.helloworldcoin.util.TimeUtil;
@@ -42,10 +42,7 @@ public class MinerDefaultImpl extends Miner {
             if(!isActive()){
                 continue;
             }
-
-            //TODO
-            long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
-            if(blockChainHeight >= coreConfiguration.getMinerMineMaxBlockHeight()){
+            if(isMiningHeightExceedsLimit()){
                 continue;
             }
 
@@ -262,6 +259,11 @@ public class MinerDefaultImpl extends Miner {
             transactions.add(transaction);
         }
         return transactions;
+    }
+
+    private Boolean isMiningHeightExceedsLimit(){
+        long blockChainHeight = blockchainDatabase.queryBlockchainHeight();
+        return blockChainHeight >= coreConfiguration.getMinerMineMaxBlockHeight();
     }
 
 }
