@@ -6,7 +6,6 @@ import java.util.List;
  *
  * @author x.king xdotking@gmail.com
  */
-//TODO 重命名
 public class AutoBuildTransactionRequest {
 
     //Non-change Payee
