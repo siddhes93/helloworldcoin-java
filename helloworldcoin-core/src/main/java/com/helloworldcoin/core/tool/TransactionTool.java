@@ -76,23 +76,16 @@ public class TransactionTool {
 
 
 
-    /**
-     * Signature Hash All
-     */
-    public static String signatureHashAll(Transaction transaction) {
+    public static String getSignatureHashAllRawMaterial(Transaction transaction) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
-        return TransactionDtoTool.signatureHashAll(transactionDto);
+        return TransactionDtoTool.getSignatureHashAllRawMaterial(transactionDto);
     }
-    /**
-     * Signature
-     */
+
     public static String signature(String privateKey, Transaction transaction) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return TransactionDtoTool.signature(privateKey,transactionDto);
     }
-    /**
-     * Verify Signature
-     */
+
     public static boolean verifySignature(Transaction transaction, String publicKey, byte[] bytesSignature) {
         TransactionDto transactionDto = Model2DtoTool.transaction2TransactionDto(transaction);
         return  TransactionDtoTool.verifySignature(transactionDto,publicKey,bytesSignature);

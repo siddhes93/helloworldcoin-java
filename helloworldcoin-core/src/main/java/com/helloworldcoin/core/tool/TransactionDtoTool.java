@@ -1,8 +1,8 @@
 package com.helloworldcoin.core.tool;
 
-import com.helloworldcoin.netcore.dto.*;
 import com.helloworldcoin.crypto.AccountUtil;
 import com.helloworldcoin.crypto.Sha256Util;
+import com.helloworldcoin.netcore.dto.*;
 import com.helloworldcoin.util.ByteUtil;
 
 import java.util.ArrayList;
@@ -20,22 +20,21 @@ public class TransactionDtoTool {
         return ByteUtil.bytesToHexString(bytesTransactionHash);
     }
 
-    //TODO rename
-    public static String signatureHashAll(TransactionDto transactionDto) {
+    public static String getSignatureHashAllRawMaterial(TransactionDto transactionDto) {
         byte[] bytesTransaction = bytesTransaction(transactionDto,true);
         byte[] sha256Digest = Sha256Util.doubleDigest(bytesTransaction);
         return ByteUtil.bytesToHexString(sha256Digest);
     }
 
     public static String signature(String privateKey, TransactionDto transactionDto) {
-        String signatureHashAll = signatureHashAll(transactionDto);
-        byte[] bytesSignatureHashAll = ByteUtil.hexStringToBytes(signatureHashAll);
-        String signature = AccountUtil.signature(privateKey,bytesSignatureHashAll);
+        String message = getSignatureHashAllRawMaterial(transactionDto);
+        byte[] bytesMessage = ByteUtil.hexStringToBytes(message);
+        String signature = AccountUtil.signature(privateKey,bytesMessage);
         return signature;
     }
 
     public static boolean verifySignature(TransactionDto transaction, String publicKey, byte[] bytesSignature) {
-        String message = signatureHashAll(transaction);
+        String message = getSignatureHashAllRawMaterial(transaction);
         byte[] bytesMessage = ByteUtil.hexStringToBytes(message);
         return AccountUtil.verifySignature(publicKey,bytesMessage,bytesSignature);
     }
