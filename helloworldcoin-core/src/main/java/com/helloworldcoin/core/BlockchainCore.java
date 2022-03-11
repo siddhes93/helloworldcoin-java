@@ -31,25 +31,16 @@ import java.util.List;
  */
 public abstract class BlockchainCore {
 
-    //core Configuration
+    //region
     protected CoreConfiguration coreConfiguration;
-    //blockchain Database
     protected BlockchainDatabase blockchainDatabase ;
-    //unconfirmed Transaction Database
     protected UnconfirmedTransactionDatabase unconfirmedTransactionDatabase;
-    //miner
     protected Miner miner ;
-    //wallet
     protected Wallet wallet ;
+    //endregion
 
 
-    public BlockchainCore(CoreConfiguration coreConfiguration, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase, Wallet wallet, Miner miner) {
-        this.coreConfiguration = coreConfiguration;
-        this.blockchainDatabase = blockchainDatabase;
-        this.unconfirmedTransactionDatabase = unconfirmedTransactionDatabase;
-        this.wallet = wallet;
-        this.miner = miner;
-    }
+
 
     /**
      * start BlockchainCore

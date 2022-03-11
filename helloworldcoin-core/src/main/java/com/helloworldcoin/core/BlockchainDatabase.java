@@ -16,20 +16,10 @@ import com.helloworldcoin.netcore.dto.TransactionDto;
 public abstract class BlockchainDatabase {
 
     //region
-    //Core Configuration
     protected CoreConfiguration coreConfiguration;
-    //Consensus
     protected Consensus consensus ;
-    //Incentive
     protected Incentive incentive ;
-    //Virtual Machine
     protected VirtualMachine virtualMachine;
-
-    public BlockchainDatabase(Consensus consensus, Incentive incentive,VirtualMachine virtualMachine) {
-        this.consensus = consensus;
-        this.incentive = incentive;
-        this.virtualMachine = virtualMachine;
-    }
     //endregion
 
 

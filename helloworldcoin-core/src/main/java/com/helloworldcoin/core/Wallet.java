@@ -14,9 +14,7 @@ import java.util.List;
  */
 public abstract class Wallet {
 
-    //Core Configuration
     protected CoreConfiguration coreConfiguration;
-    //Blockchain Database
     protected BlockchainDatabase blockchainDatabase;
 
 

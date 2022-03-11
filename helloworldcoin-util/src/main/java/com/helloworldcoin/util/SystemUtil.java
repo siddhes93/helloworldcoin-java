@@ -35,7 +35,7 @@ public class SystemUtil {
 
     public static void callDefaultBrowser(String url){
         try {
-            //default solution : open browser
+            //default open browser code
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI(url));
                 return;

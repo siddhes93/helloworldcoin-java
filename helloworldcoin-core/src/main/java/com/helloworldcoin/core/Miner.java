@@ -12,13 +12,6 @@ public abstract class Miner {
     protected BlockchainDatabase blockchainDatabase;
     protected UnconfirmedTransactionDatabase unconfirmedTransactionDatabase;
 
-    public Miner(CoreConfiguration coreConfiguration, Wallet wallet, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase) {
-        this.coreConfiguration = coreConfiguration;
-        this.wallet = wallet;
-        this.blockchainDatabase = blockchainDatabase;
-        this.unconfirmedTransactionDatabase = unconfirmedTransactionDatabase;
-    }
-
 
     //region miner related
     /**

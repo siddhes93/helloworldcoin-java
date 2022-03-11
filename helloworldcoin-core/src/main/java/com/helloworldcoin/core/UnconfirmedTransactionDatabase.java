@@ -14,7 +14,6 @@ import java.util.List;
  */
 public abstract class UnconfirmedTransactionDatabase {
 
-    //Core Configuration
     protected CoreConfiguration coreConfiguration;
 
 

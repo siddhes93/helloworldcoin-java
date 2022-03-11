@@ -33,8 +33,10 @@ public class BlockchainDatabaseDefaultImpl extends BlockchainDatabase {
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     public BlockchainDatabaseDefaultImpl(CoreConfiguration coreConfiguration, Incentive incentive, Consensus consensus, VirtualMachine virtualMachine) {
-        super(consensus,incentive,virtualMachine);
         this.coreConfiguration = coreConfiguration;
+        this.consensus = consensus;
+        this.incentive = incentive;
+        this.virtualMachine = virtualMachine;
     }
     //endregion
 

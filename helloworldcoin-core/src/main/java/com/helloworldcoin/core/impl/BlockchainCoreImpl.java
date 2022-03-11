@@ -20,7 +20,11 @@ import java.util.List;
 public class BlockchainCoreImpl extends BlockchainCore {
 
     public BlockchainCoreImpl(CoreConfiguration coreConfiguration, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase, Wallet wallet, Miner miner) {
-        super(coreConfiguration,blockchainDatabase,unconfirmedTransactionDatabase,wallet,miner);
+        this.coreConfiguration = coreConfiguration;
+        this.blockchainDatabase = blockchainDatabase;
+        this.unconfirmedTransactionDatabase = unconfirmedTransactionDatabase;
+        this.wallet = wallet;
+        this.miner = miner;
     }
 
     @Override

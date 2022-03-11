@@ -30,7 +30,10 @@ public class MinerDefaultImpl extends Miner {
 
     //region
     public MinerDefaultImpl(CoreConfiguration coreConfiguration, Wallet wallet, BlockchainDatabase blockchainDatabase, UnconfirmedTransactionDatabase unconfirmedTransactionDatabase) {
-        super(coreConfiguration, wallet, blockchainDatabase, unconfirmedTransactionDatabase);
+        this.coreConfiguration = coreConfiguration;
+        this.wallet = wallet;
+        this.blockchainDatabase = blockchainDatabase;
+        this.unconfirmedTransactionDatabase = unconfirmedTransactionDatabase;
     }
     //endregion
 

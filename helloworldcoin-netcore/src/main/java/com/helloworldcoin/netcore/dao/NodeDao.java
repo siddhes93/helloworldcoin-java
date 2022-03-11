@@ -11,24 +11,14 @@ import java.util.List;
  */
 public interface NodeDao {
 
-    /**
-     * query node
-     */
+
     NodePo queryNode(String ip);
-    /**
-     * query all nodes
-     */
+
     List<NodePo> queryAllNodes();
-    /**
-     * add node
-     */
+
     void addNode(NodePo node);
-    /**
-     * update node
-     */
+
     void updateNode(NodePo node);
-    /**
-     * delete node
-     */
+
     void deleteNode(String ip);
 }
