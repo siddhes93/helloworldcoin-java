@@ -31,7 +31,7 @@
     <bcprov.version>1.67</bcprov.version>
     <bitcoinj.version>0.15.10</bitcoinj.version>
     <guava.version>30.0-jre</guava.version>
-    <springboot.version>2.0.1.RELEASE</springboot.version>
+    <springboot.version>2.5.12</springboot.version>
     <netty-all.version>4.1.49.Final</netty-all.version>
   </properties>
 
